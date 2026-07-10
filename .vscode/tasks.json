@@ -8,6 +8,18 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus: lint markdown",
+      "type": "shell",
+      "command": "npm exec --yes markdownlint-cli2",
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus: lint scripts",
+      "type": "shell",
+      "command": "$ErrorActionPreference='Stop'; Get-ChildItem -Recurse -Filter *.ps1 | ForEach-Object { $tokens=$null; $errors=$null; [System.Management.Automation.PSParser]::Tokenize((Get-Content -LiteralPath $_.FullName -Raw), [ref]$errors) | Out-Null; if ($errors.Count -gt 0) { Write-Output $_.FullName; $errors | ForEach-Object { Write-Output $_ }; exit 1 } }",
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus: AutoMem status",
       "type": "shell",
       "command": ".\\scripts\\automem-status.ps1",

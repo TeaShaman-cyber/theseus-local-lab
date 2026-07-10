@@ -5,7 +5,7 @@ it globally on the Windows host.
 
 Primary source:
 
-- https://github.com/Hmbown/CodeWhale
+- [Hmbown/CodeWhale](https://github.com/Hmbown/CodeWhale)
 
 Why this fits:
 

@@ -1,0 +1,26 @@
+{
+  "globs": [
+    "*.md",
+    "agent-shell/**/*.md",
+    "backup-lattice/**/*.md",
+    "codewhale/**/*.md",
+    "stateful-agent-net/**/*.md",
+    "tools/**/*.md"
+  ],
+  "ignores": [
+    "**/node_modules/**",
+    ".agents/**",
+    ".codex/**",
+    ".codewhale-home/**",
+    "backups/**",
+    "backup-lattice/data/**",
+    "outputs/**",
+    "tmp/**",
+    "work/**"
+  ],
+  "config": {
+    "MD013": false,
+    "MD033": false,
+    "MD041": false
+  }
+}
