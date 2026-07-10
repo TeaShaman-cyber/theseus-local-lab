@@ -46,7 +46,7 @@ Updated: 2026-07-10
 
 - [ ] P1 Establish agile-style project coordination.
   - Owner: Codex.
-  - Current step: create repo-native kanban and workflow docs.
+  - Current step: add Mermaid visual map.
 
 ## Review
 

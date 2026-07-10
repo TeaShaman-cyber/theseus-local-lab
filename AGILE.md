@@ -3,6 +3,8 @@
 This repo uses a lightweight kanban rhythm that is easy for Codex, Work,
 ChatGPT, CodeWhale, Git, and AutoMem to share.
 
+For a visual overview, see `VISUAL_MAP.md`.
+
 ## Operating Modes
 
 - Chat: briefing, reflection, strategy, quick orientation.
