@@ -3,6 +3,7 @@
 !.env.example
 .codewhale-home/
 backups/
+backup-lattice/data/
 .agents/
 .codex/
 .git/

@@ -1,0 +1,15 @@
+services:
+  backup-runner:
+    build:
+      context: ../agent-shell
+    working_dir: /workspace
+    command: bash -lc "python3 tools/backup_lattice/backup_lattice.py loop --mirror-dir /mirror"
+    environment:
+      AUTOMEM_API_URL: http://host.docker.internal:8001
+      BACKUP_INTERVAL_SECONDS: ${BACKUP_INTERVAL_SECONDS:-21600}
+    volumes:
+      - ..:/workspace
+      - ${BACKUP_MIRROR_DIR:-../backups/cloud-mirror}:/mirror
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
