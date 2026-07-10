@@ -2,6 +2,7 @@
 
 import { spawnSync } from "node:child_process";
 import { readFileSync } from "node:fs";
+import { join } from "node:path";
 
 const DEFAULT_COMMAND = "copilot";
 const DEFAULT_ARGS = "-p {prompt}";
@@ -55,15 +56,50 @@ console.error("Copilot advisor bridge");
 console.error("- Send only explicit, non-secret prompts.");
 console.error("- Do not paste .env, keys, raw memory exports, or private backups.");
 
-const command = process.env.COPILOT_ADVISOR_COMMAND || DEFAULT_COMMAND;
+const command =
+  process.env.COPILOT_ADVISOR_COMMAND ||
+  (process.platform === "win32" ? "copilot.cmd" : DEFAULT_COMMAND);
 const argsTemplate = process.env.COPILOT_ADVISOR_ARGS || DEFAULT_ARGS;
 const args = splitArgs(argsTemplate, prompt);
+const childEnv = { ...process.env };
 
-const result = spawnSync(command, args, {
-  encoding: "utf8",
-  shell: false,
-  stdio: ["ignore", "pipe", "pipe"],
-});
+if (process.env.COPILOT_ADVISOR_PROXY) {
+  childEnv.HTTP_PROXY ||= process.env.COPILOT_ADVISOR_PROXY;
+  childEnv.HTTPS_PROXY ||= process.env.COPILOT_ADVISOR_PROXY;
+}
+
+function quoteForPowerShell(value) {
+  return `'${value.replaceAll("'", "''")}'`;
+}
+
+let result;
+
+if (
+  process.platform === "win32" &&
+  !process.env.COPILOT_ADVISOR_COMMAND &&
+  !process.env.COPILOT_ADVISOR_ARGS
+) {
+  const npmCopilot = join(process.env.APPDATA || "", "npm", "copilot.cmd");
+  const copilotCommand = process.env.APPDATA ? npmCopilot : "copilot.cmd";
+  const commandLine = `& ${quoteForPowerShell(copilotCommand)} -p ${quoteForPowerShell(prompt)}`;
+  result = spawnSync(
+    "powershell.exe",
+    ["-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", commandLine],
+    {
+      encoding: "utf8",
+      env: childEnv,
+      shell: false,
+      stdio: ["ignore", "pipe", "pipe"],
+    },
+  );
+} else {
+  result = spawnSync(command, args, {
+    encoding: "utf8",
+    env: childEnv,
+    shell: process.platform === "win32",
+    stdio: ["ignore", "pipe", "pipe"],
+  });
+}
 
 if (result.error) {
   console.error("");

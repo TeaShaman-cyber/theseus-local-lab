@@ -32,6 +32,40 @@ Suggest a minimal GitHub Actions workflow for markdownlint and script syntax che
 node tools/copilot_advisor/copilot_advisor.mjs "How should this repo organize GitHub Actions for lint checks?"
 ```
 
+On Windows, the bridge calls the npm-installed `copilot.cmd` wrapper through a
+small PowerShell launch step so prompts with spaces survive command-line
+quoting.
+
+GitHub's public Copilot CLI FAQ says CLI access is included in all Copilot
+plans, including Free. In practice, if the bridge reaches Copilot and returns
+`Access denied by policy settings`, GitHub authentication worked but CLI access
+is blocked by account, subscription, organization policy, or server-side
+entitlement state. Check:
+
+```text
+https://github.com/settings/copilot
+```
+
+If VS Code works through a regional-blocking bypass but Copilot CLI does not,
+set one bridge-specific proxy variable before running the task:
+
+```powershell
+$env:COPILOT_ADVISOR_PROXY = "http://127.0.0.1:10808"
+```
+
+For v2rayN, this is usually the local `mixed` proxy port shown in the status
+bar, for example `Local: [mixed:10808]`.
+
+Alternatively, set standard proxy variables directly:
+
+```powershell
+$env:HTTPS_PROXY = "http://127.0.0.1:PORT"
+$env:HTTP_PROXY = "http://127.0.0.1:PORT"
+```
+
+Copilot CLI reads `HTTP_PROXY`, `HTTPS_PROXY`, and `NO_PROXY`; it may not inherit
+browser, extension, or app-specific proxy settings automatically.
+
 If your Copilot CLI command is not named `copilot`, set:
 
 ```powershell
