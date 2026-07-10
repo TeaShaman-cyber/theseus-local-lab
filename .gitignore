@@ -10,7 +10,10 @@ tmp/
 work/
 node_modules/
 stateful-agent-net/data/*.db
+stateful-agent-net/data/*.db-*
 stateful-agent-net/data/*.sqlite
+stateful-agent-net/data/*.sqlite-*
+outputs/state_packets/*.md
 *.log
 *.key
 *.pem

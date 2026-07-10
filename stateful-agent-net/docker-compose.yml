@@ -1,10 +1,13 @@
 services:
   collector:
     build: .
+    command: loop
+    restart: unless-stopped
     environment:
       STATE_DB_PATH: /data/state.db
       STATE_PACKET_DIR: /outputs/state_packets
       AUTOMEM_HEALTH_URL: http://host.docker.internal:8001/health
+      OBSERVATORY_INTERVAL_SECONDS: ${OBSERVATORY_INTERVAL_SECONDS:-900}
     volumes:
       - ./data:/data
       - ../outputs:/outputs

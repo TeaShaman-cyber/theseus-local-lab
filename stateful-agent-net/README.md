@@ -27,9 +27,27 @@ Outputs:
 - `data/state.db`
 - `../outputs/state_packets/*.md`
 
+## Run In Background
+
+The collector can run as a small Docker Desktop service. Default interval:
+15 minutes.
+
+```powershell
+docker compose up -d collector
+docker compose ps
+docker compose logs --tail=80 collector
+docker compose down
+```
+
+Override the interval:
+
+```powershell
+$env:OBSERVATORY_INTERVAL_SECONDS = "300"
+docker compose up -d collector
+```
+
 ## Next Steps
 
-- Add a scheduled mode after the one-shot run is stable.
 - Add more vendor status endpoints through config, not code changes.
 - Add SIF ingestion only after choosing a public dataset and normalization
   strategy, because SIF data is large and seasonal.

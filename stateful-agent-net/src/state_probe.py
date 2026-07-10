@@ -11,6 +11,7 @@ import urllib.request
 
 DB_PATH = os.environ.get("STATE_DB_PATH", "/data/state.db")
 PACKET_DIR = os.environ.get("STATE_PACKET_DIR", "/outputs/state_packets")
+LOOP_INTERVAL_SECONDS = int(os.environ.get("OBSERVATORY_INTERVAL_SECONDS", "900"))
 AUTOMEM_HEALTH_URL = os.environ.get(
     "AUTOMEM_HEALTH_URL", "http://host.docker.internal:8001/health"
 )
@@ -356,11 +357,31 @@ def write_packet(conn):
     print(path)
 
 
+def run_loop(conn):
+    print(
+        f"stateful-agent-net loop started: interval={LOOP_INTERVAL_SECONDS}s",
+        flush=True,
+    )
+    while True:
+        started = time.time()
+        try:
+            collect_once(conn)
+            write_packet(conn)
+        except Exception as exc:
+            print(f"collector loop error: {type(exc).__name__}: {exc}", flush=True)
+        elapsed = time.time() - started
+        sleep_for = max(5, LOOP_INTERVAL_SECONDS - int(elapsed))
+        time.sleep(sleep_for)
+
+
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("command", choices=["collect", "packet", "once"])
+    parser.add_argument("command", choices=["collect", "packet", "once", "loop"])
     args = parser.parse_args()
     conn = connect()
+    if args.command == "loop":
+        run_loop(conn)
+        return
     if args.command in ("collect", "once"):
         collect_once(conn)
     if args.command in ("packet", "once"):
