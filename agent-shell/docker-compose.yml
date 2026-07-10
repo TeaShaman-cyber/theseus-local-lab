@@ -1,0 +1,10 @@
+services:
+  agent-shell:
+    build: .
+    working_dir: /workspace
+    environment:
+      AUTOMEM_API_URL: http://host.docker.internal:8001
+    volumes:
+      - ..:/workspace
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

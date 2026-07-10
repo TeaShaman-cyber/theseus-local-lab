@@ -1,0 +1,17 @@
+.env
+.env.*
+!.env.example
+.codewhale-home/
+backups/
+.agents/
+.codex/
+.git/
+tmp/
+work/
+node_modules/
+stateful-agent-net/data/*.db
+stateful-agent-net/data/*.sqlite
+*.log
+*.key
+*.pem
+*.pfx

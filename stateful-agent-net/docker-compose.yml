@@ -1,0 +1,12 @@
+services:
+  collector:
+    build: .
+    environment:
+      STATE_DB_PATH: /data/state.db
+      STATE_PACKET_DIR: /outputs/state_packets
+      AUTOMEM_HEALTH_URL: http://host.docker.internal:8001/health
+    volumes:
+      - ./data:/data
+      - ../outputs:/outputs
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
