@@ -97,3 +97,25 @@ stable; that mounts `.codewhale-home/`, which is ignored by git.
 - CodeWhale global options such as `--model` must be placed before subcommands
   like `exec`; the wrapper already injects provider/base-url/model before the
   user arguments.
+
+## AutoMem Context Bridge
+
+CodeWhale should receive project memory as a compact read-only context pack, not
+as direct database access.
+
+Generate a pack from the Docker-backed agent shell:
+
+```powershell
+.\scripts\agent-shell.ps1 -Command "python3 tools/memory_context/export_context.py"
+```
+
+Then pass `outputs/context/codewhale_context.md` into the CodeWhale prompt or
+task file.
+
+If CodeWhale discovers a durable fact, store it as a review draft first:
+
+```powershell
+.\scripts\agent-shell.ps1 -Command "python3 tools/memory_context/memory_inbox.py new --title 'Short title' --summary 'Durable claim to review.' --tags codewhale automem"
+```
+
+Only reviewed candidates should be promoted into AutoMem.

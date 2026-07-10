@@ -9,10 +9,14 @@ backups/
 tmp/
 work/
 node_modules/
+__pycache__/
+*.pyc
 stateful-agent-net/data/*.db
 stateful-agent-net/data/*.db-*
 stateful-agent-net/data/*.sqlite
 stateful-agent-net/data/*.sqlite-*
+outputs/context/*.md
+outputs/memory_inbox/*.md
 outputs/state_packets/*.md
 *.log
 *.key
