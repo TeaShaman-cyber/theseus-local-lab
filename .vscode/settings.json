@@ -1,0 +1,36 @@
+{
+  "files.exclude": {
+    "**/.codewhale-home": true,
+    "**/.git": true,
+    "**/.pytest_cache": true,
+    "**/__pycache__": true,
+    "**/backups": true,
+    "**/node_modules": true,
+    "**/tmp": true,
+    "**/work": true
+  },
+  "search.exclude": {
+    "**/.codewhale-home": true,
+    "**/backups": true,
+    "**/node_modules": true,
+    "**/outputs/context/*.md": true,
+    "**/outputs/memory_inbox/*.md": true,
+    "**/outputs/state_packets/*.md": true,
+    "**/stateful-agent-net/data": true,
+    "**/tmp": true,
+    "**/work": true
+  },
+  "files.watcherExclude": {
+    "**/.codewhale-home/**": true,
+    "**/backups/**": true,
+    "**/node_modules/**": true,
+    "**/outputs/context/**": true,
+    "**/outputs/memory_inbox/**": true,
+    "**/outputs/state_packets/**": true,
+    "**/stateful-agent-net/data/**": true,
+    "**/tmp/**": true,
+    "**/work/**": true
+  },
+  "markdown.preview.openMarkdownLinks": "inPreview",
+  "terminal.integrated.defaultProfile.windows": "PowerShell"
+}

@@ -50,6 +50,11 @@ Updated: 2026-07-10
 
 ## Review
 
+- [ ] P1 VS Code visual IDE setup.
+  - Status: VS Code updated, legacy extensions removed, GitHub/Docker/Python/
+    Markdown/Mermaid workspace configured.
+  - Needs: user comfort check in real VS Code session.
+
 - [ ] P1 Background data backup lattice.
   - Commit: `c223a47`.
   - Status: running locally; Google Drive folder sync configured by user.

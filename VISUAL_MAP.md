@@ -12,6 +12,7 @@ flowchart LR
     Chat["Chat\nbriefing + reflection"]
     Work["ChatGPT Work\nresearch outputs + reports"]
     Codex["Codex\nlocal engineering"]
+    VSCode["VS Code\nvisual IDE surface"]
     AutoMem["AutoMem\nworking long-term memory"]
     Git["GitHub repo\nsafe source of truth"]
     Drive["Google Drive\ncloud backup mirror"]
@@ -21,6 +22,9 @@ flowchart LR
     User --> Chat
     User --> Work
     User --> Codex
+    User --> VSCode
+    VSCode --> Git
+    VSCode --> TASKS
     Chat --> TASKS["TASKS.md\nbriefing to tasks"]
     Work --> Reports["outputs / reports / docs"]
     Codex --> Git

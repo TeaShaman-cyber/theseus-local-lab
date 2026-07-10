@@ -1,0 +1,41 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Theseus: git status",
+      "type": "shell",
+      "command": "git status --short",
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus: AutoMem status",
+      "type": "shell",
+      "command": ".\\scripts\\automem-status.ps1",
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus: Observatory status",
+      "type": "shell",
+      "command": ".\\scripts\\stateful-agent-net-status.ps1 -Tail 40",
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus: Backup runner status",
+      "type": "shell",
+      "command": "docker compose -f .\\backup-lattice\\docker-compose.yml ps; docker compose -f .\\backup-lattice\\docker-compose.yml logs --tail=40 backup-runner",
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus: Export CodeWhale context",
+      "type": "shell",
+      "command": ".\\scripts\\agent-shell.ps1 -Command \"python3 tools/memory_context/export_context.py\"",
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus: Create data backup now",
+      "type": "shell",
+      "command": ".\\scripts\\agent-shell.ps1 -Command \"python3 tools/backup_lattice/backup_lattice.py once --mirror-dir /workspace/../theseus-cloud-backups\"",
+      "problemMatcher": []
+    }
+  ]
+}

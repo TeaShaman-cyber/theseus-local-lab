@@ -4,6 +4,7 @@ This repo uses a lightweight kanban rhythm that is easy for Codex, Work,
 ChatGPT, CodeWhale, Git, and AutoMem to share.
 
 For a visual overview, see `VISUAL_MAP.md`.
+For the VS Code integration boundary, see `CODEX_VSCODE.md`.
 
 ## Operating Modes
 

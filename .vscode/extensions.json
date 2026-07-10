@@ -1,0 +1,26 @@
+{
+  "recommendations": [
+    "eamodio.gitlens",
+    "github.vscode-pull-request-github",
+    "ms-azuretools.vscode-docker",
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "ms-vscode-remote.remote-containers",
+    "ms-vscode-remote.remote-wsl",
+    "redhat.vscode-yaml",
+    "bierner.markdown-mermaid",
+    "yzhang.markdown-all-in-one"
+  ],
+  "unwantedRecommendations": [
+    "balazs4.gitlab-pipeline-monitor",
+    "caarlos0.language-prometheus",
+    "cstuder.gitlab-ci-validator",
+    "dotjoshjohnson.xml",
+    "gitlab.gitlab-workflow",
+    "gquittet.vscode-better-gitlab-support-extension-pack",
+    "logerfo.gitlab-notifications",
+    "ms-toolsai.jupyter",
+    "redhat.ansible",
+    "redhat.vscode-xml"
+  ]
+}
