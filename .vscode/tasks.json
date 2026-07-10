@@ -20,6 +20,12 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus: ask Copilot advisor",
+      "type": "shell",
+      "command": "node tools/copilot_advisor/copilot_advisor.mjs \"${input:copilotAdvisorPrompt}\"",
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus: AutoMem status",
       "type": "shell",
       "command": ".\\scripts\\automem-status.ps1",
@@ -48,6 +54,13 @@
       "type": "shell",
       "command": ".\\scripts\\agent-shell.ps1 -Command \"python3 tools/backup_lattice/backup_lattice.py once --mirror-dir /workspace/../theseus-cloud-backups\"",
       "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "copilotAdvisorPrompt",
+      "type": "promptString",
+      "description": "Safe, explicit prompt for Copilot advisor"
     }
   ]
 }
