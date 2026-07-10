@@ -32,12 +32,16 @@ flowchart LR
 - Show Git diffs before push.
 - Show Docker containers for AutoMem, observatory, and backup-runner.
 - Run workspace tasks for status checks and manual backups.
+- Provide spellcheck, Markdown linting, ShellCheck, shell formatting, and
+  PowerShell tooling as quiet local feedback.
 
 ## What Codex Should Do
 
 - Make code and document edits.
 - Use `apply_patch` for manual file changes.
 - Run verification commands.
+- Use linter/spellcheck feedback as useful external signal, not as absolute
+  truth.
 - Keep commits small and meaningful.
 - Store durable decisions in AutoMem.
 - Avoid leaking secrets or private archives to external tools.

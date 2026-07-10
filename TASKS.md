@@ -52,7 +52,7 @@ Updated: 2026-07-10
 
 - [ ] P1 VS Code visual IDE setup.
   - Status: VS Code updated, legacy extensions removed, GitHub/Docker/Python/
-    Markdown/Mermaid workspace configured.
+    Markdown/Mermaid/spellcheck/lint workspace configured.
   - Needs: user comfort check in real VS Code session.
 
 - [ ] P1 Background data backup lattice.

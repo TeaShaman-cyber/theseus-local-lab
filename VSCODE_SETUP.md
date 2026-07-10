@@ -15,10 +15,15 @@ Checked from Codex on 2026-07-10:
   - GitLens
   - Markdown All in One
   - Markdown Mermaid
+  - Markdownlint
   - Python / Pylance
+  - PowerShell
   - Remote Containers
   - Remote WSL
   - Russian language pack
+  - ShellCheck
+  - Shell Format
+  - Spell checker with English and Russian dictionaries
   - YAML
   - Rainbow CSV
 - Removed legacy/noisy extensions:
@@ -41,6 +46,9 @@ Checked from Codex on 2026-07-10:
 - Use Docker extension for observing AutoMem, observatory, and backup-runner
   containers.
 - Use Mermaid preview through Markdown preview or the Mermaid extension.
+- Use spellcheck and linters as a quiet external sensor layer. They are allowed
+  to correct Codex and user text because their rules update independently from
+  model weights.
 - Treat VS Code as the visual control surface; Codex remains the agent that
   edits, verifies, commits, and records durable decisions.
 
