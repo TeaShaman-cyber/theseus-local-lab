@@ -1,0 +1,14 @@
+interface:
+  display_name: "Theseus Memory Stack"
+  short_description: "Use AutoMem and MemPalace as primary memory."
+  default_prompt: "Use the Theseus memory stack before decisions, debugging, prior-context questions, and session continuity work."
+policy:
+  allow_implicit_invocation: true
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "memory"
+      description: "AutoMem graph-vector memory for durable decisions, preferences, reusable patterns, and bug roots."
+    - type: "mcp"
+      value: "mempalace"
+      description: "MemPalace verbatim recall for exact prior wording, scoped session recall, and palace search."

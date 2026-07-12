@@ -26,6 +26,15 @@ VS Code will ask for a short prompt. Keep it focused, for example:
 Suggest a minimal GitHub Actions workflow for markdownlint and script syntax checks.
 ```
 
+## Canonical Route
+
+Prefer the VS Code task `Theseus: ask Copilot advisor`. It is the canonical
+route for this repo because it keeps advisor usage visible and reduces raw
+Windows shell drift.
+
+Use terminal fallback only after stating why the VS Code task is unavailable or
+inadequate for the current turn.
+
 ## Use From Terminal
 
 ```powershell

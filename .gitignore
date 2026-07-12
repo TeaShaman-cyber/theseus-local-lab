@@ -4,7 +4,9 @@
 .codewhale-home/
 backups/
 backup-lattice/data/
-.agents/
+.agents/*
+!.agents/skills/
+!.agents/skills/**
 .codex/
 .git/
 tmp/

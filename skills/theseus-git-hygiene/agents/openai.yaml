@@ -1,0 +1,3 @@
+display_name: Theseus Git Hygiene
+short_description: Route Git, advisors, and secret checks.
+default_prompt: Use the Theseus Git hygiene workflow for a repo sync, GitHub publish, advisor call, or secret-sensitive Git operation.

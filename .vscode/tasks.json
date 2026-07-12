@@ -40,6 +40,12 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus: ask Bothub council advisor",
+      "type": "shell",
+      "command": ".\\tools\\infisical_cli\\node_modules\\@infisical\\cli\\bin\\infisical.exe run --env=local --path=/providers -- pwsh -NoProfile -ExecutionPolicy Bypass -File .\\scripts\\bothub-council.ps1 -Prompt \"${input:bothubCouncilPrompt}\" -Models gpt-4o-mini -ChairmanModel gpt-4o-mini -MaxTokens 700 -SkipPeerReview -Quiet",
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus: write session journal",
       "type": "shell",
       "command": "node tools/session_journal/session_journal.mjs --note \"${input:sessionJournalNote}\"",
@@ -72,6 +78,15 @@
       "label": "Theseus: AutoMem status",
       "type": "shell",
       "command": ".\\scripts\\automem-status.ps1",
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Memory: apply Codex MCP config",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/memory_stack/apply_codex_config.mjs"
+      ],
       "problemMatcher": []
     },
     {
@@ -285,6 +300,11 @@
       "id": "copilotAdvisorPrompt",
       "type": "promptString",
       "description": "Safe, explicit prompt for Copilot advisor"
+    },
+    {
+      "id": "bothubCouncilPrompt",
+      "type": "promptString",
+      "description": "Safe, explicit prompt for Bothub council advisor"
     },
     {
       "id": "sessionJournalNote",
