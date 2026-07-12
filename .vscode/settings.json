@@ -2,6 +2,7 @@
   "files.exclude": {
     "**/.codewhale-home": true,
     "**/.git": true,
+    "**/.local_secrets": true,
     "**/.pytest_cache": true,
     "**/__pycache__": true,
     "**/backups": true,
@@ -11,6 +12,7 @@
   },
   "search.exclude": {
     "**/.codewhale-home": true,
+    "**/.local_secrets": true,
     "**/backups": true,
     "**/node_modules": true,
     "**/outputs/context/*.md": true,
@@ -22,6 +24,7 @@
   },
   "files.watcherExclude": {
     "**/.codewhale-home/**": true,
+    "**/.local_secrets/**": true,
     "**/backups/**": true,
     "**/node_modules/**": true,
     "**/outputs/context/**": true,
@@ -54,8 +57,11 @@
     "DriveFS",
     "FalkorDB",
     "GitLens",
+    "MobaXterm",
     "Qdrant",
+    "RemoteSSH",
     "Theseus",
+    "VMware",
     "agentic",
     "automem",
     "backup",
@@ -68,7 +74,8 @@
     "mechanobiology",
     "metamemory",
     "observatory",
-    "stateful"
+    "stateful",
+    "vmrun"
   ],
   "markdownlint.config": {
     "MD013": false,
@@ -76,5 +83,9 @@
     "MD041": false
   },
   "shellcheck.enable": true,
+  "remote.SSH.remotePlatform": {
+    "theseus-ubuntu-vm": "linux"
+  },
+  "remote.SSH.showLoginTerminal": true,
   "terminal.integrated.defaultProfile.windows": "PowerShell"
 }

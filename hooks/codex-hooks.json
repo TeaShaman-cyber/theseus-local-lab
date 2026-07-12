@@ -1,0 +1,30 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:\\Users\\s.poklad\\Documents\\Codex\\2026-07-08\\life-science-research-plugin-life-science-4\\hooks\\research-queue-hook.mjs\"",
+            "timeout": 10,
+            "statusMessage": "Queueing Theseus research follow-up"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:\\Users\\s.poklad\\Documents\\Codex\\2026-07-08\\life-science-research-plugin-life-science-4\\hooks\\research-queue-hook.mjs\"",
+            "timeout": 10,
+            "statusMessage": "Queueing Theseus pre-compact checkpoint"
+          }
+        ]
+      }
+    ]
+  }
+}

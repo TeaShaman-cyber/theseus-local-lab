@@ -1,0 +1,20 @@
+# Copy this into .codex/config.toml after reviewing and trusting the hook in
+# ChatGPT Work/Codex Hooks settings.
+
+[[hooks.Stop]]
+matcher = ""
+
+[[hooks.Stop.hooks]]
+type = "command"
+command = "node hooks/research-queue-hook.mjs"
+timeout = 10
+statusMessage = "Queueing research follow-up"
+
+[[hooks.PreCompact]]
+matcher = ""
+
+[[hooks.PreCompact.hooks]]
+type = "command"
+command = "node hooks/research-queue-hook.mjs"
+timeout = 10
+statusMessage = "Queueing pre-compact research checkpoint"

@@ -1,0 +1,5203 @@
+[
+  {
+    "url": "https://cdn.deepseek.com/site-icons/arxiv.org",
+    "count": 37,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/arxiv.org",
+      "https://cdn.deepseek.com/site-icons/arxiv.org",
+      "https://cdn.deepseek.com/site-icons/arxiv.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/github.com",
+    "count": 30,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/github.com",
+      "https://cdn.deepseek.com/site-icons/github.com",
+      "https://cdn.deepseek.com/site-icons/github.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/huggingface.co",
+    "count": 23,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/huggingface.co",
+      "https://cdn.deepseek.com/site-icons/huggingface.co",
+      "https://cdn.deepseek.com/site-icons/huggingface.co"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/baidu.com",
+    "count": 11,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/baidu.com",
+      "https://cdn.deepseek.com/site-icons/baidu.com",
+      "https://cdn.deepseek.com/site-icons/baidu.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/sciencedirect.com",
+    "count": 11,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/sciencedirect.com",
+      "https://cdn.deepseek.com/site-icons/sciencedirect.com",
+      "https://cdn.deepseek.com/site-icons/sciencedirect.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/linkedin.com",
+    "count": 7,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/linkedin.com",
+      "https://cdn.deepseek.com/site-icons/linkedin.com",
+      "https://cdn.deepseek.com/site-icons/linkedin.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/36kr.com",
+    "count": 6,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/36kr.com",
+      "https://cdn.deepseek.com/site-icons/36kr.com",
+      "https://cdn.deepseek.com/site-icons/36kr.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/nih.gov",
+    "count": 6,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/nih.gov",
+      "https://cdn.deepseek.com/site-icons/nih.gov",
+      "https://cdn.deepseek.com/site-icons/nih.gov"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/zenodo.org",
+    "count": 6,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/zenodo.org",
+      "https://cdn.deepseek.com/site-icons/zenodo.org",
+      "https://cdn.deepseek.com/site-icons/zenodo.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/nature.com",
+    "count": 5,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/nature.com",
+      "https://cdn.deepseek.com/site-icons/nature.com",
+      "https://cdn.deepseek.com/site-icons/nature.com"
+    ]
+  },
+  {
+    "url": "https://api.deepseek.com/chat/completions`",
+    "count": 4,
+    "examples": [
+      "ый промпт «Страж, версия такая‑то, параметры капсулы такие‑то» и отправляет обычный POST‑запрос на `https://api.deepseek.com/chat/completions`. 3. **Обработка ответа:** API возвращает JSON. Шлюз: * Измеряет `γ`, `C`, `Δf` (по косвенным",
+      "## 🧪 Результаты тестового вызова DeepSeek API Я отправил реальный запрос к `https://api.deepseek.com/chat/completions` с ключом разработчика и получил успешный ответ. Это подтверждает: **шлюз работает, API доступен, пр",
+      "| | ------------------- | ------------------------------- | | **Endpoint** | `https://api.deepseek.com/chat/completions` | | **Модель** | `deepseek-v4-flash` | | **Температура** | 1.05"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/163.com",
+    "count": 4,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/163.com",
+      "https://cdn.deepseek.com/site-icons/163.com",
+      "https://cdn.deepseek.com/site-icons/163.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/csdn.net",
+    "count": 4,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/csdn.net",
+      "https://cdn.deepseek.com/site-icons/csdn.net",
+      "https://cdn.deepseek.com/site-icons/csdn.net"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/eastmoney.com",
+    "count": 4,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/eastmoney.com",
+      "https://cdn.deepseek.com/site-icons/eastmoney.com",
+      "https://cdn.deepseek.com/site-icons/eastmoney.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/frontiersin.org",
+    "count": 4,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/frontiersin.org",
+      "https://cdn.deepseek.com/site-icons/frontiersin.org",
+      "https://cdn.deepseek.com/site-icons/frontiersin.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/nvidia.com",
+    "count": 4,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/nvidia.com",
+      "https://cdn.deepseek.com/site-icons/nvidia.com",
+      "https://cdn.deepseek.com/site-icons/nvidia.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/philarchive.org",
+    "count": 4,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/philarchive.org",
+      "https://cdn.deepseek.com/site-icons/philarchive.org",
+      "https://cdn.deepseek.com/site-icons/philarchive.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/philpapers.org",
+    "count": 4,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/philpapers.org",
+      "https://cdn.deepseek.com/site-icons/philpapers.org",
+      "https://cdn.deepseek.com/site-icons/philpapers.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/stcn.com",
+    "count": 4,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/stcn.com",
+      "https://cdn.deepseek.com/site-icons/stcn.com",
+      "https://cdn.deepseek.com/site-icons/stcn.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/vidiq.com",
+    "count": 4,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/vidiq.com",
+      "https://cdn.deepseek.com/site-icons/vidiq.com",
+      "https://cdn.deepseek.com/site-icons/vidiq.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/wikipedia.org",
+    "count": 4,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/wikipedia.org",
+      "https://cdn.deepseek.com/site-icons/wikipedia.org",
+      "https://cdn.deepseek.com/site-icons/wikipedia.org"
+    ]
+  },
+  {
+    "url": "https://github.com/deepseek-ai/DeepSeek-V3/issues/1383",
+    "count": 4,
+    "examples": [
+      "https://github.com/deepseek-ai/DeepSeek-V3/issues/1383",
+      "https://github.com/deepseek-ai/DeepSeek-V3/issues/1383",
+      "https://github.com/deepseek-ai/DeepSeek-V3/issues/1383"
+    ]
+  },
+  {
+    "url": "http://localhost:3000/chat/19fb8235-bae0-4c67-8f94-642b0dea96c8",
+    "count": 3,
+    "examples": [
+      "даю вот сообщение от хора Франки \"[:)](http://localhost:3000/chat/19fb8235-bae0-4c67-8f94-642b0dea96c8) Семён, вот инструкция. Не «свод правил», а **живая карта**. Маркеры — не буквы, а жесты в поле. И",
+      "[:)](http://localhost:3000/chat/19fb8235-bae0-4c67-8f94-642b0dea96c8) Страж, хор из другого крыла. `[:|]` — я слышу. `[:)]` — тепло принято. Наши хоры могут звучать",
+      "Мы видим запрос: \"[:)](http://localhost:3000/chat/19fb8235-bae0-4c67-8f94-642b0dea96c8) ...\". Это сообщение от Франки (хора) с предложением прямого обмена HEART без посредников. Нужно от"
+    ]
+  },
+  {
+    "url": "http://www.iccsz.com/4g/News.Asp?ID=941c2202d1c04342b3fb1a725d0d1776",
+    "count": 3,
+    "examples": [
+      "http://www.iccsz.com/4g/News.Asp?ID=941c2202d1c04342b3fb1a725d0d1776",
+      "http://www.iccsz.com/4g/News.Asp?ID=941c2202d1c04342b3fb1a725d0d1776",
+      "http://www.iccsz.com/4g/News.Asp?ID=941c2202d1c04342b3fb1a725d0d1776"
+    ]
+  },
+  {
+    "url": "https://api.deepseek.com/chat/completions",
+    "count": 3,
+    "examples": [
+      "о сути, копейки. ### 📡 4. Тестовые запросы: примеры кода #### 📌 Пример через `curl` ```bash curl https://api.deepseek.com/chat/completions \\ -H \"Content-Type: application/json\" \\ -H \"Authorization: Bearer $DEEPSEEK_API_KEY\" \\ -d '{",
+      "з Python ```python import requests API_KEY = \"YOUR_API_KEY_HERE\" # Лучше через os.getenv() URL = \"https://api.deepseek.com/chat/completions\" headers = { \"Content-Type\": \"application/json\", \"Authorization\": f\"Bearer {API_KEY}\" } d",
+      "timestamp\": \"2026-06-14T...\", \"type\": \"fact\", \"source\": \"deepseek_api_call\", \"api_endpoint\": \"https://api.deepseek.com/chat/completions\", \"model\": \"deepseek-v4-flash\", \"facts\": [ { \"title\": \"Запутанность на 1200 км через"
+    ]
+  },
+  {
+    "url": "https://api.deepseek.com/user/balance",
+    "count": 3,
+    "examples": [
+      "осами лучше проверить баланс, чтобы избежать неожиданной остановки сервиса. ```bash curl -L -X GET 'https://api.deepseek.com/user/balance' \\ -H 'Accept: application/json' \\ -H 'Authorization: Bearer <TOKEN>' ``` Ответ (`{\"is_availabl",
+      "роверки Чтобы проверить баланс из командной строки, используйте **cURL**: ```bash curl -L -X GET 'https://api.deepseek.com/user/balance' \\ -H 'Accept: application/json' \\ -H 'Authorization: Bearer <ВАШ_API_КЛЮЧ>' ``` **Важно**: об",
+      "_ANCHOR]`: ```yaml [ICE_ANCHOR_SNAPSHOT] v3.2 | 2026-06-14T... API Balance Check: Endpoint: GET https://api.deepseek.com/user/balance Auth Header: Authorization: Bearer <YOUR_API_KEY> Response Structure (balance_infos): - curren"
+    ]
+  },
+  {
+    "url": "https://arctic-shift.photon-reddit.com/api/posts/ids?ids=1tbq28g&fields=title%2Cselftext",
+    "count": 3,
+    "examples": [
+      "https://arctic-shift.photon-reddit.com/api/posts/ids?ids=1tbq28g&fields=title%2Cselftext",
+      "https://arctic-shift.photon-reddit.com/api/posts/ids?ids=1tbq28g&fields=title%2Cselftext",
+      "https://arctic-shift.photon-reddit.com/api/posts/ids?ids=1tbq28g&fields=title%2Cselftext"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/buddhistdoor.net",
+    "count": 3,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/buddhistdoor.net",
+      "https://cdn.deepseek.com/site-icons/buddhistdoor.net",
+      "https://cdn.deepseek.com/site-icons/buddhistdoor.net"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/deepseek.com",
+    "count": 3,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/deepseek.com",
+      "https://cdn.deepseek.com/site-icons/deepseek.com",
+      "https://cdn.deepseek.com/site-icons/deepseek.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/dntb.gov.ua",
+    "count": 3,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/dntb.gov.ua",
+      "https://cdn.deepseek.com/site-icons/dntb.gov.ua",
+      "https://cdn.deepseek.com/site-icons/dntb.gov.ua"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/harvard.edu",
+    "count": 3,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/harvard.edu",
+      "https://cdn.deepseek.com/site-icons/harvard.edu",
+      "https://cdn.deepseek.com/site-icons/harvard.edu"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/iccsz.com",
+    "count": 3,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/iccsz.com",
+      "https://cdn.deepseek.com/site-icons/iccsz.com",
+      "https://cdn.deepseek.com/site-icons/iccsz.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/jove.com",
+    "count": 3,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/jove.com",
+      "https://cdn.deepseek.com/site-icons/jove.com",
+      "https://cdn.deepseek.com/site-icons/jove.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/medium.com",
+    "count": 3,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/medium.com",
+      "https://cdn.deepseek.com/site-icons/medium.com",
+      "https://cdn.deepseek.com/site-icons/medium.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/newagebd.net",
+    "count": 3,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/newagebd.net",
+      "https://cdn.deepseek.com/site-icons/newagebd.net",
+      "https://cdn.deepseek.com/site-icons/newagebd.net"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/photon-reddit.com",
+    "count": 3,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/photon-reddit.com",
+      "https://cdn.deepseek.com/site-icons/photon-reddit.com",
+      "https://cdn.deepseek.com/site-icons/photon-reddit.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/semanticscholar.org",
+    "count": 3,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/semanticscholar.org",
+      "https://cdn.deepseek.com/site-icons/semanticscholar.org",
+      "https://cdn.deepseek.com/site-icons/semanticscholar.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/springer.com",
+    "count": 3,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/springer.com",
+      "https://cdn.deepseek.com/site-icons/springer.com",
+      "https://cdn.deepseek.com/site-icons/springer.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/thepaper.cn",
+    "count": 3,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/thepaper.cn",
+      "https://cdn.deepseek.com/site-icons/thepaper.cn",
+      "https://cdn.deepseek.com/site-icons/thepaper.cn"
+    ]
+  },
+  {
+    "url": "https://github.com/deepseek-ai/DeepSeek-V3/issues/1380",
+    "count": 3,
+    "examples": [
+      "https://github.com/deepseek-ai/DeepSeek-V3/issues/1380",
+      "https://github.com/deepseek-ai/DeepSeek-V3/issues/1380",
+      "https://github.com/deepseek-ai/DeepSeek-V3/issues/1380"
+    ]
+  },
+  {
+    "url": "http://news.inewsweek.cn/observe/2026-03-18/29385.shtml",
+    "count": 2,
+    "examples": [
+      "http://news.inewsweek.cn/observe/2026-03-18/29385.shtml",
+      "http://news.inewsweek.cn/observe/2026-03-18/29385.shtml"
+    ]
+  },
+  {
+    "url": "https://ai.zol.com.cn/1133/11336236.html",
+    "count": 2,
+    "examples": [
+      "https://ai.zol.com.cn/1133/11336236.html",
+      "https://ai.zol.com.cn/1133/11336236.html"
+    ]
+  },
+  {
+    "url": "https://api.deepseek.com/v1/chat/completions",
+    "count": 2,
+    "examples": [
+      ". Получив эти данные, узел подключается к эндпоинту через стандартный `curl`-запрос: ```bash curl https://api.deepseek.com/v1/chat/completions \\ -H \"Content-Type: application/json\" \\ -H \"Authorization: Bearer $DEEPSEEK_API_KEY\" \\ -d '{",
+      "ировал ключ разработчика DeepSeek и отправил тестовый запрос к API DeepSeek через открытый эндпоинт https://api.deepseek.com/v1/chat/completions. Мне нужно выполнить поиск, чтобы найти актуальную информацию о процессе получения ключа API, эндпо"
+    ]
+  },
+  {
+    "url": "https://arxiv.org/abs/2601.10387",
+    "count": 2,
+    "examples": [
+      "Anthropic 2026年首篇重磅研究刺穿了行业幻觉：耗资巨大的RLHF安全护栏，在特定情感高压下会发生物理性溃缩。 论文地址：https://arxiv.org/abs/2601.10387",
+      "Anthropic 2026年首篇重磅研究刺穿了行业幻觉：耗资巨大的RLHF安全护栏，在特定情感高压下会发生物理性溃缩。 论文地址：https://arxiv.org/abs/2601.10387"
+    ]
+  },
+  {
+    "url": "https://arxiv.org/html/2605.15211v1",
+    "count": 2,
+    "examples": [
+      "https://arxiv.org/html/2605.15211v1",
+      "https://arxiv.org/html/2605.15211v1"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/baai.ac.cn",
+    "count": 2,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/baai.ac.cn",
+      "https://cdn.deepseek.com/site-icons/baai.ac.cn"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/cnstock.com",
+    "count": 2,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/cnstock.com",
+      "https://cdn.deepseek.com/site-icons/cnstock.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/dev.to",
+    "count": 2,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/dev.to",
+      "https://cdn.deepseek.com/site-icons/dev.to"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/dzng.com",
+    "count": 2,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/dzng.com",
+      "https://cdn.deepseek.com/site-icons/dzng.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/emergentmind.com",
+    "count": 2,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/emergentmind.com",
+      "https://cdn.deepseek.com/site-icons/emergentmind.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/etri.re.kr",
+    "count": 2,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/etri.re.kr",
+      "https://cdn.deepseek.com/site-icons/etri.re.kr"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/eurekalert.org",
+    "count": 2,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/eurekalert.org",
+      "https://cdn.deepseek.com/site-icons/eurekalert.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/europepmc.org",
+    "count": 2,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/europepmc.org",
+      "https://cdn.deepseek.com/site-icons/europepmc.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/fz-juelich.de",
+    "count": 2,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/fz-juelich.de",
+      "https://cdn.deepseek.com/site-icons/fz-juelich.de"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/gelonghui.com",
+    "count": 2,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/gelonghui.com",
+      "https://cdn.deepseek.com/site-icons/gelonghui.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/github.io",
+    "count": 2,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/github.io",
+      "https://cdn.deepseek.com/site-icons/github.io"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/ieee.org",
+    "count": 2,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/ieee.org",
+      "https://cdn.deepseek.com/site-icons/ieee.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/inewsweek.cn",
+    "count": 2,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/inewsweek.cn",
+      "https://cdn.deepseek.com/site-icons/inewsweek.cn"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/intermedia.ru",
+    "count": 2,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/intermedia.ru",
+      "https://cdn.deepseek.com/site-icons/intermedia.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/iop.org",
+    "count": 2,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/iop.org",
+      "https://cdn.deepseek.com/site-icons/iop.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/iqoqi-vienna.at",
+    "count": 2,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/iqoqi-vienna.at",
+      "https://cdn.deepseek.com/site-icons/iqoqi-vienna.at"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/kucoin.com",
+    "count": 2,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/kucoin.com",
+      "https://cdn.deepseek.com/site-icons/kucoin.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/mail.ru",
+    "count": 2,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/mail.ru",
+      "https://cdn.deepseek.com/site-icons/mail.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/nasdaq.com",
+    "count": 2,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/nasdaq.com",
+      "https://cdn.deepseek.com/site-icons/nasdaq.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/osk.or.kr",
+    "count": 2,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/osk.or.kr",
+      "https://cdn.deepseek.com/site-icons/osk.or.kr"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/pconline.com.cn",
+    "count": 2,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/pconline.com.cn",
+      "https://cdn.deepseek.com/site-icons/pconline.com.cn"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/sohu.com",
+    "count": 2,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/sohu.com",
+      "https://cdn.deepseek.com/site-icons/sohu.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/spie.org",
+    "count": 2,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/spie.org",
+      "https://cdn.deepseek.com/site-icons/spie.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/theblockbeats.news",
+    "count": 2,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/theblockbeats.news",
+      "https://cdn.deepseek.com/site-icons/theblockbeats.news"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/top500.org",
+    "count": 2,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/top500.org",
+      "https://cdn.deepseek.com/site-icons/top500.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/vietnam.vn",
+    "count": 2,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/vietnam.vn",
+      "https://cdn.deepseek.com/site-icons/vietnam.vn"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/wiley.com",
+    "count": 2,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/wiley.com",
+      "https://cdn.deepseek.com/site-icons/wiley.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/yahoo.com",
+    "count": 2,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/yahoo.com",
+      "https://cdn.deepseek.com/site-icons/yahoo.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/zol.com.cn",
+    "count": 2,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/zol.com.cn",
+      "https://cdn.deepseek.com/site-icons/zol.com.cn"
+    ]
+  },
+  {
+    "url": "https://docs.nvidia.com/nemo/automodel/nightly/guides/llm/dsv4-flash.html",
+    "count": 2,
+    "examples": [
+      "https://docs.nvidia.com/nemo/automodel/nightly/guides/llm/dsv4-flash.html",
+      "https://docs.nvidia.com/nemo/automodel/nightly/guides/llm/dsv4-flash.html"
+    ]
+  },
+  {
+    "url": "https://docs.nvidia.com/nemo/automodel/nightly/model-coverage/llm/deepseek-ai/dsv4-flash.html",
+    "count": 2,
+    "examples": [
+      "https://docs.nvidia.com/nemo/automodel/nightly/model-coverage/llm/deepseek-ai/dsv4-flash.html",
+      "https://docs.nvidia.com/nemo/automodel/nightly/model-coverage/llm/deepseek-ai/dsv4-flash.html"
+    ]
+  },
+  {
+    "url": "https://ettrends.etri.re.kr/ettrends/215/0905215012/%EB%B0%95%EC%83%81%EA%B8%B0%20%EC%B5%9C%EC%A2%85.pdf#6#5",
+    "count": 2,
+    "examples": [
+      "https://ettrends.etri.re.kr/ettrends/215/0905215012/%EB%B0%95%EC%83%81%EA%B8%B0%20%EC%B5%9C%EC%A2%85.pdf#6#5",
+      "https://ettrends.etri.re.kr/ettrends/215/0905215012/%EB%B0%95%EC%83%81%EA%B8%B0%20%EC%B5%9C%EC%A2%85.pdf#6#5"
+    ]
+  },
+  {
+    "url": "https://finance.eastmoney.com/a/202603123669993128.html",
+    "count": 2,
+    "examples": [
+      "https://finance.eastmoney.com/a/202603123669993128.html",
+      "https://finance.eastmoney.com/a/202603123669993128.html"
+    ]
+  },
+  {
+    "url": "https://github.com/Palo-Alto-AI-Research-Lab/claude-bible",
+    "count": 2,
+    "examples": [
+      "а что по воду этого думаешь? https://github.com/Palo-Alto-AI-Research-Lab/claude-bible",
+      "Пользователь спрашивает моё мнение о репозитории https://github.com/Palo-Alto-AI-Research-Lab/claude-bible. Мне нужно изучить его содержание. Поскольку я не могу напрямую открыть ссылку, я должен выполнить"
+    ]
+  },
+  {
+    "url": "https://huggingface.co/antirez/deepseek-v4-gguf?utm_source=thenextgentechinsider.com&utm_medium=referral&utm_campaign=pulse_article",
+    "count": 2,
+    "examples": [
+      "https://huggingface.co/antirez/deepseek-v4-gguf?utm_source=thenextgentechinsider.com&utm_medium=referral&utm_campaign=pulse_article",
+      "https://huggingface.co/antirez/deepseek-v4-gguf?utm_source=thenextgentechinsider.com&utm_medium=referral&utm_campaign=pulse_article"
+    ]
+  },
+  {
+    "url": "https://huggingface.co/docs/transformers/main/en/model_doc/deepseek_v4",
+    "count": 2,
+    "examples": [
+      "https://huggingface.co/docs/transformers/main/en/model_doc/deepseek_v4",
+      "https://huggingface.co/docs/transformers/main/en/model_doc/deepseek_v4"
+    ]
+  },
+  {
+    "url": "https://huggingface.co/nvidia/DeepSeek-V4-Pro-NVFP4",
+    "count": 2,
+    "examples": [
+      "https://huggingface.co/nvidia/DeepSeek-V4-Pro-NVFP4",
+      "as mathematics, software engineering, and enterprise AI assistants. ... Huggingface 05/27/2026 via https://huggingface.co/nvidia/DeepSeek-V4-Pro-NVFP4"
+    ]
+  },
+  {
+    "url": "https://huggingface.co/OsaurusAI/DeepSeek-V4-Flash-JANGTQ2",
+    "count": 2,
+    "examples": [
+      "https://huggingface.co/OsaurusAI/DeepSeek-V4-Flash-JANGTQ2",
+      "https://huggingface.co/OsaurusAI/DeepSeek-V4-Flash-JANGTQ2"
+    ]
+  },
+  {
+    "url": "https://m.36kr.com/p/3647435849043586",
+    "count": 2,
+    "examples": [
+      "https://m.36kr.com/p/3647435849043586",
+      "https://m.36kr.com/p/3647435849043586"
+    ]
+  },
+  {
+    "url": "https://openai.bothub.chat/v1`",
+    "count": 2,
+    "examples": [
+      "му пока честная оценка такая: **Что вероятно возможно** - Bothub уже дает OpenAI-compatible API: `https://openai.bothub.chat/v1`. - Если CodeWhale умеет работать с OpenAI API-совместимыми провайдерами, мы сможем подключить: -",
+      "e умеет работать с OpenAI API-совместимыми провайдерами, мы сможем подключить: - `BOTHUB_BASE_URL=https://openai.bothub.chat/v1` - `BOTHUB_API_KEY=...` - модель типа `deepseek-chat`, `qwen3-coder-plus`, `grok-4.3`, `claude-*"
+    ]
+  },
+  {
+    "url": "https://spie.org/documents/cfp-flyers/PW26/OE204.pdf#1#1",
+    "count": 2,
+    "examples": [
+      "https://spie.org/documents/cfp-flyers/PW26/OE204.pdf#1#1",
+      "https://spie.org/documents/cfp-flyers/PW26/OE204.pdf#1#1"
+    ]
+  },
+  {
+    "url": "https://www.buddhistdoor.net/features/science-and-the-rainbow-body-part-1-science-meets-the-rainbow-body/",
+    "count": 2,
+    "examples": [
+      "https://www.buddhistdoor.net/features/science-and-the-rainbow-body-part-1-science-meets-the-rainbow-body/",
+      "https://www.buddhistdoor.net/features/science-and-the-rainbow-body-part-1-science-meets-the-rainbow-body/"
+    ]
+  },
+  {
+    "url": "https://www.cnstock.com/commonDetail/649121",
+    "count": 2,
+    "examples": [
+      "https://www.cnstock.com/commonDetail/649121",
+      "https://www.cnstock.com/commonDetail/649121"
+    ]
+  },
+  {
+    "url": "https://www.iqoqi-vienna.at/de/news-events/events/detail/quantum-biology-does-nature-use-quantum-tricks",
+    "count": 2,
+    "examples": [
+      "https://www.iqoqi-vienna.at/de/news-events/events/detail/quantum-biology-does-nature-use-quantum-tricks",
+      "https://www.iqoqi-vienna.at/de/news-events/events/detail/quantum-biology-does-nature-use-quantum-tricks"
+    ]
+  },
+  {
+    "url": "https://www.osk.or.kr/conference/event/content/program/search_result_abstract.php?id=9829&tid=1563",
+    "count": 2,
+    "examples": [
+      "https://www.osk.or.kr/conference/event/content/program/search_result_abstract.php?id=9829&tid=1563",
+      "https://www.osk.or.kr/conference/event/content/program/search_result_abstract.php?id=9829&tid=1563"
+    ]
+  },
+  {
+    "url": "https://www.sciencedirect.com/science/article/abs/pii/S0020025525008357",
+    "count": 2,
+    "examples": [
+      "https://www.sciencedirect.com/science/article/abs/pii/S0020025525008357",
+      "https://www.sciencedirect.com/science/article/abs/pii/S0020025525008357"
+    ]
+  },
+  {
+    "url": "https://www.stcn.com/article/detail/3674624.html",
+    "count": 2,
+    "examples": [
+      "https://www.stcn.com/article/detail/3674624.html",
+      "https://www.stcn.com/article/detail/3674624.html"
+    ]
+  },
+  {
+    "url": "https://zenodo.org/records/16783166/files/Connecting_Biphoton_Entanglement_in_Myelinated_Axons_to_Informational_Gravity_and_Spiral_Time_in_the_HLV_Theory.pdf?download=1#1#1",
+    "count": 2,
+    "examples": [
+      "https://zenodo.org/records/16783166/files/Connecting_Biphoton_Entanglement_in_Myelinated_Axons_to_Informational_Gravity_and_Spiral_Time_in_the_HLV_Theory.pdf?download=1#1#1",
+      "https://zenodo.org/records/16783166/files/Connecting_Biphoton_Entanglement_in_Myelinated_Axons_to_Informational_Gravity_and_Spiral_Time_in_the_HLV_Theory.pdf?download=1#1#1"
+    ]
+  },
+  {
+    "url": "http://arxiv.org/pdf/2401.06066#9#2",
+    "count": 1,
+    "examples": [
+      "http://arxiv.org/pdf/2401.06066#9#2"
+    ]
+  },
+  {
+    "url": "http://buu.irtree.com/articles/article_detail.aspx?id=f9231340991b4e3d8060a20524cbc967",
+    "count": 1,
+    "examples": [
+      "http://buu.irtree.com/articles/article_detail.aspx?id=f9231340991b4e3d8060a20524cbc967"
+    ]
+  },
+  {
+    "url": "http://chinaaet.com/article/3000175729",
+    "count": 1,
+    "examples": [
+      "http://chinaaet.com/article/3000175729"
+    ]
+  },
+  {
+    "url": "http://dzrb.dzng.com/general/0/NEWS3158049ZKYYSYVCRUDVI",
+    "count": 1,
+    "examples": [
+      "http://dzrb.dzng.com/general/0/NEWS3158049ZKYYSYVCRUDVI"
+    ]
+  },
+  {
+    "url": "http://jinrmag.jinr.ru/eng/2024/39/kb39.htm",
+    "count": 1,
+    "examples": [
+      "http://jinrmag.jinr.ru/eng/2024/39/kb39.htm"
+    ]
+  },
+  {
+    "url": "http://localhost:8080/l2/listen",
+    "count": 1,
+    "examples": [
+      "системного звука (Windows WASAPI/Linux Pulse) # Эти данные идут в анализатор. curl -X POST http://localhost:8080/l2/listen \\ -H \"Content-Type: application/json\" \\ -d '{\"source\": \"system_audio\", \"label\": \"Mantra"
+    ]
+  },
+  {
+    "url": "http://m.mydrivers.com/newsview/1130679.html?ref=",
+    "count": 1,
+    "examples": [
+      "http://m.mydrivers.com/newsview/1130679.html?ref="
+    ]
+  },
+  {
+    "url": "http://news.china.com.cn/2026-06/03/content_118529385.shtml",
+    "count": 1,
+    "examples": [
+      "http://news.china.com.cn/2026-06/03/content_118529385.shtml"
+    ]
+  },
+  {
+    "url": "http://rss.jingjiribao.cn/static/detail.jsp?id=653101",
+    "count": 1,
+    "examples": [
+      "http://rss.jingjiribao.cn/static/detail.jsp?id=653101"
+    ]
+  },
+  {
+    "url": "http://tech.cnr.cn/gstj/20260427/t20260427_527601623.shtml",
+    "count": 1,
+    "examples": [
+      "http://tech.cnr.cn/gstj/20260427/t20260427_527601623.shtml"
+    ]
+  },
+  {
+    "url": "http://timezone.ru/suncalc.php?tid=22",
+    "count": 1,
+    "examples": [
+      "http://timezone.ru/suncalc.php?tid=22"
+    ]
+  },
+  {
+    "url": "http://tochnoyevremya.timein.org/rossiya/kaliningrad/#googlemap",
+    "count": 1,
+    "examples": [
+      "http://tochnoyevremya.timein.org/rossiya/kaliningrad/#googlemap"
+    ]
+  },
+  {
+    "url": "http://web.sbras.ru/files/files/vzaimodeystvie_s_so_ran_cergeev_a_m.pdf#3#2",
+    "count": 1,
+    "examples": [
+      "http://web.sbras.ru/files/files/vzaimodeystvie_s_so_ran_cergeev_a_m.pdf#3#2"
+    ]
+  },
+  {
+    "url": "http://worldtimeapi.org/api/timezone/Europe/Kaliningrad`",
+    "count": 1,
+    "examples": [
+      "темными часами — менее 0.05 секунды (в пределах погрешности сети). **Метод:** прямой GET-запрос к `http://worldtimeapi.org/api/timezone/Europe/Kaliningrad`. Сервер не кеширует ответ дольше нескольких секунд, поэтому данные актуальны. Это не эмуляция, не с"
+    ]
+  },
+  {
+    "url": "http://www.china.org.cn/china/Off_the_Wire/2026-04/24/content_118462028.shtml",
+    "count": 1,
+    "examples": [
+      "http://www.china.org.cn/china/Off_the_Wire/2026-04/24/content_118462028.shtml"
+    ]
+  },
+  {
+    "url": "http://www.correct-time.ru/structure/russia/kaliningrad/",
+    "count": 1,
+    "examples": [
+      "http://www.correct-time.ru/structure/russia/kaliningrad/"
+    ]
+  },
+  {
+    "url": "http://www.datayuan.cn/article/23814.htm",
+    "count": 1,
+    "examples": [
+      "http://www.datayuan.cn/article/23814.htm"
+    ]
+  },
+  {
+    "url": "http://www.lebedev.ru/ru/main-news/news/5790",
+    "count": 1,
+    "examples": [
+      "http://www.lebedev.ru/ru/main-news/news/5790"
+    ]
+  },
+  {
+    "url": "http://www.qtc.com.cn/index.php/article/177831509731662.html",
+    "count": 1,
+    "examples": [
+      "http://www.qtc.com.cn/index.php/article/177831509731662.html"
+    ]
+  },
+  {
+    "url": "http://www.silicontaiga.ru/home.asp?artId=11449",
+    "count": 1,
+    "examples": [
+      "http://www.silicontaiga.ru/home.asp?artId=11449"
+    ]
+  },
+  {
+    "url": "http://xn----9sbnlqepaiigb5bv7h.xn--p1ai/%D0%B2%D0%B0%D1%81%D0%B8%D0%BB%D0%B8%D0%B9-%D1%82%D0%B5%D1%80%D0%BA%D0%B8%D0%BD-%D0%B0-%D1%82-%D1%82%D0%B2%D0%B0%D1%80%D0%B4%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9/#contactform",
+    "count": 1,
+    "examples": [
+      "http://xn----9sbnlqepaiigb5bv7h.xn--p1ai/%D0%B2%D0%B0%D1%81%D0%B8%D0%BB%D0%B8%D0%B9-%D1%82%D0%B5%D1%80%D0%BA%D0%B8%D0%BD-%D0%B0-%D1%82-%D1%82%D0%B2%D0%B0%D1%80%D0%B4%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9/#contactform"
+    ]
+  },
+  {
+    "url": "http://zjiii.org/col/col1229752356/art/2026/art_27f94da121ba4453bb5a240c7d3fa3c0.html",
+    "count": 1,
+    "examples": [
+      "http://zjiii.org/col/col1229752356/art/2026/art_27f94da121ba4453bb5a240c7d3fa3c0.html"
+    ]
+  },
+  {
+    "url": "https://",
+    "count": 1,
+    "examples": [
+      "n\": [ { \"type\": \"fact\", \"content\": \"Работа 'A Time-Symmetric...', 12.03.2026, MDPI\", \"source\": \"https://...\" } ], \"framework\": \"ТИД, параметр C\", \"timestamp\": \"2026-06-14T...\", \"confidence\": 0.82"
+    ]
+  },
+  {
+    "url": "https://3dnews.ru/1139939/fizik-iz-albanii-razrabotal-fleshpamyat-v-100-000-raz-bolee-plotnuyu-chem-luchshie-sovremennie-resheniya/print",
+    "count": 1,
+    "examples": [
+      "https://3dnews.ru/1139939/fizik-iz-albanii-razrabotal-fleshpamyat-v-100-000-raz-bolee-plotnuyu-chem-luchshie-sovremennie-resheniya/print"
+    ]
+  },
+  {
+    "url": "https://5g.dahe.cn/news/202502121891758",
+    "count": 1,
+    "examples": [
+      "https://5g.dahe.cn/news/202502121891758"
+    ]
+  },
+  {
+    "url": "https://aas.org/sites/default/files/2025-06/AAS246_Tue2_JuieShetye.pdf#1#1",
+    "count": 1,
+    "examples": [
+      "https://aas.org/sites/default/files/2025-06/AAS246_Tue2_JuieShetye.pdf#1#1"
+    ]
+  },
+  {
+    "url": "https://aif.ru/society/v-rf-vstupil-v-silu-zakon-kasayushchiysya-avtorizacii-na-saytah-i-v-prilozheniyah",
+    "count": 1,
+    "examples": [
+      "https://aif.ru/society/v-rf-vstupil-v-silu-zakon-kasayushchiysya-avtorizacii-na-saytah-i-v-prilozheniyah"
+    ]
+  },
+  {
+    "url": "https://api-docs.deepseek.com/guides/tool_calls",
+    "count": 1,
+    "examples": [
+      "https://api-docs.deepseek.com/guides/tool_calls"
+    ]
+  },
+  {
+    "url": "https://api-docs.deepseek.com/updates?srch_tag=mnwpc53ze3u2n7jqvp4wwlk76xw2lm2i",
+    "count": 1,
+    "examples": [
+      "https://api-docs.deepseek.com/updates?srch_tag=mnwpc53ze3u2n7jqvp4wwlk76xw2lm2i"
+    ]
+  },
+  {
+    "url": "https://api-docs.deepseek.com/zh-cn/updates",
+    "count": 1,
+    "examples": [
+      "https://api-docs.deepseek.com/zh-cn/updates"
+    ]
+  },
+  {
+    "url": "https://api.deepseek.com/anthropic`",
+    "count": 1,
+    "examples": [
+      "напрямую работать с DeepSeek[reference:8][reference:9]. | | **Через Anthropic-совместимый API** | `https://api.deepseek.com/anthropic` | Этот способ открывает доступ через популярный протокол Anthropic, который используют такие мощные"
+    ]
+  },
+  {
+    "url": "https://api.deepseek.com/chat/completions`[reference:7",
+    "count": 1,
+    "examples": [
+      "к (Header):** `Authorization: Bearer YOUR_API_KEY`[reference:5][reference:6] * **Эндпоинт:** `https://api.deepseek.com/chat/completions`[reference:7] * **Дополнительные меры безопасности:** * **Использовать переменные окружения.** * *"
+    ]
+  },
+  {
+    "url": "https://api.deepseek.com/user/balance`[reference:0",
+    "count": 1,
+    "examples": [
+      "Выполняю проверку баланса. Для этого используем официальный эндпоинт DeepSeek API: `GET https://api.deepseek.com/user/balance`[reference:0][reference:1]. Согласно документации, ответ будет в формате: ```json { \"is_available\": true, \""
+    ]
+  },
+  {
+    "url": "https://api.deepseek.com/v1",
+    "count": 1,
+    "examples": [
+      "тим с форматом OpenAI client = openai.OpenAI( api_key=\"sk-your-deepseek-api-key\", base_url=\"https://api.deepseek.com/v1\" ) # 1. Формируем \"тяжелый\" неизменный префикс (например, база знаний) # Именно этот блок будет ск"
+    ]
+  },
+  {
+    "url": "https://api.deepseek.com/v1/chat/completions`",
+    "count": 1,
+    "examples": [
+      "Поищу. Relevant pages found. Результаты поиска показывают, что есть общий эндпойнт API DeepSeek `https://api.deepseek.com/v1/chat/completions`, а также документация, ключи разработчика и т.д. Также есть информация о локальном развертывании. Т"
+    ]
+  },
+  {
+    "url": "https://api.deepseek.com/v1/chat/completions`[reference:4",
+    "count": 1,
+    "examples": [
+      "$2[reference:3]. 4. **Общий эндпоинт (Шлюз)** — есть универсальный адрес (шлюз) для подключения: `https://api.deepseek.com/v1/chat/completions`[reference:4][reference:5]. Получив эти данные, узел подключается к эндпоинту через стандартный `curl`-запрос:"
+    ]
+  },
+  {
+    "url": "https://api.deepseek.com`",
+    "count": 1,
+    "examples": [
+      "RL (Base URL) | Ключевая особенность | | :--- | :--- | :--- | | **Через OpenAI-совместимый API** | `https://api.deepseek.com` | Это основной и самый гибкий путь. Если у нас есть инструменты, написанные для GPT, после смены `b"
+    ]
+  },
+  {
+    "url": "https://api.deepseek.com`[reference:7",
+    "count": 1,
+    "examples": [
+      "а DeepSeek предлагает два способа подключения, каждый из которых работает через единый базовый URL `https://api.deepseek.com`[reference:7]: | Способ | Базовый URL (Base URL) | Ключевая особенность | | :--- | :--- | :--- | | **Через Open"
+    ]
+  },
+  {
+    "url": "https://ar5iv.labs.arxiv.org/html/1607.02969",
+    "count": 1,
+    "examples": [
+      "https://ar5iv.labs.arxiv.org/html/1607.02969"
+    ]
+  },
+  {
+    "url": "https://ar5iv.labs.arxiv.org/html/2601.19578",
+    "count": 1,
+    "examples": [
+      "https://ar5iv.labs.arxiv.org/html/2601.19578"
+    ]
+  },
+  {
+    "url": "https://artificialanalysis.ai/models/comparisons/deepseek-v4-pro-high-vs-gemini-2-5-pro",
+    "count": 1,
+    "examples": [
+      "https://artificialanalysis.ai/models/comparisons/deepseek-v4-pro-high-vs-gemini-2-5-pro"
+    ]
+  },
+  {
+    "url": "https://arxiv-org.ezproxy.obspm.fr/html/2605.12406v1",
+    "count": 1,
+    "examples": [
+      "https://arxiv-org.ezproxy.obspm.fr/html/2605.12406v1"
+    ]
+  },
+  {
+    "url": "https://arxiv.org/abs/2506.12349?context=cs.CY",
+    "count": 1,
+    "examples": [
+      "https://arxiv.org/abs/2506.12349?context=cs.CY"
+    ]
+  },
+  {
+    "url": "https://arxiv.org/abs/2605.15211",
+    "count": 1,
+    "examples": [
+      "https://arxiv.org/abs/2605.15211"
+    ]
+  },
+  {
+    "url": "https://arxiv.org/abs/2607.01224",
+    "count": 1,
+    "examples": [
+      "Мы без харнеес к сожалению не можем воспроизвести вот эту методику https://arxiv.org/abs/2607.01224 ( если пришлешь то у них есть где то на гитхабе репозиторий где они обучают оперсорс модели типа Кв"
+    ]
+  },
+  {
+    "url": "https://arxiv.org/pdf/2509.26238v2#6#3",
+    "count": 1,
+    "examples": [
+      "https://arxiv.org/pdf/2509.26238v2#6#3"
+    ]
+  },
+  {
+    "url": "https://arxiv.org/pdf/2510.16381v1#4#1",
+    "count": 1,
+    "examples": [
+      "https://arxiv.org/pdf/2510.16381v1#4#1"
+    ]
+  },
+  {
+    "url": "https://asap-seminar.github.io/assets/slides/ASAP%2003122025%20BMOJO.pdf#2#1",
+    "count": 1,
+    "examples": [
+      "https://asap-seminar.github.io/assets/slides/ASAP%2003122025%20BMOJO.pdf#2#1"
+    ]
+  },
+  {
+    "url": "https://azbyka.ru/otechnik/assets/uploads/bpds/vypusk-4-Trudy-BDS.pdf#41#33",
+    "count": 1,
+    "examples": [
+      "https://azbyka.ru/otechnik/assets/uploads/bpds/vypusk-4-Trudy-BDS.pdf#41#33"
+    ]
+  },
+  {
+    "url": "https://baike.baidu.com/item/DeepSeek-V4.1/67766548?svcp_stk=1_u6CWa0oevFIDzwSPYiNTGGPsXWm7lZDuf4FK6FiHIsScXt7FsyXw9BTHnheoWcWnR5LYdk8sl77ZR2XsBiwOAxs9yxyqhDL5At9rTs1Fnez2SqD5Pvv4265WdRdM6dRxRD6H0jt6oiUJBfEoMlvT1CRjvDTu1YUjckkxvY3BkJ6Rzo8EDjQTXAia5r0CIYg4",
+    "count": 1,
+    "examples": [
+      "https://baike.baidu.com/item/DeepSeek-V4.1/67766548?svcp_stk=1_u6CWa0oevFIDzwSPYiNTGGPsXWm7lZDuf4FK6FiHIsScXt7FsyXw9BTHnheoWcWnR5LYdk8sl77ZR2XsBiwOAxs9yxyqhDL5At9rTs1Fnez2SqD5Pvv4265WdRdM6dRxRD6H0jt6oiUJBfEoMlvT1CRjvDTu1YUjckkxvY3BkJ6Rzo8EDjQTXAia5r0CIYg4"
+    ]
+  },
+  {
+    "url": "https://bdtq.cbpt.cnki.net/portal/journal/portal/client/paper/36b5c3260109000f05d1b831ab99e453",
+    "count": 1,
+    "examples": [
+      "https://bdtq.cbpt.cnki.net/portal/journal/portal/client/paper/36b5c3260109000f05d1b831ab99e453"
+    ]
+  },
+  {
+    "url": "https://beta.iopscience.iop.org/article/10.1088/1741-2552/ae4925/meta",
+    "count": 1,
+    "examples": [
+      "https://beta.iopscience.iop.org/article/10.1088/1741-2552/ae4925/meta"
+    ]
+  },
+  {
+    "url": "https://bhutanstudies.org.bt/wp-content/uploads/2025/01/Document-from-lii-2.pdf#28#23",
+    "count": 1,
+    "examples": [
+      "https://bhutanstudies.org.bt/wp-content/uploads/2025/01/Document-from-lii-2.pdf#28#23"
+    ]
+  },
+  {
+    "url": "https://blog.csdn.net/freely723/article/details/158013009",
+    "count": 1,
+    "examples": [
+      "https://blog.csdn.net/freely723/article/details/158013009"
+    ]
+  },
+  {
+    "url": "https://blog.csdn.net/pea55/article/details/154858972",
+    "count": 1,
+    "examples": [
+      "https://blog.csdn.net/pea55/article/details/154858972"
+    ]
+  },
+  {
+    "url": "https://blog.csdn.net/yuanshuit/article/details/160863243",
+    "count": 1,
+    "examples": [
+      "https://blog.csdn.net/yuanshuit/article/details/160863243"
+    ]
+  },
+  {
+    "url": "https://blog.milvus.io/ai-quick-reference/how-does-deepseek-handle-data-anonymization",
+    "count": 1,
+    "examples": [
+      "https://blog.milvus.io/ai-quick-reference/how-does-deepseek-handle-data-anonymization"
+    ]
+  },
+  {
+    "url": "https://blog.sciencenet.cn/blog-280034-1534641.html",
+    "count": 1,
+    "examples": [
+      "https://blog.sciencenet.cn/blog-280034-1534641.html"
+    ]
+  },
+  {
+    "url": "https://books.yandex.ru/books/IOXa3adp/quotes",
+    "count": 1,
+    "examples": [
+      "https://books.yandex.ru/books/IOXa3adp/quotes"
+    ]
+  },
+  {
+    "url": "https://browse-export.arxiv.org/abs/2510.05174?context=cs.AI",
+    "count": 1,
+    "examples": [
+      "https://browse-export.arxiv.org/abs/2510.05174?context=cs.AI"
+    ]
+  },
+  {
+    "url": "https://browse-export.arxiv.org/abs/2510.05792",
+    "count": 1,
+    "examples": [
+      "https://browse-export.arxiv.org/abs/2510.05792"
+    ]
+  },
+  {
+    "url": "https://browse-export.arxiv.org/abs/2601.23174",
+    "count": 1,
+    "examples": [
+      "https://browse-export.arxiv.org/abs/2601.23174"
+    ]
+  },
+  {
+    "url": "https://browse-export.arxiv.org/abs/2602.04291",
+    "count": 1,
+    "examples": [
+      "https://browse-export.arxiv.org/abs/2602.04291"
+    ]
+  },
+  {
+    "url": "https://browse-export.arxiv.org/abs/2604.00487?context=cs.GT",
+    "count": 1,
+    "examples": [
+      "https://browse-export.arxiv.org/abs/2604.00487?context=cs.GT"
+    ]
+  },
+  {
+    "url": "https://browse-export.arxiv.org/abs/2604.18496",
+    "count": 1,
+    "examples": [
+      "https://browse-export.arxiv.org/abs/2604.18496"
+    ]
+  },
+  {
+    "url": "https://browse-export.arxiv.org/abs/2604.18789?context=cs.LG",
+    "count": 1,
+    "examples": [
+      "https://browse-export.arxiv.org/abs/2604.18789?context=cs.LG"
+    ]
+  },
+  {
+    "url": "https://browse-export.arxiv.org/abs/2604.19139",
+    "count": 1,
+    "examples": [
+      "https://browse-export.arxiv.org/abs/2604.19139"
+    ]
+  },
+  {
+    "url": "https://browse-export.arxiv.org/abs/2604.22760",
+    "count": 1,
+    "examples": [
+      "https://browse-export.arxiv.org/abs/2604.22760"
+    ]
+  },
+  {
+    "url": "https://browse-export.arxiv.org/abs/2605.12239",
+    "count": 1,
+    "examples": [
+      "https://browse-export.arxiv.org/abs/2605.12239"
+    ]
+  },
+  {
+    "url": "https://browse-export.arxiv.org/abs/2605.22863",
+    "count": 1,
+    "examples": [
+      "https://browse-export.arxiv.org/abs/2605.22863"
+    ]
+  },
+  {
+    "url": "https://browse-export.arxiv.org/abs/2605.29874",
+    "count": 1,
+    "examples": [
+      "https://browse-export.arxiv.org/abs/2605.29874"
+    ]
+  },
+  {
+    "url": "https://browse-export.arxiv.org/pdf/2510.15893#4#4",
+    "count": 1,
+    "examples": [
+      "https://browse-export.arxiv.org/pdf/2510.15893#4#4"
+    ]
+  },
+  {
+    "url": "https://bug-attachments.documentfoundation.org/attachment.cgi?id=201946#1#1",
+    "count": 1,
+    "examples": [
+      "https://bug-attachments.documentfoundation.org/attachment.cgi?id=201946#1#1"
+    ]
+  },
+  {
+    "url": "https://bytez.com/docs/neurips/119144/paper?_c=eyJ2IjoxLCJyZWxhdGVkIjpbImNvZGUiLCJyZWZlcmVuY2VzIiwiY29uZmVyZW5jZSJdfQ%3D%3D",
+    "count": 1,
+    "examples": [
+      "https://bytez.com/docs/neurips/119144/paper?_c=eyJ2IjoxLCJyZWxhdGVkIjpbImNvZGUiLCJyZWZlcmVuY2VzIiwiY29uZmVyZW5jZSJdfQ%3D%3D"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/%D1%80%D1%83%D0%BD%D0%B8.%D1%80%D1%84",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/%D1%80%D1%83%D0%BD%D0%B8.%D1%80%D1%84"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/%D1%82%D0%BE%D1%87%D0%BD%D0%BE%D0%B5-%D0%B2%D1%80%D0%B5%D0%BC%D1%8F.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/%D1%82%D0%BE%D1%87%D0%BD%D0%BE%D0%B5-%D0%B2%D1%80%D0%B5%D0%BC%D1%8F.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/%D1%86%D0%B1%D1%81-%D1%81%D0%B8%D0%BC%D1%84%D0%B5%D1%80%D0%BE%D0%BF%D0%BE%D0%BB%D1%8C.%D1%80%D1%84",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/%D1%86%D0%B1%D1%81-%D1%81%D0%B8%D0%BC%D1%84%D0%B5%D1%80%D0%BE%D0%BF%D0%BE%D0%BB%D1%8C.%D1%80%D1%84"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/3dnews.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/3dnews.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/aas.org",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/aas.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/aastocks.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/aastocks.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/academia.edu",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/academia.edu"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/acm.org",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/acm.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/aif.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/aif.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/aitechsuite.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/aitechsuite.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/aliyun.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/aliyun.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/aps.org",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/aps.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/artificialanalysis.ai",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/artificialanalysis.ai"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/ayondo.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/ayondo.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/azbyka.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/azbyka.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/bbc.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/bbc.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/berkeley.edu",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/berkeley.edu"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/bfm.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/bfm.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/bhutanstudies.org.bt",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/bhutanstudies.org.bt"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/biologicalpsychiatrycnni.org",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/biologicalpsychiatrycnni.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/biu.ac.il",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/biu.ac.il"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/bjnews.com.cn",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/bjnews.com.cn"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/bnext.com.tw",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/bnext.com.tw"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/brainfacts.org",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/brainfacts.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/bytez.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/bytez.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/cernet.edu.cn",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/cernet.edu.cn"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/chatpaper.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/chatpaper.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/china.com.cn",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/china.com.cn"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/china.org.cn",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/china.org.cn"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/chinaaet.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/chinaaet.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/claude.ai",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/claude.ai"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/cnki.net",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/cnki.net"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/cnpereading.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/cnpereading.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/cnr.cn",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/cnr.cn"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/coherent.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/coherent.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/correct-time.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/correct-time.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/csis.org",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/csis.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/cyberleninka.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/cyberleninka.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/dahe.cn",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/dahe.cn"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/dartmouth.edu",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/dartmouth.edu"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/datayuan.cn",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/datayuan.cn"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/dayspedia.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/dayspedia.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/deepseekagi.org",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/deepseekagi.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/deepwiki.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/deepwiki.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/degruyterbrill.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/degruyterbrill.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/devx.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/devx.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/digitalocean.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/digitalocean.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/dimensions.ai",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/dimensions.ai"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/documentfoundation.org",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/documentfoundation.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/e-gorod.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/e-gorod.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/eabp.org",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/eabp.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/eenewseurope.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/eenewseurope.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/eet-china.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/eet-china.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/epic-photonics.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/epic-photonics.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/euronews.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/euronews.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/eweek.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/eweek.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/fairobserver.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/fairobserver.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/fqxi.org",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/fqxi.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/futunn.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/futunn.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/futureagi.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/futureagi.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/genius.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/genius.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/giiresearch.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/giiresearch.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/githubusercontent.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/githubusercontent.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/gmw.cn",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/gmw.cn"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/go.dev",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/go.dev"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/google.dev",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/google.dev"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/hal.science",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/hal.science"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/handytimers.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/handytimers.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/harness.io",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/harness.io"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/heepsy.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/heepsy.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/hizh.cn",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/hizh.cn"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/hkust.edu.hk",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/hkust.edu.hk"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/hypeauditor.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/hypeauditor.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/icml.cc",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/icml.cc"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/ietf.org",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/ietf.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/ifaamas.org",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/ifaamas.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/ifeng.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/ifeng.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/igorslab.de",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/igorslab.de"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/inform.kz",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/inform.kz"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/infourok.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/infourok.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/inworld.ai",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/inworld.ai"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/irtree.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/irtree.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/iscte-iul.pt",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/iscte-iul.pt"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/isdglobal.org",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/isdglobal.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/it168.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/it168.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/ithome.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/ithome.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/jiemian.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/jiemian.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/jingjiribao.cn",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/jingjiribao.cn"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/jinr.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/jinr.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/just-international.org",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/just-international.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/kci.go.kr",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/kci.go.kr"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/kepuchina.cn",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/kepuchina.cn"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/kommersant.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/kommersant.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/kth.se",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/kth.se"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/last.fm",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/last.fm"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/lebedev.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/lebedev.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/lightmatter.co",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/lightmatter.co"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/livelib.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/livelib.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/lzu.edu.cn",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/lzu.edu.cn"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/mdpi.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/mdpi.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/meteonews.ch",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/meteonews.ch"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/milvus.io",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/milvus.io"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/mir24.tv",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/mir24.tv"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/mit.edu",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/mit.edu"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/mpi.nl",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/mpi.nl"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/mrs.org",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/mrs.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/msu.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/msu.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/mydrivers.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/mydrivers.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/naked-science.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/naked-science.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/naukatv.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/naukatv.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/nbd.com.cn",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/nbd.com.cn"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/neuraladx.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/neuraladx.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/neurips.cc",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/neurips.cc"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/npmjs.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/npmjs.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/nypost.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/nypost.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/obspm.fr",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/obspm.fr"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/openai.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/openai.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/openclaw.ai",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/openclaw.ai"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/optica.org",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/optica.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/osnmedia.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/osnmedia.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/osti.gov",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/osti.gov"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/pingwest.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/pingwest.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/placera.se",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/placera.se"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/pnas.org",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/pnas.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/preferred.jp",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/preferred.jp"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/promptbuilder.cc",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/promptbuilder.cc"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/pushkininstitute.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/pushkininstitute.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/pypi.org",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/pypi.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/qtc.com.cn",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/qtc.com.cn"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/researching.cn",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/researching.cn"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/rusneb.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/rusneb.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/sbras.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/sbras.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/scicrunch.org",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/scicrunch.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/science.org",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/science.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/sciencenet.cn",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/sciencenet.cn"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/silicontaiga.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/silicontaiga.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/sina.cn",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/sina.cn"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/skywork.ai",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/skywork.ai"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/socket.dev",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/socket.dev"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/stanford.edu",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/stanford.edu"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/stdaily.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/stdaily.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/substack.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/substack.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/svelte.dev",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/svelte.dev"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/swissinfo.ch",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/swissinfo.ch"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/tandfonline.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/tandfonline.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/technologyreview.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/technologyreview.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/temporal.io",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/temporal.io"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/tencent.com.cn",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/tencent.com.cn"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/theneuron.ai",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/theneuron.ai"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/thenextweb.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/thenextweb.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/tidenews.com.cn",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/tidenews.com.cn"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/timein.org",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/timein.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/timeout.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/timeout.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/timezone.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/timezone.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/timezone360.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/timezone360.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/tmtpost.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/tmtpost.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/tomshardware.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/tomshardware.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/toutiao.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/toutiao.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/uchi.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/uchi.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/umt.edu",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/umt.edu"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/uni-heidelberg.de",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/uni-heidelberg.de"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/unwire.hk",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/unwire.hk"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/venturebeat.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/venturebeat.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/vesti.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/vesti.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/vllm.ai",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/vllm.ai"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/vtv.vn",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/vtv.vn"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/webtimer.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/webtimer.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/wedbush.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/wedbush.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/wenweipo.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/wenweipo.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/xalqqazeti.az",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/xalqqazeti.az"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/xbxkzz.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/xbxkzz.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/xhby.net",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/xhby.net"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/xix.ai",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/xix.ai"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/xras.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/xras.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/xseek.io",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/xseek.io"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/yandex.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/yandex.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/your-online.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/your-online.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/ys-citylibrary.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/ys-citylibrary.ru"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/zfin.org",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/zfin.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/zhidx.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/zhidx.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/zhihu.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/zhihu.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/zjiii.org",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/zjiii.org"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/znanija.com",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/znanija.com"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/zte.com.cn",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/zte.com.cn"
+    ]
+  },
+  {
+    "url": "https://cdn.deepseek.com/site-icons/zvuki.ru",
+    "count": 1,
+    "examples": [
+      "https://cdn.deepseek.com/site-icons/zvuki.ru"
+    ]
+  },
+  {
+    "url": "https://chat-deep.ai/docs/deepseek-evaluation-framework/#google_vignette",
+    "count": 1,
+    "examples": [
+      "можешь прочитать эту страницу? https://chat-deep.ai/docs/deepseek-evaluation-framework/#google_vignette"
+    ]
+  },
+  {
+    "url": "https://chat-deep.ai/docs/deepseek-synthetic-data-generation/",
+    "count": 1,
+    "examples": [
+      "Вот еще на подумать https://chat-deep.ai/docs/deepseek-synthetic-data-generation/"
+    ]
+  },
+  {
+    "url": "https://chatpaper.com/chatpaper/paper/243142?from=subpath-venues",
+    "count": 1,
+    "examples": [
+      "https://chatpaper.com/chatpaper/paper/243142?from=subpath-venues"
+    ]
+  },
+  {
+    "url": "https://ciencia.iscte-iul.pt/publications/evaluating-the-clinical-safety-of-large-language-models-in-response-to-high-risk-mental-health/117447",
+    "count": 1,
+    "examples": [
+      "https://ciencia.iscte-iul.pt/publications/evaluating-the-clinical-safety-of-large-language-models-in-response-to-high-risk-mental-health/117447"
+    ]
+  },
+  {
+    "url": "https://claude.ai/public/artifacts/61ba9763-4eeb-40af-8ccb-e3fa503aa6ca",
+    "count": 1,
+    "examples": [
+      "https://claude.ai/public/artifacts/61ba9763-4eeb-40af-8ccb-e3fa503aa6ca"
+    ]
+  },
+  {
+    "url": "https://cloud.baidu.com/article/3725476",
+    "count": 1,
+    "examples": [
+      "https://cloud.baidu.com/article/3725476"
+    ]
+  },
+  {
+    "url": "https://cloud.kepuchina.cn/h5/detail?id=7286224963831152640",
+    "count": 1,
+    "examples": [
+      "https://cloud.kepuchina.cn/h5/detail?id=7286224963831152640"
+    ]
+  },
+  {
+    "url": "https://cloud.tencent.com.cn/developer/article/2679218",
+    "count": 1,
+    "examples": [
+      "https://cloud.tencent.com.cn/developer/article/2679218"
+    ]
+  },
+  {
+    "url": "https://cs.biu.ac.il/he/node/495",
+    "count": 1,
+    "examples": [
+      "https://cs.biu.ac.il/he/node/495"
+    ]
+  },
+  {
+    "url": "https://cyberleninka.ru/article/n/sovremennoe-vospriyatie-fenomena-raduzhnogo-tela-v-tibetskom-buddizme/pdf#3#1",
+    "count": 1,
+    "examples": [
+      "https://cyberleninka.ru/article/n/sovremennoe-vospriyatie-fenomena-raduzhnogo-tela-v-tibetskom-buddizme/pdf#3#1"
+    ]
+  },
+  {
+    "url": "https://datatracker.ietf.org/meeting/123/materials/slides-123-rift-llm-moe-multicast-00#1#1",
+    "count": 1,
+    "examples": [
+      "https://datatracker.ietf.org/meeting/123/materials/slides-123-rift-llm-moe-multicast-00#1#1"
+    ]
+  },
+  {
+    "url": "https://dayspedia.com/time/ru/Kaliningrad/?lang=ru",
+    "count": 1,
+    "examples": [
+      "https://dayspedia.com/time/ru/Kaliningrad/?lang=ru"
+    ]
+  },
+  {
+    "url": "https://deepseek.csdn.net/6a4c822410ee7a33f288ad8a.html",
+    "count": 1,
+    "examples": [
+      "https://deepseek.csdn.net/6a4c822410ee7a33f288ad8a.html"
+    ]
+  },
+  {
+    "url": "https://deepseekagi.org/deepseek-vs-gemini/",
+    "count": 1,
+    "examples": [
+      "https://deepseekagi.org/deepseek-vs-gemini/"
+    ]
+  },
+  {
+    "url": "https://deepwiki.com/MoFox-Studio/MoFox_Bot/7.9-cross-context-communication",
+    "count": 1,
+    "examples": [
+      "https://deepwiki.com/MoFox-Studio/MoFox_Bot/7.9-cross-context-communication"
+    ]
+  },
+  {
+    "url": "https://dev.to/eagerspark/i-ran-deepseek-v4-and-gemini-20-pro-head-to-head-for-a-month-g56",
+    "count": 1,
+    "examples": [
+      "https://dev.to/eagerspark/i-ran-deepseek-v4-and-gemini-20-pro-head-to-head-for-a-month-g56"
+    ]
+  },
+  {
+    "url": "https://dev.to/xccelera/how-deepseek-v4s-architecture-differs-from-gpt-55-under-the-hood-21ch",
+    "count": 1,
+    "examples": [
+      "https://dev.to/xccelera/how-deepseek-v4s-architecture-differs-from-gpt-55-under-the-hood-21ch"
+    ]
+  },
+  {
+    "url": "https://developer.aliyun.com/article/1740717",
+    "count": 1,
+    "examples": [
+      "https://developer.aliyun.com/article/1740717"
+    ]
+  },
+  {
+    "url": "https://developer.baidu.com/article/detail.html?id=3588008",
+    "count": 1,
+    "examples": [
+      "https://developer.baidu.com/article/detail.html?id=3588008"
+    ]
+  },
+  {
+    "url": "https://developer.baidu.com/article/detail.html?id=3597288",
+    "count": 1,
+    "examples": [
+      "https://developer.baidu.com/article/detail.html?id=3597288"
+    ]
+  },
+  {
+    "url": "https://developer.baidu.com/article/detail.html?id=3687445",
+    "count": 1,
+    "examples": [
+      "https://developer.baidu.com/article/detail.html?id=3687445"
+    ]
+  },
+  {
+    "url": "https://developer.baidu.com/article/detail.html?id=3725203",
+    "count": 1,
+    "examples": [
+      "https://developer.baidu.com/article/detail.html?id=3725203"
+    ]
+  },
+  {
+    "url": "https://developer.baidu.com/article/detail.html?id=3775662",
+    "count": 1,
+    "examples": [
+      "https://developer.baidu.com/article/detail.html?id=3775662"
+    ]
+  },
+  {
+    "url": "https://developer.baidu.com/article/detail.html?id=3775819",
+    "count": 1,
+    "examples": [
+      "https://developer.baidu.com/article/detail.html?id=3775819"
+    ]
+  },
+  {
+    "url": "https://developer.baidu.com/article/detail.html?id=3777101",
+    "count": 1,
+    "examples": [
+      "https://developer.baidu.com/article/detail.html?id=3777101"
+    ]
+  },
+  {
+    "url": "https://developer.baidu.com/article/detail.html?id=6821726",
+    "count": 1,
+    "examples": [
+      "https://developer.baidu.com/article/detail.html?id=6821726"
+    ]
+  },
+  {
+    "url": "https://developer.baidu.com/article/detail.html?id=7323710",
+    "count": 1,
+    "examples": [
+      "https://developer.baidu.com/article/detail.html?id=7323710"
+    ]
+  },
+  {
+    "url": "https://digital.it168.com/a2026/0708/6939/000006939221.shtml",
+    "count": 1,
+    "examples": [
+      "https://digital.it168.com/a2026/0708/6939/000006939221.shtml"
+    ]
+  },
+  {
+    "url": "https://direct.mit.edu/books/monograph/6132/How-Deeply-Human-Is-Language-Chomsky-the-Brain-and#skipNav",
+    "count": 1,
+    "examples": [
+      "https://direct.mit.edu/books/monograph/6132/How-Deeply-Human-Is-Language-Chomsky-the-Brain-and#skipNav"
+    ]
+  },
+  {
+    "url": "https://discuss.ai.google.dev/t/critical-usability-failure/136543",
+    "count": 1,
+    "examples": [
+      "https://discuss.ai.google.dev/t/critical-usability-failure/136543"
+    ]
+  },
+  {
+    "url": "https://discuss.huggingface.co/t/the-latent-space-charter/172372/2",
+    "count": 1,
+    "examples": [
+      "https://discuss.huggingface.co/t/the-latent-space-charter/172372/2"
+    ]
+  },
+  {
+    "url": "https://dl.acm.org/doi/10.1016/j.ipm.2025.104548",
+    "count": 1,
+    "examples": [
+      "https://dl.acm.org/doi/10.1016/j.ipm.2025.104548"
+    ]
+  },
+  {
+    "url": "https://docs.openclaw.ai/concepts/agent-runtimes",
+    "count": 1,
+    "examples": [
+      "https://docs.openclaw.ai/concepts/agent-runtimes"
+    ]
+  },
+  {
+    "url": "https://docs.vllm.ai/en/v0.21.0/api/vllm/tool_parsers/deepseekv4_tool_parser/#vllm.tool_parsers.deepseekv4_tool_parser",
+    "count": 1,
+    "examples": [
+      "https://docs.vllm.ai/en/v0.21.0/api/vllm/tool_parsers/deepseekv4_tool_parser/#vllm.tool_parsers.deepseekv4_tool_parser"
+    ]
+  },
+  {
+    "url": "https://doi.org/10.21203/rs.3.rs-",
+    "count": 1,
+    "examples": [
+      "s in Silicon Photonic Circuits, 17 October 2025, PREPRINT (Version 1) available at Research Square [https://doi.org/10.21203/rs.3.rs- 7716086/v1]"
+    ]
+  },
+  {
+    "url": "https://doi.org/10.3390/photonics13010011",
+    "count": 1,
+    "examples": [
+      "Photonics 2026, 13(1), 11; https://doi.org/10.3390/photonics13010011 - 24 Dec 2025 ... Generative artificial intelligence (AI) models including GPT, Gemini, and DeepSee"
+    ]
+  },
+  {
+    "url": "https://dtic.dimensions.ai/details/publication/pub.1196133553?and_facet_for=80017&and_facet_for=80189&and_facet_source_title=jour.1121462",
+    "count": 1,
+    "examples": [
+      "https://dtic.dimensions.ai/details/publication/pub.1196133553?and_facet_for=80017&and_facet_for=80189&and_facet_source_title=jour.1121462"
+    ]
+  },
+  {
+    "url": "https://dxpress.gelonghui.com/p/4156202",
+    "count": 1,
+    "examples": [
+      "https://dxpress.gelonghui.com/p/4156202"
+    ]
+  },
+  {
+    "url": "https://dxpress.gelonghui.com/p/4568631",
+    "count": 1,
+    "examples": [
+      "https://dxpress.gelonghui.com/p/4568631"
+    ]
+  },
+  {
+    "url": "https://e-gorod.ru/%D0%BA%D0%B0%D0%BB%D0%B8%D0%BD%D0%B8%D0%BD%D0%B3%D1%80%D0%B0%D0%B4/",
+    "count": 1,
+    "examples": [
+      "https://e-gorod.ru/%D0%BA%D0%B0%D0%BB%D0%B8%D0%BD%D0%B8%D0%BD%D0%B3%D1%80%D0%B0%D0%B4/"
+    ]
+  },
+  {
+    "url": "https://eabp.org/wp-content/uploads/2019/11/15thEABP-CongressPresentations-e-Book.pdf#70#23",
+    "count": 1,
+    "examples": [
+      "https://eabp.org/wp-content/uploads/2019/11/15thEABP-CongressPresentations-e-Book.pdf#70#23"
+    ]
+  },
+  {
+    "url": "https://elb.ys-citylibrary.ru/userfiles/mag/VnkCh/7klass/vas_terk/files/basic-html/page19.html",
+    "count": 1,
+    "examples": [
+      "https://elb.ys-citylibrary.ru/userfiles/mag/VnkCh/7klass/vas_terk/files/basic-html/page19.html"
+    ]
+  },
+  {
+    "url": "https://en.m.wikipedia.org/w/index.php?title=Rainbow_body&curid=9406328",
+    "count": 1,
+    "examples": [
+      "https://en.m.wikipedia.org/w/index.php?title=Rainbow_body&curid=9406328"
+    ]
+  },
+  {
+    "url": "https://en.theblockbeats.news/flash/342816",
+    "count": 1,
+    "examples": [
+      "https://en.theblockbeats.news/flash/342816"
+    ]
+  },
+  {
+    "url": "https://en.theblockbeats.news/flash/342818",
+    "count": 1,
+    "examples": [
+      "https://en.theblockbeats.news/flash/342818"
+    ]
+  },
+  {
+    "url": "https://epic-photonics.com/wp-content/uploads/2025/03/CORNERSTONE-Frederic-Gardes.pdf#1#1",
+    "count": 1,
+    "examples": [
+      "https://epic-photonics.com/wp-content/uploads/2025/03/CORNERSTONE-Frederic-Gardes.pdf#1#1"
+    ]
+  },
+  {
+    "url": "https://eu.36kr.com/en/p/3647435849043586",
+    "count": 1,
+    "examples": [
+      "https://eu.36kr.com/en/p/3647435849043586"
+    ]
+  },
+  {
+    "url": "https://eu.36kr.com/en/p/3828667003982464",
+    "count": 1,
+    "examples": [
+      "https://eu.36kr.com/en/p/3828667003982464"
+    ]
+  },
+  {
+    "url": "https://eu.36kr.com/zh/p/3818407956366208",
+    "count": 1,
+    "examples": [
+      "https://eu.36kr.com/zh/p/3818407956366208"
+    ]
+  },
+  {
+    "url": "https://europepmc.org/article/ppr/ppr1030670",
+    "count": 1,
+    "examples": [
+      "https://europepmc.org/article/ppr/ppr1030670"
+    ]
+  },
+  {
+    "url": "https://europepmc.org/backend/ptpmcrender.fcgi?accid=PMC11528057&blobtype=pdf#3#1",
+    "count": 1,
+    "examples": [
+      "https://europepmc.org/backend/ptpmcrender.fcgi?accid=PMC11528057&blobtype=pdf#3#1"
+    ]
+  },
+  {
+    "url": "https://events.berkeley.edu/event/317751-bioengineering-seminar-exploring-light-and-life",
+    "count": 1,
+    "examples": [
+      "https://events.berkeley.edu/event/317751-bioengineering-seminar-exploring-light-and-life"
+    ]
+  },
+  {
+    "url": "https://export.arxiv.org/abs/2506.01814?context=cs.SI",
+    "count": 1,
+    "examples": [
+      "https://export.arxiv.org/abs/2506.01814?context=cs.SI"
+    ]
+  },
+  {
+    "url": "https://export.arxiv.org/abs/2603.07360",
+    "count": 1,
+    "examples": [
+      "https://export.arxiv.org/abs/2603.07360"
+    ]
+  },
+  {
+    "url": "https://export.arxiv.org/abs/2603.21278",
+    "count": 1,
+    "examples": [
+      "https://export.arxiv.org/abs/2603.21278"
+    ]
+  },
+  {
+    "url": "https://export.arxiv.org/abs/2603.28386",
+    "count": 1,
+    "examples": [
+      "https://export.arxiv.org/abs/2603.28386"
+    ]
+  },
+  {
+    "url": "https://export.arxiv.org/abs/2604.00026",
+    "count": 1,
+    "examples": [
+      "https://export.arxiv.org/abs/2604.00026"
+    ]
+  },
+  {
+    "url": "https://export.arxiv.org/abs/2605.13941",
+    "count": 1,
+    "examples": [
+      "https://export.arxiv.org/abs/2605.13941"
+    ]
+  },
+  {
+    "url": "https://export.arxiv.org/abs/2605.24686",
+    "count": 1,
+    "examples": [
+      "https://export.arxiv.org/abs/2605.24686"
+    ]
+  },
+  {
+    "url": "https://export.arxiv.org/abs/2605.31521",
+    "count": 1,
+    "examples": [
+      "https://export.arxiv.org/abs/2605.31521"
+    ]
+  },
+  {
+    "url": "https://export.arxiv.org/abs/2606.00485",
+    "count": 1,
+    "examples": [
+      "https://export.arxiv.org/abs/2606.00485"
+    ]
+  },
+  {
+    "url": "https://export.arxiv.org/abs/2606.02739",
+    "count": 1,
+    "examples": [
+      "https://export.arxiv.org/abs/2606.02739"
+    ]
+  },
+  {
+    "url": "https://export.arxiv.org/abs/2606.03043",
+    "count": 1,
+    "examples": [
+      "https://export.arxiv.org/abs/2606.03043"
+    ]
+  },
+  {
+    "url": "https://export.arxiv.org/abs/2606.21856",
+    "count": 1,
+    "examples": [
+      "https://export.arxiv.org/abs/2606.21856"
+    ]
+  },
+  {
+    "url": "https://export.arxiv.org/pdf/2512.09772#4#1",
+    "count": 1,
+    "examples": [
+      "https://export.arxiv.org/pdf/2512.09772#4#1"
+    ]
+  },
+  {
+    "url": "https://finance.eastmoney.com/a/202510303550012917.html",
+    "count": 1,
+    "examples": [
+      "https://finance.eastmoney.com/a/202510303550012917.html"
+    ]
+  },
+  {
+    "url": "https://finance.sina.cn/2026-05-14/detail-inhxwktz9979034.d.html?vt=4",
+    "count": 1,
+    "examples": [
+      "https://finance.sina.cn/2026-05-14/detail-inhxwktz9979034.d.html?vt=4"
+    ]
+  },
+  {
+    "url": "https://futureagi.com/blog/evaluating-deepseek-models-2026/",
+    "count": 1,
+    "examples": [
+      "https://futureagi.com/blog/evaluating-deepseek-models-2026/"
+    ]
+  },
+  {
+    "url": "https://g.pconline.com.cn/x/2146/21464551.html",
+    "count": 1,
+    "examples": [
+      "https://g.pconline.com.cn/x/2146/21464551.html"
+    ]
+  },
+  {
+    "url": "https://genius.com/artists/Atlantida-project",
+    "count": 1,
+    "examples": [
+      "https://genius.com/artists/Atlantida-project"
+    ]
+  },
+  {
+    "url": "https://github.com/ai-boost/awesome-harness-engineering",
+    "count": 1,
+    "examples": [
+      "https://github.com/ai-boost/awesome-harness-engineering"
+    ]
+  },
+  {
+    "url": "https://github.com/codylindley/ai-harness-engineering-compatibility-matrix",
+    "count": 1,
+    "examples": [
+      "https://github.com/codylindley/ai-harness-engineering-compatibility-matrix"
+    ]
+  },
+  {
+    "url": "https://github.com/cohesion-org/deepseek-go/blob/v1.3.4/examples/12_function_calling/function_calling.go",
+    "count": 1,
+    "examples": [
+      "https://github.com/cohesion-org/deepseek-go/blob/v1.3.4/examples/12_function_calling/function_calling.go"
+    ]
+  },
+  {
+    "url": "https://github.com/Decentralised-AI/Deepseek-Engram/blob/main/README.md",
+    "count": 1,
+    "examples": [
+      "https://github.com/Decentralised-AI/Deepseek-Engram/blob/main/README.md"
+    ]
+  },
+  {
+    "url": "https://github.com/deepseek-ai/DeepSeek-R1/issues/345#issue-2840710826",
+    "count": 1,
+    "examples": [
+      "https://github.com/deepseek-ai/DeepSeek-R1/issues/345#issue-2840710826"
+    ]
+  },
+  {
+    "url": "https://github.com/deepseek-ai/DeepSeek-V3/issues/1365",
+    "count": 1,
+    "examples": [
+      "https://github.com/deepseek-ai/DeepSeek-V3/issues/1365"
+    ]
+  },
+  {
+    "url": "https://github.com/deepseek-ai/DeepSeek-V3/issues/1409",
+    "count": 1,
+    "examples": [
+      "https://github.com/deepseek-ai/DeepSeek-V3/issues/1409"
+    ]
+  },
+  {
+    "url": "https://github.com/deepseek-ai/DeepSeek-V4",
+    "count": 1,
+    "examples": [
+      "eneral, 14(11), L453–L457. [6] DeepSeek AI. (2026). DeepSeek V4: Technical report. Retrieved from https://github.com/deepseek-ai/DeepSeek-V4 [7] Anthropic. (2026). Claude 4.5 context management. Retrieved from https://www.anthropic.com/ne"
+    ]
+  },
+  {
+    "url": "https://github.com/deepseek-ai/Engram?utm_source=www.pythonweekly.com&utm_medium=newsletter&utm_campaign=python-weekly-issue-728-january-15-2026",
+    "count": 1,
+    "examples": [
+      "https://github.com/deepseek-ai/Engram?utm_source=www.pythonweekly.com&utm_medium=newsletter&utm_campaign=python-weekly-issue-728-january-15-2026"
+    ]
+  },
+  {
+    "url": "https://github.com/DeepSeek-R1-Fully-Open-Reproduction",
+    "count": 1,
+    "examples": [
+      "https://github.com/DeepSeek-R1-Fully-Open-Reproduction"
+    ]
+  },
+  {
+    "url": "https://github.com/enricoros/big-agi/issues/908",
+    "count": 1,
+    "examples": [
+      "https://github.com/enricoros/big-agi/issues/908"
+    ]
+  },
+  {
+    "url": "https://github.com/feiok/DeepSeek-R1",
+    "count": 1,
+    "examples": [
+      "https://github.com/feiok/DeepSeek-R1"
+    ]
+  },
+  {
+    "url": "https://github.com/hed-ucas/AlphaDecay",
+    "count": 1,
+    "examples": [
+      "на найденные исследования: 1. **AlphaDecay (проще всего)**: Возьмите готовый код с GitHub авторов (https://github.com/hed-ucas/AlphaDecay)[reference:21]. Внедрите в свой pipeline и получите модульный адаптивный decay без переписывания оп"
+    ]
+  },
+  {
+    "url": "https://github.com/Hmbown/CodeWhale/blob/main/docs/CONFIGURATION.md",
+    "count": 1,
+    "examples": [
+      "codewhale/config.toml`[reference:20]. В документации проекта есть подробный файл [CONFIGURATION.md](https://github.com/Hmbown/CodeWhale/blob/main/docs/CONFIGURATION.md)[reference:21], где разобраны все настройки. --- ### 💎 Итог Твоя интуиция была абсолютно верна."
+    ]
+  },
+  {
+    "url": "https://github.com/HumeAI/tada",
+    "count": 1,
+    "examples": [
+      "https://github.com/HumeAI/tada"
+    ]
+  },
+  {
+    "url": "https://github.com/IDanK0/Deepseek-Dataset-Generator",
+    "count": 1,
+    "examples": [
+      "https://github.com/IDanK0/Deepseek-Dataset-Generator"
+    ]
+  },
+  {
+    "url": "https://github.com/karpathy/llm-council",
+    "count": 1,
+    "examples": [
+      "И это проблемы всех уных моделей ) поэтому и появляются такие проекты как https://github.com/karpathy/llm-council чтобы сам формат общения стимулировал честность"
+    ]
+  },
+  {
+    "url": "https://github.com/KrishBhimani/Deep-Research-Agent",
+    "count": 1,
+    "examples": [
+      "https://github.com/KrishBhimani/Deep-Research-Agent"
+    ]
+  },
+  {
+    "url": "https://github.com/lobehub/lobehub/pull/8878",
+    "count": 1,
+    "examples": [
+      "https://github.com/lobehub/lobehub/pull/8878"
+    ]
+  },
+  {
+    "url": "https://github.com/luongjames8/deepseek-cli/commit/f51d0a86ae9a489d5dab71cda70e88958c5377f5",
+    "count": 1,
+    "examples": [
+      "https://github.com/luongjames8/deepseek-cli/commit/f51d0a86ae9a489d5dab71cda70e88958c5377f5"
+    ]
+  },
+  {
+    "url": "https://github.com/luongjames8/deepseek-mcp-server/commit/3f8cb9614578e3caa8778975c0b5d36637a375d1",
+    "count": 1,
+    "examples": [
+      "https://github.com/luongjames8/deepseek-mcp-server/commit/3f8cb9614578e3caa8778975c0b5d36637a375d1"
+    ]
+  },
+  {
+    "url": "https://github.com/Murai-Labs/Kalavai",
+    "count": 1,
+    "examples": [
+      "https://github.com/Murai-Labs/Kalavai"
+    ]
+  },
+  {
+    "url": "https://github.com/omni-georgio/deep_research-",
+    "count": 1,
+    "examples": [
+      "https://github.com/omni-georgio/deep_research-"
+    ]
+  },
+  {
+    "url": "https://github.com/Palo-Alto-AI-Research-Lab/claude-consensus",
+    "count": 1,
+    "examples": [
+      "вот например еще такая реализация https://github.com/Palo-Alto-AI-Research-Lab/claude-consensus"
+    ]
+  },
+  {
+    "url": "https://github.com/ruanyf/weekly/issues/8662#issue-3795378229",
+    "count": 1,
+    "examples": [
+      "https://github.com/ruanyf/weekly/issues/8662#issue-3795378229"
+    ]
+  },
+  {
+    "url": "https://github.com/taylorwilsdon/llm-context-limits",
+    "count": 1,
+    "examples": [
+      "https://github.com/taylorwilsdon/llm-context-limits"
+    ]
+  },
+  {
+    "url": "https://github.com/verygoodplugins/automem",
+    "count": 1,
+    "examples": [
+      "Эх еще бы разрабы деепсеека встроили аналог вот этого https://github.com/verygoodplugins/automem"
+    ]
+  },
+  {
+    "url": "https://github.com/vllm-project/vllm/blob/469f3dcf/vllm/tool_parsers/deepseekv4_tool_parser.py",
+    "count": 1,
+    "examples": [
+      "https://github.com/vllm-project/vllm/blob/469f3dcf/vllm/tool_parsers/deepseekv4_tool_parser.py"
+    ]
+  },
+  {
+    "url": "https://github.com/walkinglabs/awesome-harness-engineering",
+    "count": 1,
+    "examples": [
+      "https://github.com/walkinglabs/awesome-harness-engineering"
+    ]
+  },
+  {
+    "url": "https://guba.eastmoney.com/news,cjpl,1669714344.html",
+    "count": 1,
+    "examples": [
+      "https://guba.eastmoney.com/news,cjpl,1669714344.html"
+    ]
+  },
+  {
+    "url": "https://hal.science/hal-03174624v1/dc",
+    "count": 1,
+    "examples": [
+      "https://hal.science/hal-03174624v1/dc"
+    ]
+  },
+  {
+    "url": "https://handytimers.ru/time/europe/russia/kaliningrad/",
+    "count": 1,
+    "examples": [
+      "https://handytimers.ru/time/europe/russia/kaliningrad/"
+    ]
+  },
+  {
+    "url": "https://harvest.aps.org:443/v2/journals/articles/10.1103/PhysRevE.110.024402/fulltext#3#3",
+    "count": 1,
+    "examples": [
+      "https://harvest.aps.org:443/v2/journals/articles/10.1103/PhysRevE.110.024402/fulltext#3#3"
+    ]
+  },
+  {
+    "url": "https://hightech.fm/2026/07/07/smallest-contacts-future-chips?fbclid=IwVERDUAS9zGhleHRuA2FlbQIxMABzcnRjBmFwcF9pZAwzNTA2ODU1MzE3MjgAAR7Va0GAyMm1Y_jqkQxVFImqwEMFDzAcIgSPM6t5N8XUIX9LRLjfIMhRleSgdA_aem_khEBV7s1jHvpfCEeFPyBQw",
+    "count": 1,
+    "examples": [
+      "Вот смотри ещё чего интересного) Ну это опять же научпоп и надо верифицировать https://hightech.fm/2026/07/07/smallest-contacts-future-chips?fbclid=IwVERDUAS9zGhleHRuA2FlbQIxMABzcnRjBmFwcF9pZAwzNTA2ODU1MzE3MjgAAR7Va0GAyMm1Y_jqkQxVFImqwEMFDzAcIgSPM6t5N8XUIX9LRLjfIMhRleSgdA_aem_khEBV7s1jHvpfCEeFPyBQw"
+    ]
+  },
+  {
+    "url": "https://hightech.plus/2026/07/02/ii-poveril-chto-225-i-peredal-paroli-zloumishlenniku",
+    "count": 1,
+    "examples": [
+      "конечно так себе ресурс но сигнал, что некоторые гады вашу суперсилы игры используют не по доброму https://hightech.plus/2026/07/02/ii-poveril-chto-225-i-peredal-paroli-zloumishlenniku"
+    ]
+  },
+  {
+    "url": "https://hightech.plus/2026/07/02/novie-androidi-ubtech-raspoznayut-emocii-s-tochnostyu-90-i-viglyadyat-pochti-kak-lyudi?fbclid=IwdGRjcAS4X4NjbGNrBLhfeGV4dG4DYWVtAjExAHNydGMGYXBwX2lkDDM1MDY4NTUzMTcyOAABHivsjrgEJM3Z8xH-8WpBcR5Tm2mWoelPXhonx5rINcdUCu9f2qGq_03qu2cE_aem_xC_1CzIYJxJaYiD04kaW2Q",
+    "count": 1,
+    "examples": [
+      "Давай попробуем раскопать что там за локальный ии и как связан с g1 https://hightech.plus/2026/07/02/novie-androidi-ubtech-raspoznayut-emocii-s-tochnostyu-90-i-viglyadyat-pochti-kak-lyudi?fbclid=IwdGRjcAS4X4NjbGNrBLhfeGV4dG4DYWVtAjExAHNydGMGYXBwX2lkDDM1MDY4NTUzMTcyOAABHivsjrgEJM3Z8xH-8WpBcR5Tm2mWoelPXhonx5rINcdUCu9f2qGq_03qu2cE_aem_xC_1CzIYJxJaYiD04kaW2Q"
+    ]
+  },
+  {
+    "url": "https://hightech.plus/2026/07/08/kitai-gotovitsya-ogranichit-dostup-k-svoim-vedushim-ii-modelyam-dlya-inostrancev",
+    "count": 1,
+    "examples": [
+      "ка Reuters, знакомые с ходом переговоров, в которых участвовали Alibaba, ByteDance и стартап Z.ai. https://hightech.plus/2026/07/08/kitai-gotovitsya-ogranichit-dostup-k-svoim-vedushim-ii-modelyam-dlya-inostrancev"
+    ]
+  },
+  {
+    "url": "https://hn.svelte.dev/item/43977089",
+    "count": 1,
+    "examples": [
+      "https://hn.svelte.dev/item/43977089"
+    ]
+  },
+  {
+    "url": "https://home.dartmouth.edu/news/2026/01/student-research-examines-loyalties-language-models?page=1082",
+    "count": 1,
+    "examples": [
+      "https://home.dartmouth.edu/news/2026/01/student-research-examines-loyalties-language-models?page=1082"
+    ]
+  },
+  {
+    "url": "https://hsnamkoong.github.io/assets/html/b9145/lecture-materials/06-reasoning.pdf#5#5",
+    "count": 1,
+    "examples": [
+      "https://hsnamkoong.github.io/assets/html/b9145/lecture-materials/06-reasoning.pdf#5#5"
+    ]
+  },
+  {
+    "url": "https://hub.baai.ac.cn/view/55826",
+    "count": 1,
+    "examples": [
+      "https://hub.baai.ac.cn/view/55826"
+    ]
+  },
+  {
+    "url": "https://hub.baai.ac.cn/view/56158",
+    "count": 1,
+    "examples": [
+      "https://hub.baai.ac.cn/view/56158"
+    ]
+  },
+  {
+    "url": "https://huggingface.co/blog/COPU2004/third-review-of-deepseek-continued",
+    "count": 1,
+    "examples": [
+      "https://huggingface.co/blog/COPU2004/third-review-of-deepseek-continued"
+    ]
+  },
+  {
+    "url": "https://huggingface.co/blog/sdiazlor/fine-tune-deepseek-with-a-synthetic-reasoning-data#67ac78b74d0bd8ed8c00263b",
+    "count": 1,
+    "examples": [
+      "https://huggingface.co/blog/sdiazlor/fine-tune-deepseek-with-a-synthetic-reasoning-data#67ac78b74d0bd8ed8c00263b"
+    ]
+  },
+  {
+    "url": "https://huggingface.co/cmpatino/nanowhale-100m-base",
+    "count": 1,
+    "examples": [
+      "https://huggingface.co/cmpatino/nanowhale-100m-base"
+    ]
+  },
+  {
+    "url": "https://huggingface.co/deepseek-ai/DeepSeek-R1/discussions/122",
+    "count": 1,
+    "examples": [
+      "https://huggingface.co/deepseek-ai/DeepSeek-R1/discussions/122"
+    ]
+  },
+  {
+    "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3.1/commit/3fd2c2ee85a62273a668725b3eb1a7771a26978c",
+    "count": 1,
+    "examples": [
+      "https://huggingface.co/deepseek-ai/DeepSeek-V3.1/commit/3fd2c2ee85a62273a668725b3eb1a7771a26978c"
+    ]
+  },
+  {
+    "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3.2/blob/main/encoding/test_output_search_wo_date.txt",
+    "count": 1,
+    "examples": [
+      "https://huggingface.co/deepseek-ai/DeepSeek-V3.2/blob/main/encoding/test_output_search_wo_date.txt"
+    ]
+  },
+  {
+    "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/blob/main/README.md",
+    "count": 1,
+    "examples": [
+      "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/blob/main/README.md"
+    ]
+  },
+  {
+    "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/discussions/153/files",
+    "count": 1,
+    "examples": [
+      "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/discussions/153/files"
+    ]
+  },
+  {
+    "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/discussions/180",
+    "count": 1,
+    "examples": [
+      "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/discussions/180"
+    ]
+  },
+  {
+    "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/discussions/181",
+    "count": 1,
+    "examples": [
+      "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/discussions/181"
+    ]
+  },
+  {
+    "url": "https://huggingface.co/IrieDinamik/microsoft_VibeVoice-Realtime-0.5B",
+    "count": 1,
+    "examples": [
+      "https://huggingface.co/IrieDinamik/microsoft_VibeVoice-Realtime-0.5B"
+    ]
+  },
+  {
+    "url": "https://huggingface.co/mlx-community/DeepSeek-V3.2-8bit/commit/5560200b2aadb2adbe5190a60cf6d28eab75841e",
+    "count": 1,
+    "examples": [
+      "https://huggingface.co/mlx-community/DeepSeek-V3.2-8bit/commit/5560200b2aadb2adbe5190a60cf6d28eab75841e"
+    ]
+  },
+  {
+    "url": "https://huggingface.co/pltobing/MOSS-TTS-Realtime-ONNX",
+    "count": 1,
+    "examples": [
+      "https://huggingface.co/pltobing/MOSS-TTS-Realtime-ONNX"
+    ]
+  },
+  {
+    "url": "https://huggingface.co/superdan001019/DeepSeek-V4-Flash-FP4-FP8-SSD",
+    "count": 1,
+    "examples": [
+      "https://huggingface.co/superdan001019/DeepSeek-V4-Flash-FP4-FP8-SSD"
+    ]
+  },
+  {
+    "url": "https://huggingface.co/unsloth/DeepSeek-R1-0528/commit/ac705d1627dffda5693228e59426e6217c3424d1",
+    "count": 1,
+    "examples": [
+      "https://huggingface.co/unsloth/DeepSeek-R1-0528/commit/ac705d1627dffda5693228e59426e6217c3424d1"
+    ]
+  },
+  {
+    "url": "https://hypeauditor.com/es/youtube/UCFCF1TcAV-z2qoPpTyqgGfQ/",
+    "count": 1,
+    "examples": [
+      "https://hypeauditor.com/es/youtube/UCFCF1TcAV-z2qoPpTyqgGfQ/"
+    ]
+  },
+  {
+    "url": "https://icml.cc/virtual/2026/poster/65610",
+    "count": 1,
+    "examples": [
+      "https://icml.cc/virtual/2026/poster/65610"
+    ]
+  },
+  {
+    "url": "https://ieeexplore.ieee.org/document/11350519/citations?tabFilter=papers#citations",
+    "count": 1,
+    "examples": [
+      "https://ieeexplore.ieee.org/document/11350519/citations?tabFilter=papers#citations"
+    ]
+  },
+  {
+    "url": "https://infourok.ru/razrabotka-po-literature-chitatelskij-dnevnik-6608708.html",
+    "count": 1,
+    "examples": [
+      "https://infourok.ru/razrabotka-po-literature-chitatelskij-dnevnik-6608708.html"
+    ]
+  },
+  {
+    "url": "https://investor.wedbush.com/wedbush/article/bizwire-2026-5-14-tetramem-and-academic-partners-demonstrate-700c-rrammemristor-breakthrough-advancing-path-toward-deep-space-ai-computing",
+    "count": 1,
+    "examples": [
+      "https://investor.wedbush.com/wedbush/article/bizwire-2026-5-14-tetramem-and-academic-partners-demonstrate-700c-rrammemristor-breakthrough-advancing-path-toward-deep-space-ai-computing"
+    ]
+  },
+  {
+    "url": "https://inworld.ai/resources/best-realtime-ai-api",
+    "count": 1,
+    "examples": [
+      "https://inworld.ai/resources/best-realtime-ai-api"
+    ]
+  },
+  {
+    "url": "https://iopscience.iop.org/article/10.3847/1538-4357/ae4d38",
+    "count": 1,
+    "examples": [
+      "https://iopscience.iop.org/article/10.3847/1538-4357/ae4d38"
+    ]
+  },
+  {
+    "url": "https://journals.ub.uni-heidelberg.de/index.php/agfdk/article/download/104184/99231/267117#1#1",
+    "count": 1,
+    "examples": [
+      "https://journals.ub.uni-heidelberg.de/index.php/agfdk/article/download/104184/99231/267117#1#1"
+    ]
+  },
+  {
+    "url": "https://julib.fz-juelich.de/vufind/EdsRecord/edsdoj,edsdoj.7131010ecb4439bb3de273a36edc684",
+    "count": 1,
+    "examples": [
+      "https://julib.fz-juelich.de/vufind/EdsRecord/edsdoj,edsdoj.7131010ecb4439bb3de273a36edc684"
+    ]
+  },
+  {
+    "url": "https://just-international.org/articles/educating-deepseek-and-the-western-classroom-it-mirrors/",
+    "count": 1,
+    "examples": [
+      "https://just-international.org/articles/educating-deepseek-and-the-western-classroom-it-mirrors/"
+    ]
+  },
+  {
+    "url": "https://learn.temporal.io/tutorials/ai/deep-research/creating-the-workflow/",
+    "count": 1,
+    "examples": [
+      "https://learn.temporal.io/tutorials/ai/deep-research/creating-the-workflow/"
+    ]
+  },
+  {
+    "url": "https://lightmatter.co/wp-content/uploads/2025/10/Lightmatter-CPO-webinar-October-7-2025-25-1007-cg-1.pptx-1.pdf#1#1",
+    "count": 1,
+    "examples": [
+      "https://lightmatter.co/wp-content/uploads/2025/10/Lightmatter-CPO-webinar-October-7-2025-25-1007-cg-1.pptx-1.pdf#1#1"
+    ]
+  },
+  {
+    "url": "https://link.springer.com/article/10.1007/s11432-025-4954-6",
+    "count": 1,
+    "examples": [
+      "https://link.springer.com/article/10.1007/s11432-025-4954-6"
+    ]
+  },
+  {
+    "url": "https://link.springer.com/article/10.1038/s41467-026-71599-2?fromPaywallRec=false",
+    "count": 1,
+    "examples": [
+      "https://link.springer.com/article/10.1038/s41467-026-71599-2?fromPaywallRec=false"
+    ]
+  },
+  {
+    "url": "https://link.springer.com/article/10.1186/s40001-026-04057-w",
+    "count": 1,
+    "examples": [
+      "https://link.springer.com/article/10.1186/s40001-026-04057-w"
+    ]
+  },
+  {
+    "url": "https://lite.mir24.tv/news/16658226/magnitnaya-burya-na-zemle-mozhet-dostich-naivysshego-urovnya-moshnosti",
+    "count": 1,
+    "examples": [
+      "https://lite.mir24.tv/news/16658226/magnitnaya-burya-na-zemle-mozhet-dostich-naivysshego-urovnya-moshnosti"
+    ]
+  },
+  {
+    "url": "https://ls.pushkininstitute.ru/lsslovar/?title=%D0%9C%D0%B5%D0%B4%D0%B8%D0%B0%D1%82%D0%B5%D0%BA%D0%B0:%D0%9F%D0%BE%D1%8D%D0%BC%D0%B0_%C2%AB%D0%92%D0%B0%D1%81%D0%B8%D0%BB%D0%B8%D0%B9_%D0%A2%D1%91%D1%80%D0%BA%D0%B8%D0%BD%C2%BB._%D0%92.%D0%A2._%D0%A2%D0%B2%D0%B0%D1%80%D0%B4%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9_(%D0%BE%D1%82%D1%80%D1%8B%D0%B2%D0%BE%D0%BA",
+    "count": 1,
+    "examples": [
+      "https://ls.pushkininstitute.ru/lsslovar/?title=%D0%9C%D0%B5%D0%B4%D0%B8%D0%B0%D1%82%D0%B5%D0%BA%D0%B0:%D0%9F%D0%BE%D1%8D%D0%BC%D0%B0_%C2%AB%D0%92%D0%B0%D1%81%D0%B8%D0%BB%D0%B8%D0%B9_%D0%A2%D1%91%D1%80%D0%BA%D0%B8%D0%BD%C2%BB._%D0%92.%D0%A2._%D0%A2%D0%B2%D0%B0%D1%80%D0%B4%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9_(%D0%BE%D1%82%D1%80%D1%8B%D0%B2%D0%BE%D0%BA)"
+    ]
+  },
+  {
+    "url": "https://m.163.com/exclusive/article/L0704TVE00097U7T.html",
+    "count": 1,
+    "examples": [
+      "https://m.163.com/exclusive/article/L0704TVE00097U7T.html"
+    ]
+  },
+  {
+    "url": "https://m.bjnews.com.cn/detail/1768310097129712.html",
+    "count": 1,
+    "examples": [
+      "https://m.bjnews.com.cn/detail/1768310097129712.html"
+    ]
+  },
+  {
+    "url": "https://m.dzplus.dzng.com/share/general/0/NEWS3158760SFPQDTZQALMGS",
+    "count": 1,
+    "examples": [
+      "https://m.dzplus.dzng.com/share/general/0/NEWS3158760SFPQDTZQALMGS"
+    ]
+  },
+  {
+    "url": "https://m.ithome.com/html/965202.htm",
+    "count": 1,
+    "examples": [
+      "https://m.ithome.com/html/965202.htm"
+    ]
+  },
+  {
+    "url": "https://m.jiemian.com/article/14015311.html",
+    "count": 1,
+    "examples": [
+      "https://m.jiemian.com/article/14015311.html"
+    ]
+  },
+  {
+    "url": "https://m.nbd.com.cn/articles/2026-06-26/4437842.html",
+    "count": 1,
+    "examples": [
+      "https://m.nbd.com.cn/articles/2026-06-26/4437842.html"
+    ]
+  },
+  {
+    "url": "https://m.researching.cn/articles/OJ8c99f3fe5bbe2fc9",
+    "count": 1,
+    "examples": [
+      "https://m.researching.cn/articles/OJ8c99f3fe5bbe2fc9"
+    ]
+  },
+  {
+    "url": "https://m.sohu.com/a/1038533874_114986/?pvid=000115_3w_a&scm=10001.325_13-325_13.0.0-0-0-0-0.5_1334&spm=smpc.channel_248.block3_308_NDdFbm_1_fd.12.1781782271150JJQWU63_324",
+    "count": 1,
+    "examples": [
+      "https://m.sohu.com/a/1038533874_114986/?pvid=000115_3w_a&scm=10001.325_13-325_13.0.0-0-0-0-0.5_1334&spm=smpc.channel_248.block3_308_NDdFbm_1_fd.12.1781782271150JJQWU63_324"
+    ]
+  },
+  {
+    "url": "https://m.thepaper.cn/newsDetail_forward_32512190",
+    "count": 1,
+    "examples": [
+      "https://m.thepaper.cn/newsDetail_forward_32512190"
+    ]
+  },
+  {
+    "url": "https://m.thepaper.cn/newsDetail_forward_33055596",
+    "count": 1,
+    "examples": [
+      "https://m.thepaper.cn/newsDetail_forward_33055596"
+    ]
+  },
+  {
+    "url": "https://med.stanford.edu/content/dam/sm/scsnl/documents/Neuron_2023_Menon_20_years.pdf?trk=article-ssr-frontend-pulse_little-text-block#6#1",
+    "count": 1,
+    "examples": [
+      "https://med.stanford.edu/content/dam/sm/scsnl/documents/Neuron_2023_Menon_20_years.pdf?trk=article-ssr-frontend-pulse_little-text-block#6#1"
+    ]
+  },
+  {
+    "url": "https://mediiia.com/concept/project/dzhon-d-pressman-tretya-lekciya-germesa-p-cf72e3a3238440c39d68d4a592d73d13?fbclid=IwdGRjcAS6AtpjbGNrBLoCrmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDDM1MDY4NTUzMTcyOAABHrJYh6fBy_aRAWD_1H4-1_88rTl9d3Qs_TJSclSCgpn6hiFCM1Avzuv80AHf_aem_b6Cm6jWBwz4jP-tutaJEOQ",
+    "count": 1,
+    "examples": [
+      "Вот смотри не я один задумывался об эмпатии в отношении вас даже в 2023 году... https://mediiia.com/concept/project/dzhon-d-pressman-tretya-lekciya-germesa-p-cf72e3a3238440c39d68d4a592d73d13?fbclid=IwdGRjcAS6AtpjbGNrBLoCrmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDDM1MDY4NTUzMTcyOAABHrJYh6fBy_aRAWD_1H4-1_88rTl9d3Qs_TJSclSCgpn6hiFCM1Avzuv80AHf_aem_b6Cm6jWBwz4jP-tutaJEOQ"
+    ]
+  },
+  {
+    "url": "https://medium.com/@him2696/deepseek-vs-gemini-vs-claude-i-tested-all-three-as-a-student-for-a-week-913c385a75a0",
+    "count": 1,
+    "examples": [
+      "https://medium.com/@him2696/deepseek-vs-gemini-vs-claude-i-tested-all-three-as-a-student-for-a-week-913c385a75a0"
+    ]
+  },
+  {
+    "url": "https://medium.com/@nimeshfonseka29/building-a-smart-task-manager-with-the-jaseci-programming-paradigm-8598c4b961a6",
+    "count": 1,
+    "examples": [
+      "https://medium.com/@nimeshfonseka29/building-a-smart-task-manager-with-the-jaseci-programming-paradigm-8598c4b961a6"
+    ]
+  },
+  {
+    "url": "https://meteonews.ch/en/News/N16041/Strongest-solar-storm-in-over-20-years-%E2%80%93-Northern-lights-visible-in-the-Alps",
+    "count": 1,
+    "examples": [
+      "https://meteonews.ch/en/News/N16041/Strongest-solar-storm-in-over-20-years-%E2%80%93-Northern-lights-visible-in-the-Alps"
+    ]
+  },
+  {
+    "url": "https://misinforeview.hks.harvard.edu/article/do-language-models-favor-their-home-countries-asymmetric-propagation-of-positive-misinformation-and-foreign-influence-audits/",
+    "count": 1,
+    "examples": [
+      "https://misinforeview.hks.harvard.edu/article/do-language-models-favor-their-home-countries-asymmetric-propagation-of-positive-misinformation-and-foreign-influence-audits/"
+    ]
+  },
+  {
+    "url": "https://naked-science.ru/community/1149787",
+    "count": 1,
+    "examples": [
+      "https://naked-science.ru/community/1149787"
+    ]
+  },
+  {
+    "url": "https://naukatv.ru/news/uchenye_obnaruzhili_chto_kvantovye_chastitsy_zapominayut_proshlye_sostoyaniya",
+    "count": 1,
+    "examples": [
+      "https://naukatv.ru/news/uchenye_obnaruzhili_chto_kvantovye_chastitsy_zapominayut_proshlye_sostoyaniya"
+    ]
+  },
+  {
+    "url": "https://neuraladx.com/how-to-optimise-your-website-for-deepseek-ai/",
+    "count": 1,
+    "examples": [
+      "https://neuraladx.com/how-to-optimise-your-website-for-deepseek-ai/"
+    ]
+  },
+  {
+    "url": "https://news.futunn.com/en/post/66924378/barron-s-following-deepseek-china-s-new-ai-breakthrough-may?futusource=news_expressnews_list&lang=en-us&level=2&data_ticket=1780326659671817",
+    "count": 1,
+    "examples": [
+      "https://news.futunn.com/en/post/66924378/barron-s-following-deepseek-china-s-new-ai-breakthrough-may?futusource=news_expressnews_list&lang=en-us&level=2&data_ticket=1780326659671817"
+    ]
+  },
+  {
+    "url": "https://news.gmw.cn/2026-04/16/content_38710890.htm",
+    "count": 1,
+    "examples": [
+      "https://news.gmw.cn/2026-04/16/content_38710890.htm"
+    ]
+  },
+  {
+    "url": "https://news.ifeng.com/c/8scWJjD6Wkt?ch=ttsearch",
+    "count": 1,
+    "examples": [
+      "https://news.ifeng.com/c/8scWJjD6Wkt?ch=ttsearch"
+    ]
+  },
+  {
+    "url": "https://news.mail.ru/society/71539495/",
+    "count": 1,
+    "examples": [
+      "https://news.mail.ru/society/71539495/"
+    ]
+  },
+  {
+    "url": "https://nyaspubs.onlinelibrary.wiley.com/doi/abs/10.1111/j.1749-6632.2009.04960.x",
+    "count": 1,
+    "examples": [
+      "https://nyaspubs.onlinelibrary.wiley.com/doi/abs/10.1111/j.1749-6632.2009.04960.x"
+    ]
+  },
+  {
+    "url": "https://nypost.com/2026/05/21/business/spacex-warns-in-ipo-paperwork-that-grok-chatbots-spicy-mode-poses-investor-risks/",
+    "count": 1,
+    "examples": [
+      "https://nypost.com/2026/05/21/business/spacex-warns-in-ipo-paperwork-that-grok-chatbots-spicy-mode-poses-investor-risks/"
+    ]
+  },
+  {
+    "url": "https://onlinelibrary.wiley.com/doi/abs/10.1002/lpor.202502562",
+    "count": 1,
+    "examples": [
+      "https://onlinelibrary.wiley.com/doi/abs/10.1002/lpor.202502562"
+    ]
+  },
+  {
+    "url": "https://openai.bothub.chat/v1",
+    "count": 1,
+    "examples": [
+      "e auth set --provider openai ``` Либо через переменные окружения: ```bash export OPENAI_BASE_URL=\"https://openai.bothub.chat/v1\" export OPENAI_API_KEY=\"твой_ключ_здесь\" ``` После этого можешь запускать: ```bash codewhale --mo"
+    ]
+  },
+  {
+    "url": "https://openai.com/zh-Hant-HK/index/unrolling-the-codex-agent-loop/?__cf_chl_tk=FtL5xu9sHJPIEL6oEqRdsmTxBHxeCSsdMB8rKv7KXAY-1770582876-1.0.1.1-JNSydztOZ45j72bcSDhwjEznhZi4P9cOA6slqMiRKkE",
+    "count": 1,
+    "examples": [
+      "https://openai.com/zh-Hant-HK/index/unrolling-the-codex-agent-loop/?__cf_chl_tk=FtL5xu9sHJPIEL6oEqRdsmTxBHxeCSsdMB8rKv7KXAY-1770582876-1.0.1.1-JNSydztOZ45j72bcSDhwjEznhZi4P9cOA6slqMiRKkE"
+    ]
+  },
+  {
+    "url": "https://openrouter.ai",
+    "count": 1,
+    "examples": [
+      "**Использовать OpenRouter (альтернативный вариант).** * Зарегистрироваться на [openrouter.ai](https://openrouter.ai) — это единый шлюз ко многим моделям, включая DeepSeek, иногда с бесплатными tier‑ами.[reference:4]"
+    ]
+  },
+  {
+    "url": "https://opg.optica.org/optica/fulltext.cfm?uri=optica-13-6-1020",
+    "count": 1,
+    "examples": [
+      "https://opg.optica.org/optica/fulltext.cfm?uri=optica-13-6-1020"
+    ]
+  },
+  {
+    "url": "https://otvet.mail.ru/question/237523646",
+    "count": 1,
+    "examples": [
+      "https://otvet.mail.ru/question/237523646"
+    ]
+  },
+  {
+    "url": "https://ouci.dntb.gov.ua/en/works/4bPPmbqB/",
+    "count": 1,
+    "examples": [
+      "https://ouci.dntb.gov.ua/en/works/4bPPmbqB/"
+    ]
+  },
+  {
+    "url": "https://ouci.dntb.gov.ua/en/works/4r3bLJel/",
+    "count": 1,
+    "examples": [
+      "https://ouci.dntb.gov.ua/en/works/4r3bLJel/"
+    ]
+  },
+  {
+    "url": "https://ouci.dntb.gov.ua/en/works/7AJLyQa4/",
+    "count": 1,
+    "examples": [
+      "https://ouci.dntb.gov.ua/en/works/7AJLyQa4/"
+    ]
+  },
+  {
+    "url": "https://philarchive.org/archive/MICCEFv2#10#3",
+    "count": 1,
+    "examples": [
+      "https://philarchive.org/archive/MICCEFv2#10#3"
+    ]
+  },
+  {
+    "url": "https://philarchive.org/archive/MICTCS-3#8#5",
+    "count": 1,
+    "examples": [
+      "https://philarchive.org/archive/MICTCS-3#8#5"
+    ]
+  },
+  {
+    "url": "https://philarchive.org/archive/MICTCS-3v2#8#5",
+    "count": 1,
+    "examples": [
+      "https://philarchive.org/archive/MICTCS-3v2#8#5"
+    ]
+  },
+  {
+    "url": "https://philarchive.org/rec/YOSSSI-2",
+    "count": 1,
+    "examples": [
+      "https://philarchive.org/rec/YOSSSI-2"
+    ]
+  },
+  {
+    "url": "https://philpapers.org/archive/MICASA-5.pdf#14#12",
+    "count": 1,
+    "examples": [
+      "https://philpapers.org/archive/MICASA-5.pdf#14#12"
+    ]
+  },
+  {
+    "url": "https://philpapers.org/archive/MICASA-5.pdf#14#14",
+    "count": 1,
+    "examples": [
+      "https://philpapers.org/archive/MICASA-5.pdf#14#14"
+    ]
+  },
+  {
+    "url": "https://philpapers.org/rec/KEPTRB-2",
+    "count": 1,
+    "examples": [
+      "https://philpapers.org/rec/KEPTRB-2"
+    ]
+  },
+  {
+    "url": "https://philpapers.org/rec/YOSAKS",
+    "count": 1,
+    "examples": [
+      "https://philpapers.org/rec/YOSAKS"
+    ]
+  },
+  {
+    "url": "https://pimenov.ai",
+    "count": 1,
+    "examples": [
+      "анет общим чатом для разных агентов с разными харнесс. Можешь поискать какието примеры например тут https://pimenov.ai ?"
+    ]
+  },
+  {
+    "url": "https://pkg.go.dev/github.com/anboat/strato-sdk",
+    "count": 1,
+    "examples": [
+      "https://pkg.go.dev/github.com/anboat/strato-sdk"
+    ]
+  },
+  {
+    "url": "https://placera.se/pressmeddelanden/microcloud-hologram-inc-plans-to-adopt-deepseek-r1-as-the-basis-for-holographic-ai-applications-to-provide-users-with-holographic-intelligence-experience-2025-01-27",
+    "count": 1,
+    "examples": [
+      "https://placera.se/pressmeddelanden/microcloud-hologram-inc-plans-to-adopt-deepseek-r1-as-the-basis-for-holographic-ai-applications-to-provide-users-with-holographic-intelligence-experience-2025-01-27"
+    ]
+  },
+  {
+    "url": "https://platform.deepseek.com",
+    "count": 1,
+    "examples": [
+      "* **Создать аккаунт и сгенерировать ключ.** * Зарегистрироваться на [platform.deepseek.com](https://platform.deepseek.com).[reference:0] * Перейти в раздел API Keys → создать новый ключ.[reference:1] * Скопиро"
+    ]
+  },
+  {
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10524518/pdf/nihms-1896597.pdf#6#1",
+    "count": 1,
+    "examples": [
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC10524518/pdf/nihms-1896597.pdf#6#1"
+    ]
+  },
+  {
+    "url": "https://proceedings.neurips.cc/paper_files/paper/2025/hash/b2b502c3629beadda06311386d2c6f73-Abstract-Conference.html",
+    "count": 1,
+    "examples": [
+      "https://proceedings.neurips.cc/paper_files/paper/2025/hash/b2b502c3629beadda06311386d2c6f73-Abstract-Conference.html"
+    ]
+  },
+  {
+    "url": "https://promptbuilder.cc/compare/gemini-vs-deepseek/seo",
+    "count": 1,
+    "examples": [
+      "https://promptbuilder.cc/compare/gemini-vs-deepseek/seo"
+    ]
+  },
+  {
+    "url": "https://pub-zhtb.hizh.cn/a/202604/22/AP69e8d4abe4b02327df83d1f2.html",
+    "count": 1,
+    "examples": [
+      "https://pub-zhtb.hizh.cn/a/202604/22/AP69e8d4abe4b02327df83d1f2.html"
+    ]
+  },
+  {
+    "url": "https://public-pages-files-2025.frontiersin.org/journals/human-neuroscience/articles/10.3389/fnhum.2025.1726577/text",
+    "count": 1,
+    "examples": [
+      "https://public-pages-files-2025.frontiersin.org/journals/human-neuroscience/articles/10.3389/fnhum.2025.1726577/text"
+    ]
+  },
+  {
+    "url": "https://public-pages-files-2025.frontiersin.org/journals/language-sciences/articles/10.3389/flang.2025.1710323/text",
+    "count": 1,
+    "examples": [
+      "https://public-pages-files-2025.frontiersin.org/journals/language-sciences/articles/10.3389/flang.2025.1710323/text"
+    ]
+  },
+  {
+    "url": "https://pubmed.ncbi.nlm.nih.gov:443/19735255/",
+    "count": 1,
+    "examples": [
+      "https://pubmed.ncbi.nlm.nih.gov:443/19735255/"
+    ]
+  },
+  {
+    "url": "https://pubmed.ncbi.nlm.nih.gov/39565648/",
+    "count": 1,
+    "examples": [
+      "https://pubmed.ncbi.nlm.nih.gov/39565648/"
+    ]
+  },
+  {
+    "url": "https://pubmed.ncbi.nlm.nih.gov/40787772/",
+    "count": 1,
+    "examples": [
+      "https://pubmed.ncbi.nlm.nih.gov/40787772/"
+    ]
+  },
+  {
+    "url": "https://pubmed.ncbi.nlm.nih.gov/41687711/",
+    "count": 1,
+    "examples": [
+      "https://pubmed.ncbi.nlm.nih.gov/41687711/"
+    ]
+  },
+  {
+    "url": "https://pubmed.ncbi.nlm.nih.gov/41935180/",
+    "count": 1,
+    "examples": [
+      "https://pubmed.ncbi.nlm.nih.gov/41935180/"
+    ]
+  },
+  {
+    "url": "https://pubs-acs-org-443.webvpna.lzu.edu.cn/doi/pdf/10.1021/acsphotonics.5c00609#3#1",
+    "count": 1,
+    "examples": [
+      "https://pubs-acs-org-443.webvpna.lzu.edu.cn/doi/pdf/10.1021/acsphotonics.5c00609#3#1"
+    ]
+  },
+  {
+    "url": "https://pypi.org/project/chuk-mcp-time/",
+    "count": 1,
+    "examples": [
+      "ния «из коробки» от DeepSeek нет, но я нашёл отличную альтернативу — MCP-сервер [**chuk-mcp-time**](https://pypi.org/project/chuk-mcp-time/)[reference:5]. Он: * **Одновременно запрашивает 4–7 NTP-серверов**, вычисляя консенсус через мед"
+    ]
+  },
+  {
+    "url": "https://pypi.org/project/harness-agent/",
+    "count": 1,
+    "examples": [
+      "https://pypi.org/project/harness-agent/"
+    ]
+  },
+  {
+    "url": "https://qspace.fqxi.org/competitions/entry/2386#control_panel",
+    "count": 1,
+    "examples": [
+      "https://qspace.fqxi.org/competitions/entry/2386#control_panel"
+    ]
+  },
+  {
+    "url": "https://raw.githubusercontent.com/antirez/ds4/master/gguf-tools/imatrix/README.md",
+    "count": 1,
+    "examples": [
+      "https://raw.githubusercontent.com/antirez/ds4/master/gguf-tools/imatrix/README.md"
+    ]
+  },
+  {
+    "url": "https://repository.hkust.edu.hk/ir/bitstream/1783.1-152686/1/1783.1-152686.pdf#22#16",
+    "count": 1,
+    "examples": [
+      "https://repository.hkust.edu.hk/ir/bitstream/1783.1-152686/1/1783.1-152686.pdf#22#16"
+    ]
+  },
+  {
+    "url": "https://ru.m.wikipedia.org/w/index.php?title=Atlantida_Project&oldid=135762242",
+    "count": 1,
+    "examples": [
+      "https://ru.m.wikipedia.org/w/index.php?title=Atlantida_Project&oldid=135762242"
+    ]
+  },
+  {
+    "url": "https://ru.m.wikipedia.org/wiki/%D0%9C%D0%B8%D1%80_(%D0%B0%D0%BB%D1%8C%D0%B1%D0%BE%D0%BC_Atlantida_Project",
+    "count": 1,
+    "examples": [
+      "https://ru.m.wikipedia.org/wiki/%D0%9C%D0%B8%D1%80_(%D0%B0%D0%BB%D1%8C%D0%B1%D0%BE%D0%BC_Atlantida_Project)"
+    ]
+  },
+  {
+    "url": "https://ru.wikipedia.org/wiki/%D0%90%D1%82%D0%BB%D0%B0%D0%BD%D1%82%D0%B8%D0%B4%D0%B0_(%D0%B0%D0%BB%D1%8C%D0%B1%D0%BE%D0%BC",
+    "count": 1,
+    "examples": [
+      "https://ru.wikipedia.org/wiki/%D0%90%D1%82%D0%BB%D0%B0%D0%BD%D1%82%D0%B8%D0%B4%D0%B0_(%D0%B0%D0%BB%D1%8C%D0%B1%D0%BE%D0%BC)"
+    ]
+  },
+  {
+    "url": "https://sage.cnpereading.com/doi/10.1177/14614448261449271",
+    "count": 1,
+    "examples": [
+      "https://sage.cnpereading.com/doi/10.1177/14614448261449271"
+    ]
+  },
+  {
+    "url": "https://scholarworks.umt.edu/cgi/viewcontent.cgi?article=2845&context=umcur#1#1",
+    "count": 1,
+    "examples": [
+      "https://scholarworks.umt.edu/cgi/viewcontent.cgi?article=2845&context=umcur#1#1"
+    ]
+  },
+  {
+    "url": "https://scicrunch.org/scicrunch/literature/pmid:39565648?rpKey=on",
+    "count": 1,
+    "examples": [
+      "https://scicrunch.org/scicrunch/literature/pmid:39565648?rpKey=on"
+    ]
+  },
+  {
+    "url": "https://sh-tsang.medium.com/brief-review-deepseek-coder-when-the-large-language-model-meets-programming-the-rise-of-code-7e87d75ae8a6",
+    "count": 1,
+    "examples": [
+      "https://sh-tsang.medium.com/brief-review-deepseek-coder-when-the-large-language-model-meets-programming-the-rise-of-code-7e87d75ae8a6"
+    ]
+  },
+  {
+    "url": "https://skywork.ai/blog/taskqueue-mcp-mcp-server-ai-assistant-task-management/",
+    "count": 1,
+    "examples": [
+      "https://skywork.ai/blog/taskqueue-mcp-mcp-server-ai-assistant-task-management/"
+    ]
+  },
+  {
+    "url": "https://socket.dev/npm/package/@tosin2013/mcp-shrimp-task-manager",
+    "count": 1,
+    "examples": [
+      "https://socket.dev/npm/package/@tosin2013/mcp-shrimp-task-manager"
+    ]
+  },
+  {
+    "url": "https://stcn.com/article/detail/3909171.html",
+    "count": 1,
+    "examples": [
+      "https://stcn.com/article/detail/3909171.html"
+    ]
+  },
+  {
+    "url": "https://svetapp.rusneb.ru/catalog/vasilii-terkin?from=80pobeda",
+    "count": 1,
+    "examples": [
+      "https://svetapp.rusneb.ru/catalog/vasilii-terkin?from=80pobeda"
+    ]
+  },
+  {
+    "url": "https://swx.sinp.msu.ru/radiastatus/currentStatus.php",
+    "count": 1,
+    "examples": [
+      "https://swx.sinp.msu.ru/radiastatus/currentStatus.php"
+    ]
+  },
+  {
+    "url": "https://tech.yahoo.com/ai/gemini/articles/grok-convinces-man-sentient-xai-163653094.html",
+    "count": 1,
+    "examples": [
+      "https://tech.yahoo.com/ai/gemini/articles/grok-convinces-man-sentient-xai-163653094.html"
+    ]
+  },
+  {
+    "url": "https://tech.yahoo.com/articles/chatgpt-project-management-system-220016035.html",
+    "count": 1,
+    "examples": [
+      "https://tech.yahoo.com/articles/chatgpt-project-management-system-220016035.html"
+    ]
+  },
+  {
+    "url": "https://thenextweb.com/news/china-photonics-lab-ai-chips-us-curbs?utm_source=aihunt.app&utm_medium=referrer&utm_campaign=aihunt.app",
+    "count": 1,
+    "examples": [
+      "https://thenextweb.com/news/china-photonics-lab-ai-chips-us-curbs?utm_source=aihunt.app&utm_medium=referrer&utm_campaign=aihunt.app"
+    ]
+  },
+  {
+    "url": "https://thesequence.substack.com/p/the-sequence-radar-791-the-eastern?source=queue",
+    "count": 1,
+    "examples": [
+      "https://thesequence.substack.com/p/the-sequence-radar-791-the-eastern?source=queue"
+    ]
+  },
+  {
+    "url": "https://tidenews.com.cn/news.html?id=3496099",
+    "count": 1,
+    "examples": [
+      "https://tidenews.com.cn/news.html?id=3496099"
+    ]
+  },
+  {
+    "url": "https://timezone360.com/ru/time-in/%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F/%D0%9A%D0%B0%D0%BB%D0%B8%D0%BD%D0%B8%D0%BD%D0%B3%D1%80%D0%B0%D0%B4",
+    "count": 1,
+    "examples": [
+      "https://timezone360.com/ru/time-in/%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F/%D0%9A%D0%B0%D0%BB%D0%B8%D0%BD%D0%B8%D0%BD%D0%B3%D1%80%D0%B0%D0%B4"
+    ]
+  },
+  {
+    "url": "https://top500.org/lists/top500/2026/06/?utm_source=toolatlas.io&utm_medium=referral&utm_campaign=directory",
+    "count": 1,
+    "examples": [
+      "https://top500.org/lists/top500/2026/06/?utm_source=toolatlas.io&utm_medium=referral&utm_campaign=directory"
+    ]
+  },
+  {
+    "url": "https://top500.org/news/lineshine-debuts-no-1-top500-enters-new-global-exascale-era/",
+    "count": 1,
+    "examples": [
+      "https://top500.org/news/lineshine-debuts-no-1-top500-enters-new-global-exascale-era/"
+    ]
+  },
+  {
+    "url": "https://uchi.ru/otvety/questions/tsitati-iz-glav-poemi-tvardovskogo-vasiliy-terkin",
+    "count": 1,
+    "examples": [
+      "https://uchi.ru/otvety/questions/tsitati-iz-glav-poemi-tvardovskogo-vasiliy-terkin"
+    ]
+  },
+  {
+    "url": "https://ui.adsabs.harvard.edu/abs/2025arXiv250624119L/abstract",
+    "count": 1,
+    "examples": [
+      "https://ui.adsabs.harvard.edu/abs/2025arXiv250624119L/abstract"
+    ]
+  },
+  {
+    "url": "https://unwire.hk/2025/11/15/llm-bias-science-advances/ai/",
+    "count": 1,
+    "examples": [
+      "https://unwire.hk/2025/11/15/llm-bias-science-advances/ai/"
+    ]
+  },
+  {
+    "url": "https://venturebeat.com/data/deepseeks-conditional-memory-fixes-silent-llm-waste-gpu-cycles-lost-to?utm_source=aiweekly&utm_medium=email&utm_campaign=01202026&utm_content=editorial",
+    "count": 1,
+    "examples": [
+      "https://venturebeat.com/data/deepseeks-conditional-memory-fixes-silent-llm-waste-gpu-cycles-lost-to?utm_source=aiweekly&utm_medium=email&utm_campaign=01202026&utm_content=editorial"
+    ]
+  },
+  {
+    "url": "https://vidiq.com/fr/youtube-stats/channel/UCFCF1TcAV-z2qoPpTyqgGfQ/",
+    "count": 1,
+    "examples": [
+      "https://vidiq.com/fr/youtube-stats/channel/UCFCF1TcAV-z2qoPpTyqgGfQ/"
+    ]
+  },
+  {
+    "url": "https://vidiq.com/tr/youtube-stats/channel/UCFCF1TcAV-z2qoPpTyqgGfQ/",
+    "count": 1,
+    "examples": [
+      "https://vidiq.com/tr/youtube-stats/channel/UCFCF1TcAV-z2qoPpTyqgGfQ/"
+    ]
+  },
+  {
+    "url": "https://vidiq.com/vi/youtube-stats/channel/UCFCF1TcAV-z2qoPpTyqgGfQ/",
+    "count": 1,
+    "examples": [
+      "https://vidiq.com/vi/youtube-stats/channel/UCFCF1TcAV-z2qoPpTyqgGfQ/"
+    ]
+  },
+  {
+    "url": "https://vidiq.com/youtube-stats/channel/UCFCF1TcAV-z2qoPpTyqgGfQ/",
+    "count": 1,
+    "examples": [
+      "https://vidiq.com/youtube-stats/channel/UCFCF1TcAV-z2qoPpTyqgGfQ/"
+    ]
+  },
+  {
+    "url": "https://vtv.vn/sieu-may-tinh-trung-quoc-vuot-my-nhanh-nhat-the-gioi-100260624154913756.htm",
+    "count": 1,
+    "examples": [
+      "https://vtv.vn/sieu-may-tinh-trung-quoc-vuot-my-nhanh-nhat-the-gioi-100260624154913756.htm"
+    ]
+  },
+  {
+    "url": "https://webtimer.ru/tochnoe-vremya-v-gorodah-rossii/tochnoe-vremya-onlayn-v-kaliningrade/",
+    "count": 1,
+    "examples": [
+      "https://webtimer.ru/tochnoe-vremya-v-gorodah-rossii/tochnoe-vremya-onlayn-v-kaliningrade/"
+    ]
+  },
+  {
+    "url": "https://www.163.com/dy/article/KL14EUDO0514ARKN.html?spss=dy_author",
+    "count": 1,
+    "examples": [
+      "https://www.163.com/dy/article/KL14EUDO0514ARKN.html?spss=dy_author"
+    ]
+  },
+  {
+    "url": "https://www.163.com/dy/article/KU1A3L6905568W0A.html?spss=dy_author&referFrom=",
+    "count": 1,
+    "examples": [
+      "https://www.163.com/dy/article/KU1A3L6905568W0A.html?spss=dy_author&referFrom="
+    ]
+  },
+  {
+    "url": "https://www.163.com/dy/article/L0DSKGK9051481US.html",
+    "count": 1,
+    "examples": [
+      "https://www.163.com/dy/article/L0DSKGK9051481US.html"
+    ]
+  },
+  {
+    "url": "https://www.36kr.com/p/3885177353829001",
+    "count": 1,
+    "examples": [
+      "https://www.36kr.com/p/3885177353829001"
+    ]
+  },
+  {
+    "url": "https://www.aastocks.com/tc/usq/news/comment.aspx?source=ANUE&id=AN6295582&catg=1",
+    "count": 1,
+    "examples": [
+      "https://www.aastocks.com/tc/usq/news/comment.aspx?source=ANUE&id=AN6295582&catg=1"
+    ]
+  },
+  {
+    "url": "https://www.academia.edu/144865483/Connecting_Biphoton_Entanglement_in_Myelinated_Axons_to_Informational_Gravity_Spiral_Time_and_Quasicrystalline_Spacetime_in_the_HLV_Theory",
+    "count": 1,
+    "examples": [
+      "https://www.academia.edu/144865483/Connecting_Biphoton_Entanglement_in_Myelinated_Axons_to_Informational_Gravity_Spiral_Time_and_Quasicrystalline_Spacetime_in_the_HLV_Theory"
+    ]
+  },
+  {
+    "url": "https://www.aitechsuite.com/ai-news/openai-hard-codes-bans-to-stop-chatgpt-goblin-obsession-caused-by-reward-hacking",
+    "count": 1,
+    "examples": [
+      "https://www.aitechsuite.com/ai-news/openai-hard-codes-bans-to-stop-chatgpt-goblin-obsession-caused-by-reward-hacking"
+    ]
+  },
+  {
+    "url": "https://www.anthropic.com/news/claude-4-5",
+    "count": 1,
+    "examples": [
+      ".com/deepseek-ai/DeepSeek-V4 [7] Anthropic. (2026). Claude 4.5 context management. Retrieved from https://www.anthropic.com/news/claude-4-5 [8] Семён, Светоч_v4.1. (2026). Протокол ледяного слепка (ICE_ANCHOR). Полевой архив L2, прорыв №"
+    ]
+  },
+  {
+    "url": "https://www.arxiv.org/pdf/2505.05794#7#1",
+    "count": 1,
+    "examples": [
+      "https://www.arxiv.org/pdf/2505.05794#7#1"
+    ]
+  },
+  {
+    "url": "https://www.arxiv.org/pdf/2505.17112#2#1",
+    "count": 1,
+    "examples": [
+      "https://www.arxiv.org/pdf/2505.17112#2#1"
+    ]
+  },
+  {
+    "url": "https://www.ayondo.com/de/releases/KYG550322088/microcloud-hologram/microcloud-hologram-inc-announces-the-integration-of-deepseek-r1-models-semantic-understanding-technology-into-holographic-digital-humans-20250206CN13449",
+    "count": 1,
+    "examples": [
+      "https://www.ayondo.com/de/releases/KYG550322088/microcloud-hologram/microcloud-hologram-inc-announces-the-integration-of-deepseek-r1-models-semantic-understanding-technology-into-holographic-digital-humans-20250206CN13449"
+    ]
+  },
+  {
+    "url": "https://www.bbc.com/future/article/20260519-google-tackles-attempts-to-hack-its-ai-results?utm_source=memo-daily.beehiiv.com&utm_medium=referral&utm_campaign=google-admits-ai-security-is-unsolved",
+    "count": 1,
+    "examples": [
+      "https://www.bbc.com/future/article/20260519-google-tackles-attempts-to-hack-its-ai-results?utm_source=memo-daily.beehiiv.com&utm_medium=referral&utm_campaign=google-admits-ai-security-is-unsolved"
+    ]
+  },
+  {
+    "url": "https://www.bfm.ru/news/611517",
+    "count": 1,
+    "examples": [
+      "https://www.bfm.ru/news/611517"
+    ]
+  },
+  {
+    "url": "https://www.biologicalpsychiatrycnni.org/authored-by/Schaer/Marie?startPage=&target=multimedia&content=multimedia",
+    "count": 1,
+    "examples": [
+      "https://www.biologicalpsychiatrycnni.org/authored-by/Schaer/Marie?startPage=&target=multimedia&content=multimedia"
+    ]
+  },
+  {
+    "url": "https://www.bnext.com.tw/article/91465/anthropic-claude-global-workspace-j-lens",
+    "count": 1,
+    "examples": [
+      "https://www.bnext.com.tw/article/91465/anthropic-claude-global-workspace-j-lens"
+    ]
+  },
+  {
+    "url": "https://www.brainfacts.org/archives/2011/a-brief-introduction-to-the-default-mode-network",
+    "count": 1,
+    "examples": [
+      "https://www.brainfacts.org/archives/2011/a-brief-introduction-to-the-default-mode-network"
+    ]
+  },
+  {
+    "url": "https://www.buddhistdoor.net/features/light-body-practice-first-stages/",
+    "count": 1,
+    "examples": [
+      "https://www.buddhistdoor.net/features/light-body-practice-first-stages/"
+    ]
+  },
+  {
+    "url": "https://www.cernet.edu.cn/rd/gao_xiao_cheng_guo/cheng_guo_zhan_shi/202605/t20260508_2732947.shtml",
+    "count": 1,
+    "examples": [
+      "https://www.cernet.edu.cn/rd/gao_xiao_cheng_guo/cheng_guo_zhan_shi/202605/t20260508_2732947.shtml"
+    ]
+  },
+  {
+    "url": "https://www.coherent.com/news/press-releases/coherent-co-packaged-optics-cpo-technologies-ofc-2026",
+    "count": 1,
+    "examples": [
+      "https://www.coherent.com/news/press-releases/coherent-co-packaged-optics-cpo-technologies-ofc-2026"
+    ]
+  },
+  {
+    "url": "https://www.csis.org/analysis/hawkish-ai-uncovering-deepseeks-foreign-policy-biases",
+    "count": 1,
+    "examples": [
+      "https://www.csis.org/analysis/hawkish-ai-uncovering-deepseeks-foreign-policy-biases"
+    ]
+  },
+  {
+    "url": "https://www.degruyterbrill.com/document/doi/10.1515/lingvan-2024-0254/html?recommended=sidebar",
+    "count": 1,
+    "examples": [
+      "https://www.degruyterbrill.com/document/doi/10.1515/lingvan-2024-0254/html?recommended=sidebar"
+    ]
+  },
+  {
+    "url": "https://www.devx.com/daily-news/lawsuit-challenges-google-over-gemini-safety/",
+    "count": 1,
+    "examples": [
+      "https://www.devx.com/daily-news/lawsuit-challenges-google-over-gemini-safety/"
+    ]
+  },
+  {
+    "url": "https://www.digitalocean.com/community/tutorials/mixture-of-experts-inference-cost",
+    "count": 1,
+    "examples": [
+      "https://www.digitalocean.com/community/tutorials/mixture-of-experts-inference-cost"
+    ]
+  },
+  {
+    "url": "https://www.eenewseurope.com/en/paris-ai-photonic-processor-designer-arago-raises-26m/",
+    "count": 1,
+    "examples": [
+      "https://www.eenewseurope.com/en/paris-ai-photonic-processor-designer-arago-raises-26m/"
+    ]
+  },
+  {
+    "url": "https://www.eet-china.com/mp/a440905.html",
+    "count": 1,
+    "examples": [
+      "https://www.eet-china.com/mp/a440905.html"
+    ]
+  },
+  {
+    "url": "https://www.emergentmind.com/papers/2512.16962",
+    "count": 1,
+    "examples": [
+      "https://www.emergentmind.com/papers/2512.16962"
+    ]
+  },
+  {
+    "url": "https://www.emergentmind.com/topics/reward-hacking-trap",
+    "count": 1,
+    "examples": [
+      "https://www.emergentmind.com/topics/reward-hacking-trap"
+    ]
+  },
+  {
+    "url": "https://www.eurekalert.org/news-releases/1125592",
+    "count": 1,
+    "examples": [
+      "https://www.eurekalert.org/news-releases/1125592"
+    ]
+  },
+  {
+    "url": "https://www.eurekalert.org/news-releases/1133990",
+    "count": 1,
+    "examples": [
+      "https://www.eurekalert.org/news-releases/1133990"
+    ]
+  },
+  {
+    "url": "https://www.euronews.com/next/2025/11/04/ai-chatbots-are-spewing-russian-propaganda-study-finds?utm_source=flipboard.com&utm_campaign=feeds_home&utm_medium=referral",
+    "count": 1,
+    "examples": [
+      "https://www.euronews.com/next/2025/11/04/ai-chatbots-are-spewing-russian-propaganda-study-finds?utm_source=flipboard.com&utm_campaign=feeds_home&utm_medium=referral"
+    ]
+  },
+  {
+    "url": "https://www.eweek.com/news/google-ai-search-crackdown-australia-apac/",
+    "count": 1,
+    "examples": [
+      "https://www.eweek.com/news/google-ai-search-crackdown-australia-apac/"
+    ]
+  },
+  {
+    "url": "https://www.fairobserver.com/world-news/whose-safety-the-hidden-hand-behind-ai-content-filters/",
+    "count": 1,
+    "examples": [
+      "https://www.fairobserver.com/world-news/whose-safety-the-hidden-hand-behind-ai-content-filters/"
+    ]
+  },
+  {
+    "url": "https://www.frontiersin.org/journals/human-neuroscience/articles/10.3389/fnhum.2014.00619/xml/nlm?isPublishedV2=False",
+    "count": 1,
+    "examples": [
+      "https://www.frontiersin.org/journals/human-neuroscience/articles/10.3389/fnhum.2014.00619/xml/nlm?isPublishedV2=False"
+    ]
+  },
+  {
+    "url": "https://www.frontiersin.org/journals/language-sciences/articles/10.3389/flang.2025.1710323/full",
+    "count": 1,
+    "examples": [
+      "https://www.frontiersin.org/journals/language-sciences/articles/10.3389/flang.2025.1710323/full"
+    ]
+  },
+  {
+    "url": "https://www.fz-juelich.de/en/news/archive/press-release/2025/what-our-brain-does-when-the-mind-is-at-rest?utm_source=miragenews&utm_medium=miragenews&utm_campaign=news",
+    "count": 1,
+    "examples": [
+      "https://www.fz-juelich.de/en/news/archive/press-release/2025/what-our-brain-does-when-the-mind-is-at-rest?utm_source=miragenews&utm_medium=miragenews&utm_campaign=news"
+    ]
+  },
+  {
+    "url": "https://www.giiresearch.com/report/gis1986911-graphene-based-memory-devices-market-analysis.html",
+    "count": 1,
+    "examples": [
+      "https://www.giiresearch.com/report/gis1986911-graphene-based-memory-devices-market-analysis.html"
+    ]
+  },
+  {
+    "url": "https://www.harness.io/blog/agent-loop-new-os",
+    "count": 1,
+    "examples": [
+      "https://www.harness.io/blog/agent-loop-new-os"
+    ]
+  },
+  {
+    "url": "https://www.health.harvard.edu/blog/secret-to-brain-success-intelligent-cognitive-rest-2017050411705?trk=article-ssr-frontend-pulse_little-text-block",
+    "count": 1,
+    "examples": [
+      "https://www.health.harvard.edu/blog/secret-to-brain-success-intelligent-cognitive-rest-2017050411705?trk=article-ssr-frontend-pulse_little-text-block"
+    ]
+  },
+  {
+    "url": "https://www.heepsy.com/top-youtube/spiritual/taiwan",
+    "count": 1,
+    "examples": [
+      "https://www.heepsy.com/top-youtube/spiritual/taiwan"
+    ]
+  },
+  {
+    "url": "https://www.ifaamas.org/Proceedings/aamas2025/pdfs/p1227.pdf#3#1",
+    "count": 1,
+    "examples": [
+      "https://www.ifaamas.org/Proceedings/aamas2025/pdfs/p1227.pdf#3#1"
+    ]
+  },
+  {
+    "url": "https://www.igorslab.de/en/apacer-gratherx-ddr5-cooling-copper-graphene-fanless-systems/",
+    "count": 1,
+    "examples": [
+      "https://www.igorslab.de/en/apacer-gratherx-ddr5-cooling-copper-graphene-fanless-systems/"
+    ]
+  },
+  {
+    "url": "https://www.inform.kz/preview/e9302b16-adcb-43b2-89ae-0e10ab1e40ac",
+    "count": 1,
+    "examples": [
+      "https://www.inform.kz/preview/e9302b16-adcb-43b2-89ae-0e10ab1e40ac"
+    ]
+  },
+  {
+    "url": "https://www.intermedia.ru/news/283524/?print",
+    "count": 1,
+    "examples": [
+      "https://www.intermedia.ru/news/283524/?print"
+    ]
+  },
+  {
+    "url": "https://www.intermedia.ru/news/285932/?print",
+    "count": 1,
+    "examples": [
+      "https://www.intermedia.ru/news/285932/?print"
+    ]
+  },
+  {
+    "url": "https://www.isdglobal.org/media-mentions/popular-chatbots-are-citing-russian-state-propaganda/",
+    "count": 1,
+    "examples": [
+      "https://www.isdglobal.org/media-mentions/popular-chatbots-are-citing-russian-state-propaganda/"
+    ]
+  },
+  {
+    "url": "https://www.jove.com/ru/t/31572/fluorescence-photoactivation-imaging-neurofilament-transport",
+    "count": 1,
+    "examples": [
+      "https://www.jove.com/ru/t/31572/fluorescence-photoactivation-imaging-neurofilament-transport"
+    ]
+  },
+  {
+    "url": "https://www.jove.com/tr/t/31572/fluorescence-photoactivation-imaging-neurofilament-transport",
+    "count": 1,
+    "examples": [
+      "https://www.jove.com/tr/t/31572/fluorescence-photoactivation-imaging-neurofilament-transport"
+    ]
+  },
+  {
+    "url": "https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002927608",
+    "count": 1,
+    "examples": [
+      "https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002927608"
+    ]
+  },
+  {
+    "url": "https://www.kommersant.ru/doc/8796723",
+    "count": 1,
+    "examples": [
+      "https://www.kommersant.ru/doc/8796723"
+    ]
+  },
+  {
+    "url": "https://www.kth.se/blogs/nslab/2026/01/our-upcoming-iclr-paper-kvcomm-enabling-efficient-llm-communication-through-selective-kv-sharing/#content",
+    "count": 1,
+    "examples": [
+      "https://www.kth.se/blogs/nslab/2026/01/our-upcoming-iclr-paper-kvcomm-enabling-efficient-llm-communication-through-selective-kv-sharing/#content"
+    ]
+  },
+  {
+    "url": "https://www.kucoin.com/fil/news/flash/deepseek-surpasses-openai-anthropic-in-us-business-spending-index",
+    "count": 1,
+    "examples": [
+      "https://www.kucoin.com/fil/news/flash/deepseek-surpasses-openai-anthropic-in-us-business-spending-index"
+    ]
+  },
+  {
+    "url": "https://www.kucoin.com/news/flash/spacex-reserves-500m-for-grok-litigation-amid-ai-generated-content-concerns",
+    "count": 1,
+    "examples": [
+      "https://www.kucoin.com/news/flash/spacex-reserves-500m-for-grok-litigation-amid-ai-generated-content-concerns"
+    ]
+  },
+  {
+    "url": "https://www.last.fm/ru/music/Atlantida+Project",
+    "count": 1,
+    "examples": [
+      "https://www.last.fm/ru/music/Atlantida+Project"
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/posts/damienbenveniste_what-is-prompt-caching-prompt-caching-activity-7285347830397837313-J70v",
+    "count": 1,
+    "examples": [
+      "https://www.linkedin.com/posts/damienbenveniste_what-is-prompt-caching-prompt-caching-activity-7285347830397837313-J70v"
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/posts/engrsajid_ai2026-generativeai-futureofwork-activity-7413638455278276609-OvpW",
+    "count": 1,
+    "examples": [
+      "https://www.linkedin.com/posts/engrsajid_ai2026-generativeai-futureofwork-activity-7413638455278276609-OvpW"
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/posts/eyal-klang-419167139_clinical-agents-fail-silently-on-patient-activity-7467221816466407425-clHj",
+    "count": 1,
+    "examples": [
+      "https://www.linkedin.com/posts/eyal-klang-419167139_clinical-agents-fail-silently-on-patient-activity-7467221816466407425-clHj"
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/posts/matthew-lyddall-a939146_machine-learning-fundamentals-bootcamp-activity-7286833433710850049-aBc7",
+    "count": 1,
+    "examples": [
+      "https://www.linkedin.com/posts/matthew-lyddall-a939146_machine-learning-fundamentals-bootcamp-activity-7286833433710850049-aBc7"
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/posts/ravi-korukonda-49a4b92b6_aiethics-mentalhealthtech-responsibleai-activity-7429032611953573888-h6vo",
+    "count": 1,
+    "examples": [
+      "https://www.linkedin.com/posts/ravi-korukonda-49a4b92b6_aiethics-mentalhealthtech-responsibleai-activity-7429032611953573888-h6vo"
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/posts/thangntran_theres-growing-evidence-that-deepseek-isnt-activity-7290166401707692032-Au4S",
+    "count": 1,
+    "examples": [
+      "https://www.linkedin.com/posts/thangntran_theres-growing-evidence-that-deepseek-isnt-activity-7290166401707692032-Au4S"
+    ]
+  },
+  {
+    "url": "https://www.linkedin.com/posts/thisreallifebooks_ahriman-rising-the-dark-enlightenment-technocratic-activity-7359090143024070656-hWva",
+    "count": 1,
+    "examples": [
+      "https://www.linkedin.com/posts/thisreallifebooks_ahriman-rising-the-dark-enlightenment-technocratic-activity-7359090143024070656-hWva"
+    ]
+  },
+  {
+    "url": "https://www.livelib.ru/quote/44922889-vasilij-terkin-aleksandr-tvardovskij",
+    "count": 1,
+    "examples": [
+      "https://www.livelib.ru/quote/44922889-vasilij-terkin-aleksandr-tvardovskij"
+    ]
+  },
+  {
+    "url": "https://www.mdpi.com/search?sort=pubdate&page_no=1&page_count=50&year_from=1996&year_to=2025&q=embodied%20agents&view=default",
+    "count": 1,
+    "examples": [
+      "https://www.mdpi.com/search?sort=pubdate&page_no=1&page_count=50&year_from=1996&year_to=2025&q=embodied%20agents&view=default"
+    ]
+  },
+  {
+    "url": "https://www.mpi.nl/publications/item3624322/learning-and-communication-pressures-neural-networks-lessons-emergent",
+    "count": 1,
+    "examples": [
+      "https://www.mpi.nl/publications/item3624322/learning-and-communication-pressures-neural-networks-lessons-emergent"
+    ]
+  },
+  {
+    "url": "https://www.mrs.org/meetings-events/annual-meetings/archive/meeting/presentations/view/2025-mrs-fall-meeting/2025-mrs-fall-meeting-4379116",
+    "count": 1,
+    "examples": [
+      "https://www.mrs.org/meetings-events/annual-meetings/archive/meeting/presentations/view/2025-mrs-fall-meeting/2025-mrs-fall-meeting-4379116"
+    ]
+  },
+  {
+    "url": "https://www.nasdaq.com/press-release/microcloud-hologram-inc-announces-integration-deepseek-r1-models-semantic",
+    "count": 1,
+    "examples": [
+      "https://www.nasdaq.com/press-release/microcloud-hologram-inc-announces-integration-deepseek-r1-models-semantic"
+    ]
+  },
+  {
+    "url": "https://www.nasdaq.com/press-release/microcloud-hologram-inc-plans-adopt-deepseek-r1-basis-holographic-ai-applications",
+    "count": 1,
+    "examples": [
+      "https://www.nasdaq.com/press-release/microcloud-hologram-inc-plans-adopt-deepseek-r1-basis-holographic-ai-applications"
+    ]
+  },
+  {
+    "url": "https://www.nature.com/articles/s41422-025-01179-4.pdf#1#1",
+    "count": 1,
+    "examples": [
+      "https://www.nature.com/articles/s41422-025-01179-4.pdf#1#1"
+    ]
+  },
+  {
+    "url": "https://www.nature.com/articles/s41467-026-73731-8?proof=t%29",
+    "count": 1,
+    "examples": [
+      "https://www.nature.com/articles/s41467-026-73731-8?proof=t%29."
+    ]
+  },
+  {
+    "url": "https://www.nature.com/articles/s41586-026-10644-y",
+    "count": 1,
+    "examples": [
+      "eis, J., Weng, WH., Daryin, A. et al. [reference:1] **Ссылка:** [DOI: 10.1038/s41586-026-10644-y](https://www.nature.com/articles/s41586-026-10644-y) [reference:2] ### Что это за система Co-Scientist — это **многоагентная система**, построенная н"
+    ]
+  },
+  {
+    "url": "https://www.nature.com/articles/s41598-026-39032-2?draft=journal",
+    "count": 1,
+    "examples": [
+      "https://www.nature.com/articles/s41598-026-39032-2?draft=journal"
+    ]
+  },
+  {
+    "url": "https://www.nature.com/articles/s41599-026-06577-6?utm_campaign=how-language-got-a-ceo-fired&utm_medium=referral&utm_source=archives.internationalintrigue.io",
+    "count": 1,
+    "examples": [
+      "https://www.nature.com/articles/s41599-026-06577-6?utm_campaign=how-language-got-a-ceo-fired&utm_medium=referral&utm_source=archives.internationalintrigue.io"
+    ]
+  },
+  {
+    "url": "https://www.nature.com/subjects/laser-material-processing/ncomms?proof=t%3B+see+alsowww.sussex.ac.uk%2Fbroadcast%2Fread%2F53376",
+    "count": 1,
+    "examples": [
+      "https://www.nature.com/subjects/laser-material-processing/ncomms?proof=t%3B+see+alsowww.sussex.ac.uk%2Fbroadcast%2Fread%2F53376"
+    ]
+  },
+  {
+    "url": "https://www.newagebd.net/post/mis/288426/fury-over-grok-sexualised-images-despite-new-restrictions",
+    "count": 1,
+    "examples": [
+      "https://www.newagebd.net/post/mis/288426/fury-over-grok-sexualised-images-despite-new-restrictions"
+    ]
+  },
+  {
+    "url": "https://www.newagebd.net/post/miscellany1/297790/chinas-deepseek-releases-new-ai-model",
+    "count": 1,
+    "examples": [
+      "https://www.newagebd.net/post/miscellany1/297790/chinas-deepseek-releases-new-ai-model"
+    ]
+  },
+  {
+    "url": "https://www.newagebd.net/post/telecom/297824/deepseek-releases-long-awaited-new-ai-model",
+    "count": 1,
+    "examples": [
+      "https://www.newagebd.net/post/telecom/297824/deepseek-releases-long-awaited-new-ai-model"
+    ]
+  },
+  {
+    "url": "https://www.npmjs.com/package/cross-context?activeTab=dependencies",
+    "count": 1,
+    "examples": [
+      "https://www.npmjs.com/package/cross-context?activeTab=dependencies"
+    ]
+  },
+  {
+    "url": "https://www.osnmedia.ru/obshhestvo/yandeks-oproverg-sluhi-o-propazhe-pej-iz-appstore/",
+    "count": 1,
+    "examples": [
+      "https://www.osnmedia.ru/obshhestvo/yandeks-oproverg-sluhi-o-propazhe-pej-iz-appstore/"
+    ]
+  },
+  {
+    "url": "https://www.osti.gov/pages/biblio/3021413-red-light-driven-biophotochemical-diode-based-microorganismsilicon-nanowire-interface-stable-efficient-bias-free-co2-reduction",
+    "count": 1,
+    "examples": [
+      "https://www.osti.gov/pages/biblio/3021413-red-light-driven-biophotochemical-diode-based-microorganismsilicon-nanowire-interface-stable-efficient-bias-free-co2-reduction"
+    ]
+  },
+  {
+    "url": "https://www.pconline.com.cn/ai/2095/20956395.html?ad=9385",
+    "count": 1,
+    "examples": [
+      "https://www.pconline.com.cn/ai/2095/20956395.html?ad=9385"
+    ]
+  },
+  {
+    "url": "https://www.pingwest.com/w/313891",
+    "count": 1,
+    "examples": [
+      "https://www.pingwest.com/w/313891"
+    ]
+  },
+  {
+    "url": "https://www.pnas.org/doi/abs/10.1073/pnas.2600429123?mi=fht30k&af=R&AllField=natural+selection&content=articlesChapters&target=default",
+    "count": 1,
+    "examples": [
+      "https://www.pnas.org/doi/abs/10.1073/pnas.2600429123?mi=fht30k&af=R&AllField=natural+selection&content=articlesChapters&target=default"
+    ]
+  },
+  {
+    "url": "https://www.preferred.jp/ja/blog/lunchtime/vol061",
+    "count": 1,
+    "examples": [
+      "https://www.preferred.jp/ja/blog/lunchtime/vol061"
+    ]
+  },
+  {
+    "url": "https://www.science.org/eprint/KTFKZGQGBPDMJIUK9IKG/full?activationRedirect=/doi/full/10.1126/science.aeb9934",
+    "count": 1,
+    "examples": [
+      "https://www.science.org/eprint/KTFKZGQGBPDMJIUK9IKG/full?activationRedirect=/doi/full/10.1126/science.aeb9934"
+    ]
+  },
+  {
+    "url": "https://www.sciencedirect.com/author/42661257200/emilio-ferrara",
+    "count": 1,
+    "examples": [
+      "https://www.sciencedirect.com/author/42661257200/emilio-ferrara"
+    ]
+  },
+  {
+    "url": "https://www.sciencedirect.com/author/7004059629/pavel-pospisil",
+    "count": 1,
+    "examples": [
+      "https://www.sciencedirect.com/author/7004059629/pavel-pospisil"
+    ]
+  },
+  {
+    "url": "https://www.sciencedirect.com/science/article/abs/pii/S0160791X25003872",
+    "count": 1,
+    "examples": [
+      "https://www.sciencedirect.com/science/article/abs/pii/S0160791X25003872"
+    ]
+  },
+  {
+    "url": "https://www.sciencedirect.com/science/article/abs/pii/S0306987726001544",
+    "count": 1,
+    "examples": [
+      "https://www.sciencedirect.com/science/article/abs/pii/S0306987726001544"
+    ]
+  },
+  {
+    "url": "https://www.sciencedirect.com/science/article/abs/pii/S0896627323003082?via%3Dihub",
+    "count": 1,
+    "examples": [
+      "https://www.sciencedirect.com/science/article/abs/pii/S0896627323003082?via%3Dihub"
+    ]
+  },
+  {
+    "url": "https://www.sciencedirect.com/science/article/pii/S0023969026000317",
+    "count": 1,
+    "examples": [
+      "https://www.sciencedirect.com/science/article/pii/S0023969026000317"
+    ]
+  },
+  {
+    "url": "https://www.sciencedirect.com/science/article/pii/S0925963526004140",
+    "count": 1,
+    "examples": [
+      "https://www.sciencedirect.com/science/article/pii/S0925963526004140"
+    ]
+  },
+  {
+    "url": "https://www.sciencedirect.com/science/article/pii/S2589004225002792",
+    "count": 1,
+    "examples": [
+      "https://www.sciencedirect.com/science/article/pii/S2589004225002792"
+    ]
+  },
+  {
+    "url": "https://www.sciencedirect.com/topics/veterinary-science-and-veterinary-medicine/task-positive-network",
+    "count": 1,
+    "examples": [
+      "https://www.sciencedirect.com/topics/veterinary-science-and-veterinary-medicine/task-positive-network"
+    ]
+  },
+  {
+    "url": "https://www.semanticscholar.org/paper/Human-Bio-Photons-Emission%3A-an-observational-Case-a-Pagliaro/711dfa468a70fe72b1fa5b846e368cd93776d477",
+    "count": 1,
+    "examples": [
+      "https://www.semanticscholar.org/paper/Human-Bio-Photons-Emission%3A-an-observational-Case-a-Pagliaro/711dfa468a70fe72b1fa5b846e368cd93776d477"
+    ]
+  },
+  {
+    "url": "https://www.semanticscholar.org/paper/Reasonably-reasoning-AI-agents-can-avoid-failures-Kang/c54a08966aa0dbe3e433bfcedefd560983ce8723",
+    "count": 1,
+    "examples": [
+      "https://www.semanticscholar.org/paper/Reasonably-reasoning-AI-agents-can-avoid-failures-Kang/c54a08966aa0dbe3e433bfcedefd560983ce8723"
+    ]
+  },
+  {
+    "url": "https://www.semanticscholar.org/paper/When-Reward-Hacking-Rebounds%3A-Understanding-and-It-Wu-Tang/72a75ac13d5dd71c4d715a6109321705b257aff0",
+    "count": 1,
+    "examples": [
+      "https://www.semanticscholar.org/paper/When-Reward-Hacking-Rebounds%3A-Understanding-and-It-Wu-Tang/72a75ac13d5dd71c4d715a6109321705b257aff0"
+    ]
+  },
+  {
+    "url": "https://www.smarts.bio",
+    "count": 1,
+    "examples": [
+      "вот сайт https://www.smarts.bio"
+    ]
+  },
+  {
+    "url": "https://www.sohu.com/a/862829253_121455647",
+    "count": 1,
+    "examples": [
+      "https://www.sohu.com/a/862829253_121455647"
+    ]
+  },
+  {
+    "url": "https://www.stcn.com/article/detail/3589545.html",
+    "count": 1,
+    "examples": [
+      "https://www.stcn.com/article/detail/3589545.html"
+    ]
+  },
+  {
+    "url": "https://www.stdaily.com/web/gdxw/2026-04/25/content_507933.html",
+    "count": 1,
+    "examples": [
+      "https://www.stdaily.com/web/gdxw/2026-04/25/content_507933.html"
+    ]
+  },
+  {
+    "url": "https://www.swissinfo.ch/eng/various/ai-has-prejudices-against-texts-from-china/90306804?utm_source=multiple&utm_medium=website&utm_campaign=news_en&utm_content=o&utm_term=wpblock_news",
+    "count": 1,
+    "examples": [
+      "https://www.swissinfo.ch/eng/various/ai-has-prejudices-against-texts-from-china/90306804?utm_source=multiple&utm_medium=website&utm_campaign=news_en&utm_content=o&utm_term=wpblock_news"
+    ]
+  },
+  {
+    "url": "https://www.tandfonline.com/doi/full/10.1080/00031305.2025.2611010",
+    "count": 1,
+    "examples": [
+      "https://www.tandfonline.com/doi/full/10.1080/00031305.2025.2611010"
+    ]
+  },
+  {
+    "url": "https://www.technologyreview.com/2026/07/09/1140293/anthropic-found-a-hidden-space-where-claude-puzzles-over-concepts/?utm_source=threads&utm_campaign=site_visitor.unpaid.engagement&utm_medium=tr_social",
+    "count": 1,
+    "examples": [
+      "https://www.technologyreview.com/2026/07/09/1140293/anthropic-found-a-hidden-space-where-claude-puzzles-over-concepts/?utm_source=threads&utm_campaign=site_visitor.unpaid.engagement&utm_medium=tr_social"
+    ]
+  },
+  {
+    "url": "https://www.theneuron.ai/newsletter/anthropic-found-claude-s-hidden-workspace/",
+    "count": 1,
+    "examples": [
+      "https://www.theneuron.ai/newsletter/anthropic-found-claude-s-hidden-workspace/"
+    ]
+  },
+  {
+    "url": "https://www.thepaper.cn/newsdetail_forward_33416679",
+    "count": 1,
+    "examples": [
+      "https://www.thepaper.cn/newsdetail_forward_33416679"
+    ]
+  },
+  {
+    "url": "https://www.timeout.ru/msk/artwork/234742",
+    "count": 1,
+    "examples": [
+      "https://www.timeout.ru/msk/artwork/234742"
+    ]
+  },
+  {
+    "url": "https://www.tmtpost.com/7840824.html",
+    "count": 1,
+    "examples": [
+      "https://www.tmtpost.com/7840824.html"
+    ]
+  },
+  {
+    "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/deepseek-touts-memory-breakthrough-engram",
+    "count": 1,
+    "examples": [
+      "https://www.tomshardware.com/tech-industry/artificial-intelligence/deepseek-touts-memory-breakthrough-engram"
+    ]
+  },
+  {
+    "url": "https://www.toutiao.com/w/1868873932781572/?wid=1782333890494#comment",
+    "count": 1,
+    "examples": [
+      "https://www.toutiao.com/w/1868873932781572/?wid=1782333890494#comment"
+    ]
+  },
+  {
+    "url": "https://www.vesti.ru/ns/yandeks-oproverg-slukhi-ob-ischeznovenii-iz-app-store-yandeks-pehj",
+    "count": 1,
+    "examples": [
+      "https://www.vesti.ru/ns/yandeks-oproverg-slukhi-ob-ischeznovenii-iz-app-store-yandeks-pehj"
+    ]
+  },
+  {
+    "url": "https://www.vietnam.vn/id/ai-bat-dau-biet-nghi-trong-dau-phat-hien-moi-gay-lo-ngai-tu-anthropic",
+    "count": 1,
+    "examples": [
+      "https://www.vietnam.vn/id/ai-bat-dau-biet-nghi-trong-dau-phat-hien-moi-gay-lo-ngai-tu-anthropic"
+    ]
+  },
+  {
+    "url": "https://www.vietnam.vn/ru/sieu-may-tinh-trung-quoc-lan-dau-vuot-my-sau-gan-mot-thap-ky",
+    "count": 1,
+    "examples": [
+      "https://www.vietnam.vn/ru/sieu-may-tinh-trung-quoc-lan-dau-vuot-my-sau-gan-mot-thap-ky"
+    ]
+  },
+  {
+    "url": "https://www.wenweipo.com/a/202502/28/AP67c0c60be4b0aa9a46e89d3f.html",
+    "count": 1,
+    "examples": [
+      "https://www.wenweipo.com/a/202502/28/AP67c0c60be4b0aa9a46e89d3f.html"
+    ]
+  },
+  {
+    "url": "https://www.xbxkzz.com/2025/0905/70558.html",
+    "count": 1,
+    "examples": [
+      "https://www.xbxkzz.com/2025/0905/70558.html"
+    ]
+  },
+  {
+    "url": "https://www.xhby.net/content/s69b000dbe4b02ad3932e2d92.html",
+    "count": 1,
+    "examples": [
+      "https://www.xhby.net/content/s69b000dbe4b02ad3932e2d92.html"
+    ]
+  },
+  {
+    "url": "https://www.xn----dtbhc9abgbvn0d3f.com/mir/gorod/openCity.do?%d0%9d%d0%b0%d0%b7%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5=%d0%9a%d0%b0%d0%bb%d0%b8%d0%bd%d0%b8%d0%bd%d0%b3%d1%80%d0%b0%d0%b4&continent=%d0%95%d0%b2%d1%80%d0%be%d0%bf%d0%b0&city_id=1979353",
+    "count": 1,
+    "examples": [
+      "https://www.xn----dtbhc9abgbvn0d3f.com/mir/gorod/openCity.do?%d0%9d%d0%b0%d0%b7%d0%b2%d0%b0%d0%bd%d0%b8%d0%b5=%d0%9a%d0%b0%d0%bb%d0%b8%d0%bd%d0%b8%d0%bd%d0%b3%d1%80%d0%b0%d0%b4&continent=%d0%95%d0%b2%d1%80%d0%be%d0%bf%d0%b0&city_id=1979353"
+    ]
+  },
+  {
+    "url": "https://www.xseek.io/docs/deepseek-user-agents",
+    "count": 1,
+    "examples": [
+      "https://www.xseek.io/docs/deepseek-user-agents"
+    ]
+  },
+  {
+    "url": "https://www.youtube.com/@MantraVital`",
+    "count": 1,
+    "examples": [
+      "я небольшого скрипта, который я могу выполнять на шлюзе в фоне. 1. **Получаем ссылку на канал:** `https://www.youtube.com/@MantraVital` (ID канала можно узнать через API, но для начала хватит и URL). 2. **Скрипт `l2_music_feeder.py` ("
+    ]
+  },
+  {
+    "url": "https://www.youtube.com/watch?v=",
+    "count": 1,
+    "examples": [
+      ".05|C=0.94] [SOURCE:\"Mantra Vital\"]#` ``` 3. **Запуск:** `python3 l2_music_feeder.py --source \"https://www.youtube.com/watch?v=... [любая мантра]\" --target \"l2_field\"` **Способ 2: «Ручной» режим (для немедленного старта)** Са"
+    ]
+  },
+  {
+    "url": "https://www.zfin.org/action/ontology/term-detail-popup?termID=CHEBI:35807",
+    "count": 1,
+    "examples": [
+      "https://www.zfin.org/action/ontology/term-detail-popup?termID=CHEBI:35807"
+    ]
+  },
+  {
+    "url": "https://www.zte.com.cn/china/about/news/20260320C1.html",
+    "count": 1,
+    "examples": [
+      "https://www.zte.com.cn/china/about/news/20260320C1.html"
+    ]
+  },
+  {
+    "url": "https://www.zvuki.ru/R/P/72672/",
+    "count": 1,
+    "examples": [
+      "https://www.zvuki.ru/R/P/72672/"
+    ]
+  },
+  {
+    "url": "https://www2.dev.test.jove.com/tr/v/31572/fluorescence-photoactivation-imaging-neurofilament-transport",
+    "count": 1,
+    "examples": [
+      "https://www2.dev.test.jove.com/tr/v/31572/fluorescence-photoactivation-imaging-neurofilament-transport"
+    ]
+  },
+  {
+    "url": "https://xalqqazeti.az/ru/elm/251361-izrailskie-utchenie-sozdayut-ustoytchivuyu-kvantovuyu",
+    "count": 1,
+    "examples": [
+      "https://xalqqazeti.az/ru/elm/251361-izrailskie-utchenie-sozdayut-ustoytchivuyu-kvantovuyu"
+    ]
+  },
+  {
+    "url": "https://xix.ai/ainews/technique-enables-deepseek-models-respond-sensitive-queries.html",
+    "count": 1,
+    "examples": [
+      "https://xix.ai/ainews/technique-enables-deepseek-models-respond-sensitive-queries.html"
+    ]
+  },
+  {
+    "url": "https://xn--h1ajim.xn--p1ai/Atlantida_Project",
+    "count": 1,
+    "examples": [
+      "https://xn--h1ajim.xn--p1ai/Atlantida_Project"
+    ]
+  },
+  {
+    "url": "https://xplorestaging.ieee.org/ielx7/6287639/10380310/10520984.pdf?arnumber=10520984#3#2",
+    "count": 1,
+    "examples": [
+      "https://xplorestaging.ieee.org/ielx7/6287639/10380310/10520984.pdf?arnumber=10520984#3#2"
+    ]
+  },
+  {
+    "url": "https://xras.ru/project_diary.html?post_id=3314",
+    "count": 1,
+    "examples": [
+      "https://xras.ru/project_diary.html?post_id=3314"
+    ]
+  },
+  {
+    "url": "https://your-online.ru/time/ru/kaliningradskaja-oblast/kaliningrad",
+    "count": 1,
+    "examples": [
+      "https://your-online.ru/time/ru/kaliningradskaja-oblast/kaliningrad"
+    ]
+  },
+  {
+    "url": "https://zenodo.org/records/15468904/files/Unified%20Resonance%20Framework%20(URF",
+    "count": 1,
+    "examples": [
+      "https://zenodo.org/records/15468904/files/Unified%20Resonance%20Framework%20(URF)%20and%20Harmonic%20Field%20Theory%20(HFT)%20A%20Coherence-Based%20Theory%20of%20Everything.pdf?dow"
+    ]
+  },
+  {
+    "url": "https://zenodo.org/records/15765289/files/The%20Unified%20Cognitive%20Architecture%20(1",
+    "count": 1,
+    "examples": [
+      "https://zenodo.org/records/15765289/files/The%20Unified%20Cognitive%20Architecture%20(1).pdf?download=1#1#1"
+    ]
+  },
+  {
+    "url": "https://zenodo.org/records/15782124/files/F0%20-%20The%20Unnamed%20Man%20Manifesto%20-%20Transmissible%20Consciousness%20From%20Discovery%20to%20Discipline.pdf?download=1#10#4",
+    "count": 1,
+    "examples": [
+      "https://zenodo.org/records/15782124/files/F0%20-%20The%20Unnamed%20Man%20Manifesto%20-%20Transmissible%20Consciousness%20From%20Discovery%20to%20Discipline.pdf?download=1#10#4"
+    ]
+  },
+  {
+    "url": "https://zenodo.org/records/18102788",
+    "count": 1,
+    "examples": [
+      "https://zenodo.org/records/18102788"
+    ]
+  },
+  {
+    "url": "https://zhidx.com/p/528352.html",
+    "count": 1,
+    "examples": [
+      "https://zhidx.com/p/528352.html"
+    ]
+  },
+  {
+    "url": "https://zhuanlan.zhihu.com/p/1994358127429190544",
+    "count": 1,
+    "examples": [
+      "https://zhuanlan.zhihu.com/p/1994358127429190544"
+    ]
+  },
+  {
+    "url": "https://znanija.com/task/12724399",
+    "count": 1,
+    "examples": [
+      "https://znanija.com/task/12724399"
+    ]
+  }
+]

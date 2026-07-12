@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://theseus.local/schemas/image-transfer-manifest.v1.json",
+  "title": "Theseus Docker Image Transfer Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "image",
+    "created_at",
+    "source_host",
+    "source_platform",
+    "archive",
+    "sha256",
+    "size_bytes",
+    "notes"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "image": {
+      "type": "string",
+      "minLength": 1
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_host": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_platform": {
+      "type": "string",
+      "minLength": 1
+    },
+    "archive": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "size_bytes": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

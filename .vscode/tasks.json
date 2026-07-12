@@ -31,6 +31,35 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus: write session journal",
+      "type": "shell",
+      "command": "node tools/session_journal/session_journal.mjs --note \"${input:sessionJournalNote}\"",
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus: index Strazh JSON",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/strazh_index/index_strazh_json.mjs",
+        "C:\\Users\\s.poklad\\Documents\\Codex\\2026-07-08\\Страж.json",
+        "outputs"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus: enqueue research item",
+      "type": "shell",
+      "command": "node tools/research_queue/enqueue.mjs --topic \"${input:researchQueueTopic}\" --why \"${input:researchQueueWhy}\" --connectors \"exa,parallel,tavily,acumen,browser\"",
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus: list research queue",
+      "type": "shell",
+      "command": "node tools/research_queue/list.mjs --limit 10",
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus: AutoMem status",
       "type": "shell",
       "command": ".\\scripts\\automem-status.ps1",
@@ -49,6 +78,55 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus: Local inventory",
+      "type": "shell",
+      "command": ".\\tools\\local_inventory\\inventory.ps1 -Context \"${input:localInventoryContext}\"",
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus VM: open SSH terminal",
+      "type": "shell",
+      "command": "ssh ${input:theseusVmUser}@${input:theseusVmHost}",
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus VM: agent SSH health",
+      "type": "shell",
+      "command": "ssh -F .\\work\\ssh\\config theseus-ubuntu-vm \"printf 'ssh-ok\\n'; whoami; hostname; pwd\"",
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus VM: inventory over SSH",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/vm_lab/vm_inventory.mjs"
+      ],
+      "options": {
+        "env": {
+          "THESEUS_VM_HOST": "${input:theseusVmHost}",
+          "THESEUS_VM_USER": "${input:theseusVmUser}"
+        }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus VM: inventory over SSH key",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/vm_lab/vm_inventory.mjs"
+      ],
+      "options": {
+        "env": {
+          "THESEUS_VM_HOST": "${input:theseusVmHost}",
+          "THESEUS_VM_USER": "${input:theseusVmUser}",
+          "THESEUS_VM_KEY": "${input:theseusVmKey}"
+        }
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus: Export CodeWhale context",
       "type": "shell",
       "command": ".\\scripts\\agent-shell.ps1 -Command \"python3 tools/memory_context/export_context.py\"",
@@ -59,6 +137,73 @@
       "type": "shell",
       "command": ".\\scripts\\agent-shell.ps1 -Command \"python3 tools/backup_lattice/backup_lattice.py once --mirror-dir /workspace/../theseus-cloud-backups\"",
       "problemMatcher": []
+    },
+    {
+      "label": "MemPalace Pilot: build image",
+      "type": "shell",
+      "command": "docker compose -f work\\mempalace-pilot\\docker-compose.yml build",
+      "problemMatcher": []
+    },
+    {
+      "label": "MemPalace Pilot: ingest seed corpus",
+      "type": "shell",
+      "command": "docker compose -f work\\mempalace-pilot\\docker-compose.yml run --rm mempalace mine /corpus --wing theseus-local-lab",
+      "problemMatcher": []
+    },
+    {
+      "label": "MemPalace Pilot: ingest Strazh outputs",
+      "type": "shell",
+      "command": "docker compose -f work\\mempalace-pilot\\docker-compose.yml run --rm mempalace mine /outputs --wing strazh-index",
+      "problemMatcher": []
+    },
+    {
+      "label": "MemPalace Pilot: status",
+      "type": "shell",
+      "command": "docker compose -f work\\mempalace-pilot\\docker-compose.yml run --rm mempalace status",
+      "problemMatcher": []
+    },
+    {
+      "label": "MemPalace Pilot: search",
+      "type": "shell",
+      "command": "docker compose -f work\\mempalace-pilot\\docker-compose.yml run --rm mempalace search \"${input:mempalaceSearchQuery}\"",
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Image Transfer: export image archive",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/image_transfer/export_image.mjs",
+        "${input:imageTransferName}"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Image Transfer: install Ubuntu loader",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/image_transfer/install_vm_loader.mjs",
+        "${input:theseusVmSshAlias}"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Image Transfer: verify manifest locally",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/image_transfer/verify_manifest.mjs",
+        "work/image-transfer/${input:imageTransferArchive}",
+        "work/image-transfer/${input:imageTransferManifest}"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Image Transfer: load on Ubuntu VM",
+      "type": "shell",
+      "command": "ssh -o BatchMode=yes -o StrictHostKeyChecking=yes ${input:theseusVmSshAlias} 'bash ~/theseus-local-lab/bin/load_image_archive.sh ~/theseus-local-lab/incoming/${input:imageTransferArchive} ~/theseus-local-lab/incoming/${input:imageTransferManifest}'",
+      "problemMatcher": []
     }
   ],
   "inputs": [
@@ -66,6 +211,82 @@
       "id": "copilotAdvisorPrompt",
       "type": "promptString",
       "description": "Safe, explicit prompt for Copilot advisor"
+    },
+    {
+      "id": "sessionJournalNote",
+      "type": "promptString",
+      "description": "Short observable note for the lab journal"
+    },
+    {
+      "id": "researchQueueTopic",
+      "type": "promptString",
+      "description": "Public research topic to queue"
+    },
+    {
+      "id": "researchQueueWhy",
+      "type": "promptString",
+      "description": "Why this topic should be checked"
+    },
+    {
+      "id": "localInventoryContext",
+      "type": "pickString",
+      "description": "Where this inventory is being run",
+      "options": [
+        "codex",
+        "powershell",
+        "vscode",
+        "wsl",
+        "other"
+      ],
+      "default": "vscode"
+    },
+    {
+      "id": "theseusVmHost",
+      "type": "promptString",
+      "description": "Theseus Ubuntu VM SSH host",
+      "default": "192.168.121.130"
+    },
+    {
+      "id": "theseusVmUser",
+      "type": "promptString",
+      "description": "Theseus Ubuntu VM SSH user",
+      "default": "sysadmin"
+    },
+    {
+      "id": "theseusVmKey",
+      "type": "promptString",
+      "description": "Optional SSH private key path for the Theseus Ubuntu VM",
+      "default": ""
+    },
+    {
+      "id": "mempalaceSearchQuery",
+      "type": "promptString",
+      "description": "MemPalace pilot search query",
+      "default": "DeepSeek KV cache MLA"
+    },
+    {
+      "id": "imageTransferName",
+      "type": "promptString",
+      "description": "Docker image name to export into work/image-transfer",
+      "default": "theseus-mempalace:pilot"
+    },
+    {
+      "id": "theseusVmSshAlias",
+      "type": "promptString",
+      "description": "SSH alias for the Theseus Ubuntu VM",
+      "default": "theseus-ubuntu-vm"
+    },
+    {
+      "id": "imageTransferArchive",
+      "type": "promptString",
+      "description": "Image tar filename already copied to ~/theseus-local-lab/incoming",
+      "default": "theseus-mempalace-pilot.tar"
+    },
+    {
+      "id": "imageTransferManifest",
+      "type": "promptString",
+      "description": "Image manifest filename already copied to ~/theseus-local-lab/incoming",
+      "default": "theseus-mempalace-pilot.manifest.json"
     }
   ]
 }

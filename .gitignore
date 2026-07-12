@@ -18,7 +18,13 @@ stateful-agent-net/data/*.sqlite
 stateful-agent-net/data/*.sqlite-*
 outputs/context/*.md
 outputs/memory_inbox/*.md
+outputs/session_journal/*.md
+outputs/research_queue/*.jsonl
+outputs/local_inventory/*.json
+outputs/pdf_extracts/*
 outputs/state_packets/*.md
+.vs/
+.local_secrets/
 *.log
 *.key
 *.pem
