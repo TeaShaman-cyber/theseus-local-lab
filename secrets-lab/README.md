@@ -101,11 +101,22 @@ context.
 
 - Never commit `secrets-lab/.env`.
 - Never paste real secret values into chat.
+- Prefer Infisical injection over `.env.local`; `.env.local` is now only an
+  ignored emergency fallback for older local workflows.
 - Keep `.env.example` as the public schema only.
 - Back up both the Postgres volume and `secrets-lab/.env`; without the
   encryption key in `.env`, restored encrypted secrets cannot be decrypted.
 - Use Infisical for local/dev secrets first. Keep production or paid-service
   credentials more restricted until the workflow is proven.
+
+Enable the repository pre-commit secret scanner once per clone:
+
+```powershell
+git config core.hooksPath .githooks
+```
+
+The scanner rejects staged `.env`, `.env.local`, private-key files, common token
+prefixes, and non-placeholder secret assignments before Git creates a commit.
 
 ## Next Integration
 
@@ -119,3 +130,6 @@ Current CLI status:
 - Project config: `.infisical.json`
 - `infisical run --env=local --path=/providers -- ...` injects provider names.
 - CodeWhale runner: `node tools/codewhale_infisical/run.mjs --provider BOTHUB`
+
+Bothub and xAI helper scripts read process environment variables first and only
+fall back to ignored `.env.local` when not run through Infisical.

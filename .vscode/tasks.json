@@ -8,6 +8,15 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus: staged secret scan",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/git_safety/scan_staged.mjs"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus: lint markdown",
       "type": "shell",
       "command": "npm exec --yes markdownlint-cli2",

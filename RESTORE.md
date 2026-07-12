@@ -79,8 +79,9 @@ Drive. It intentionally excludes secrets and heavy generated folders.
 1. Install Docker Desktop and enable WSL2 backend.
 2. Install Git, Node.js, and PowerShell 7.
 3. Restore this repository or unpack the latest safe archive.
-4. Recreate `.env.local` from `.env.example`; never restore it from a shared
-   archive.
+4. Prefer restoring local secrets through Infisical. Recreate `.env.local` from
+   `.env.example` only as an ignored emergency fallback; never restore it from a
+   shared archive.
 5. Start AutoMem:
 
    ```powershell

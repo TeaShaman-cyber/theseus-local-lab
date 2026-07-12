@@ -13,21 +13,7 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-
-function Read-DotEnv {
-  param([string]$Path)
-  if (-not (Test-Path -LiteralPath $Path)) {
-    throw "Missing .env.local"
-  }
-
-  $vars = @{}
-  foreach ($line in [System.IO.File]::ReadAllLines($Path)) {
-    if ($line -match "^\s*#" -or $line -notmatch "=") { continue }
-    $name, $value = $line -split "=", 2
-    $vars[$name.Trim()] = $value.Trim()
-  }
-  return $vars
-}
+. (Join-Path $PSScriptRoot "provider-env.ps1")
 
 function Invoke-BothubChat {
   param(
@@ -87,12 +73,9 @@ if ([string]::IsNullOrWhiteSpace($Prompt)) {
   throw "Prompt or PromptFile is required"
 }
 
-$vars = Read-DotEnv -Path (Join-Path $root ".env.local")
-$apiKey = $vars["BOTHUB_API_KEY"]
-$baseUrl = $vars["BOTHUB_BASE_URL"]
-if ([string]::IsNullOrWhiteSpace($apiKey)) { throw "BOTHUB_API_KEY is empty" }
-if ([string]::IsNullOrWhiteSpace($baseUrl)) { throw "BOTHUB_BASE_URL is empty" }
-$baseUrl = $baseUrl.TrimEnd("/")
+$provider = Get-ProviderConfig -ProviderPrefix "BOTHUB" -DefaultBaseUrl "https://openai.bothub.chat/v1"
+$apiKey = $provider.ApiKey
+$baseUrl = $provider.BaseUrl
 
 Write-CouncilLog "stage 1: asking $($Models.Count) model(s)"
 $stage1Index = 0

@@ -1,0 +1,2 @@
+#!/bin/sh
+node tools/git_safety/scan_staged.mjs

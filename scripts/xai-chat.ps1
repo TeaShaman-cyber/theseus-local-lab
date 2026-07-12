@@ -8,10 +8,7 @@ param(
 
 $ErrorActionPreference = "Stop"
 $root = Split-Path -Parent $PSScriptRoot
-$envPath = Join-Path $root ".env.local"
-if (-not (Test-Path -LiteralPath $envPath)) {
-  throw "Missing .env.local"
-}
+. (Join-Path $PSScriptRoot "provider-env.ps1")
 
 if (-not [string]::IsNullOrWhiteSpace($PromptFile)) {
   $Prompt = Get-Content -LiteralPath $PromptFile -Raw
@@ -20,20 +17,12 @@ if ([string]::IsNullOrWhiteSpace($Prompt)) {
   throw "Prompt or PromptFile is required"
 }
 
-$vars = @{}
-foreach ($line in [System.IO.File]::ReadAllLines($envPath)) {
-  if ($line -match "^\s*#" -or $line -notmatch "=") { continue }
-  $name, $value = $line -split "=", 2
-  $vars[$name.Trim()] = $value.Trim()
+if ([string]::IsNullOrWhiteSpace($Model)) {
+  $provider = Get-ProviderConfig -ProviderPrefix "XAI" -DefaultBaseUrl "https://api.x.ai/v1" -DefaultModel "grok-4.5"
+  $Model = $provider.Model
+} else {
+  $provider = Get-ProviderConfig -ProviderPrefix "XAI" -DefaultBaseUrl "https://api.x.ai/v1"
 }
-
-$key = $vars["XAI_API_KEY"]
-$base = $vars["XAI_BASE_URL"]
-if ([string]::IsNullOrWhiteSpace($key)) { throw "XAI_API_KEY is empty" }
-if ([string]::IsNullOrWhiteSpace($base)) { $base = "https://api.x.ai/v1" }
-if ([string]::IsNullOrWhiteSpace($Model)) { $Model = $vars["XAI_MODEL"] }
-if ([string]::IsNullOrWhiteSpace($Model)) { $Model = "grok-4.5" }
-$base = $base.TrimEnd("/")
 
 $body = @{
   model = $Model
@@ -48,8 +37,8 @@ $body = @{
   max_tokens = $MaxTokens
 } | ConvertTo-Json -Depth 10
 
-$reply = Invoke-RestMethod -Method Post -Uri "$base/chat/completions" -Headers @{
-  Authorization = "Bearer $key"
+$reply = Invoke-RestMethod -Method Post -Uri "$($provider.BaseUrl)/chat/completions" -Headers @{
+  Authorization = "Bearer $($provider.ApiKey)"
   "Content-Type" = "application/json"
 } -Body $body -TimeoutSec 120
 
