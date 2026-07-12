@@ -78,6 +78,71 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus Secrets: generate local env",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/secrets_lab/generate_infisical_env.mjs"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Secrets: start keychain",
+      "type": "shell",
+      "command": "docker compose -f .\\secrets-lab\\docker-compose.yml up -d",
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Secrets: status",
+      "type": "shell",
+      "command": "docker compose -f .\\secrets-lab\\docker-compose.yml ps",
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Secrets: port check",
+      "type": "shell",
+      "command": "Test-NetConnection -ComputerName 127.0.0.1 -Port 8088 | Select-Object ComputerName,RemotePort,TcpTestSucceeded",
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Secrets: providers env check",
+      "type": "shell",
+      "command": ".\\tools\\infisical_cli\\node_modules\\.bin\\infisical.cmd run --env=local --path=/providers -- node tools/secrets_lab/check_required_env.mjs BOTHUB_API_KEY BOTHUB_BASE_URL BOTHUB_MODEL XAI_API_KEY XAI_BASE_URL XAI_MODEL",
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Secrets: Bothub API smoke",
+      "type": "shell",
+      "command": ".\\tools\\infisical_cli\\node_modules\\.bin\\infisical.cmd run --env=local --path=/providers -- node tools/secrets_lab/openai_compatible_smoke.mjs BOTHUB",
+      "problemMatcher": []
+    },
+    {
+      "label": "CodeWhale: smoke via Infisical Bothub",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/codewhale_infisical/run.mjs",
+        "--provider",
+        "BOTHUB",
+        "exec",
+        "Reply exactly: codewhale-ok"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "CodeWhale: smoke via Infisical xAI",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/codewhale_infisical/run.mjs",
+        "--provider",
+        "XAI",
+        "exec",
+        "Reply exactly: codewhale-ok"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus: Local inventory",
       "type": "shell",
       "command": ".\\tools\\local_inventory\\inventory.ps1 -Context \"${input:localInventoryContext}\"",

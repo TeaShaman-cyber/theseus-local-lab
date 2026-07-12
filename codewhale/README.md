@@ -27,22 +27,19 @@ List/help:
 Headless smoke test:
 
 ```powershell
-.\scripts\codewhale.ps1 exec --max-turns 1 "Reply exactly: codewhale-ok"
+.\scripts\codewhale.ps1 exec "Reply exactly: codewhale-ok"
 ```
 
 Verified smoke test:
 
 ```powershell
-.\scripts\codewhale.ps1 exec "Reply exactly: codewhale-ok" --output-mode json
+.\scripts\codewhale.ps1 exec "Reply exactly: codewhale-ok"
 ```
 
 Result:
 
-```json
-{
-  "response": "codewhale-ok",
-  "output_mode": "json"
-}
+```text
+codewhale-ok
 ```
 
 ## Agent Image
@@ -71,11 +68,18 @@ tasks and `-AgentImage` only when the worker needs code execution.
 
 ## Environment
 
-The wrapper reads `.env.local` and maps:
+The wrapper reads environment variables first, with `.env.local` as a fallback.
+This allows running CodeWhale through Infisical:
 
 - `BOTHUB_API_KEY` -> `OPENAI_API_KEY`
 - `BOTHUB_BASE_URL` -> `OPENAI_BASE_URL`
 - `BOTHUB_MODEL` -> `OPENAI_MODEL`
+
+The wrapper also supports `-ProviderPrefix XAI`, mapping:
+
+- `XAI_API_KEY` -> `OPENAI_API_KEY`
+- `XAI_BASE_URL` -> `OPENAI_BASE_URL`
+- `XAI_MODEL` -> `OPENAI_MODEL`
 
 It also passes global CodeWhale options:
 
@@ -87,6 +91,40 @@ It also passes global CodeWhale options:
 Secrets are not written into this repository. By default, CodeWhale uses a
 temporary container home. Add `-PersistHome` only after the smoke tests are
 stable; that mounts `.codewhale-home/`, which is ignored by git.
+
+## Infisical Runner
+
+After local Infisical CLI login, use the runner to inject `/providers` secrets
+without `.env.local`:
+
+```powershell
+node tools/codewhale_infisical/run.mjs --provider BOTHUB exec "Reply exactly: codewhale-ok"
+node tools/codewhale_infisical/run.mjs --provider XAI exec "Reply exactly: codewhale-ok"
+```
+
+Current checkpoint: Infisical injection works, but provider smoke tests are
+healthy only after checking the provider independently. Use the provider smoke
+test before blaming CodeWhale:
+
+```powershell
+.\tools\infisical_cli\node_modules\.bin\infisical.cmd run --env=local --path=/providers -- node tools/secrets_lab/openai_compatible_smoke.mjs BOTHUB
+```
+
+Latest result:
+
+- Bothub old `.env.local` path: healthy.
+- Bothub via Infisical `/providers`: healthy; response `provider-ok`.
+- Old `scripts/bothub-council.ps1` conclave path is healthy; a one-model smoke
+  returned `council-ok`.
+- CodeWhale plain `exec` via `.env.local` is healthy; response `codewhale-ok`.
+- CodeWhale via Infisical/Bothub is healthy when using plain `exec`; response
+  `codewhale-ok`.
+- Do not pass `--max-turns` to `codewhale exec`; that smoke path triggered an
+  HTTP 400 `apply_patch` tool-schema error and looked like a provider failure.
+- xAI currently depends on account balance/model access.
+
+Use plain `exec` for text-only smoke checks. Revisit tool-backed CodeWhale
+automation separately.
 
 ## Notes
 

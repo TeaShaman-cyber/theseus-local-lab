@@ -10,6 +10,8 @@ backup-lattice/data/
 tmp/
 work/
 node_modules/
+tools/infisical_cli/node_modules/
+tools/infisical_cli/package-lock.json
 __pycache__/
 *.pyc
 stateful-agent-net/data/*.db

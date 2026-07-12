@@ -1,0 +1,50 @@
+services:
+  infisical:
+    image: ${INFISICAL_IMAGE:-infisical/infisical:latest}
+    container_name: theseus-infisical
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+    ports:
+      - "127.0.0.1:${INFISICAL_PORT:-8088}:8080"
+    networks:
+      - secrets-lab
+
+  db:
+    image: postgres:14-alpine
+    container_name: theseus-infisical-db
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - infisical_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: "pg_isready --username=$${POSTGRES_USER} && psql --username=$${POSTGRES_USER} --list"
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    networks:
+      - secrets-lab
+
+  redis:
+    image: redis:7-alpine
+    container_name: theseus-infisical-redis
+    restart: unless-stopped
+    volumes:
+      - infisical_redis_data:/data
+    networks:
+      - secrets-lab
+
+volumes:
+  infisical_pg_data:
+  infisical_redis_data:
+
+networks:
+  secrets-lab:

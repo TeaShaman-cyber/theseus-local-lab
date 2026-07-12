@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "name": "theseus-infisical-cli-cache",
+  "version": "0.0.0",
+  "description": "Local tool cache for Infisical CLI used by Theseus smoke tests.",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@infisical/cli": "^0.43.104"
+  }
+}
