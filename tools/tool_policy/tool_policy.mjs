@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import { writeTimelineEvent } from "../session_timeline/event_writer.mjs";
 
 const safeWrappers = [
+  /^node\s+hooks[\\/]hook-router\.mjs\b/i,
   /^node\s+tools[\\/]git_safety[\\/]scan_staged\.mjs\b/i,
   /^node\s+tools[\\/]git_safety[\\/]commit_checkpoint\.mjs\b/i,
   /^node\s+tools[\\/]memory_hook[\\/]memory_hook\.mjs\b/i,

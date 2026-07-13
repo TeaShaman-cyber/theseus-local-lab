@@ -1,33 +1,35 @@
-# Hooks Research Pipeline
+# Hooks Pipeline
 
-This is a small local bridge from Codex/ChatGPT Work lifecycle hooks to a
-connector-backed research workflow.
+This is a small local bridge from Codex/ChatGPT Work lifecycle hooks to
+Theseus memory, timeline, and connector-backed research workflows.
 
 Hooks should not call external research connectors directly. They should capture
-small, redacted, observable queue items. Codex can then process those items with
-Exa, Tavily AI, Parallel Search, Acumen by Talarion, or browser integrations
-when the user asks or when a planned research pass starts.
+small, redacted, observable local events. Codex can then process queued research
+items with Exa, Tavily AI, Parallel Search, Acumen by Talarion, or browser
+integrations when the user asks or when a planned research pass starts.
 
 ## Flow
 
 ```text
 hook event
-  -> hooks/research-queue-hook.mjs
-  -> tools/research_queue/enqueue.mjs
-  -> outputs/research_queue/YYYY-MM-DD.jsonl
-  -> Codex processes queue with connectors/browser
-  -> session journal / AutoMem / observatory notes
+  -> hooks/hook-router.mjs
+    -> PreCompact: tools/memory_hook/memory_hook.mjs --mode compact
+    -> UserPromptSubmit/PostToolUse or THESEUS_HOOK_RESEARCH=1:
+       hooks/research-queue-hook.mjs
+    -> Stop: no-op by default, or checkpoint when THESEUS_HOOK_STOP_CHECKPOINT=1
+  -> local outputs first
+  -> Codex processes memory drafts / research queue / timeline later
 ```
 
 ## Manual Enqueue
 
-```powershell
+```text
 node tools/research_queue/enqueue.mjs --topic "Check Codex hooks docs" --why "Need official hook schema before wiring config" --connectors "exa,parallel,tavily,acumen"
 ```
 
 ## List Queue
 
-```powershell
+```text
 node tools/research_queue/list.mjs --limit 10
 ```
 
@@ -35,8 +37,8 @@ node tools/research_queue/list.mjs --limit 10
 
 Use this command from a Codex/ChatGPT Work hook:
 
-```powershell
-node hooks/research-queue-hook.mjs
+```text
+node hooks/hook-router.mjs --event PreCompact
 ```
 
 Codex can load hooks from user-level or project-level config layers:
@@ -55,22 +57,31 @@ matcher = ""
 
 [[hooks.Stop.hooks]]
 type = "command"
-command = "node hooks/research-queue-hook.mjs"
+command = "node hooks/hook-router.mjs --event Stop"
 timeout = 10
-statusMessage = "Queueing research follow-up"
+statusMessage = "Routing Stop hook"
 ```
 
 Useful events for this project:
 
-- `UserPromptSubmit`: queue public research questions when a prompt asks for
-  external verification.
-- `PostToolUse`: log connector/browser follow-up when a search or browser task
-  returns incomplete evidence.
-- `PreCompact`: capture a session checkpoint before context compaction.
-- `Stop`: queue end-of-turn follow-up items.
+- `UserPromptSubmit`: queue public research questions when routed through
+  `hook-router` or when `THESEUS_HOOK_RESEARCH=1` is set.
+- `PostToolUse`: queue connector/browser follow-up when routed through
+  `hook-router` or when `THESEUS_HOOK_RESEARCH=1` is set.
+- `PreCompact`: write a compact state packet through `tools/memory_hook`.
+- `Stop`: no-op by default to avoid queue noise; set
+  `THESEUS_HOOK_STOP_CHECKPOINT=1` only when end-of-turn checkpoints are needed.
 
-Start with audit-only hooks that write queue items. Add blocking hooks only
-after the queue proves useful and quiet.
+Keep lifecycle hooks fail-soft and non-blocking. Add blocking hooks only after a
+route proves useful, quiet, and safe under real Codex restarts.
+
+## Smoke Tests
+
+```text
+node --check hooks/hook-router.mjs
+node hooks/hook-router.mjs --event Stop
+node hooks/hook-router.mjs --event PreCompact
+```
 
 Optional environment variables:
 
@@ -79,6 +90,8 @@ Optional environment variables:
 - `THESEUS_HOOK_CONNECTORS`
 - `THESEUS_HOOK_PRIVACY`
 - `THESEUS_HOOK_TAGS`
+- `THESEUS_HOOK_RESEARCH=1`
+- `THESEUS_HOOK_STOP_CHECKPOINT=1`
 
 ## Privacy Rules
 

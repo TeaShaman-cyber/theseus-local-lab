@@ -6,15 +6,15 @@ matcher = ""
 
 [[hooks.Stop.hooks]]
 type = "command"
-command = "node hooks/research-queue-hook.mjs"
+command = "node hooks/hook-router.mjs --event Stop"
 timeout = 10
-statusMessage = "Queueing research follow-up"
+statusMessage = "Routing Stop hook"
 
 [[hooks.PreCompact]]
 matcher = ""
 
 [[hooks.PreCompact.hooks]]
 type = "command"
-command = "node hooks/research-queue-hook.mjs"
+command = "node hooks/hook-router.mjs --event PreCompact"
 timeout = 10
-statusMessage = "Queueing pre-compact research checkpoint"
+statusMessage = "Routing PreCompact hook"
