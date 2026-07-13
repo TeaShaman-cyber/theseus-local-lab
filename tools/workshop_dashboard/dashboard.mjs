@@ -214,7 +214,18 @@ async function buildDashboard() {
   rows.push(item("keychain", "Infisical keychain", keychain.ok ? "OK" : "WARN", keychain.ok ? "port 8088 open" : keychain.error));
   rows.push(item("docker-tcp", "Docker TCP", dockerTcp.ok ? "OK" : "FAIL", dockerTcp.ok ? "port 2375 open" : dockerTcp.error));
   rows.push(item("log-lattice", "Log lattice", logLattice.ok ? "OK" : "WARN", logLattice.ok ? "health endpoint responds" : logLattice.error || `HTTP ${logLattice.status}`));
-  rows.push(item("docker-control", "Docker control fallback", dockerControl.ok ? "OK" : "WARN", dockerControl.ok ? "health endpoint responds" : dockerControl.error || `HTTP ${dockerControl.status}`));
+  rows.push(
+    item(
+      "docker-control",
+      "Docker control fallback",
+      dockerControl.ok || dockerTcp.ok ? "OK" : "WARN",
+      dockerControl.ok
+        ? "health endpoint responds"
+        : dockerTcp.ok
+          ? "fallback daemon not running; preferred Docker TCP works"
+          : dockerControl.error || `HTTP ${dockerControl.status}`,
+    ),
+  );
 
   if (docker.ok) {
     const automemApi = findContainer(docker.containers, ["automem-flask-api"]);
@@ -270,7 +281,9 @@ async function buildDashboard() {
   );
 
   const researchItems = readJsonl("outputs/research_queue");
-  const pendingResearch = researchItems.filter((entry) => entry.status === "pending").length;
+  const pendingResearch = researchItems.filter((entry) => entry.status === "pending");
+  const genericHookResearch = pendingResearch.filter((entry) => entry.topic === "Review hook event for possible connector-backed research").length;
+  const actionableResearch = pendingResearch.length - genericHookResearch;
   const latestResearch = researchItems
     .filter((entry) => entry.created_at)
     .sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)))[0];
@@ -278,8 +291,8 @@ async function buildDashboard() {
     item(
       "research-queue",
       "Research queue",
-      pendingResearch > 30 ? "WARN" : "OK",
-      `${pendingResearch} pending${latestResearch ? `, latest ${latestResearch.created_at}` : ""}`,
+      actionableResearch > 10 ? "WARN" : "OK",
+      `${actionableResearch} actionable pending, ${genericHookResearch} legacy hook-review${latestResearch ? `, latest ${latestResearch.created_at}` : ""}`,
     ),
   );
 

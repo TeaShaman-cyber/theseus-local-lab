@@ -14,6 +14,6 @@ services:
       THESEUS_CLOUD_MIRROR_DIR: /cloud-backups
     volumes:
       - ../..:/workspace:ro
-      - ${THESEUS_CLOUD_MIRROR_DIR:-../../../theseus-cloud-backups}:/cloud-backups:ro
+      - ${THESEUS_CLOUD_MIRROR_DIR:-../../../../theseus-cloud-backups}:/cloud-backups:ro
     extra_hosts:
       - "host.docker.internal:host-gateway"
