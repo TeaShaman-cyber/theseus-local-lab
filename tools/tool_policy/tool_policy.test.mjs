@@ -66,6 +66,22 @@ test("allows harness error scanner as a known safe wrapper", () => {
   assert.equal(decision.reason, "known-safe-wrapper");
 });
 
+test("allows read-only workshop dashboard wrappers", () => {
+  const dashboard = evaluateAction({
+    surface: "shell",
+    command: "node tools/workshop_dashboard/dashboard.mjs --json",
+  });
+  const serviceStatus = evaluateAction({
+    surface: "shell",
+    command: "node tools/service_status/service_status.mjs automem",
+  });
+
+  assert.equal(dashboard.verdict, "allow");
+  assert.equal(serviceStatus.verdict, "allow");
+  assert.equal(dashboard.reason, "known-safe-wrapper");
+  assert.equal(serviceStatus.reason, "known-safe-wrapper");
+});
+
 test("rewards known safe wrapper routes", () => {
   const decision = evaluateAction({
     surface: "shell",

@@ -13,9 +13,11 @@ const safeWrappers = [
   /^node\s+tools[\\/]research_queue[\\/]list\.mjs\b/i,
   /^node\s+tools[\\/]harness_errors[\\/]harness_errors\.mjs\b/i,
   /^node\s+tools[\\/]learning_loop[\\/]learning_loop\.mjs\b/i,
+  /^node\s+tools[\\/]service_status[\\/]service_status\.mjs\b/i,
   /^node\s+tools[\\/]session_timeline[\\/]timeline\.mjs\b/i,
   /^node\s+tools[\\/]tool_policy[\\/]route_ranker\.mjs\b/i,
   /^node\s+tools[\\/]vscode_bridge[\\/]bridge\.mjs\b/i,
+  /^node\s+tools[\\/]workshop_dashboard[\\/]dashboard\.mjs\b/i,
   /^node\s+tools[\\/]docker_control_plane[\\/](direct_bridge|bridge|smoke_direct_bridge)\.mjs\b/i,
 ];
 

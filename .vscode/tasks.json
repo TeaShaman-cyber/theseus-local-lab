@@ -428,6 +428,15 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus: Workshop dashboard",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/workshop_dashboard/dashboard.mjs"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus Docker TCP: ps",
       "type": "process",
       "command": "docker",

@@ -34,7 +34,8 @@ outputs/tool_policy/YYYY-MM-DD.jsonl
   or `tools/docker_control_plane`.
 - Block raw PowerShell scripts; route to VS Code tasks or Node wrappers.
 - Block broad Git staging such as `git add -A`; require explicit scope review.
-- Allow known Theseus Node wrappers, `hooks/hook-router.mjs`, and read-only Git
+- Allow known Theseus Node wrappers, `hooks/hook-router.mjs`,
+  `tools/service_status`, `tools/workshop_dashboard`, and read-only Git
   inspection.
 - Warn on unclassified shell commands and direct network calls.
 
