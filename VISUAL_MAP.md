@@ -14,6 +14,7 @@ flowchart LR
     Codex["Codex\nlocal engineering"]
     VSCode["VS Code\nvisual IDE surface"]
     AutoMem["AutoMem\nworking long-term memory"]
+    ToolPolicy["Tool Policy\npre-action reflex gate"]
     Git["GitHub repo\nsafe source of truth"]
     Drive["Google Drive\ncloud backup mirror"]
     Butler["ButlerBrain / Notion / Airtable\noptional semantic or visual layers"]
@@ -29,6 +30,8 @@ flowchart LR
     Work --> Reports["outputs / reports / docs"]
     Codex --> Git
     Codex <--> AutoMem
+    AutoMem --> ToolPolicy
+    ToolPolicy --> Codex
     Codex --> CodeWhale
     CodeWhale --> Inbox["outputs/memory_inbox\nreview before memory"]
     Inbox --> AutoMem

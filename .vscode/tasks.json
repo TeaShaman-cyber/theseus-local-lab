@@ -125,6 +125,36 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus Tool Policy: check command",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/tool_policy/tool_policy.mjs",
+        "--log",
+        "--",
+        "${input:toolPolicyCommand}"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Tool Policy: rank routes",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/tool_policy/route_ranker.mjs",
+        "--log",
+        "--goal",
+        "${input:toolPolicyGoal}",
+        "--candidate",
+        "${input:toolPolicyCandidateA}",
+        "--mcp",
+        "${input:toolPolicyCandidateB}",
+        "--vscode-task",
+        "${input:toolPolicyCandidateC}"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus: ask Copilot advisor",
       "type": "shell",
       "command": "node tools/copilot_advisor/copilot_advisor.mjs \"${input:copilotAdvisorPrompt}\"",
@@ -601,6 +631,36 @@
       "id": "sessionJournalNote",
       "type": "promptString",
       "description": "Short observable note for the lab journal"
+    },
+    {
+      "id": "toolPolicyCommand",
+      "type": "promptString",
+      "description": "Command to classify before using a risky local route",
+      "default": "docker ps"
+    },
+    {
+      "id": "toolPolicyGoal",
+      "type": "promptString",
+      "description": "Goal for route ranking",
+      "default": "read recent AutoMem container logs"
+    },
+    {
+      "id": "toolPolicyCandidateA",
+      "type": "promptString",
+      "description": "Candidate shell command",
+      "default": "docker logs --tail=80 automem-flask-api-1"
+    },
+    {
+      "id": "toolPolicyCandidateB",
+      "type": "promptString",
+      "description": "Candidate MCP route",
+      "default": "theseus_docker docker_logs automem-flask-api-1"
+    },
+    {
+      "id": "toolPolicyCandidateC",
+      "type": "promptString",
+      "description": "Candidate VS Code task",
+      "default": "Theseus Docker TCP: AutoMem logs"
     },
     {
       "id": "timelineEventName",
