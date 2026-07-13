@@ -31,6 +31,21 @@ Think of project skills and task runners as two halves of one harness:
 - AutoMem/MemPalace preserve why the route changed;
 - `session_timeline` and `log-lattice` preserve what happened.
 
+## Prompt Hygiene
+
+Keep prompts, skills, and task descriptions lean. Prefer visible outcome,
+constraints, success criteria, stop conditions, and validation requirements over
+long procedural scripts.
+
+Preserve true invariants: safety, access boundaries, secret policy, required
+fields, tool routing rules, and verification gates. Remove duplicated style
+rules, inert examples, stale model-specific habits, and instructions for
+behavior that is already reliable.
+
+Before increasing reasoning effort, adding another advisor, or widening tool
+access, check whether the task is missing a success criterion, dependency rule,
+tool route, or verification loop.
+
 ## Memory
 
 AutoMem is the primary durable memory. MemPalace is the episodic/verbatim layer

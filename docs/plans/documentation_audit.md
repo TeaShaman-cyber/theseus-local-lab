@@ -47,7 +47,11 @@ Do not read, summarize, export, or include:
    MCP tools, memory, and logs.
 5. Identify duplicates, stale claims, missing entry points, and files that are
    too broad for one document.
-6. Propose a minimal target structure before editing content.
+6. Run a prompt hygiene pass over agent-facing instructions: mark duplicated or
+   conflicting rules, inert examples, stale model-specific habits, irrelevant
+   tools, missing success criteria, missing stop conditions, and missing
+   verification loops.
+7. Propose a minimal target structure before editing content.
 
 ## Expected Output
 
@@ -62,6 +66,8 @@ Write one audit report under `docs/audits/` with:
 - a harness map showing which skills choose routes, which tasks/scripts/MCP
   tools execute them, which memory layer stores rationale, and which log layer
   proves the outcome;
+- a prompt hygiene section covering `AGENTS.md`, project skills, task
+  descriptions, advisor prompts, and tool docs;
 - a list of high-risk stale or duplicated areas;
 - a minimal rewrite sequence with small commits;
 - open questions that need Semyon's judgment.
@@ -82,6 +88,10 @@ Write one audit report under `docs/audits/` with:
   (skills), motor execution (tasks/scripts/MCP), durable rationale
   (AutoMem/MemPalace), and observable evidence (`session_timeline` /
   `log-lattice`).
+- The audit preserves true invariants while reducing duplicated prompt rules,
+  stale model-specific habits, and instructions that do not change behavior.
+- Any model-specific prompting advice is dated, sourced, and treated as
+  workload-dependent until validated on representative Theseus tasks.
 - The audit names checks needed after documentation changes, such as JSON parse,
   markdown lint if available, and the Git staging scanner.
 
