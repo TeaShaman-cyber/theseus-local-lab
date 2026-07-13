@@ -14,6 +14,7 @@ Pick the smallest set of skills and tools that covers the current request:
 | Request shape | Load first | Then route through |
 |---|---|---|
 | Prior context, durable decisions, handoff, recall | `theseus-memory-stack` | AutoMem, then MemPalace |
+| PowerShell, WSL, Bash, Node one-liners, quoting, pipes, JSON/text shell work | `theseus-shell-routing` | WSL/Node/script route, then `local-agent-hygiene` |
 | Windows, Docker, VS Code, local services, repeated commands | `local-agent-hygiene` | `tools/tool_policy` or VS Code tasks |
 | Git status, commit, push, GitHub sync | `theseus-git-hygiene` | Git safety wrapper or VS Code task |
 | Creating or changing skills | `skill-creator` | Validate skill shape before adding content |

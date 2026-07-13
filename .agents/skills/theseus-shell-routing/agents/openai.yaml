@@ -1,0 +1,4 @@
+interface:
+  display_name: "Theseus Shell Routing"
+  short_description: "Routes local commands away from fragile Windows shell patterns."
+  default_prompt: "Choose the safest local command route for this Theseus task."
