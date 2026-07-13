@@ -17,6 +17,26 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus: commit current checkpoint",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/git_safety/commit_checkpoint.mjs",
+        "--message",
+        "${input:checkpointCommitMessage}"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus: commit current checkpoint default",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/git_safety/commit_checkpoint.mjs"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus: lint markdown",
       "type": "shell",
       "command": "npm exec --yes markdownlint-cli2",
@@ -49,6 +69,25 @@
       "label": "Theseus: write session journal",
       "type": "shell",
       "command": "node tools/session_journal/session_journal.mjs --note \"${input:sessionJournalNote}\"",
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Memory: compact checkpoint",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/memory_hook/memory_hook.mjs",
+        "--mode",
+        "compact",
+        "--summary",
+        "${input:memoryHookSummary}",
+        "--goal",
+        "${input:memoryHookGoal}",
+        "--open-loop",
+        "${input:memoryHookOpenLoop}",
+        "--tag",
+        "compact"
+      ],
       "problemMatcher": []
     },
     {
@@ -99,6 +138,54 @@
       "label": "Theseus: Backup runner status",
       "type": "shell",
       "command": "docker compose -f .\\backup-lattice\\docker-compose.yml ps; docker compose -f .\\backup-lattice\\docker-compose.yml logs --tail=40 backup-runner",
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Docker TCP: ps",
+      "type": "process",
+      "command": "docker",
+      "args": [
+        "ps",
+        "--format",
+        "{{json .}}"
+      ],
+      "options": {
+        "env": {
+          "DOCKER_HOST": "tcp://127.0.0.1:2375"
+        }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Docker TCP: AutoMem logs",
+      "type": "process",
+      "command": "docker",
+      "args": [
+        "logs",
+        "--tail=80",
+        "automem-flask-api-1"
+      ],
+      "options": {
+        "env": {
+          "DOCKER_HOST": "tcp://127.0.0.1:2375"
+        }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Docker Control: start fallback daemon",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/docker_control_plane/daemon.mjs"
+      ],
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Docker Control: fallback daemon health",
+      "type": "shell",
+      "command": "Invoke-RestMethod -Uri http://127.0.0.1:8767/health | ConvertTo-Json -Depth 8",
       "problemMatcher": []
     },
     {
@@ -302,6 +389,12 @@
       "description": "Safe, explicit prompt for Copilot advisor"
     },
     {
+      "id": "checkpointCommitMessage",
+      "type": "promptString",
+      "description": "Commit message for the current checkpoint",
+      "default": "Add Docker MCP bridge and compact memory hook"
+    },
+    {
       "id": "bothubCouncilPrompt",
       "type": "promptString",
       "description": "Safe, explicit prompt for Bothub council advisor"
@@ -310,6 +403,21 @@
       "id": "sessionJournalNote",
       "type": "promptString",
       "description": "Short observable note for the lab journal"
+    },
+    {
+      "id": "memoryHookSummary",
+      "type": "promptString",
+      "description": "Short compact/checkpoint summary"
+    },
+    {
+      "id": "memoryHookGoal",
+      "type": "promptString",
+      "description": "Current goal for the compact packet"
+    },
+    {
+      "id": "memoryHookOpenLoop",
+      "type": "promptString",
+      "description": "One open loop to preserve"
     },
     {
       "id": "researchQueueTopic",

@@ -1,0 +1,10 @@
+[mcp_servers.theseus_docker]
+command = "node"
+args = ["C:\\Users\\s.poklad\\Documents\\Codex\\2026-07-08\\life-science-research-plugin-life-science-4\\tools\\docker_control_plane\\direct_bridge.mjs"]
+enabled = true
+startup_timeout_sec = 30
+tool_timeout_sec = 90
+
+[mcp_servers.theseus_docker.env]
+DOCKER_HOST = "tcp://127.0.0.1:2375"
+THESEUS_PROJECT_ROOT = "C:\\Users\\s.poklad\\Documents\\Codex\\2026-07-08\\life-science-research-plugin-life-science-4"
