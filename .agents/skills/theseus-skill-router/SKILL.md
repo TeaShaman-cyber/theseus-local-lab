@@ -18,6 +18,7 @@ Pick the smallest set of skills and tools that covers the current request:
 | Git status, commit, push, GitHub sync | `theseus-git-hygiene` | Git safety wrapper or VS Code task |
 | Creating or changing skills | `skill-creator` | Validate skill shape before adding content |
 | Broad research or search pipelines | research queue/hook docs | Store distilled findings, not raw dumps |
+| Learning-loop review, reward drift, repeated route patterns | `tools/learning_loop` | Generate proposal, then store accepted decisions |
 | Visual maps or diagrams | `visualize` or Mermaid | Keep diagram source in project files when durable |
 
 If two routes are plausible, prefer the one with lower user friction, stronger

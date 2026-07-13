@@ -9,6 +9,7 @@ const safeWrappers = [
   /^node\s+tools[\\/]memory_hook[\\/]memory_hook\.mjs\b/i,
   /^node\s+tools[\\/]research_queue[\\/]enqueue\.mjs\b/i,
   /^node\s+tools[\\/]research_queue[\\/]list\.mjs\b/i,
+  /^node\s+tools[\\/]learning_loop[\\/]learning_loop\.mjs\b/i,
   /^node\s+tools[\\/]session_timeline[\\/]timeline\.mjs\b/i,
   /^node\s+tools[\\/]tool_policy[\\/]route_ranker\.mjs\b/i,
   /^node\s+tools[\\/]vscode_bridge[\\/]bridge\.mjs\b/i,

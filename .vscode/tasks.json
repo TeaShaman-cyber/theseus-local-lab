@@ -155,6 +155,17 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus Learning Loop: daily proposal",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/learning_loop/learning_loop.mjs",
+        "--days",
+        "7"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus: ask Copilot advisor",
       "type": "shell",
       "command": "node tools/copilot_advisor/copilot_advisor.mjs \"${input:copilotAdvisorPrompt}\"",

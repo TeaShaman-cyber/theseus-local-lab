@@ -46,6 +46,16 @@ test("allows known safe Node wrappers", () => {
   assert.equal(decision.reason, "known-safe-wrapper");
 });
 
+test("allows learning-loop analyzer as a known safe wrapper", () => {
+  const decision = evaluateAction({
+    surface: "shell",
+    command: "node tools/learning_loop/learning_loop.mjs --days 7",
+  });
+
+  assert.equal(decision.verdict, "allow");
+  assert.equal(decision.reason, "known-safe-wrapper");
+});
+
 test("rewards known safe wrapper routes", () => {
   const decision = evaluateAction({
     surface: "shell",
