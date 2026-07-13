@@ -1,0 +1,7 @@
+services:
+  automem-graph-viewer:
+    image: ghcr.io/verygoodplugins/automem-graph-viewer:stable
+    container_name: theseus-automem-graph-viewer
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:5174:3000"

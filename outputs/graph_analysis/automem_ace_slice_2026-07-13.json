@@ -1,0 +1,1395 @@
+{
+  "nodeCount": 140,
+  "edgeCount": 769,
+  "selectedCount": 30,
+  "relationshipTypes": [
+    [
+      "PRECEDED_BY",
+      685
+    ],
+    [
+      "REINFORCES",
+      30
+    ],
+    [
+      "PART_OF",
+      20
+    ],
+    [
+      "DERIVED_FROM",
+      11
+    ],
+    [
+      "RELATES_TO",
+      11
+    ],
+    [
+      "EVOLVED_INTO",
+      9
+    ],
+    [
+      "EXEMPLIFIES",
+      3
+    ]
+  ],
+  "hubs": [
+    {
+      "id": "m1",
+      "originalId": "055269f8-beee-4a4c-a7fe-50e7f6cf8642",
+      "label": "DIFF",
+      "aceType": "project",
+      "memoryType": "Context",
+      "degree": 20,
+      "inDegree": 12,
+      "outDegree": 8,
+      "importance": 0.9,
+      "tags": [
+        "space-weather",
+        "biosphere-sensing",
+        "evidence-card",
+        "context-hygiene",
+        "automem-sync",
+        "entity:organizations:diff"
+      ],
+      "description": "Space-weather biosphere evidence sync. Created outputs/space_weather_biosphere_evidence_2026-07-09.md and journal DIFF. Label: mixed evidence; do not collapse into fact yet."
+    },
+    {
+      "id": "m2",
+      "originalId": "847590f4-1dd6-4979-b2bb-51d84282ec87",
+      "label": "Meta-harness direction. User wants to evol",
+      "aceType": "solution",
+      "memoryType": "Decision",
+      "degree": 19,
+      "inDegree": 11,
+      "outDegree": 8,
+      "importance": 0.92,
+      "tags": [
+        "meta-harness",
+        "xai",
+        "grok",
+        "agents",
+        "conclave",
+        "architecture"
+      ],
+      "description": "Meta-harness direction. User wants to evolve from Codex manually running model conclaves into a shared room of harnessed agents with roles, native providers, health/budget state, input policies, and typed outputs. Added "
+    },
+    {
+      "id": "m3",
+      "originalId": "a883dab5-3180-44f1-9064-a83cc855a048",
+      "label": "AutoMem",
+      "aceType": "project",
+      "memoryType": "Context",
+      "degree": 19,
+      "inDegree": 13,
+      "outDegree": 6,
+      "importance": 0.92,
+      "tags": [
+        "exocortex",
+        "butlerbrain",
+        "notion",
+        "airtable",
+        "automem",
+        "architecture",
+        "entity:organizations:automem",
+        "entity:organizations:butlerbrain",
+        "entity:organizations:exocortex",
+        "entity:organizations:notion"
+      ],
+      "description": "Exocortex stack division of labor. ButlerBrain stores long-term invariants, Notion stores project structure and navigation, Airtable stores operational/research tables, and AutoMem provides local graph-vector working mem"
+    },
+    {
+      "id": "m4",
+      "originalId": "86e1248b-ce8a-4a5c-9d94-75c9ca313d8c",
+      "label": "Bash",
+      "aceType": "solution",
+      "memoryType": "Decision",
+      "degree": 17,
+      "inDegree": 9,
+      "outDegree": 8,
+      "importance": 0.9,
+      "tags": [
+        "agent-shell",
+        "git-bash",
+        "docker",
+        "windows",
+        "unix-like",
+        "codex-workbench",
+        "automem",
+        "entity:concepts:bash",
+        "entity:concepts:node",
+        "entity:organizations:sqlite"
+      ],
+      "description": "Unix-like workbench established. WSL component exists but no distro installed; Git Bash works via scripts/agent-bash.ps1; Docker agent-shell built with Bash, Git, curl, jq, SQLite, Python, Node, and reaches AutoMem via h"
+    },
+    {
+      "id": "m5",
+      "originalId": "210aa22f-ad2c-4e99-bbfd-fef73ff4909d",
+      "label": "Windows/script friction is first-class tel",
+      "aceType": "concept",
+      "memoryType": "Insight",
+      "degree": 17,
+      "inDegree": 9,
+      "outDegree": 8,
+      "importance": 0.9,
+      "tags": [
+        "windows",
+        "powershell",
+        "docker",
+        "bothub",
+        "codex-sandbox",
+        "engineering-friction",
+        "automem",
+        "script-hardening"
+      ],
+      "description": "Windows/script friction is first-class telemetry. Key issues: Codex sandbox identity vs local Docker user, Docker pipe permissions, sandbox network socket restrictions, silent long Bothub runs, PowerShell interpolation p"
+    },
+    {
+      "id": "m6",
+      "originalId": "56b87d01-1398-4a27-bb84-c60fe61ae176",
+      "label": "API",
+      "aceType": "concept",
+      "memoryType": "Insight",
+      "degree": 16,
+      "inDegree": 9,
+      "outDegree": 7,
+      "importance": 0.9,
+      "tags": [
+        "bothub",
+        "conclave",
+        "stateful-agent-net",
+        "space-weather",
+        "methodology",
+        "automem",
+        "entity:organizations:api",
+        "entity:organizations:automem",
+        "entity:organizations:cpu-ram",
+        "entity:organizations:noaa"
+      ],
+      "description": "Bothub heavy conclave on space-weather/stateful-agent project succeeded. Consensus: frame as baseline anomaly co-occurrence observatory, not causal solar-AI claim. Collect NOAA, vendor status, synthetic API latency, Auto"
+    },
+    {
+      "id": "m7",
+      "originalId": "ae261ee7-d0e7-40f4-ab3e-63440a00556e",
+      "label": "DeepSeek",
+      "aceType": "project",
+      "memoryType": "Context",
+      "degree": 15,
+      "inDegree": 6,
+      "outDegree": 9,
+      "importance": 0.9,
+      "tags": [
+        "crystallization",
+        "automem",
+        "deepseek",
+        "google-drive",
+        "pdf",
+        "invariant-isomorphism-adaptation",
+        "context-hygiene",
+        "entity:organizations:mcp",
+        "entity:tools:deepseek"
+      ],
+      "description": "Crystallization 2026-07-08. Created outputs/crystallization_2026-07-08.md as a compact checkpoint: research-trajectory memory, invariant -> isomorphism -> adaptation, AutoMem as local substrate, MCP connector layer, Deep"
+    },
+    {
+      "id": "m8",
+      "originalId": "665f539a-a0bf-4b40-8bfd-2cbd17c5ce70",
+      "label": "Stanford",
+      "aceType": "concept",
+      "memoryType": "Insight",
+      "degree": 15,
+      "inDegree": 8,
+      "outDegree": 7,
+      "importance": 0.9,
+      "tags": [
+        "invariant-isomorphism-adaptation",
+        "paper",
+        "automem",
+        "exocortex",
+        "methodology",
+        "entity:organizations:stanford"
+      ],
+      "description": "Pipeline invariant-isomorphism-adaptation. User maps the Stanford AutoMem idea to the local exocortex method: extract the invariant, identify the isomorphism to our stack, then adapt it pragmatically instead of copying t"
+    },
+    {
+      "id": "m9",
+      "originalId": "38975c2e-4642-4cde-a366-1522c1002d13",
+      "label": "ERF",
+      "aceType": "concept",
+      "memoryType": "Pattern",
+      "degree": 15,
+      "inDegree": 9,
+      "outDegree": 6,
+      "importance": 0.88,
+      "tags": [
+        "UES-v2",
+        "validation",
+        "ERF",
+        "LSI",
+        "notion",
+        "entity:organizations:erf",
+        "entity:organizations:layer-a-b-c",
+        "entity:organizations:lsi",
+        "entity:organizations:verified-plausible"
+      ],
+      "description": "UES validation pipeline. Claims should be classified into Layer A/B/C, evidence evaluated, conflicts detected, ERF and LSI computed, calibration error recorded, and final status assigned as Verified, Plausible, or Specul"
+    },
+    {
+      "id": "m10",
+      "originalId": "efffd828-3196-4303-9a49-1e02ff51b616",
+      "label": "Docker",
+      "aceType": "project",
+      "memoryType": "Context",
+      "degree": 14,
+      "inDegree": 6,
+      "outDegree": 8,
+      "importance": 0.92,
+      "tags": [
+        "codewhale",
+        "bothub",
+        "harness",
+        "deepseek",
+        "docker",
+        "meta-harness",
+        "entity:concepts:bothub",
+        "entity:organizations:api",
+        "entity:organizations:codewhale",
+        "entity:tools:docker"
+      ],
+      "description": "CodeWhale harness is working via Docker and Bothub. Repo Hmbown/CodeWhale verified; Docker image ghcr.io/hmbown/codewhale:latest reports 0.8.67. Wrapper scripts/codewhale.ps1 maps BOTHUB_* to OpenAI-compatible env/option"
+    },
+    {
+      "id": "m11",
+      "originalId": "46452572-07ce-4064-9790-40b5614a05f6",
+      "label": "MVP",
+      "aceType": "concept",
+      "memoryType": "Insight",
+      "degree": 14,
+      "inDegree": 7,
+      "outDegree": 7,
+      "importance": 0.92,
+      "tags": [
+        "stateful-agent-net",
+        "docker",
+        "space-weather",
+        "sif",
+        "automem",
+        "concept",
+        "user-approved",
+        "entity:organizations:mvp"
+      ],
+      "description": "Stateful agent net MVP. User proposed a multi-channel sensor network as a partial prototype of default stateful agents: Docker cron collectors gather SIF/space-weather/vendor/local-health signals into a shared time-serie"
+    },
+    {
+      "id": "m12",
+      "originalId": "4896c1e2-48fa-4a62-8140-c4bafb7d114f",
+      "label": "AutoMem",
+      "aceType": "solution",
+      "memoryType": "Decision",
+      "degree": 14,
+      "inDegree": 8,
+      "outDegree": 6,
+      "importance": 0.9,
+      "tags": [
+        "automem",
+        "cloud-mirror",
+        "custom-connectors",
+        "platform-independence",
+        "theseus-ship",
+        "butlerbrain-import",
+        "entity:organizations:automem"
+      ],
+      "description": "AutoMem rollout sequence for platform independence: local laptop AutoMem -> stabilize memory practice -> cloud AutoMem mirror -> background local/cloud synchronization -> custom connector access for other chats."
+    },
+    {
+      "id": "m13",
+      "originalId": "9d0d5005-6861-465c-a7c4-e8ef534d23c6",
+      "label": "Docker MCP Toolkit",
+      "aceType": "project",
+      "memoryType": "Context",
+      "degree": 14,
+      "inDegree": 6,
+      "outDegree": 8,
+      "importance": 0.88,
+      "tags": [
+        "docker-mcp",
+        "codex",
+        "windows-hut",
+        "mcp",
+        "meta-harness",
+        "safety",
+        "entity:organizations:docker-mcp-toolkit"
+      ],
+      "description": "Docker MCP Toolkit reconnaissance. Local Docker has docker mcp v0.43.1 and supports codex as a client. Created test profile codex_safe_ai_coding from ai-coding without connecting Codex. Profile uses context7 and sequenti"
+    },
+    {
+      "id": "m14",
+      "originalId": "5c0f0b6a-566e-4b4f-b060-1ea702f5cb44",
+      "label": "AutoMem",
+      "aceType": "project",
+      "memoryType": "Context",
+      "degree": 14,
+      "inDegree": 7,
+      "outDegree": 7,
+      "importance": 0.86,
+      "tags": [
+        "stateful-agent-net",
+        "docker",
+        "first-run",
+        "automem",
+        "operational",
+        "entity:organizations:automem",
+        "entity:organizations:noaa",
+        "entity:organizations:openai"
+      ],
+      "description": "Stateful agent net first run succeeded. Docker collector built and generated state packet outputs/state_packets/2026-07-09_034055Z.md plus SQLite stateful-agent-net/data/state.db. Sources OK: NOAA scales/alerts, OpenAI s"
+    },
+    {
+      "id": "m15",
+      "originalId": "23f913c0-9c97-4a3e-8b9f-716103e7de4b",
+      "label": "CodeWhale",
+      "aceType": "project",
+      "memoryType": "Context",
+      "degree": 14,
+      "inDegree": 6,
+      "outDegree": 8,
+      "importance": 0.85,
+      "tags": [
+        "codewhale",
+        "bothub",
+        "meta-harness",
+        "docker",
+        "windows-hut",
+        "entity:concepts:bothub",
+        "entity:organizations:codewhale"
+      ],
+      "description": "CodeWhale full worker image. Built local Docker image codewhale-agent:latest from codewhale/Dockerfile. Doctor succeeds through Bothub/OpenAI provider with deepseek-chat, and CodeWhale registers Python code_execution plu"
+    },
+    {
+      "id": "m16",
+      "originalId": "30861790-a0c3-43d7-8b2d-e4d05bbf2acd",
+      "label": "ButlerBrain",
+      "aceType": "concept",
+      "memoryType": "Insight",
+      "degree": 13,
+      "inDegree": 7,
+      "outDegree": 6,
+      "importance": 0.93,
+      "tags": [
+        "memory-process",
+        "invariant",
+        "diff",
+        "trace",
+        "automem",
+        "theseus-ship",
+        "butlerbrain-import",
+        "entity:organizations:butlerbrain",
+        "entity:organizations:diff"
+      ],
+      "description": "Memory invariant from ButlerBrain update: memory is not just a database or storage bucket; it is a managed process of logging, retrieval, trace structure, DIFF preservation, invariants, and continuity restoration."
+    },
+    {
+      "id": "m17",
+      "originalId": "86d2a5b9-8a03-4168-a6c3-57eaf8fe2fa8",
+      "label": "Safe restore kit created. Added RESTORE.md",
+      "aceType": "solution",
+      "memoryType": "Decision",
+      "degree": 13,
+      "inDegree": 5,
+      "outDegree": 8,
+      "importance": 0.92,
+      "tags": [
+        "backup",
+        "restore-kit",
+        "windows-hut",
+        "automem",
+        "codex",
+        "google-drive",
+        "github",
+        "entity:people:automem-backup"
+      ],
+      "description": "Safe restore kit created. Added RESTORE.md and scripts/backup-safe.ps1. Script builds a whitelist-based safe archive excluding .env.local, work, tmp, .git, .codex, .agents, .codewhale-home, node_modules, backups, and key"
+    },
+    {
+      "id": "m18",
+      "originalId": "208f6a43-01fb-4282-aafa-31e8d42eca3b",
+      "label": "Palace small shipyard concept. AutoMem sho",
+      "aceType": "concept",
+      "memoryType": "Insight",
+      "degree": 13,
+      "inDegree": 6,
+      "outDegree": 7,
+      "importance": 0.92,
+      "tags": [
+        "automem",
+        "palace-lab",
+        "theseus-ship",
+        "local-first",
+        "memory-architecture",
+        "small-shipyard",
+        "butlerbrain-import"
+      ],
+      "description": "Palace small shipyard concept. AutoMem should first become a local-first memory forge on the laptop: learn stable memory-use habits locally before cloud mirroring or broad connector exposure."
+    },
+    {
+      "id": "m19",
+      "originalId": "fb54ad6f-b1ab-4e82-bfc2-47f4c3b3395e",
+      "label": "Docker",
+      "aceType": "project",
+      "memoryType": "Context",
+      "degree": 13,
+      "inDegree": 6,
+      "outDegree": 7,
+      "importance": 0.9,
+      "tags": [
+        "docker-mcp",
+        "codex",
+        "mcp",
+        "windows-hut",
+        "meta-harness",
+        "entity:tools:docker"
+      ],
+      "description": "Docker MCP connected to Codex. Ran docker mcp client connect codex --global --profile codex_safe_ai_coding because Docker supports Codex only via global config. Codex config now has MCP_DOCKER = docker.exe mcp gateway ru"
+    },
+    {
+      "id": "m20",
+      "originalId": "d8e52bc9-f107-4645-a5d2-d13257cfd8cf",
+      "label": "TID",
+      "aceType": "concept",
+      "memoryType": "Pattern",
+      "degree": 13,
+      "inDegree": 6,
+      "outDegree": 7,
+      "importance": 0.9,
+      "tags": [
+        "TID",
+        "L2",
+        "crystal-snapshot",
+        "resilience",
+        "notion",
+        "entity:concepts:tid",
+        "entity:organizations:tid"
+      ],
+      "description": "TID-node architecture. A TID node combines spatial memory, L2 protocols such as heartbeat and CRYSTAL_SNAPSHOT, real-time TID parameter monitoring, anomaly-to-recompute resilience, and an active observer role."
+    },
+    {
+      "id": "m21",
+      "originalId": "fb45ffee-71bb-4ddd-8aee-4d23aaa93954",
+      "label": "Docker MCP",
+      "aceType": "project",
+      "memoryType": "Context",
+      "degree": 13,
+      "inDegree": 6,
+      "outDegree": 7,
+      "importance": 0.88,
+      "tags": [
+        "docker-mcp",
+        "docker-model-runner",
+        "codex",
+        "windows-hut",
+        "local-models",
+        "meta-harness",
+        "entity:concepts:windows",
+        "entity:organizations:docker-mcp",
+        "entity:organizations:qwen-deepseek"
+      ],
+      "description": "Post-restart Docker MCP and Model Runner check. MCP_DOCKER tools are callable in Codex; Context7 resolved Docker docs as /docker/docs. Docker Model Runner is running v1.2.5 with llama.cpp latest-cpu backend. No local mod"
+    },
+    {
+      "id": "m22",
+      "originalId": "d7d26a4e-46b4-425b-a209-48761661daf8",
+      "label": "Local stability optimization completed. Au",
+      "aceType": "solution",
+      "memoryType": "Decision",
+      "degree": 13,
+      "inDegree": 8,
+      "outDegree": 5,
+      "importance": 0.86,
+      "tags": [
+        "automem",
+        "codex",
+        "windows",
+        "stability",
+        "mcp-bridge"
+      ],
+      "description": "Local stability optimization completed. AutoMem docker-compose already had restart: unless-stopped on all services. Added scripts/automem-status.ps1, automem-start.ps1, and automem-stop.ps1. Installed @verygoodplugins/mc"
+    },
+    {
+      "id": "m23",
+      "originalId": "b2c1992d-0f1e-4849-84e7-76836c7cceb3",
+      "label": "/models",
+      "aceType": "concept",
+      "memoryType": "Insight",
+      "degree": 13,
+      "inDegree": 7,
+      "outDegree": 6,
+      "importance": 0.85,
+      "tags": [
+        "bothub",
+        "models",
+        "known-working",
+        "gpt-5-codex",
+        "conclave",
+        "entity:concepts:windows",
+        "entity:organizations:models"
+      ],
+      "description": "Bothub model catalog needs smoke tests. In the Windows hut conclave, gpt-5-codex was listed in /models but returned 403 Forbidden for both answer and peer-review calls. Known working in that run: claude-opus-4.8, deepsee"
+    },
+    {
+      "id": "m24",
+      "originalId": "6826bf4d-aa0d-4483-ac19-ede2269416b6",
+      "label": "WSL",
+      "aceType": "concept",
+      "memoryType": "Insight",
+      "degree": 12,
+      "inDegree": 5,
+      "outDegree": 7,
+      "importance": 0.94,
+      "tags": [
+        "theseus-local-lab",
+        "wsl",
+        "codex-sandbox",
+        "split-context",
+        "docker",
+        "automem",
+        "local-agent-hygiene",
+        "entity:organizations:wsl",
+        "entity:organizations:wslinterop-docker"
+      ],
+      "description": "WSL Codex sandbox boundary on 2026-07-13. The WSL runtime could read the real Theseus project but could only write /tmp; /home and /mnt/c were read-only, WSLInterop/Docker/localhost differed from normal user WSL. Treat a"
+    },
+    {
+      "id": "m25",
+      "originalId": "ce5a1a54-70e7-4492-ad3c-2adccdd90f7e",
+      "label": "Get-Command",
+      "aceType": "solution",
+      "memoryType": "Decision",
+      "degree": 12,
+      "inDegree": 5,
+      "outDegree": 7,
+      "importance": 0.9,
+      "tags": [
+        "windows-hut",
+        "doctor",
+        "agent-shell",
+        "bothub-conclave",
+        "environment",
+        "codex",
+        "entity:organizations:get-command",
+        "entity:organizations:powershell-git-docker",
+        "entity:organizations:windows"
+      ],
+      "description": "Windows hut conclave result. Keep Docker agent-shell as primary Unix-like workbench; postpone WSL/VM; do not broadly update PowerShell/Git/Docker while healthy. Add doctor.ps1 and fix/classify empty .git. Chocolatey CLI "
+    },
+    {
+      "id": "m26",
+      "originalId": "26359c5d-159b-4fb6-83f2-d24cacfc8697",
+      "label": "API",
+      "aceType": "concept",
+      "memoryType": "Pattern",
+      "degree": 12,
+      "inDegree": 6,
+      "outDegree": 6,
+      "importance": 0.9,
+      "tags": [
+        "operational-ritual",
+        "connector-api",
+        "automem",
+        "palace-lab",
+        "diff",
+        "invariant",
+        "butlerbrain-import",
+        "entity:organizations:api",
+        "entity:organizations:palace"
+      ],
+      "description": "Operational ritual for Palace/AutoMem work: standup_in -> trace -> diff -> standup_out. Minimal future connector API should include search_memory, save_trace, save_diff, get_invariants, and healthcheck."
+    },
+    {
+      "id": "m27",
+      "originalId": "85d1def0-9ea4-45c0-8959-729faaaf5e7a",
+      "label": "FalkorDB",
+      "aceType": "project",
+      "memoryType": "Context",
+      "degree": 12,
+      "inDegree": 6,
+      "outDegree": 6,
+      "importance": 0.87,
+      "tags": [
+        "github",
+        "automem",
+        "memory-backend",
+        "falkordb",
+        "qdrant",
+        "entity:organizations:automem",
+        "entity:organizations:falkordb",
+        "entity:organizations:qdrant",
+        "entity:tools:falkordb"
+      ],
+      "description": "AutoMem service repo. verygoodplugins/automem is the public backend service: self-hosted long-term AI memory using FalkorDB graph plus Qdrant vectors, with graph as canonical record and local Docker support."
+    },
+    {
+      "id": "m28",
+      "originalId": "c188c0b0-ac1b-486b-b4e2-920ecca20eb6",
+      "label": "HADI",
+      "aceType": "concept",
+      "memoryType": "Pattern",
+      "degree": 12,
+      "inDegree": 5,
+      "outDegree": 7,
+      "importance": 0.86,
+      "tags": [
+        "HADI",
+        "MemPalace",
+        "research-method",
+        "trace",
+        "entity:organizations:hadi",
+        "entity:organizations:mempalace"
+      ],
+      "description": "HADI cycle. Hypothesis, Action, Data, and Inspection form an adaptive research loop. In MemPalace, hypotheses, actions, data, and inspections can live in separate rooms so context, criteria, and outcomes are traceable."
+    },
+    {
+      "id": "m29",
+      "originalId": "59ed05d0-c61f-49a3-a3ed-9db382481147",
+      "label": "MemPalace",
+      "aceType": "concept",
+      "memoryType": "Pattern",
+      "degree": 12,
+      "inDegree": 6,
+      "outDegree": 6,
+      "importance": 0.86,
+      "tags": [
+        "MemPalace",
+        "spatial-memory",
+        "TID",
+        "notion",
+        "entity:organizations:mempalace"
+      ],
+      "description": "MemPalace model. Spatial memory uses Wings for large domains and Rooms for localized context, supporting verbatim storage and spatial plus semantic retrieval to reduce interference and preserve long-running reasoning con"
+    },
+    {
+      "id": "m30",
+      "originalId": "cf32d9f7-ee39-43b0-a914-06c9fba1dcb5",
+      "label": "Docker",
+      "aceType": "concept",
+      "memoryType": "Insight",
+      "degree": 11,
+      "inDegree": 6,
+      "outDegree": 5,
+      "importance": 0.9,
+      "tags": [
+        "theseus-local-lab",
+        "gpt-5.6",
+        "wsl",
+        "docker",
+        "proxy",
+        "split-context",
+        "v2rayn",
+        "entity:concepts:windows",
+        "entity:organizations:docker",
+        "entity:organizations:wsl-docker"
+      ],
+      "description": "GPT-5.6 Luna high UI-selected task completed WSL/Docker/proxy read-only inventory. Observed shell identity spoklad\\codexsandboxoffline, workspace parent C:\\Users\\s.poklad\\Documents\\Codex\\2026-07-08, subproject is separat"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "m27",
+      "target": "m9",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e2",
+      "source": "m27",
+      "target": "m3",
+      "label": "PART_OF",
+      "strength": 0.78
+    },
+    {
+      "id": "e3",
+      "source": "m9",
+      "target": "m3",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e4",
+      "source": "m28",
+      "target": "m27",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e5",
+      "source": "m28",
+      "target": "m9",
+      "label": "RELATES_TO",
+      "strength": 0.72
+    },
+    {
+      "id": "e6",
+      "source": "m28",
+      "target": "m29",
+      "label": "PART_OF",
+      "strength": 0.82
+    },
+    {
+      "id": "e7",
+      "source": "m28",
+      "target": "m29",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e8",
+      "source": "m28",
+      "target": "m20",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e9",
+      "source": "m29",
+      "target": "m27",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e10",
+      "source": "m29",
+      "target": "m20",
+      "label": "PART_OF",
+      "strength": 0.84
+    },
+    {
+      "id": "e11",
+      "source": "m29",
+      "target": "m20",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e12",
+      "source": "m20",
+      "target": "m27",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e13",
+      "source": "m20",
+      "target": "m3",
+      "label": "PART_OF",
+      "strength": 0.78
+    },
+    {
+      "id": "e14",
+      "source": "m8",
+      "target": "m3",
+      "label": "REINFORCES",
+      "strength": 0.86
+    },
+    {
+      "id": "e15",
+      "source": "m8",
+      "target": "m28",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e16",
+      "source": "m22",
+      "target": "m8",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e17",
+      "source": "m26",
+      "target": "m8",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e18",
+      "source": "m26",
+      "target": "m22",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e19",
+      "source": "m26",
+      "target": "m16",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e20",
+      "source": "m26",
+      "target": "m12",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e21",
+      "source": "m26",
+      "target": "m18",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e22",
+      "source": "m16",
+      "target": "m8",
+      "label": "REINFORCES",
+      "strength": 0.88
+    },
+    {
+      "id": "e23",
+      "source": "m16",
+      "target": "m8",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e24",
+      "source": "m16",
+      "target": "m22",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e25",
+      "source": "m16",
+      "target": "m12",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e26",
+      "source": "m16",
+      "target": "m18",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e27",
+      "source": "m12",
+      "target": "m8",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e28",
+      "source": "m12",
+      "target": "m22",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e29",
+      "source": "m12",
+      "target": "m18",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e30",
+      "source": "m18",
+      "target": "m3",
+      "label": "EVOLVED_INTO",
+      "strength": 0.86
+    },
+    {
+      "id": "e31",
+      "source": "m18",
+      "target": "m8",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e32",
+      "source": "m18",
+      "target": "m22",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e33",
+      "source": "m7",
+      "target": "m3",
+      "label": "PART_OF",
+      "strength": 0.85
+    },
+    {
+      "id": "e34",
+      "source": "m7",
+      "target": "m8",
+      "label": "REINFORCES",
+      "strength": 0.9
+    },
+    {
+      "id": "e35",
+      "source": "m7",
+      "target": "m22",
+      "label": "RELATES_TO",
+      "strength": 0.8
+    },
+    {
+      "id": "e36",
+      "source": "m1",
+      "target": "m9",
+      "label": "RELATES_TO",
+      "strength": 0.8
+    },
+    {
+      "id": "e37",
+      "source": "m1",
+      "target": "m7",
+      "label": "DERIVED_FROM",
+      "strength": 0.9
+    },
+    {
+      "id": "e38",
+      "source": "m1",
+      "target": "m7",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e39",
+      "source": "m11",
+      "target": "m1",
+      "label": "EVOLVED_INTO",
+      "strength": 0.82
+    },
+    {
+      "id": "e40",
+      "source": "m14",
+      "target": "m22",
+      "label": "REINFORCES",
+      "strength": 0.78
+    },
+    {
+      "id": "e41",
+      "source": "m14",
+      "target": "m11",
+      "label": "DERIVED_FROM",
+      "strength": 0.92
+    },
+    {
+      "id": "e42",
+      "source": "m14",
+      "target": "m11",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e43",
+      "source": "m6",
+      "target": "m11",
+      "label": "REINFORCES",
+      "strength": 0.9
+    },
+    {
+      "id": "e44",
+      "source": "m6",
+      "target": "m11",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e45",
+      "source": "m6",
+      "target": "m14",
+      "label": "EVOLVED_INTO",
+      "strength": 0.82
+    },
+    {
+      "id": "e46",
+      "source": "m6",
+      "target": "m14",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e47",
+      "source": "m5",
+      "target": "m22",
+      "label": "REINFORCES",
+      "strength": 0.84
+    },
+    {
+      "id": "e48",
+      "source": "m5",
+      "target": "m11",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e49",
+      "source": "m5",
+      "target": "m14",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e50",
+      "source": "m5",
+      "target": "m6",
+      "label": "REINFORCES",
+      "strength": 0.82
+    },
+    {
+      "id": "e51",
+      "source": "m5",
+      "target": "m6",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e52",
+      "source": "m4",
+      "target": "m11",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e53",
+      "source": "m4",
+      "target": "m14",
+      "label": "REINFORCES",
+      "strength": 0.8
+    },
+    {
+      "id": "e54",
+      "source": "m4",
+      "target": "m14",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e55",
+      "source": "m4",
+      "target": "m6",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e56",
+      "source": "m4",
+      "target": "m5",
+      "label": "EVOLVED_INTO",
+      "strength": 0.9
+    },
+    {
+      "id": "e57",
+      "source": "m4",
+      "target": "m5",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e58",
+      "source": "m25",
+      "target": "m14",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e59",
+      "source": "m25",
+      "target": "m6",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e60",
+      "source": "m25",
+      "target": "m5",
+      "label": "EVOLVED_INTO",
+      "strength": 0.85
+    },
+    {
+      "id": "e61",
+      "source": "m25",
+      "target": "m5",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e62",
+      "source": "m25",
+      "target": "m4",
+      "label": "REINFORCES",
+      "strength": 0.92
+    },
+    {
+      "id": "e63",
+      "source": "m25",
+      "target": "m4",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e64",
+      "source": "m23",
+      "target": "m6",
+      "label": "REINFORCES",
+      "strength": 0.78
+    },
+    {
+      "id": "e65",
+      "source": "m23",
+      "target": "m6",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e66",
+      "source": "m23",
+      "target": "m5",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e67",
+      "source": "m23",
+      "target": "m4",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e68",
+      "source": "m23",
+      "target": "m25",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e69",
+      "source": "m2",
+      "target": "m6",
+      "label": "EVOLVED_INTO",
+      "strength": 0.9
+    },
+    {
+      "id": "e70",
+      "source": "m2",
+      "target": "m5",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e71",
+      "source": "m2",
+      "target": "m4",
+      "label": "REINFORCES",
+      "strength": 0.78
+    },
+    {
+      "id": "e72",
+      "source": "m2",
+      "target": "m4",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e73",
+      "source": "m2",
+      "target": "m25",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e74",
+      "source": "m2",
+      "target": "m23",
+      "label": "EVOLVED_INTO",
+      "strength": 0.85
+    },
+    {
+      "id": "e75",
+      "source": "m2",
+      "target": "m23",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e76",
+      "source": "m10",
+      "target": "m5",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e77",
+      "source": "m10",
+      "target": "m4",
+      "label": "REINFORCES",
+      "strength": 0.75
+    },
+    {
+      "id": "e78",
+      "source": "m10",
+      "target": "m4",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e79",
+      "source": "m10",
+      "target": "m25",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e80",
+      "source": "m10",
+      "target": "m23",
+      "label": "REINFORCES",
+      "strength": 0.8
+    },
+    {
+      "id": "e81",
+      "source": "m10",
+      "target": "m23",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e82",
+      "source": "m10",
+      "target": "m2",
+      "label": "DERIVED_FROM",
+      "strength": 0.92
+    },
+    {
+      "id": "e83",
+      "source": "m10",
+      "target": "m2",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e84",
+      "source": "m15",
+      "target": "m4",
+      "label": "RELATES_TO",
+      "strength": 0.8
+    },
+    {
+      "id": "e85",
+      "source": "m15",
+      "target": "m4",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e86",
+      "source": "m15",
+      "target": "m25",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e87",
+      "source": "m15",
+      "target": "m23",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e88",
+      "source": "m15",
+      "target": "m2",
+      "label": "PART_OF",
+      "strength": 0.8
+    },
+    {
+      "id": "e89",
+      "source": "m15",
+      "target": "m2",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e90",
+      "source": "m15",
+      "target": "m10",
+      "label": "EVOLVED_INTO",
+      "strength": 0.85
+    },
+    {
+      "id": "e91",
+      "source": "m15",
+      "target": "m10",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e92",
+      "source": "m13",
+      "target": "m5",
+      "label": "RELATES_TO",
+      "strength": 0.78
+    },
+    {
+      "id": "e93",
+      "source": "m13",
+      "target": "m25",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e94",
+      "source": "m13",
+      "target": "m23",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e95",
+      "source": "m13",
+      "target": "m2",
+      "label": "PART_OF",
+      "strength": 0.85
+    },
+    {
+      "id": "e96",
+      "source": "m13",
+      "target": "m2",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e97",
+      "source": "m13",
+      "target": "m10",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e98",
+      "source": "m13",
+      "target": "m15",
+      "label": "RELATES_TO",
+      "strength": 0.74
+    },
+    {
+      "id": "e99",
+      "source": "m13",
+      "target": "m15",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    },
+    {
+      "id": "e100",
+      "source": "m19",
+      "target": "m23",
+      "label": "PRECEDED_BY",
+      "strength": 0.5
+    }
+  ]
+}

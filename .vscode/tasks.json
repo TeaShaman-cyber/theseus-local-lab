@@ -212,6 +212,43 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus AutoMem Graph Viewer: start",
+      "type": "process",
+      "command": "docker",
+      "args": [
+        "compose",
+        "-f",
+        "automem-graph-viewer/docker-compose.yml",
+        "up",
+        "-d"
+      ],
+      "options": {
+        "env": {
+          "DOCKER_HOST": "tcp://127.0.0.1:2375",
+          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
+        }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus AutoMem Graph Viewer: status",
+      "type": "process",
+      "command": "docker",
+      "args": [
+        "compose",
+        "-f",
+        "automem-graph-viewer/docker-compose.yml",
+        "ps"
+      ],
+      "options": {
+        "env": {
+          "DOCKER_HOST": "tcp://127.0.0.1:2375",
+          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
+        }
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus Timeline: list recent events",
       "type": "process",
       "command": "node",
@@ -371,6 +408,15 @@
       "label": "Theseus Secrets: providers env check",
       "type": "shell",
       "command": ".\\tools\\infisical_cli\\node_modules\\.bin\\infisical.cmd run --env=local --path=/providers -- node tools/secrets_lab/check_required_env.mjs BOTHUB_API_KEY BOTHUB_BASE_URL BOTHUB_MODEL XAI_API_KEY XAI_BASE_URL XAI_MODEL",
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Secrets: sync AutoMem to keychain",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/secrets_lab/sync_automem_to_infisical.mjs"
+      ],
       "problemMatcher": []
     },
     {
