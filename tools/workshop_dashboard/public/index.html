@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Theseus Workshop Dashboard</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<main class="shell">
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">Theseus local lab</p>
+      <h1>Workshop Dashboard</h1>
+    </div>
+    <div class="actions">
+      <button id="refresh" type="button">Refresh</button>
+      <span id="updated" class="muted">loading</span>
+    </div>
+  </header>
+
+  <section class="summary" aria-label="Overall workshop status">
+    <div id="overall" class="overall">...</div>
+    <div class="summary-text">
+      <h2 id="summary-title">Reading workshop state</h2>
+      <p id="summary-detail">Checking memory, Docker, backups, hooks, observability, and Git sync.</p>
+    </div>
+  </section>
+
+  <section class="map-wrap" aria-label="System status map">
+    <svg id="map" role="img" aria-labelledby="map-title map-desc" viewBox="0 0 920 420">
+      <title id="map-title">Theseus workshop system map</title>
+      <desc id="map-desc">A grouped status graph for memory, infrastructure, persistence, process, and workspace checks.</desc>
+    </svg>
+  </section>
+
+  <section class="split">
+    <div>
+      <h2>Warnings</h2>
+      <ul id="warnings" class="warning-list"></ul>
+    </div>
+    <div>
+      <h2>All checks</h2>
+      <div id="checks" class="checks"></div>
+    </div>
+  </section>
+</main>
+<script src="/app.js"></script>
+</body>
+</html>

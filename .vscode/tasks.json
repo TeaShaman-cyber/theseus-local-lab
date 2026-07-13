@@ -437,6 +437,44 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus: Workshop dashboard web start",
+      "type": "process",
+      "command": "docker",
+      "args": [
+        "compose",
+        "-f",
+        "tools/workshop_dashboard/docker-compose.yml",
+        "up",
+        "-d",
+        "--build"
+      ],
+      "options": {
+        "env": {
+          "DOCKER_HOST": "tcp://127.0.0.1:2375",
+          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
+        }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus: Workshop dashboard web status",
+      "type": "process",
+      "command": "docker",
+      "args": [
+        "compose",
+        "-f",
+        "tools/workshop_dashboard/docker-compose.yml",
+        "ps"
+      ],
+      "options": {
+        "env": {
+          "DOCKER_HOST": "tcp://127.0.0.1:2375",
+          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
+        }
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus Docker TCP: ps",
       "type": "process",
       "command": "docker",

@@ -8,9 +8,10 @@ import path from "node:path";
 import { env, exit } from "node:process";
 
 const repoRoot = path.resolve(import.meta.dirname, "..", "..");
+const host = env.THESEUS_HOST || "127.0.0.1";
 const dockerEnv = {
   ...env,
-  DOCKER_HOST: env.DOCKER_HOST || "tcp://127.0.0.1:2375",
+  DOCKER_HOST: env.DOCKER_HOST || `tcp://${host}:2375`,
 };
 const dockerConfig = path.join(repoRoot, "tools", "docker_control_plane", "docker-cli-config");
 if (existsSync(dockerConfig)) dockerEnv.DOCKER_CONFIG = dockerConfig;
@@ -75,6 +76,10 @@ function httpGet(url, timeoutMs = 3000) {
     request.on("timeout", () => request.destroy(new Error("timeout")));
     request.on("error", (error) => resolve({ ok: false, error: error.message }));
   });
+}
+
+function localUrl(port, pathName = "") {
+  return `http://${host}:${port}${pathName}`;
 }
 
 function tcpCheck(host, port, timeoutMs = 1500) {
@@ -193,12 +198,12 @@ async function buildDashboard() {
   const rows = [];
 
   const [automem, graphViewer, keychain, dockerTcp, logLattice, dockerControl, docker, git] = await Promise.all([
-    httpGet("http://127.0.0.1:8001/health"),
-    tcpCheck("127.0.0.1", 5174),
-    tcpCheck("127.0.0.1", 8088),
-    tcpCheck("127.0.0.1", 2375),
-    httpGet("http://127.0.0.1:8768/health"),
-    httpGet("http://127.0.0.1:8767/health"),
+    httpGet(localUrl(8001, "/health")),
+    tcpCheck(host, 5174),
+    tcpCheck(host, 8088),
+    tcpCheck(host, 2375),
+    httpGet(localUrl(8768, "/health")),
+    httpGet(localUrl(8767, "/health")),
     dockerContainers(),
     gitState(),
   ]);
@@ -233,12 +238,14 @@ async function buildDashboard() {
   );
 
   const mirrorCandidates = [
+    env.THESEUS_CLOUD_MIRROR_DIR,
     path.resolve(repoRoot, "..", "..", "theseus-cloud-backups"),
     path.resolve(repoRoot, "..", "theseus-cloud-backups"),
-  ];
+    "/cloud-backups",
+  ].filter(Boolean);
   const mirrorDir = mirrorCandidates.find((candidate) => existsSync(candidate));
   const latestMirror = mirrorDir
-    ? latestFile(path.relative(repoRoot, mirrorDir), (name) => name.endsWith(".tar.gz"))
+    ? latestFile(path.isAbsolute(mirrorDir) ? mirrorDir : path.relative(repoRoot, mirrorDir), (name) => name.endsWith(".tar.gz"))
     : null;
   const mirrorAge = latestMirror ? relativeAge(latestMirror.mtime, now) : null;
   rows.push(

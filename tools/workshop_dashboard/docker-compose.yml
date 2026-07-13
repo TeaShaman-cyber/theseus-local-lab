@@ -1,0 +1,19 @@
+services:
+  workshop-dashboard:
+    build:
+      context: ../..
+      dockerfile: tools/workshop_dashboard/Dockerfile
+    container_name: theseus-workshop-dashboard
+    restart: unless-stopped
+    working_dir: /workspace
+    ports:
+      - "127.0.0.1:5180:5180"
+    environment:
+      THESEUS_HOST: host.docker.internal
+      DOCKER_HOST: tcp://host.docker.internal:2375
+      THESEUS_CLOUD_MIRROR_DIR: /cloud-backups
+    volumes:
+      - ../..:/workspace:ro
+      - ${THESEUS_CLOUD_MIRROR_DIR:-../../../theseus-cloud-backups}:/cloud-backups:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
