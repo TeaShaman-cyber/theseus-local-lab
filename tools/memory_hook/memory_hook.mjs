@@ -241,7 +241,7 @@ async function main() {
         changed_files: event.changed_files.length,
       },
     },
-    { workspace, sinkUrl: process.env.THESEUS_TIMELINE_URL || "" },
+    { workspace },
   );
 
   console.log(

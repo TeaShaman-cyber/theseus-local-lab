@@ -274,7 +274,7 @@ async function logDecision(workspace, decisionResult, action) {
       },
       artifacts: [relative(workspace, path)],
     },
-    { workspace, sinkUrl: process.env.THESEUS_TIMELINE_URL || "" },
+    { workspace },
   );
 }
 

@@ -1,6 +1,8 @@
 import { mkdir, appendFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 
+const DEFAULT_SINK_URL = "http://127.0.0.1:8768/events";
+
 function asArray(value) {
   if (value === undefined || value === null || value === "") return [];
   return Array.isArray(value) ? value : [value];
@@ -60,6 +62,17 @@ export async function mirrorTimelineEvent(event, sinkUrl) {
   return body ? JSON.parse(body) : {};
 }
 
+function resolveSinkUrl(options = {}) {
+  if (options.sinkUrl !== undefined) return options.sinkUrl;
+  if (process.env.THESEUS_TIMELINE_DISABLE_SINK === "1") return "";
+  return process.env.THESEUS_TIMELINE_URL || DEFAULT_SINK_URL;
+}
+
+function strictSink(options = {}) {
+  if (options.strictSink !== undefined) return Boolean(options.strictSink);
+  return process.env.THESEUS_TIMELINE_STRICT_SINK === "1";
+}
+
 export async function writeTimelineEvent(input = {}, options = {}) {
   const workspace = options.workspace || process.cwd();
   const now = options.now || new Date();
@@ -68,8 +81,18 @@ export async function writeTimelineEvent(input = {}, options = {}) {
   await mkdir(dirname(path), { recursive: true });
   await appendFile(path, `${JSON.stringify(event)}\n`, "utf8");
 
-  const sinkUrl = options.sinkUrl ?? process.env.THESEUS_TIMELINE_URL ?? "";
+  const sinkUrl = resolveSinkUrl(options);
   let sink = null;
-  if (sinkUrl) sink = await mirrorTimelineEvent(event, sinkUrl);
+  if (sinkUrl) {
+    try {
+      sink = await mirrorTimelineEvent(event, sinkUrl);
+    } catch (error) {
+      sink = {
+        ok: false,
+        error: String(error?.message || error).slice(0, 500),
+      };
+      if (strictSink(options)) throw error;
+    }
+  }
   return { path, sink, event };
 }

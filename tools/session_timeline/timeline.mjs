@@ -60,6 +60,8 @@ function numericArg(args, name) {
 }
 
 async function add(args) {
+  const options = {};
+  if (args.sink_url !== undefined) options.sinkUrl = args.sink_url;
   const result = await writeTimelineEvent({
     source: args.source || "manual",
     event: args.event || "note",
@@ -69,7 +71,7 @@ async function add(args) {
     artifact: args.artifact,
     tag: args.tag,
     metrics: parseMetric(args.metric),
-  }, { sinkUrl: args.sink_url || process.env.THESEUS_TIMELINE_URL || "" });
+  }, options);
   console.log(JSON.stringify({ wrote: result.path, sink: result.sink, event: result.event }, null, 2));
 }
 

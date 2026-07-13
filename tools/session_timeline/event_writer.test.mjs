@@ -49,3 +49,42 @@ test("writes JSONL without requiring a sink", async () => {
   assert.equal(event.event, "writer-test");
   assert.equal(result.sink, null);
 });
+
+test("default sink failures are fail-soft", async () => {
+  const workspace = await mkdtemp(join(tmpdir(), "theseus-timeline-test-"));
+  const result = await writeTimelineEvent(
+    {
+      source: "test",
+      event: "writer-fail-soft",
+      note: "sink unavailable should not break local write",
+    },
+    {
+      workspace,
+      now: new Date("2026-07-13T00:00:00.000Z"),
+      sinkUrl: "http://127.0.0.1:1/events",
+    },
+  );
+
+  const text = await readFile(result.path, "utf8");
+  assert.match(text, /writer-fail-soft/);
+  assert.equal(result.sink.ok, false);
+  assert.match(result.sink.error, /fetch|failed|bad port/i);
+});
+
+test("strict sink mode surfaces mirror errors", async () => {
+  const workspace = await mkdtemp(join(tmpdir(), "theseus-timeline-test-"));
+  await assert.rejects(
+    writeTimelineEvent(
+      {
+        source: "test",
+        event: "writer-strict-failure",
+        note: "strict sink should fail",
+      },
+      {
+        workspace,
+        sinkUrl: "http://127.0.0.1:1/events",
+        strictSink: true,
+      },
+    ),
+  );
+});

@@ -179,7 +179,7 @@ async function scanHarnessErrors({ root = process.cwd(), scan = DEFAULT_SCAN_DIR
         category_count: Object.keys(summary.by_category).length,
       },
     },
-    { workspace: root, sinkUrl: process.env.THESEUS_TIMELINE_URL || "" },
+    { workspace: root },
   );
   for (const [id, count] of Object.entries(summary.by_id)) {
     await writeTimelineEvent(
@@ -191,7 +191,7 @@ async function scanHarnessErrors({ root = process.cwd(), scan = DEFAULT_SCAN_DIR
         artifacts: [relative(root, markdownPath)],
         metrics: { count },
       },
-      { workspace: root, sinkUrl: process.env.THESEUS_TIMELINE_URL || "" },
+      { workspace: root },
     );
   }
   return { jsonPath, markdownPath, summary };

@@ -34,7 +34,20 @@ Fields:
 
 Use `tools/session_timeline/event_writer.mjs` from other local tools instead of
 hand-writing JSONL or HTTP mirroring logic. It writes the local JSONL edge buffer
-and mirrors to `THESEUS_TIMELINE_URL` when that sink is configured.
+and mirrors to the Docker `log-lattice` sink by default:
+
+```text
+http://127.0.0.1:8768/events
+```
+
+Sink failures are fail-soft by default: the local JSONL event is still written
+if Docker or `log-lattice` is asleep.
+
+Environment controls:
+
+- `THESEUS_TIMELINE_URL`: override the sink URL.
+- `THESEUS_TIMELINE_DISABLE_SINK=1`: write only local JSONL.
+- `THESEUS_TIMELINE_STRICT_SINK=1`: fail the caller when mirroring fails.
 
 Current producers:
 
