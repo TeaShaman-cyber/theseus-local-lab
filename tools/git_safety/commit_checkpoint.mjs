@@ -6,17 +6,22 @@ import { cwd, exit } from "node:process";
 
 const DEFAULT_PATHS = [
   ".gitignore",
+  ".vscode/mcp.json",
   ".vscode/tasks.json",
+  "CODEX_VSCODE.md",
+  "VSCODE_SETUP.md",
   "outputs/wsl_sandbox_limitations_2026-07-13.md",
   "tools/docker_control_plane",
   "tools/git_safety/commit_checkpoint.mjs",
   "tools/memory_hook",
+  "tools/vscode_ahp",
+  "tools/vscode_bridge",
 ];
 
 function parseArgs(argv) {
   const args = {
     dryRun: false,
-    message: "Add Docker MCP bridge and compact memory hook",
+    message: "Add VS Code MCP and AHP bridge",
     paths: [],
   };
 

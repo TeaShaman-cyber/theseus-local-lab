@@ -45,6 +45,8 @@ Checked from Codex on 2026-07-10:
   every time.
 - Use Docker extension for observing AutoMem, observatory, and backup-runner
   containers.
+- Use `.vscode/mcp.json` for trusted workspace MCP servers that VS Code/Copilot
+  Agent can call.
 - Use Mermaid preview through Markdown preview or the Mermaid extension.
 - Use spellcheck and linters as a quiet external sensor layer. They are allowed
   to correct Codex and user text because their rules update independently from
@@ -76,8 +78,21 @@ The integration is repo-native:
 - Codex writes and commits files.
 - VS Code shows the workspace, diffs, Mermaid maps, Docker containers, and Git.
 - `.vscode/tasks.json` exposes common Codex-adjacent checks as visual commands.
+- `.vscode/mcp.json` exposes allowlisted tools to VS Code/Copilot Agent.
 - GitHub Desktop or VS Code Source Control can push after Codex commits.
 - AutoMem remains accessed through Codex/MCP, not through VS Code extensions.
+
+## Workspace MCP
+
+VS Code supports workspace MCP configuration in `.vscode/mcp.json`.
+
+Configured here:
+
+- `theseus-docker-tcp`: allowlisted Docker control through the same local bridge
+  Codex uses.
+
+This is for the VS Code/Copilot agent surface. It complements, but does not
+replace, Codex MCP configuration in `C:\Users\s.poklad\.codex\config.toml`.
 
 ## Left-Handed / Visual Workflow
 

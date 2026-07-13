@@ -31,6 +31,8 @@ flowchart LR
 - Preview Mermaid diagrams.
 - Show Git diffs before push.
 - Show Docker containers for AutoMem, observatory, and backup-runner.
+- Expose trusted workspace MCP servers from `.vscode/mcp.json` to VS Code
+  chat/agent surfaces.
 - Run workspace tasks for status checks and manual backups.
 - Provide spellcheck, Markdown linting, ShellCheck, shell formatting, and
   PowerShell tooling as quiet local feedback.
@@ -63,6 +65,52 @@ Use Command Palette -> `Tasks: Run Task`.
 - `Theseus: Backup runner status`
 - `Theseus: Export CodeWhale context`
 - `Theseus: Create data backup now`
+
+## VS Code MCP Boundary
+
+VS Code 1.128 supports MCP configuration through `.vscode/mcp.json` and
+`code --add-mcp`. This is the preferred way to let the VS Code/Copilot agent
+use the same allowlisted local tools as Codex.
+
+Current workspace MCP servers:
+
+- `theseus-docker-tcp`: Docker control through
+  `tools/docker_control_plane/direct_bridge.mjs` and
+  `DOCKER_HOST=tcp://127.0.0.1:2375`.
+
+Important boundary: VS Code MCP gives tools to the VS Code agent. It does not
+by itself give Codex a reliable API to press VS Code buttons or read VS Code
+chat results. For Codex-to-user-context actions, keep using one of these
+bridges:
+
+1. a VS Code task the user starts or allows on folder open,
+2. a small file-queue worker such as `tools/vscode_bridge/bridge.mjs`,
+3. a future direct VS Code agent-host integration after it is proven.
+
+## VS Code Agent Host Probe
+
+VS Code 1.128 includes an experimental `code agent` CLI:
+
+- `code agent host`
+- `code agent ps --json`
+- `code agent logs <session>`
+
+The matching protocol is Microsoft Agent Host Protocol (AHP). It is promising
+because it is meant to synchronize agent sessions across IDE, web, CLI, and
+other clients, but the public documentation marks it as active-development and
+not yet stable.
+
+Local probe:
+
+- `tools/vscode_ahp/ahp_probe.mjs`
+- VS Code tasks:
+  - `Theseus VS Code AHP: status`
+  - `Theseus VS Code AHP: ps`
+  - `Theseus VS Code AHP: host local`
+  - `Theseus VS Code AHP: host replace local`
+
+Use this as an experiment, not as the only bridge. Keep MCP and the file-queue
+worker available until AHP behavior is proven in this workspace.
 
 ## Preferred Session Layout
 

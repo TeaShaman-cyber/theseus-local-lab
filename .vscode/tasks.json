@@ -37,6 +37,82 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus IDE Bridge: start worker",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/vscode_bridge/bridge.mjs",
+        "worker"
+      ],
+      "isBackground": true,
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus VS Code AHP: status",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/vscode_ahp/ahp_probe.mjs",
+        "status"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus VS Code AHP: ps",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/vscode_ahp/ahp_probe.mjs",
+        "ps"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus VS Code AHP: websocket smoke",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/vscode_ahp/ahp_probe.mjs",
+        "ws-smoke"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus VS Code AHP: rpc smoke",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/vscode_ahp/ahp_probe.mjs",
+        "rpc-smoke"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus VS Code AHP: host local",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/vscode_ahp/ahp_probe.mjs",
+        "host"
+      ],
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus VS Code AHP: host replace local",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/vscode_ahp/ahp_probe.mjs",
+        "host-replace"
+      ],
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus: lint markdown",
       "type": "shell",
       "command": "npm exec --yes markdownlint-cli2",
@@ -392,7 +468,7 @@
       "id": "checkpointCommitMessage",
       "type": "promptString",
       "description": "Commit message for the current checkpoint",
-      "default": "Add Docker MCP bridge and compact memory hook"
+      "default": "Add VS Code MCP and AHP bridge"
     },
     {
       "id": "bothubCouncilPrompt",
