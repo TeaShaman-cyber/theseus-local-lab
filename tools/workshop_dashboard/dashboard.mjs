@@ -185,8 +185,9 @@ function findContainer(containers, names) {
 }
 
 async function gitState() {
-  const branch = await run("git", ["status", "-sb"], { timeoutMs: 8000 });
-  const short = await run("git", ["status", "--short"], { timeoutMs: 8000 });
+  const gitArgs = ["-c", "core.autocrlf=input"];
+  const branch = await run("git", [...gitArgs, "status", "-sb"], { timeoutMs: 8000 });
+  const short = await run("git", [...gitArgs, "status", "--short"], { timeoutMs: 8000 });
   const first = branch.stdout.split(/\r?\n/).find(Boolean) || "";
   const dirty = short.stdout.split(/\r?\n/).filter(Boolean).length;
   const syncIssue = /\[.*(ahead|behind|diverged)/i.test(first);
