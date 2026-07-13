@@ -148,6 +148,82 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus Timeline: add manual event",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/session_timeline/timeline.mjs",
+        "add",
+        "--source",
+        "user-ui",
+        "--event",
+        "${input:timelineEventName}",
+        "--note",
+        "${input:timelineEventNote}",
+        "--context-percent",
+        "${input:timelineContextPercent}",
+        "--limit-percent-remaining",
+        "${input:timelineLimitPercentRemaining}",
+        "--tag",
+        "manual"
+      ],
+      "options": {
+        "env": {
+          "THESEUS_TIMELINE_URL": "http://127.0.0.1:8768/events"
+        }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Log Lattice: start",
+      "type": "process",
+      "command": "docker",
+      "args": [
+        "compose",
+        "-f",
+        "log-lattice/docker-compose.yml",
+        "up",
+        "-d"
+      ],
+      "options": {
+        "env": {
+          "DOCKER_HOST": "tcp://127.0.0.1:2375",
+          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
+        }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Log Lattice: status",
+      "type": "process",
+      "command": "docker",
+      "args": [
+        "compose",
+        "-f",
+        "log-lattice/docker-compose.yml",
+        "ps"
+      ],
+      "options": {
+        "env": {
+          "DOCKER_HOST": "tcp://127.0.0.1:2375",
+          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
+        }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Timeline: list recent events",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/session_timeline/timeline.mjs",
+        "list",
+        "--limit",
+        "20"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus Memory: compact checkpoint",
       "type": "process",
       "command": "node",
@@ -479,6 +555,29 @@
       "id": "sessionJournalNote",
       "type": "promptString",
       "description": "Short observable note for the lab journal"
+    },
+    {
+      "id": "timelineEventName",
+      "type": "promptString",
+      "description": "Short machine-readable timeline event name",
+      "default": "manual-observation"
+    },
+    {
+      "id": "timelineEventNote",
+      "type": "promptString",
+      "description": "Short observable timeline note"
+    },
+    {
+      "id": "timelineContextPercent",
+      "type": "promptString",
+      "description": "Visible context percentage, or blank if unknown",
+      "default": ""
+    },
+    {
+      "id": "timelineLimitPercentRemaining",
+      "type": "promptString",
+      "description": "Visible usage/limit percentage remaining, or blank if unknown",
+      "default": ""
     },
     {
       "id": "memoryHookSummary",

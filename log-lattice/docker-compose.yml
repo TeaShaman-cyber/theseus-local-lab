@@ -1,0 +1,15 @@
+services:
+  log-lattice:
+    image: python:3.12-alpine
+    container_name: theseus-log-lattice
+    restart: unless-stopped
+    working_dir: /app
+    command: ["python", "/app/server.py"]
+    ports:
+      - "127.0.0.1:8768:8768"
+    volumes:
+      - ./server.py:/app/server.py:ro
+      - theseus-log-lattice-data:/data
+
+volumes:
+  theseus-log-lattice-data:
