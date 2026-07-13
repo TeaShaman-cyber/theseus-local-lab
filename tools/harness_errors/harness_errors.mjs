@@ -2,6 +2,7 @@
 import { mkdir, readFile, readdir, stat, writeFile } from "node:fs/promises";
 import { join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
+import { writeTimelineEvent } from "../session_timeline/event_writer.mjs";
 
 const DEFAULT_SCAN_DIRS = ["outputs", "TASKS.md"];
 
@@ -165,6 +166,34 @@ async function scanHarnessErrors({ root = process.cwd(), scan = DEFAULT_SCAN_DIR
   const markdownPath = join(outDir, `${day}-harness-errors.md`);
   await writeFile(jsonPath, `${JSON.stringify(summary, null, 2)}\n`, "utf8");
   await writeFile(markdownPath, renderMarkdown(summary), "utf8");
+  await writeTimelineEvent(
+    {
+      source: "harness-errors",
+      event: "harness-error-scan",
+      note: `Harness error scan found ${summary.match_count} matches.`,
+      tags: ["harness-errors", summary.match_count ? "matches" : "clean"],
+      artifacts: [relative(root, jsonPath), relative(root, markdownPath)],
+      metrics: {
+        match_count: summary.match_count,
+        signature_count: Object.keys(summary.by_id).length,
+        category_count: Object.keys(summary.by_category).length,
+      },
+    },
+    { workspace: root, sinkUrl: process.env.THESEUS_TIMELINE_URL || "" },
+  );
+  for (const [id, count] of Object.entries(summary.by_id)) {
+    await writeTimelineEvent(
+      {
+        source: "harness-errors",
+        event: "tool-call-failure",
+        note: `${id}: ${count} match(es)`,
+        tags: ["harness-errors", id],
+        artifacts: [relative(root, markdownPath)],
+        metrics: { count },
+      },
+      { workspace: root, sinkUrl: process.env.THESEUS_TIMELINE_URL || "" },
+    );
+  }
   return { jsonPath, markdownPath, summary };
 }
 

@@ -30,6 +30,19 @@ Fields:
 - `tags`: optional small labels.
 - `metrics`: optional key/value numbers or strings.
 
+## Shared Writer
+
+Use `tools/session_timeline/event_writer.mjs` from other local tools instead of
+hand-writing JSONL or HTTP mirroring logic. It writes the local JSONL edge buffer
+and mirrors to `THESEUS_TIMELINE_URL` when that sink is configured.
+
+Current producers:
+
+- `tools/session_timeline/timeline.mjs`: manual events.
+- `tools/memory_hook/memory_hook.mjs`: checkpoint, compact, and handoff events.
+- `tools/tool_policy/tool_policy.mjs --log`: route critic decisions.
+- `tools/harness_errors/harness_errors.mjs`: scan summaries and signature counts.
+
 ## VS Code
 
 Run:
@@ -44,4 +57,3 @@ Theseus Timeline: add manual event
 node tools/session_timeline/timeline.mjs add --source user-ui --event limit-note --limit-percent-remaining 42 --note "No warning after long session"
 node tools/session_timeline/timeline.mjs list --limit 20
 ```
-

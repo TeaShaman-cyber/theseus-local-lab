@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 import { mkdir, appendFile } from "node:fs/promises";
-import { dirname, join } from "node:path";
+import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
+import { writeTimelineEvent } from "../session_timeline/event_writer.mjs";
 
 const safeWrappers = [
   /^node\s+tools[\\/]git_safety[\\/]scan_staged\.mjs\b/i,
@@ -261,6 +262,19 @@ async function logDecision(workspace, decisionResult, action) {
       action,
       decision: decisionResult,
     })}\n`,
+  );
+  await writeTimelineEvent(
+    {
+      source: "tool-policy",
+      event: "tool-route-selected",
+      note: `${decisionResult.verdict}: ${decisionResult.reason}`,
+      tags: ["tool-policy", decisionResult.verdict, decisionResult.reason],
+      metrics: {
+        reinforcement_score: decisionResult.reinforcement?.score ?? 0,
+      },
+      artifacts: [relative(workspace, path)],
+    },
+    { workspace, sinkUrl: process.env.THESEUS_TIMELINE_URL || "" },
   );
 }
 

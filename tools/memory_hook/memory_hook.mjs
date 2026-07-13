@@ -3,6 +3,7 @@
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { basename, join } from "node:path";
 import { cwd } from "node:process";
+import { writeTimelineEvent } from "../session_timeline/event_writer.mjs";
 
 const VALID_MODES = new Set(["checkpoint", "compact", "handoff"]);
 
@@ -152,7 +153,7 @@ function buildPacket(event, automemDraft) {
   return `${lines.join("\n")}\n`;
 }
 
-function main() {
+async function main() {
   const args = parseArgs(process.argv.slice(2));
   if (!VALID_MODES.has(args.mode)) {
     console.error(`Invalid mode: ${args.mode}. Use checkpoint, compact, or handoff.`);
@@ -227,6 +228,22 @@ function main() {
     writeFileSync(packetPath, buildPacket(event, automemDraft), "utf8");
   }
 
+  await writeTimelineEvent(
+    {
+      source: "memory-hook",
+      event: args.mode === "checkpoint" ? "memory-checkpoint" : "context-compaction",
+      note: summary,
+      tags,
+      artifacts: [rawEventPath, draftPath, packetPath].filter(Boolean).map((item) => basename(item)),
+      metrics: {
+        decisions: event.decisions.length,
+        open_loops: event.open_loops.length,
+        changed_files: event.changed_files.length,
+      },
+    },
+    { workspace, sinkUrl: process.env.THESEUS_TIMELINE_URL || "" },
+  );
+
   console.log(
     JSON.stringify(
       {
@@ -244,4 +261,4 @@ function main() {
   );
 }
 
-main();
+await main();

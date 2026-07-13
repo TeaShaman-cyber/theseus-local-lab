@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
+import { existsSync, readFileSync } from "node:fs";
+import { writeTimelineEvent, timelinePath } from "./event_writer.mjs";
 
 function parseArgs(argv) {
   const args = { _: [] };
@@ -50,24 +50,6 @@ function parseMetric(value) {
   return metrics;
 }
 
-function localIso(date) {
-  const offsetMinutes = -date.getTimezoneOffset();
-  const sign = offsetMinutes >= 0 ? "+" : "-";
-  const abs = Math.abs(offsetMinutes);
-  const hours = String(Math.floor(abs / 60)).padStart(2, "0");
-  const minutes = String(abs % 60).padStart(2, "0");
-  const local = new Date(date.getTime() + offsetMinutes * 60_000)
-    .toISOString()
-    .replace("Z", "");
-  return `${local}${sign}${hours}:${minutes}`;
-}
-
-function todayPath(now) {
-  const outputDir = join(process.cwd(), "outputs", "session_timeline");
-  mkdirSync(outputDir, { recursive: true });
-  return join(outputDir, `${now.toISOString().slice(0, 10)}.jsonl`);
-}
-
 function numericArg(args, name) {
   if (args[name] === undefined || args[name] === "") return undefined;
   const value = Number(args[name]);
@@ -77,55 +59,23 @@ function numericArg(args, name) {
   return value;
 }
 
-async function mirrorToSink(event, url) {
-  if (!url) return null;
-  const response = await fetch(url, {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify(event),
-  });
-  const body = await response.text();
-  if (!response.ok) {
-    throw new Error(`timeline sink failed: ${response.status} ${body}`);
-  }
-  return body ? JSON.parse(body) : {};
-}
-
 async function add(args) {
-  const now = new Date();
-  const event = {
-    created_at: now.toISOString(),
-    local_time: localIso(now),
+  const result = await writeTimelineEvent({
     source: args.source || "manual",
     event: args.event || "note",
     note: args.note || "",
     context_percent: numericArg(args, "context_percent"),
     limit_percent_remaining: numericArg(args, "limit_percent_remaining"),
-    artifacts: asArray(args.artifact),
-    tags: asArray(args.tag),
+    artifact: args.artifact,
+    tag: args.tag,
     metrics: parseMetric(args.metric),
-  };
-
-  for (const key of ["context_percent", "limit_percent_remaining"]) {
-    if (event[key] === undefined) delete event[key];
-  }
-  if (!event.artifacts.length) delete event.artifacts;
-  if (!event.tags.length) delete event.tags;
-  if (!Object.keys(event.metrics).length) delete event.metrics;
-
-  const outputPath = todayPath(now);
-  writeFileSync(outputPath, `${JSON.stringify(event)}\n`, { encoding: "utf8", flag: "a" });
-  const sinkUrl = args.sink_url || process.env.THESEUS_TIMELINE_URL || "";
-  let sink = null;
-  if (sinkUrl) {
-    sink = await mirrorToSink(event, sinkUrl);
-  }
-  console.log(JSON.stringify({ wrote: outputPath, sink, event }, null, 2));
+  }, { sinkUrl: args.sink_url || process.env.THESEUS_TIMELINE_URL || "" });
+  console.log(JSON.stringify({ wrote: result.path, sink: result.sink, event: result.event }, null, 2));
 }
 
 function list(args) {
   const now = new Date();
-  const path = args.file || todayPath(now);
+  const path = args.file || timelinePath(process.cwd(), now);
   const limit = numericArg(args, "limit") || 20;
   if (!existsSync(path)) {
     console.log(JSON.stringify({ path, events: [] }, null, 2));
