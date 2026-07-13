@@ -3,8 +3,12 @@
   "tasks": [
     {
       "label": "Theseus: git status",
-      "type": "shell",
-      "command": "git status --short",
+      "type": "process",
+      "command": "git",
+      "args": [
+        "status",
+        "--short"
+      ],
       "problemMatcher": []
     },
     {
@@ -114,8 +118,13 @@
     },
     {
       "label": "Theseus: lint markdown",
-      "type": "shell",
-      "command": "npm exec --yes markdownlint-cli2",
+      "type": "process",
+      "command": "npm",
+      "args": [
+        "exec",
+        "--yes",
+        "markdownlint-cli2"
+      ],
       "problemMatcher": []
     },
     {
@@ -176,8 +185,12 @@
     },
     {
       "label": "Theseus: ask Copilot advisor",
-      "type": "shell",
-      "command": "node tools/copilot_advisor/copilot_advisor.mjs \"${input:copilotAdvisorPrompt}\"",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/copilot_advisor/copilot_advisor.mjs",
+        "${input:copilotAdvisorPrompt}"
+      ],
       "options": {
         "env": {
           "COPILOT_ADVISOR_PROXY": "http://127.0.0.1:10808"
@@ -193,8 +206,13 @@
     },
     {
       "label": "Theseus: write session journal",
-      "type": "shell",
-      "command": "node tools/session_journal/session_journal.mjs --note \"${input:sessionJournalNote}\"",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/session_journal/session_journal.mjs",
+        "--note",
+        "${input:sessionJournalNote}"
+      ],
       "problemMatcher": []
     },
     {
@@ -342,20 +360,38 @@
     },
     {
       "label": "Theseus: enqueue research item",
-      "type": "shell",
-      "command": "node tools/research_queue/enqueue.mjs --topic \"${input:researchQueueTopic}\" --why \"${input:researchQueueWhy}\" --connectors \"exa,parallel,tavily,acumen,browser\"",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/research_queue/enqueue.mjs",
+        "--topic",
+        "${input:researchQueueTopic}",
+        "--why",
+        "${input:researchQueueWhy}",
+        "--connectors",
+        "exa,parallel,tavily,acumen,browser"
+      ],
       "problemMatcher": []
     },
     {
       "label": "Theseus: list research queue",
-      "type": "shell",
-      "command": "node tools/research_queue/list.mjs --limit 10",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/research_queue/list.mjs",
+        "--limit",
+        "10"
+      ],
       "problemMatcher": []
     },
     {
       "label": "Theseus: AutoMem status",
-      "type": "shell",
-      "command": ".\\scripts\\automem-status.ps1",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/service_status/service_status.mjs",
+        "automem"
+      ],
       "problemMatcher": []
     },
     {
@@ -369,14 +405,26 @@
     },
     {
       "label": "Theseus: Observatory status",
-      "type": "shell",
-      "command": ".\\scripts\\stateful-agent-net-status.ps1 -Tail 40",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/service_status/service_status.mjs",
+        "observatory",
+        "--tail",
+        "40"
+      ],
       "problemMatcher": []
     },
     {
       "label": "Theseus: Backup runner status",
-      "type": "shell",
-      "command": "docker compose -f .\\backup-lattice\\docker-compose.yml ps; docker compose -f .\\backup-lattice\\docker-compose.yml logs --tail=40 backup-runner",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/service_status/service_status.mjs",
+        "backup",
+        "--tail",
+        "40"
+      ],
       "problemMatcher": []
     },
     {
@@ -423,8 +471,12 @@
     },
     {
       "label": "Theseus Docker Control: fallback daemon health",
-      "type": "shell",
-      "command": "Invoke-RestMethod -Uri http://127.0.0.1:8767/health | ConvertTo-Json -Depth 8",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/service_status/service_status.mjs",
+        "docker-control-health"
+      ],
       "problemMatcher": []
     },
     {
@@ -438,26 +490,73 @@
     },
     {
       "label": "Theseus Secrets: start keychain",
-      "type": "shell",
-      "command": "docker compose -f .\\secrets-lab\\docker-compose.yml up -d",
+      "type": "process",
+      "command": "docker",
+      "args": [
+        "compose",
+        "-f",
+        "secrets-lab/docker-compose.yml",
+        "up",
+        "-d"
+      ],
+      "options": {
+        "env": {
+          "DOCKER_HOST": "tcp://127.0.0.1:2375",
+          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
+        }
+      },
       "problemMatcher": []
     },
     {
       "label": "Theseus Secrets: status",
-      "type": "shell",
-      "command": "docker compose -f .\\secrets-lab\\docker-compose.yml ps",
+      "type": "process",
+      "command": "docker",
+      "args": [
+        "compose",
+        "-f",
+        "secrets-lab/docker-compose.yml",
+        "ps"
+      ],
+      "options": {
+        "env": {
+          "DOCKER_HOST": "tcp://127.0.0.1:2375",
+          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
+        }
+      },
       "problemMatcher": []
     },
     {
       "label": "Theseus Secrets: port check",
-      "type": "shell",
-      "command": "Test-NetConnection -ComputerName 127.0.0.1 -Port 8088 | Select-Object ComputerName,RemotePort,TcpTestSucceeded",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/service_status/service_status.mjs",
+        "port",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8088"
+      ],
       "problemMatcher": []
     },
     {
       "label": "Theseus Secrets: providers env check",
-      "type": "shell",
-      "command": ".\\tools\\infisical_cli\\node_modules\\.bin\\infisical.cmd run --env=local --path=/providers -- node tools/secrets_lab/check_required_env.mjs BOTHUB_API_KEY BOTHUB_BASE_URL BOTHUB_MODEL XAI_API_KEY XAI_BASE_URL XAI_MODEL",
+      "type": "process",
+      "command": "${workspaceFolder}/tools/infisical_cli/node_modules/@infisical/cli/bin/infisical.exe",
+      "args": [
+        "run",
+        "--env=local",
+        "--path=/providers",
+        "--",
+        "node",
+        "tools/secrets_lab/check_required_env.mjs",
+        "BOTHUB_API_KEY",
+        "BOTHUB_BASE_URL",
+        "BOTHUB_MODEL",
+        "XAI_API_KEY",
+        "XAI_BASE_URL",
+        "XAI_MODEL"
+      ],
       "problemMatcher": []
     },
     {
@@ -471,8 +570,17 @@
     },
     {
       "label": "Theseus Secrets: Bothub API smoke",
-      "type": "shell",
-      "command": ".\\tools\\infisical_cli\\node_modules\\.bin\\infisical.cmd run --env=local --path=/providers -- node tools/secrets_lab/openai_compatible_smoke.mjs BOTHUB",
+      "type": "process",
+      "command": "${workspaceFolder}/tools/infisical_cli/node_modules/@infisical/cli/bin/infisical.exe",
+      "args": [
+        "run",
+        "--env=local",
+        "--path=/providers",
+        "--",
+        "node",
+        "tools/secrets_lab/openai_compatible_smoke.mjs",
+        "BOTHUB"
+      ],
       "problemMatcher": []
     },
     {
@@ -552,44 +660,157 @@
     },
     {
       "label": "Theseus: Export CodeWhale context",
-      "type": "shell",
-      "command": ".\\scripts\\agent-shell.ps1 -Command \"python3 tools/memory_context/export_context.py\"",
+      "type": "process",
+      "command": "docker",
+      "args": [
+        "compose",
+        "-f",
+        "agent-shell/docker-compose.yml",
+        "run",
+        "--rm",
+        "agent-shell",
+        "bash",
+        "-lc",
+        "python3 tools/memory_context/export_context.py"
+      ],
+      "options": {
+        "env": {
+          "DOCKER_HOST": "tcp://127.0.0.1:2375",
+          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
+        }
+      },
       "problemMatcher": []
     },
     {
       "label": "Theseus: Create data backup now",
-      "type": "shell",
-      "command": ".\\scripts\\agent-shell.ps1 -Command \"python3 tools/backup_lattice/backup_lattice.py once --mirror-dir /workspace/../theseus-cloud-backups\"",
+      "type": "process",
+      "command": "docker",
+      "args": [
+        "compose",
+        "-f",
+        "agent-shell/docker-compose.yml",
+        "run",
+        "--rm",
+        "agent-shell",
+        "bash",
+        "-lc",
+        "python3 tools/backup_lattice/backup_lattice.py once --mirror-dir /workspace/../theseus-cloud-backups"
+      ],
+      "options": {
+        "env": {
+          "DOCKER_HOST": "tcp://127.0.0.1:2375",
+          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
+        }
+      },
       "problemMatcher": []
     },
     {
       "label": "MemPalace Pilot: build image",
-      "type": "shell",
-      "command": "docker compose -f work\\mempalace-pilot\\docker-compose.yml build",
+      "type": "process",
+      "command": "docker",
+      "args": [
+        "compose",
+        "-f",
+        "work/mempalace-pilot/docker-compose.yml",
+        "build"
+      ],
+      "options": {
+        "env": {
+          "DOCKER_HOST": "tcp://127.0.0.1:2375",
+          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
+        }
+      },
       "problemMatcher": []
     },
     {
       "label": "MemPalace Pilot: ingest seed corpus",
-      "type": "shell",
-      "command": "docker compose -f work\\mempalace-pilot\\docker-compose.yml run --rm mempalace mine /corpus --wing theseus-local-lab",
+      "type": "process",
+      "command": "docker",
+      "args": [
+        "compose",
+        "-f",
+        "work/mempalace-pilot/docker-compose.yml",
+        "run",
+        "--rm",
+        "mempalace",
+        "mine",
+        "/corpus",
+        "--wing",
+        "theseus-local-lab"
+      ],
+      "options": {
+        "env": {
+          "DOCKER_HOST": "tcp://127.0.0.1:2375",
+          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
+        }
+      },
       "problemMatcher": []
     },
     {
       "label": "MemPalace Pilot: ingest Strazh outputs",
-      "type": "shell",
-      "command": "docker compose -f work\\mempalace-pilot\\docker-compose.yml run --rm mempalace mine /outputs --wing strazh-index",
+      "type": "process",
+      "command": "docker",
+      "args": [
+        "compose",
+        "-f",
+        "work/mempalace-pilot/docker-compose.yml",
+        "run",
+        "--rm",
+        "mempalace",
+        "mine",
+        "/outputs",
+        "--wing",
+        "strazh-index"
+      ],
+      "options": {
+        "env": {
+          "DOCKER_HOST": "tcp://127.0.0.1:2375",
+          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
+        }
+      },
       "problemMatcher": []
     },
     {
       "label": "MemPalace Pilot: status",
-      "type": "shell",
-      "command": "docker compose -f work\\mempalace-pilot\\docker-compose.yml run --rm mempalace status",
+      "type": "process",
+      "command": "docker",
+      "args": [
+        "compose",
+        "-f",
+        "work/mempalace-pilot/docker-compose.yml",
+        "run",
+        "--rm",
+        "mempalace",
+        "status"
+      ],
+      "options": {
+        "env": {
+          "DOCKER_HOST": "tcp://127.0.0.1:2375",
+          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
+        }
+      },
       "problemMatcher": []
     },
     {
       "label": "MemPalace Pilot: search",
-      "type": "shell",
-      "command": "docker compose -f work\\mempalace-pilot\\docker-compose.yml run --rm mempalace search \"${input:mempalaceSearchQuery}\"",
+      "type": "process",
+      "command": "docker",
+      "args": [
+        "compose",
+        "-f",
+        "work/mempalace-pilot/docker-compose.yml",
+        "run",
+        "--rm",
+        "mempalace",
+        "search",
+        "${input:mempalaceSearchQuery}"
+      ],
+      "options": {
+        "env": {
+          "DOCKER_HOST": "tcp://127.0.0.1:2375",
+          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
+        }
+      },
       "problemMatcher": []
     },
     {
