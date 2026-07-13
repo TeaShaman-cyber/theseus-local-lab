@@ -43,9 +43,11 @@ Do not read, summarize, export, or include:
    explanation, or mixed.
 3. Mark the current owner area: memory, Docker, backups, observatory, Git,
    VS Code, CodeWhale, keychain, research, agile/process, or recovery.
-4. Identify duplicates, stale claims, missing entry points, and files that are
+4. Identify how each workflow splits across skills, VS Code tasks, scripts,
+   MCP tools, memory, and logs.
+5. Identify duplicates, stale claims, missing entry points, and files that are
    too broad for one document.
-5. Propose a minimal target structure before editing content.
+6. Propose a minimal target structure before editing content.
 
 ## Expected Output
 
@@ -57,6 +59,9 @@ Write one audit report under `docs/audits/` with:
 - a GitHub Wiki suitability note for stable reader-facing pages;
 - a GitHub surface note for Wiki, Issues, Projects, Actions, and repo docs,
   including where Copilot advisor consultation is useful;
+- a harness map showing which skills choose routes, which tasks/scripts/MCP
+  tools execute them, which memory layer stores rationale, and which log layer
+  proves the outcome;
 - a list of high-risk stale or duplicated areas;
 - a minimal rewrite sequence with small commits;
 - open questions that need Semyon's judgment.
@@ -73,6 +78,10 @@ Write one audit report under `docs/audits/` with:
   than the only editable copy.
 - Copilot advice is routed through `.agents/skills/theseus-copilot-advisor`
   and treated as a second opinion, not a replacement for local evidence.
+- The audit preserves the distinction between cognitive route selection
+  (skills), motor execution (tasks/scripts/MCP), durable rationale
+  (AutoMem/MemPalace), and observable evidence (`session_timeline` /
+  `log-lattice`).
 - The audit names checks needed after documentation changes, such as JSON parse,
   markdown lint if available, and the Git staging scanner.
 

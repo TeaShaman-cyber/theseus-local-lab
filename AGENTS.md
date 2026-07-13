@@ -24,6 +24,13 @@ Before non-trivial work, use the smallest matching project skill:
 If two routes are plausible, prefer the one with lower user friction, stronger
 verification, and less context load.
 
+Think of project skills and task runners as two halves of one harness:
+
+- skills choose when and why to use a route;
+- VS Code tasks, scripts, and MCP tools execute the route;
+- AutoMem/MemPalace preserve why the route changed;
+- `session_timeline` and `log-lattice` preserve what happened.
+
 ## Memory
 
 AutoMem is the primary durable memory. MemPalace is the episodic/verbatim layer
