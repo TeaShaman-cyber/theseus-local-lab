@@ -29,6 +29,8 @@ outputs/session_timeline/*.jsonl
 outputs/tool_policy/*.jsonl
 outputs/learning_loop/*.md
 outputs/learning_loop/*.json
+outputs/harness_errors/*.md
+outputs/harness_errors/*.json
 outputs/research_queue/*.jsonl
 outputs/local_inventory/*.json
 outputs/pdf_extracts/*

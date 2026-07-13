@@ -56,6 +56,16 @@ test("allows learning-loop analyzer as a known safe wrapper", () => {
   assert.equal(decision.reason, "known-safe-wrapper");
 });
 
+test("allows harness error scanner as a known safe wrapper", () => {
+  const decision = evaluateAction({
+    surface: "shell",
+    command: "node tools/harness_errors/harness_errors.mjs",
+  });
+
+  assert.equal(decision.verdict, "allow");
+  assert.equal(decision.reason, "known-safe-wrapper");
+});
+
 test("rewards known safe wrapper routes", () => {
   const decision = evaluateAction({
     surface: "shell",

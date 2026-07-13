@@ -166,6 +166,15 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus Harness Errors: scan",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/harness_errors/harness_errors.mjs"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus: ask Copilot advisor",
       "type": "shell",
       "command": "node tools/copilot_advisor/copilot_advisor.mjs \"${input:copilotAdvisorPrompt}\"",
