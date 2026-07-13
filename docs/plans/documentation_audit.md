@@ -55,6 +55,8 @@ Write one audit report under `docs/audits/` with:
 - an inventory table;
 - a proposed documentation map;
 - a GitHub Wiki suitability note for stable reader-facing pages;
+- a GitHub surface note for Wiki, Issues, Projects, Actions, and repo docs,
+  including where Copilot advisor consultation is useful;
 - a list of high-risk stale or duplicated areas;
 - a minimal rewrite sequence with small commits;
 - open questions that need Semyon's judgment.
@@ -69,6 +71,8 @@ Write one audit report under `docs/audits/` with:
 - Any proposed rewrite is split into reviewable steps.
 - GitHub Wiki, if recommended, is treated as a mirror/publication layer rather
   than the only editable copy.
+- Copilot advice is routed through `.agents/skills/theseus-copilot-advisor`
+  and treated as a second opinion, not a replacement for local evidence.
 - The audit names checks needed after documentation changes, such as JSON parse,
   markdown lint if available, and the Git staging scanner.
 

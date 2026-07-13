@@ -14,6 +14,8 @@ Before non-trivial work, use the smallest matching project skill:
   memory, decisions, or continuity.
 - `.agents/skills/theseus-shell-routing/SKILL.md` before shell, Docker, WSL,
   JSON/text processing, or quoting-sensitive work.
+- `.agents/skills/theseus-copilot-advisor/SKILL.md` for narrow GitHub, VS Code,
+  GitHub Actions, Wiki, Issues, Projects, or Copilot tooling advice.
 - `C:/Users/s.poklad/.codex/skills/local-agent-hygiene/SKILL.md` for local
   infrastructure, VS Code tasks, Docker Desktop, and repeated checks.
 - `C:/Users/s.poklad/.codex/skills/theseus-git-hygiene/SKILL.md` for Git,
@@ -45,6 +47,7 @@ Docker and observability work should favor the existing narrow tools:
 - `tools/session_timeline`
 - `tools/harness_errors`
 - `tools/memory_hook`
+- `tools/copilot_advisor`
 - `log-lattice`
 - `backup-lattice`
 

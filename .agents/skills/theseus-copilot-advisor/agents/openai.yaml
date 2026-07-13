@@ -1,0 +1,6 @@
+interface:
+  display_name: "Theseus Copilot Advisor"
+  short_description: "Ask Copilot for safe GitHub and VS Code advice."
+  default_prompt: "Use $theseus-copilot-advisor to ask Copilot for a narrow, non-secret GitHub or VS Code recommendation."
+policy:
+  allow_implicit_invocation: true
