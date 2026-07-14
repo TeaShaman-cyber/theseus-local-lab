@@ -19,6 +19,7 @@
       <a class="nav-link" href="#graph">Task Graph</a>
       <a class="nav-link" href="#codex-issues">Codex Issues</a>
       <a class="nav-link" href="#codex-system">Codex System</a>
+      <a class="nav-link" href="#sysinternals-scout">System Scout</a>
       <button id="refresh" type="button">Refresh</button>
       <span id="updated" class="muted">loading</span>
     </div>
@@ -153,6 +154,32 @@
     <section class="full-panel">
       <h2>Recent matched Windows events</h2>
       <div id="codex-event-list" class="checks"></div>
+    </section>
+  </section>
+
+  <section id="sysinternals-scout-view" class="view hidden" aria-label="Sysinternals scout">
+    <section class="summary compact-summary">
+      <div id="sysinternals-scout-total" class="overall status-OK">...</div>
+      <div class="summary-text">
+        <h2>Sysinternals scout</h2>
+        <p id="sysinternals-scout-summary">Reading cached process and network scout summary.</p>
+      </div>
+    </section>
+
+    <section class="split">
+      <div>
+        <h2>Tool availability</h2>
+        <div id="sysinternals-tool-list" class="checks"></div>
+      </div>
+      <div>
+        <h2>Process pressure</h2>
+        <div id="sysinternals-process-list" class="checks"></div>
+      </div>
+    </section>
+
+    <section class="full-panel">
+      <h2>Network listeners and services</h2>
+      <div id="sysinternals-network-list" class="checks"></div>
     </section>
   </section>
 </main>

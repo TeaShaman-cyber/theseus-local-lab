@@ -82,6 +82,18 @@ This report uses `codex --version`, `where.exe codex`, and read-only
 `wevtutil` queries against the Windows Application log. It stores a compact
 summary only, not raw Windows log archives.
 
+The `System Scout` tab reads a cached lightweight process/network report:
+
+```text
+node tools/sysinternals_scout/sysinternals_scout.mjs --write
+http://127.0.0.1:5180/#sysinternals-scout
+http://127.0.0.1:5180/api/sysinternals-scout
+```
+
+This scout detects optional Sysinternals CLI tools, then falls back to
+`tasklist` and `netstat` for a bounded machine-readable snapshot. It does not
+launch Process Explorer, Process Monitor, dumps, or trace capture.
+
 ## Signals
 
 - AutoMem API health
@@ -100,6 +112,7 @@ summary only, not raw Windows log archives.
 - local observatory DB freshness
 - cached OpenAI Codex GitHub issue summary
 - cached Codex local system/version/event summary
+- cached lightweight process/network scout
 - Git sync and dirty-file state
 
 The script does not start, stop, rebuild, or mutate services. It also does not

@@ -405,6 +405,16 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus: refresh Sysinternals scout",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/sysinternals_scout/sysinternals_scout.mjs",
+        "--write"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus: AutoMem status",
       "type": "process",
       "command": "node",

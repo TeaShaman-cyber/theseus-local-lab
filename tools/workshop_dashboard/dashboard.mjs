@@ -404,6 +404,21 @@ async function buildDashboard() {
     ),
   );
 
+  const sysinternalsFile = path.join(repoRoot, "outputs", "sysinternals_scout", "sysinternals-scout.json");
+  const sysinternalsStat = existsSync(sysinternalsFile) ? statSync(sysinternalsFile) : null;
+  const sysinternals = readJsonFile(sysinternalsFile);
+  const sysinternalsAge = sysinternalsStat ? relativeAge(sysinternalsStat.mtime, now) : null;
+  rows.push(
+    item(
+      "sysinternals-scout",
+      "Sysinternals scout",
+      sysinternals ? statusFromFreshness(sysinternalsAge, 12, 48) : "WARN",
+      sysinternals
+        ? `${sysinternals.processes?.interesting_count || 0} interesting processes, ${sysinternals.network?.interesting_connections || 0} interesting connections; ${formatAge(sysinternalsAge)} old`
+        : "run node tools/sysinternals_scout/sysinternals_scout.mjs --write",
+    ),
+  );
+
   rows.push(
     item(
       "git-sync",

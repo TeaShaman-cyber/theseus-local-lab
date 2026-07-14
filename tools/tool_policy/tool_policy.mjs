@@ -14,6 +14,7 @@ const safeWrappers = [
   /^node\s+tools[\\/]harness_errors[\\/]harness_errors\.mjs\b/i,
   /^node\s+tools[\\/]codex_system_watch[\\/]codex_system_watch\.mjs\b/i,
   /^node\s+tools[\\/]github_issue_watch[\\/]github_issue_watch\.mjs\b/i,
+  /^node\s+tools[\\/]sysinternals_scout[\\/]sysinternals_scout\.mjs\b/i,
   /^node\s+tools[\\/]learning_loop[\\/]learning_loop\.mjs\b/i,
   /^node\s+tools[\\/]service_status[\\/]service_status\.mjs\b/i,
   /^node\s+tools[\\/]session_timeline[\\/]timeline\.mjs\b/i,

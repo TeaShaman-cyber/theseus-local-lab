@@ -97,6 +97,16 @@ test("allows Codex system watch as a known safe wrapper", () => {
   assert.equal(decision.reason, "known-safe-wrapper");
 });
 
+test("allows Sysinternals scout as a known safe wrapper", () => {
+  const decision = evaluateAction({
+    surface: "shell",
+    command: "node tools/sysinternals_scout/sysinternals_scout.mjs --write",
+  });
+
+  assert.equal(decision.verdict, "allow");
+  assert.equal(decision.reason, "known-safe-wrapper");
+});
+
 test("allows read-only workshop dashboard wrappers", () => {
   const dashboard = evaluateAction({
     surface: "shell",

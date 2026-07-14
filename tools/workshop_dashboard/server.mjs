@@ -92,6 +92,21 @@ function readCodexSystem() {
   };
 }
 
+function readSysinternalsScout() {
+  const filePath = path.resolve(here, "..", "..", "outputs", "sysinternals_scout", "sysinternals-scout.json");
+  if (!existsSync(filePath)) {
+    return {
+      ok: false,
+      error: "Sysinternals scout cache not found",
+      hint: "Run node tools/sysinternals_scout/sysinternals_scout.mjs --write",
+    };
+  }
+  return {
+    ok: true,
+    ...JSON.parse(readFileSync(filePath, "utf8")),
+  };
+}
+
 function serveStatic(req, res) {
   const url = new URL(req.url, "http://localhost");
   const requested = url.pathname === "/" ? "/index.html" : url.pathname;
@@ -166,6 +181,14 @@ const server = http.createServer(async (req, res) => {
   if (url.pathname === "/api/codex-system") {
     try {
       jsonResponse(res, 200, readCodexSystem());
+    } catch (error) {
+      jsonResponse(res, 503, { ok: false, error: error.message });
+    }
+    return;
+  }
+  if (url.pathname === "/api/sysinternals-scout") {
+    try {
+      jsonResponse(res, 200, readSysinternalsScout());
     } catch (error) {
       jsonResponse(res, 503, { ok: false, error: error.message });
     }

@@ -27,7 +27,7 @@ const groups = {
     label: "Workspace",
     x: 620,
     y: 300,
-    nodes: ["observatory-db", "git-sync", "log-lattice", "codex-issues", "codex-system"],
+    nodes: ["observatory-db", "git-sync", "log-lattice", "codex-issues", "codex-system", "sysinternals-scout"],
   },
 };
 
@@ -238,6 +238,8 @@ async function refresh() {
       await refreshCodexIssues();
     } else if (location.hash === "#codex-system") {
       await refreshCodexSystem();
+    } else if (location.hash === "#sysinternals-scout") {
+      await refreshSysinternalsScout();
     } else {
       const response = await fetch("/api/dashboard", { cache: "no-store" });
       const dashboard = await response.json();
@@ -259,11 +261,13 @@ function switchView() {
   const showGraph = location.hash === "#graph";
   const showCodexIssues = location.hash === "#codex-issues";
   const showCodexSystem = location.hash === "#codex-system";
-  byId("status-view").classList.toggle("hidden", showTasks || showGraph || showCodexIssues || showCodexSystem);
+  const showSysinternalsScout = location.hash === "#sysinternals-scout";
+  byId("status-view").classList.toggle("hidden", showTasks || showGraph || showCodexIssues || showCodexSystem || showSysinternalsScout);
   byId("tasks-view").classList.toggle("hidden", !showTasks);
   byId("graph-view").classList.toggle("hidden", !showGraph);
   byId("codex-issues-view").classList.toggle("hidden", !showCodexIssues);
   byId("codex-system-view").classList.toggle("hidden", !showCodexSystem);
+  byId("sysinternals-scout-view").classList.toggle("hidden", !showSysinternalsScout);
   byId("refresh").textContent = showTasks
     ? "Refresh tasks"
     : showGraph
@@ -272,7 +276,9 @@ function switchView() {
         ? "Refresh issues"
         : showCodexSystem
           ? "Refresh system"
-          : "Refresh";
+          : showSysinternalsScout
+            ? "Refresh scout"
+            : "Refresh";
   refresh();
 }
 
@@ -561,6 +567,72 @@ async function refreshCodexSystem() {
   byId("codex-version-list").innerHTML = renderVersionRows(payload);
   byId("codex-event-tags").innerHTML = renderCodexEventTags(payload.windows_events || {});
   byId("codex-event-list").innerHTML = renderCodexEvents(payload.windows_events || {});
+}
+
+function renderSysinternalsTools(tools) {
+  return (tools.items || [])
+    .map(
+      (tool) => `
+        <div class="check-row">
+          <span class="pill ${tool.available ? "status-OK" : "status-UNKNOWN"}">${tool.available ? "FOUND" : "MISS"}</span>
+          <strong>${escapeHtml(tool.name)}</strong>
+          <span class="muted">${escapeHtml(tool.note || "")}</span>
+        </div>
+      `,
+    )
+    .join("");
+}
+
+function renderSysinternalsProcesses(processes) {
+  return (processes.items || []).slice(0, 18).map((process) => {
+    const title = `${process.image || "unknown"} #${process.pid || "?"}`;
+    const detail = [process.status, process.memory, process.window_title].filter(Boolean).join(" · ");
+    return `
+      <div class="check-row event-row">
+        <span class="pill status-OK">PROC</span>
+        <strong>${escapeHtml(title)}</strong>
+        <span class="muted">${escapeHtml(detail)}</span>
+      </div>
+    `;
+  }).join("") || '<div class="check-row"><span class="pill status-OK">OK</span><strong>No focused processes</strong><span class="muted">quiet scout window</span></div>';
+}
+
+function renderSysinternalsNetwork(network) {
+  return (network.by_process || []).slice(0, 20).map((item) => {
+    const title = `${item.image || "unknown"} #${item.pid || "?"}`;
+    const detail = `${item.total} connections, ${item.listeners} listening, ${item.established} established; ports ${(item.local_ports || []).slice(0, 14).join(", ")}`;
+    return `
+      <div class="check-row event-row">
+        <span class="pill ${item.listeners > 0 ? "status-WARN" : "status-OK"}">NET</span>
+        <strong>${escapeHtml(title)}</strong>
+        <span class="muted">${escapeHtml(detail)}</span>
+      </div>
+    `;
+  }).join("") || '<div class="check-row"><span class="pill status-OK">OK</span><strong>No network rows</strong><span class="muted">netstat cache empty</span></div>';
+}
+
+async function refreshSysinternalsScout() {
+  const response = await fetch("/api/sysinternals-scout", { cache: "no-store" });
+  const payload = await response.json();
+  byId("updated").textContent = new Date(payload.generated_at || Date.now()).toLocaleString();
+  if (!payload.ok) {
+    byId("sysinternals-scout-summary").textContent = payload.hint || payload.error || "No Sysinternals scout cache.";
+    byId("sysinternals-scout-total").textContent = "!";
+    byId("sysinternals-scout-total").className = "overall status-WARN";
+    byId("sysinternals-tool-list").innerHTML = "";
+    byId("sysinternals-process-list").innerHTML = "";
+    byId("sysinternals-network-list").innerHTML = "";
+    return;
+  }
+  const interestingProcesses = payload.processes?.interesting_count || 0;
+  const interestingConnections = payload.network?.interesting_connections || 0;
+  byId("sysinternals-scout-total").textContent = String(interestingProcesses);
+  byId("sysinternals-scout-total").className = "overall status-OK";
+  byId("sysinternals-scout-summary").textContent =
+    `${interestingProcesses} focused processes, ${interestingConnections} focused connections; ${payload.sysinternals_tools?.available_count || 0} Sysinternals CLI tools on PATH.`;
+  byId("sysinternals-tool-list").innerHTML = renderSysinternalsTools(payload.sysinternals_tools || {});
+  byId("sysinternals-process-list").innerHTML = renderSysinternalsProcesses(payload.processes || {});
+  byId("sysinternals-network-list").innerHTML = renderSysinternalsNetwork(payload.network || {});
 }
 
 byId("refresh").addEventListener("click", refresh);

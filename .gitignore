@@ -35,6 +35,8 @@ outputs/codex_system_watch/*.json
 outputs/codex_system_watch/*.md
 outputs/github_issue_watch/*.json
 outputs/github_issue_watch/*.md
+outputs/sysinternals_scout/*.json
+outputs/sysinternals_scout/*.md
 outputs/research_queue/*.jsonl
 outputs/local_inventory/*.json
 outputs/pdf_extracts/*
