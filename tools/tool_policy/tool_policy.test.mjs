@@ -98,6 +98,16 @@ test("allows OCR lens as a known safe wrapper", () => {
   assert.equal(decision.reason, "known-safe-wrapper");
 });
 
+test("allows source lens as a known safe wrapper", () => {
+  const decision = evaluateAction({
+    surface: "shell",
+    command: "node tools/source_lens/source_lens.mjs outputs/github_issue_watch/openai-codex.json --write --memory-draft",
+  });
+
+  assert.equal(decision.verdict, "allow");
+  assert.equal(decision.reason, "known-safe-wrapper");
+});
+
 test("allows learning-loop analyzer as a known safe wrapper", () => {
   const decision = evaluateAction({
     surface: "shell",

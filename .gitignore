@@ -32,6 +32,8 @@ outputs/usage_scout/*.json
 outputs/usage_scout/*.jsonl
 outputs/ocr_lens/*.json
 outputs/ocr_lens/*.md
+outputs/source_lens/*.json
+outputs/source_lens/*.md
 outputs/learning_loop/*.md
 outputs/learning_loop/*.json
 outputs/harness_errors/*.md

@@ -420,6 +420,28 @@ async function buildDashboard() {
     ),
   );
 
+  const sourceLensFile = path.join(repoRoot, "outputs", "source_lens", "latest.json");
+  const sourceLensStat = existsSync(sourceLensFile) ? statSync(sourceLensFile) : null;
+  const sourceLens = readJsonFile(sourceLensFile);
+  const sourceLensAge = sourceLensStat ? relativeAge(sourceLensStat.mtime, now) : null;
+  const sourceLensStatus =
+    sourceLens?.extraction?.status === "lens_ready"
+      ? statusFromFreshness(sourceLensAge, 24, 96)
+      : sourceLens
+        ? "WARN"
+        : "WARN";
+  const latestSourceLensDraft = latestFile("outputs/memory_inbox", (name) => name.endsWith(".source-lens.memory.json"));
+  rows.push(
+    item(
+      "source-lens",
+      "Source lens",
+      sourceLensStatus,
+      sourceLens
+        ? `${sourceLens.extraction?.status || "unknown"}; ${sourceLens.source?.filename || "unknown"}; ${sourceLens.extraction?.source_count || 0} sources, ${sourceLens.extraction?.claim_count || 0} claims; ${latestSourceLensDraft ? "memory draft ready" : "no memory draft"}; ${formatAge(sourceLensAge)} old`
+        : "run node tools/source_lens/source_lens.mjs <file.json|file.md> --write --memory-draft",
+    ),
+  );
+
   const observatoryState = ["state.db", "state.db-shm", "state.db-wal"]
     .map((name) => {
       const filePath = path.join(repoRoot, "stateful-agent-net", "data", name);

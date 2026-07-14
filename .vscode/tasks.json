@@ -205,6 +205,20 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus Source Lens: build",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/source_lens/source_lens.mjs",
+        "${input:sourceLensInput}",
+        "--query",
+        "${input:sourceLensQuery}",
+        "--write",
+        "--memory-draft"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus Harness Errors: scan",
       "type": "process",
       "command": "node",
@@ -1089,6 +1103,18 @@
       "type": "promptString",
       "description": "PDF, image, Markdown, or text path for the lightweight OCR lens",
       "default": "C:\\Users\\s.poklad\\Downloads\\Да, сделай чистый Markdown-файл без лишних пояснен.md"
+    },
+    {
+      "id": "sourceLensInput",
+      "type": "promptString",
+      "description": "JSON, JSONL, Markdown, or text source stream for the source lens",
+      "default": "outputs\\github_issue_watch\\openai-codex.json"
+    },
+    {
+      "id": "sourceLensQuery",
+      "type": "promptString",
+      "description": "Question or goal used to rank the source lens reading route",
+      "default": "codex windows provider failure usage limits"
     },
     {
       "id": "memoryHookSummary",
