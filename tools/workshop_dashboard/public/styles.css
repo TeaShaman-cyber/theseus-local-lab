@@ -170,6 +170,10 @@ svg {
   stroke-width: 2;
 }
 
+.graph-edge {
+  opacity: 0.42;
+}
+
 .node {
   fill: var(--panel-2);
   stroke-width: 3;
@@ -332,6 +336,53 @@ select {
   display: flex;
   gap: 8px;
   align-self: end;
+}
+
+.graph-wrap {
+  min-height: 440px;
+}
+
+.graph-node {
+  stroke: var(--line);
+  stroke-width: 2;
+  fill: var(--panel-2);
+}
+
+.graph-group {
+  stroke: var(--ok);
+  fill: #13251c;
+}
+
+.graph-capability {
+  stroke: #68a8ff;
+  fill: #102033;
+}
+
+.graph-check {
+  stroke: var(--ok);
+}
+
+.graph-action {
+  stroke: var(--warn);
+}
+
+.graph-task {
+  stroke: var(--unknown);
+}
+
+.graph-recommended {
+  stroke: var(--fail);
+  stroke-width: 3;
+  fill: #2a1719;
+}
+
+.graph-label {
+  fill: var(--muted);
+  font-size: 10px;
+}
+
+.route-row {
+  grid-template-columns: 72px minmax(220px, 0.7fr) 1fr;
 }
 
 @media (max-width: 760px) {

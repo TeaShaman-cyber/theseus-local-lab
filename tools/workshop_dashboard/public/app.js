@@ -65,6 +65,7 @@ function byId(id) {
 }
 
 let taskCatalog = null;
+let taskGraph = null;
 
 function renderMap(dashboard) {
   const svg = byId("map");
@@ -105,6 +106,77 @@ function renderMap(dashboard) {
     <desc id="map-desc">A grouped status graph for memory, infrastructure, persistence, process, and workspace checks.</desc>
     ${edgeMarkup}
     ${groupMarkup}
+  `;
+}
+
+function polar(cx, cy, radius, index, total, phase = -Math.PI / 2) {
+  const angle = phase + (Math.PI * 2 * index) / Math.max(1, total);
+  return { x: cx + Math.cos(angle) * radius, y: cy + Math.sin(angle) * radius };
+}
+
+function graphNodeClass(node) {
+  if (node.type === "group") return "graph-group";
+  if (node.type === "capability") return "graph-capability";
+  if (node.recommended) return "graph-recommended";
+  if (node.kind === "check") return "graph-check";
+  if (node.kind === "action") return "graph-action";
+  return "graph-task";
+}
+
+function renderTaskGraph(graph) {
+  const svg = byId("task-graph");
+  const nodes = graph.nodes || [];
+  const edges = graph.edges || [];
+  const groups = nodes.filter((node) => node.type === "group");
+  const caps = nodes.filter((node) => node.type === "capability");
+  const tasks = nodes.filter((node) => node.type === "task");
+  const positions = new Map();
+
+  groups.forEach((node, index) => positions.set(node.id, polar(590, 310, 255, index, groups.length)));
+  caps.forEach((node, index) => positions.set(node.id, polar(590, 310, 105, index, caps.length, Math.PI / 8)));
+  tasks.forEach((node, index) => {
+    const groupIndex = Math.max(0, groups.findIndex((group) => group.id === `group:${node.group}`));
+    const base = polar(590, 310, 255, groupIndex, groups.length);
+    const jitter = polar(base.x, base.y, 54 + (index % 3) * 26, index, tasks.length, Math.PI / 5);
+    positions.set(node.id, jitter);
+  });
+
+  const visibleTaskIds = new Set([
+    ...tasks.filter((node) => node.recommended).map((node) => node.id),
+    ...tasks.filter((node) => node.kind === "check").slice(0, 20).map((node) => node.id),
+  ]);
+  const visibleNodes = nodes.filter((node) => node.type !== "task" || visibleTaskIds.has(node.id));
+  const visibleIds = new Set(visibleNodes.map((node) => node.id));
+  const visibleEdges = edges.filter((edge) => visibleIds.has(edge.source) && visibleIds.has(edge.target));
+
+  const edgeMarkup = visibleEdges
+    .map((edge) => {
+      const a = positions.get(edge.source);
+      const b = positions.get(edge.target);
+      if (!a || !b) return "";
+      return `<line class="edge graph-edge" x1="${a.x.toFixed(1)}" y1="${a.y.toFixed(1)}" x2="${b.x.toFixed(1)}" y2="${b.y.toFixed(1)}"></line>`;
+    })
+    .join("");
+
+  const nodeMarkup = visibleNodes
+    .map((node) => {
+      const p = positions.get(node.id);
+      const radius = node.type === "group" ? 34 : node.type === "capability" ? 25 : node.recommended ? 20 : 14;
+      const label = node.type === "task" ? node.label.replace(/^Theseus:?\s*/i, "").slice(0, 22) : node.label;
+      return `
+        <g>
+          <circle class="graph-node ${graphNodeClass(node)}" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${radius}"></circle>
+          <text class="graph-label" x="${p.x.toFixed(1)}" y="${(p.y + radius + 13).toFixed(1)}" text-anchor="middle">${escapeHtml(label)}</text>
+        </g>
+      `;
+    })
+    .join("");
+
+  svg.innerHTML = `
+    <title id="task-graph-title">VS Code task relation graph</title>
+    <desc id="task-graph-desc">Groups, tasks, capabilities, and recommended route candidates.</desc>
+    ${edgeMarkup}
+    ${nodeMarkup}
   `;
 }
 
@@ -157,6 +229,8 @@ async function refresh() {
   try {
     if (location.hash === "#tasks") {
       await refreshTasks();
+    } else if (location.hash === "#graph") {
+      await refreshGraph();
     } else {
       const response = await fetch("/api/dashboard", { cache: "no-store" });
       const dashboard = await response.json();
@@ -175,9 +249,11 @@ async function refresh() {
 
 function switchView() {
   const showTasks = location.hash === "#tasks";
-  byId("status-view").classList.toggle("hidden", showTasks);
+  const showGraph = location.hash === "#graph";
+  byId("status-view").classList.toggle("hidden", showTasks || showGraph);
   byId("tasks-view").classList.toggle("hidden", !showTasks);
-  byId("refresh").textContent = showTasks ? "Refresh tasks" : "Refresh";
+  byId("graph-view").classList.toggle("hidden", !showGraph);
+  byId("refresh").textContent = showTasks ? "Refresh tasks" : showGraph ? "Refresh graph" : "Refresh";
   refresh();
 }
 
@@ -276,9 +352,55 @@ async function refreshTasks() {
   renderTaskList();
 }
 
+function renderGraphDetails(graph) {
+  byId("graph-total").textContent = String(graph.metrics?.tasks || 0);
+  byId("updated").textContent = new Date(graph.generated_at).toLocaleString();
+  byId("graph-metrics").innerHTML = [
+    ["Nodes", graph.metrics?.nodes],
+    ["Edges", graph.metrics?.edges],
+    ["Groups", graph.metrics?.groups],
+    ["Capabilities", graph.metrics?.capabilities],
+    ["Tasks", graph.metrics?.tasks],
+  ]
+    .map(
+      ([label, value]) => `
+        <div class="check-row">
+          <span class="pill status-OK">GRAPH</span>
+          <strong>${escapeHtml(label)}</strong>
+          <span class="muted">${escapeHtml(value)}</span>
+        </div>
+      `,
+    )
+    .join("");
+
+  byId("route-list").innerHTML = (graph.recommendations || [])
+    .map(
+      (task) => `
+        <div class="check-row route-row">
+          <span class="pill ${taskKindClass(task.kind)}">${escapeHtml(task.score)}</span>
+          <strong>${escapeHtml(task.label)}</strong>
+          <span class="muted">${escapeHtml(task.why?.join(" · ") || task.route_hint)}</span>
+        </div>
+      `,
+    )
+    .join("");
+}
+
+async function refreshGraph() {
+  const goal = byId("route-goal").value.trim();
+  const response = await fetch(`/api/task-graph?goal=${encodeURIComponent(goal)}`, { cache: "no-store" });
+  taskGraph = await response.json();
+  renderTaskGraph(taskGraph);
+  renderGraphDetails(taskGraph);
+}
+
 byId("refresh").addEventListener("click", refresh);
 byId("task-filter").addEventListener("input", renderTaskList);
 byId("task-group").addEventListener("change", renderTaskList);
+byId("route-refresh").addEventListener("click", refreshGraph);
+byId("route-goal").addEventListener("keydown", (event) => {
+  if (event.key === "Enter") refreshGraph();
+});
 byId("task-groups").addEventListener("click", (event) => {
   const button = event.target.closest("[data-group]");
   if (!button) return;

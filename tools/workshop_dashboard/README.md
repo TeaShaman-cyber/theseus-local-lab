@@ -41,6 +41,19 @@ This task view is intentionally read-only. It helps choose the right VS Code
 button without exposing a browser endpoint that can launch arbitrary local
 commands.
 
+The `Task Graph` tab exposes the same tasks as a weighted graph of groups,
+capabilities, and tasks:
+
+```text
+http://127.0.0.1:5180/#graph
+http://127.0.0.1:5180/api/task-graph?goal=backup
+http://127.0.0.1:5180/api/task-route?goal=memory
+```
+
+This is the local mathematical substrate for routing. It uses simple weighted
+graph scoring now, and can later hand the same graph JSON to Wolfram, NetworkX,
+or another math advisor.
+
 ## Signals
 
 - AutoMem API health

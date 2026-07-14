@@ -16,6 +16,7 @@
     <div class="actions">
       <a class="nav-link" href="#status">Status</a>
       <a class="nav-link" href="#tasks">VS Code Tasks</a>
+      <a class="nav-link" href="#graph">Task Graph</a>
       <button id="refresh" type="button">Refresh</button>
       <span id="updated" class="muted">loading</span>
     </div>
@@ -67,6 +68,39 @@
 
     <section id="task-groups" class="task-groups"></section>
     <section id="task-list" class="task-list"></section>
+  </section>
+
+  <section id="graph-view" class="view hidden" aria-label="VS Code task graph">
+    <section class="summary compact-summary">
+      <div id="graph-total" class="overall status-OK">...</div>
+      <div class="summary-text">
+        <h2>Task graph router</h2>
+        <p>Local weighted graph of tasks, groups, and capabilities. This is the base layer for future Wolfram-style route analysis.</p>
+      </div>
+    </section>
+
+    <section class="task-controls">
+      <input id="route-goal" type="search" placeholder="Describe a goal, e.g. backup, memory, docker, git...">
+      <button id="route-refresh" type="button">Rank routes</button>
+    </section>
+
+    <section class="map-wrap graph-wrap" aria-label="Task graph visualization">
+      <svg id="task-graph" role="img" aria-labelledby="task-graph-title task-graph-desc" viewBox="0 0 1180 620">
+        <title id="task-graph-title">VS Code task relation graph</title>
+        <desc id="task-graph-desc">Groups, tasks, capabilities, and recommended route candidates.</desc>
+      </svg>
+    </section>
+
+    <section class="split">
+      <div>
+        <h2>Graph metrics</h2>
+        <div id="graph-metrics" class="checks"></div>
+      </div>
+      <div>
+        <h2>Recommended routes</h2>
+        <div id="route-list" class="checks"></div>
+      </div>
+    </section>
   </section>
 </main>
 <script src="/app.js"></script>
