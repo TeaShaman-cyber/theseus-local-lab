@@ -17,11 +17,17 @@ const dockerConfig = path.join(repoRoot, "tools", "docker_control_plane", "docke
 if (existsSync(dockerConfig)) dockerEnv.DOCKER_CONFIG = dockerConfig;
 
 function parseArgs(argv) {
-  const args = { format: "markdown" };
+  const args = { format: "markdown", rows: [] };
   for (let i = 0; i < argv.length; i += 1) {
     const item = argv[i];
     if (item === "--json") args.format = "json";
     if (item === "--markdown") args.format = "markdown";
+    if (item === "--rows") {
+      args.rows = String(argv[++i] || "")
+        .split(",")
+        .map((row) => row.trim())
+        .filter(Boolean);
+    }
   }
   return args;
 }
@@ -596,12 +602,23 @@ async function buildDashboard() {
   };
 }
 
+function filterDashboardRows(dashboard, rowIds = []) {
+  if (!rowIds.length) return dashboard;
+  const wanted = new Set(rowIds);
+  return {
+    ...dashboard,
+    rows: dashboard.rows.filter((row) => wanted.has(row.id)),
+    filtered_rows: rowIds,
+  };
+}
+
 function renderMarkdown(dashboard) {
   const lines = [
     "# Theseus Workshop Dashboard",
     "",
     `Generated: ${dashboard.generated_at}`,
     `Overall: ${dashboard.overall}`,
+    ...(dashboard.filtered_rows ? [`Rows: ${dashboard.filtered_rows.join(", ")}`] : []),
     "",
     "| Status | Area | Detail |",
     "|---|---|---|",
@@ -616,10 +633,11 @@ function renderMarkdown(dashboard) {
 const args = parseArgs(process.argv.slice(2));
 buildDashboard()
   .then((dashboard) => {
+    const filtered = filterDashboardRows(dashboard, args.rows);
     if (args.format === "json") {
-      console.log(JSON.stringify(dashboard, null, 2));
+      console.log(JSON.stringify(filtered, null, 2));
     } else {
-      console.log(renderMarkdown(dashboard));
+      console.log(renderMarkdown(filtered));
     }
     if (dashboard.overall === "FAIL") process.exitCode = 1;
   })

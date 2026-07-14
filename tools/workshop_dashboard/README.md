@@ -9,7 +9,12 @@ backups, Docker, observability, the observatory, and Git sync.
 ```text
 node tools/workshop_dashboard/dashboard.mjs
 node tools/workshop_dashboard/dashboard.mjs --json
+node tools/workshop_dashboard/dashboard.mjs --rows model-runtime,usage-scout,lens-usage-trial,git-sync
 ```
+
+Use `--rows` for agent-facing checks inside Codex. It keeps the human web
+dashboard complete while avoiding large repeated table dumps in the model
+context.
 
 ## Web UI
 

@@ -622,6 +622,17 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus: Workshop dashboard key rows",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/workshop_dashboard/dashboard.mjs",
+        "--rows",
+        "model-runtime,usage-scout,lens-usage-trial,git-sync"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus: Workshop dashboard web start",
       "type": "process",
       "command": "docker",
