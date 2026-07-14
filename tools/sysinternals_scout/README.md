@@ -20,8 +20,23 @@ local laptop.
 ## Usage
 
 ```text
+node tools/sysinternals_scout/install_sysinternals.mjs
 node tools/sysinternals_scout/sysinternals_scout.mjs --write
 node tools/sysinternals_scout/sysinternals_scout.mjs --json
+```
+
+The installer downloads the official Microsoft Sysinternals Suite archive and
+extracts it to:
+
+```text
+C:\Users\s.poklad\Tools\Sysinternals
+```
+
+It also writes:
+
+```text
+outputs/sysinternals_scout/install-manifest.json
+outputs/sysinternals_scout/install-manifest.md
 ```
 
 The writer creates:

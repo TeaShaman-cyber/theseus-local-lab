@@ -1,13 +1,32 @@
 #!/usr/bin/env node
 
 import { spawn } from "node:child_process";
-import { mkdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, writeFileSync } from "node:fs";
+import os from "node:os";
 import path from "node:path";
 
 const repoRoot = path.resolve(import.meta.dirname, "..", "..");
 const defaultOutputDir = path.join(repoRoot, "outputs", "sysinternals_scout");
 
-const sysinternalsTools = ["procexp", "procmon", "procdump", "handle", "tcpview", "tcpvcon"];
+const sysinternalsDirs = [
+  process.env.THESEUS_SYSINTERNALS_DIR,
+  path.join(os.homedir(), "Tools", "Sysinternals"),
+  "C:\\Tools\\Sysinternals",
+].filter(Boolean);
+const sysinternalsTools = [
+  { name: "procexp", binaries: ["procexp.exe", "procexp64.exe"] },
+  { name: "procmon", binaries: ["procmon.exe", "procmon64.exe"] },
+  { name: "procdump", binaries: ["procdump.exe", "procdump64.exe", "procdump64a.exe"] },
+  { name: "handle", binaries: ["handle.exe", "handle64.exe", "handle64a.exe"] },
+  { name: "tcpview", binaries: ["tcpview.exe", "tcpview64.exe"] },
+  { name: "tcpvcon", binaries: ["tcpvcon.exe", "tcpvcon64.exe"] },
+  { name: "sysmon", binaries: ["sysmon.exe", "sysmon64.exe", "sysmon64a.exe"] },
+  { name: "autorunsc", binaries: ["autorunsc.exe", "autorunsc64.exe", "autorunsc64a.exe"] },
+  { name: "sigcheck", binaries: ["sigcheck.exe", "sigcheck64.exe", "sigcheck64a.exe"] },
+  { name: "accesschk", binaries: ["accesschk.exe", "accesschk64.exe", "accesschk64a.exe"] },
+  { name: "pslist", binaries: ["pslist.exe", "pslist64.exe"] },
+  { name: "listdlls", binaries: ["listdlls.exe", "listdlls64.exe", "listdlls64a.exe"] },
+];
 const interestingTerms = [
   "codex",
   "chatgpt",
@@ -238,14 +257,26 @@ function summarizeNetwork(connections, processByPid, maxConnections) {
 
 async function collectTools() {
   const items = [];
-  for (const name of sysinternalsTools) {
-    const result = await run("where.exe", [name], 4_000);
-    const paths = result.ok ? result.stdout.split(/\r?\n/).map((line) => line.trim()).filter(Boolean) : [];
+  for (const tool of sysinternalsTools) {
+    const pathSet = new Set();
+    for (const binary of tool.binaries) {
+      const result = await run("where.exe", [binary], 4_000);
+      if (result.ok) {
+        for (const line of result.stdout.split(/\r?\n/).map((item) => item.trim()).filter(Boolean)) {
+          pathSet.add(line);
+        }
+      }
+      for (const dir of sysinternalsDirs) {
+        const candidate = path.join(dir, binary);
+        if (existsSync(candidate)) pathSet.add(candidate);
+      }
+    }
+    const paths = [...pathSet].sort((a, b) => a.localeCompare(b));
     items.push({
-      name,
+      name: tool.name,
       available: paths.length > 0,
       paths,
-      note: paths.length > 0 ? "available on PATH" : "not found on PATH",
+      note: paths.length > 0 ? "available locally" : "not found on PATH or known local dirs",
     });
   }
   return {
@@ -287,6 +318,7 @@ async function collect(args) {
     mode: "lightweight-read-only",
     privacy_note: "External endpoints are summarized through counts and bounded samples; no dumps or traces are captured.",
     sysinternals_tools: tools,
+    sysinternals_search_dirs: sysinternalsDirs,
     commands: {
       tasklist: { ok: tasklist.ok, code: tasklist.code, stderr: tasklist.stderr.trim().slice(0, 500) },
       netstat: { ok: netstat.ok, code: netstat.code, stderr: netstat.stderr.trim().slice(0, 500) },

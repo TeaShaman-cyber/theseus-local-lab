@@ -107,6 +107,16 @@ test("allows Sysinternals scout as a known safe wrapper", () => {
   assert.equal(decision.reason, "known-safe-wrapper");
 });
 
+test("allows Sysinternals suite installer as a known safe wrapper", () => {
+  const decision = evaluateAction({
+    surface: "shell",
+    command: "node tools/sysinternals_scout/install_sysinternals.mjs",
+  });
+
+  assert.equal(decision.verdict, "allow");
+  assert.equal(decision.reason, "known-safe-wrapper");
+});
+
 test("allows read-only workshop dashboard wrappers", () => {
   const dashboard = evaluateAction({
     surface: "shell",

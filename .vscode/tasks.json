@@ -415,6 +415,15 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus: install Sysinternals suite",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/sysinternals_scout/install_sysinternals.mjs"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus: AutoMem status",
       "type": "process",
       "command": "node",
