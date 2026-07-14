@@ -292,12 +292,15 @@ async function logDecision(workspace, decisionResult, action) {
 function parseCli(argv) {
   const action = { surface: "shell", command: "" };
   let log = false;
+  let noLog = false;
   const commandParts = [];
 
   for (let i = 0; i < argv.length; i += 1) {
     const item = argv[i];
     if (item === "--log") {
       log = true;
+    } else if (item === "--no-log") {
+      noLog = true;
     } else if (item === "--surface") {
       action.surface = argv[++i] || "";
     } else if (item === "--") {
@@ -309,13 +312,14 @@ function parseCli(argv) {
   }
 
   action.command = commandParts.join(" ");
-  return { action, log };
+  return { action, log, noLog };
 }
 
 async function main() {
-  const { action, log } = parseCli(process.argv.slice(2));
+  const { action, log, noLog } = parseCli(process.argv.slice(2));
   const decisionResult = evaluateAction(action);
-  if (log) await logDecision(process.cwd(), decisionResult, action);
+  const shouldLog = !noLog && (log || decisionResult.verdict === "block" || decisionResult.verdict === "warn");
+  if (shouldLog) await logDecision(process.cwd(), decisionResult, action);
   console.log(JSON.stringify(decisionResult, null, 2));
   process.exitCode = exitCodeFor(decisionResult);
 }

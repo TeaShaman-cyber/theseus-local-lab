@@ -149,6 +149,23 @@ function readJsonl(dir) {
     });
 }
 
+function recentToolPolicyIncidents(now = new Date(), windowHours = 24) {
+  const cutoff = now.getTime() - windowHours * 3_600_000;
+  return readJsonl("outputs/tool_policy")
+    .filter((entry) => {
+      const ts = Date.parse(entry.ts || entry.created_at || "");
+      if (!Number.isFinite(ts) || ts < cutoff) return false;
+      const verdict = entry.decision?.verdict;
+      return verdict === "block" || verdict === "warn";
+    })
+    .map((entry) => ({
+      ts: entry.ts,
+      verdict: entry.decision?.verdict || "unknown",
+      reason: entry.decision?.reason || "unknown",
+      reinforcement: entry.decision?.reinforcement?.score ?? 0,
+    }));
+}
+
 function item(id, label, status, detail, meta = {}) {
   return { id, label, status, detail, meta };
 }
@@ -224,6 +241,24 @@ async function buildDashboard() {
         : dockerTcp.ok
           ? "fallback daemon not running; preferred Docker TCP works"
           : dockerControl.error || `HTTP ${dockerControl.status}`,
+    ),
+  );
+
+  const incidents = recentToolPolicyIncidents(now);
+  const incidentCounts = new Map();
+  for (const incident of incidents) {
+    incidentCounts.set(incident.reason, (incidentCounts.get(incident.reason) || 0) + 1);
+  }
+  const incidentSummary = [...incidentCounts.entries()]
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .map(([reason, count]) => `${reason}: ${count}`)
+    .join(", ");
+  rows.push(
+    item(
+      "route-incidents",
+      "Blameless route incidents",
+      incidents.length > 0 ? "WARN" : "OK",
+      incidents.length > 0 ? `${incidents.length} in last 24h (${incidentSummary})` : "no blocked or warned routes in last 24h",
     ),
   );
 

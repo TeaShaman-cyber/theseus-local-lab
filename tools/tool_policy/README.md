@@ -22,11 +22,18 @@ Blocked commands exit with code `2`. Allowed and warned commands exit with code
 node tools/tool_policy/tool_policy.mjs --log -- docker ps
 ```
 
+`block` and `warn` decisions are logged automatically when using the CLI. Use
+`--log` to also record allowed decisions, or `--no-log` for a one-off dry check.
+
 Logs are written to ignored local files:
 
 ```text
 outputs/tool_policy/YYYY-MM-DD.jsonl
 ```
+
+The workshop dashboard reads these logs as blameless route incidents. A yellow
+alert means a route choice needs review; it is not a moral failure or a service
+outage by itself.
 
 ## Current Reflexes
 

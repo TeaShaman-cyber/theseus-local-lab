@@ -67,6 +67,7 @@ recommendations, not browser-executed commands.
 - Docker TCP port
 - Log lattice health
 - Docker control fallback health
+- Blameless route incidents from `outputs/tool_policy/*.jsonl`
 - AutoMem and backup containers from `docker ps`
 - latest local backup archive
 - latest cloud mirror archive, when the mirror folder is visible
@@ -78,6 +79,11 @@ recommendations, not browser-executed commands.
 
 The script does not start, stop, rebuild, or mutate services. It also does not
 read `.env`, backup contents, raw memory dumps, or private transcripts.
+
+`Blameless route incidents` is a process alert, not a service outage. It turns
+yellow when tool-policy records a blocked or warned route in the last 24 hours,
+so repeated anti-patterns can be reviewed without blaming the agent or hiding
+the signal in raw logs.
 
 When running inside Docker, the container reaches host services through
 `host.docker.internal`. The compose file mounts the repository read-only and
