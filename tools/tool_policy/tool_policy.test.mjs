@@ -46,6 +46,17 @@ test("allows known safe Node wrappers", () => {
   assert.equal(decision.reason, "known-safe-wrapper");
 });
 
+test("blocks Unix heredoc pasted into PowerShell Node route", () => {
+  const decision = evaluateAction({
+    surface: "shell",
+    command: "node - <<'NODE'",
+  });
+
+  assert.equal(decision.verdict, "block");
+  assert.equal(decision.reason, "powershell-heredoc-antipattern");
+  assert.ok(decision.routes.some((route) => route.includes("node -e")));
+});
+
 test("allows learning-loop analyzer as a known safe wrapper", () => {
   const decision = evaluateAction({
     surface: "shell",

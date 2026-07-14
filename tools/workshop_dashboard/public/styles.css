@@ -358,6 +358,11 @@ select {
   fill: #102033;
 }
 
+.graph-bundle {
+  stroke: #d48cff;
+  fill: #241a31;
+}
+
 .graph-check {
   stroke: var(--ok);
 }
@@ -383,6 +388,36 @@ select {
 
 .route-row {
   grid-template-columns: 72px minmax(220px, 0.7fr) 1fr;
+}
+
+.full-panel {
+  margin-top: 20px;
+}
+
+.bundle-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.bundle-card {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.bundle-card ul {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+}
+
+.bundle-card li {
+  margin: 5px 0;
 }
 
 @media (max-width: 760px) {

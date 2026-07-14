@@ -95,6 +95,14 @@ export function evaluateAction(action = {}) {
     return decision("allow", "safe-git-read", "Read-only Git inspection is allowed.");
   }
 
+  if (/\bnode(\.exe)?\s+-\s*<<|<<['"]?[A-Z0-9_-]+['"]?/i.test(command)) {
+    return decision("block", "powershell-heredoc-antipattern", "Unix heredoc syntax is blocked in the Windows/PowerShell agent path.", [
+      "Use node -e for short JavaScript checks.",
+      "Promote longer logic into a small checked-in .mjs wrapper.",
+      "Use WSL bash only as an explicit route, not by pasting heredoc into PowerShell.",
+    ]);
+  }
+
   if (/^git\s+add\s+(-A|--all|\.)(\s|$)/i.test(command)) {
     return decision("block", "broad-git-stage", "Broad Git staging is blocked; stage explicit paths after scope review.", [
       "Use VS Code Source Control for explicit file selection.",

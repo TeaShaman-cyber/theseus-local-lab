@@ -117,6 +117,7 @@ function polar(cx, cy, radius, index, total, phase = -Math.PI / 2) {
 function graphNodeClass(node) {
   if (node.type === "group") return "graph-group";
   if (node.type === "capability") return "graph-capability";
+  if (node.type === "bundle") return "graph-bundle";
   if (node.recommended) return "graph-recommended";
   if (node.kind === "check") return "graph-check";
   if (node.kind === "action") return "graph-action";
@@ -129,11 +130,13 @@ function renderTaskGraph(graph) {
   const edges = graph.edges || [];
   const groups = nodes.filter((node) => node.type === "group");
   const caps = nodes.filter((node) => node.type === "capability");
+  const bundles = nodes.filter((node) => node.type === "bundle");
   const tasks = nodes.filter((node) => node.type === "task");
   const positions = new Map();
 
   groups.forEach((node, index) => positions.set(node.id, polar(590, 310, 255, index, groups.length)));
   caps.forEach((node, index) => positions.set(node.id, polar(590, 310, 105, index, caps.length, Math.PI / 8)));
+  bundles.forEach((node, index) => positions.set(node.id, polar(590, 310, 180, index, bundles.length, Math.PI / 10)));
   tasks.forEach((node, index) => {
     const groupIndex = Math.max(0, groups.findIndex((group) => group.id === `group:${node.group}`));
     const base = polar(590, 310, 255, groupIndex, groups.length);
@@ -161,7 +164,7 @@ function renderTaskGraph(graph) {
   const nodeMarkup = visibleNodes
     .map((node) => {
       const p = positions.get(node.id);
-      const radius = node.type === "group" ? 34 : node.type === "capability" ? 25 : node.recommended ? 20 : 14;
+      const radius = node.type === "group" ? 34 : node.type === "bundle" ? 28 : node.type === "capability" ? 25 : node.recommended ? 20 : 14;
       const label = node.type === "task" ? node.label.replace(/^Theseus:?\s*/i, "").slice(0, 22) : node.label;
       return `
         <g>
@@ -360,6 +363,7 @@ function renderGraphDetails(graph) {
     ["Edges", graph.metrics?.edges],
     ["Groups", graph.metrics?.groups],
     ["Capabilities", graph.metrics?.capabilities],
+    ["Bundles", graph.metrics?.bundles],
     ["Tasks", graph.metrics?.tasks],
   ]
     .map(
@@ -383,6 +387,27 @@ function renderGraphDetails(graph) {
         </div>
       `,
     )
+    .join("");
+
+  byId("bundle-list").innerHTML = (graph.nodes || [])
+    .filter((node) => node.type === "bundle")
+    .map((node) => {
+      const linked = (graph.edges || [])
+        .filter((edge) => edge.source === node.id && edge.type === "preflights-with")
+        .map((edge) => (graph.nodes || []).find((candidate) => candidate.id === edge.target))
+        .filter(Boolean);
+      return `
+        <article class="bundle-card">
+          <div class="task-card-head">
+            <span class="pill status-OK">BUNDLE</span>
+            <strong>${escapeHtml(node.label)}</strong>
+          </div>
+          <ul>
+            ${linked.map((task) => `<li>${escapeHtml(task.label)}</li>`).join("")}
+          </ul>
+        </article>
+      `;
+    })
     .join("");
 }
 

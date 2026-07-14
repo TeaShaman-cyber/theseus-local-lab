@@ -48,11 +48,16 @@ capabilities, and tasks:
 http://127.0.0.1:5180/#graph
 http://127.0.0.1:5180/api/task-graph?goal=backup
 http://127.0.0.1:5180/api/task-route?goal=memory
+http://127.0.0.1:5180/api/task-bundles
 ```
 
 This is the local mathematical substrate for routing. It uses simple weighted
 graph scoring now, and can later hand the same graph JSON to Wolfram, NetworkX,
 or another math advisor.
+
+The graph view also exposes preflight bundles for high-centrality subsystems:
+Docker, memory, secrets, backup, VM/SSH, and Git. Bundles are read-only route
+recommendations, not browser-executed commands.
 
 ## Signals
 

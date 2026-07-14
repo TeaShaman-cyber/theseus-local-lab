@@ -5,7 +5,7 @@ import { createReadStream, existsSync } from "node:fs";
 import http from "node:http";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { buildTaskCatalog, buildTaskGraph, rankTaskRoutes } from "./tasks.mjs";
+import { buildPreflightBundles, buildTaskCatalog, buildTaskGraph, rankTaskRoutes } from "./tasks.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const publicDir = path.join(here, "public");
@@ -112,6 +112,14 @@ const server = http.createServer(async (req, res) => {
   if (url.pathname === "/api/task-route") {
     try {
       jsonResponse(res, 200, rankTaskRoutes(url.searchParams.get("goal") || "", 10));
+    } catch (error) {
+      jsonResponse(res, 503, { ok: false, error: error.message });
+    }
+    return;
+  }
+  if (url.pathname === "/api/task-bundles") {
+    try {
+      jsonResponse(res, 200, buildPreflightBundles());
     } catch (error) {
       jsonResponse(res, 503, { ok: false, error: error.message });
     }

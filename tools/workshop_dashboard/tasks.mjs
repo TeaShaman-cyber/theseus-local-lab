@@ -30,6 +30,45 @@ const CAPABILITIES = [
   ["lint", "Lint/check", /lint|check|scan|verify|smoke/i],
 ];
 
+const PREFLIGHT_BUNDLES = [
+  {
+    id: "docker-preflight",
+    label: "Docker preflight",
+    description: "Check container visibility, Docker TCP route, and service health before Docker actions.",
+    capabilities: ["docker", "observability", "lint"],
+  },
+  {
+    id: "memory-preflight",
+    label: "Memory preflight",
+    description: "Check AutoMem, MemPalace, graph viewer, and compact-state routes before memory-sensitive work.",
+    capabilities: ["memory", "docker", "observability"],
+  },
+  {
+    id: "secrets-preflight",
+    label: "Secrets preflight",
+    description: "Check Infisical/keychain and provider smoke routes before advisor or model-provider work.",
+    capabilities: ["secrets", "advisor", "lint"],
+  },
+  {
+    id: "backup-preflight",
+    label: "Backup preflight",
+    description: "Check backup runner, local archive, cloud mirror, and manifest verification before risky changes.",
+    capabilities: ["backup", "docker", "observability", "lint"],
+  },
+  {
+    id: "vm-preflight",
+    label: "VM/SSH preflight",
+    description: "Check SSH health, VM inventory, and image-transfer manifest before VM operations.",
+    capabilities: ["vm", "docker", "lint", "observability"],
+  },
+  {
+    id: "git-preflight",
+    label: "Git preflight",
+    description: "Check status, staged secret scan, and checkpoint route before publishing work.",
+    capabilities: ["git", "lint", "observability"],
+  },
+];
+
 function taskCommand(task) {
   const args = Array.isArray(task.args) ? task.args.join(" ") : "";
   return [task.command || "", args].filter(Boolean).join(" ").trim();
@@ -172,8 +211,40 @@ export function rankTaskRoutes(goal = "", limit = 8) {
   };
 }
 
+function bundleTaskScore(task, bundle) {
+  const overlap = task.capabilities.filter((capability) => bundle.capabilities.includes(capability)).length;
+  const checkBonus = task.kind === "check" ? 2 : task.kind === "tool" ? 1 : 0;
+  const inputPenalty = task.has_inputs ? 1 : 0;
+  return overlap * 3 + checkBonus - task.risk - inputPenalty;
+}
+
+export function buildPreflightBundles() {
+  const catalog = buildTaskCatalog();
+  return {
+    generated_at: new Date().toISOString(),
+    bundles: PREFLIGHT_BUNDLES.map((bundle) => {
+      const tasks = catalog.tasks
+        .map((task) => ({ ...task, bundle_score: bundleTaskScore(task, bundle) }))
+        .filter((task) => task.bundle_score > 0)
+        .sort((a, b) => b.bundle_score - a.bundle_score || a.risk - b.risk || a.label.localeCompare(b.label))
+        .slice(0, 6)
+        .map((task) => ({
+          id: task.id,
+          label: task.label,
+          kind: task.kind,
+          risk: task.risk,
+          route_hint: task.route_hint,
+          capabilities: task.capabilities,
+          score: task.bundle_score,
+        }));
+      return { ...bundle, tasks };
+    }),
+  };
+}
+
 export function buildTaskGraph(goal = "") {
   const catalog = buildTaskCatalog();
+  const bundles = buildPreflightBundles().bundles;
   const recommendations = rankTaskRoutes(goal, 10).routes;
   const recommendedIds = new Set(recommendations.map((task) => task.id));
   const nodes = [];
@@ -185,6 +256,12 @@ export function buildTaskGraph(goal = "") {
   for (const [id, label] of CAPABILITIES.map(([id, label]) => [id, label])) {
     const count = catalog.tasks.filter((task) => task.capabilities.includes(id)).length;
     if (count > 0) nodes.push({ id: `cap:${id}`, label, type: "capability", count, weight: count });
+  }
+  for (const bundle of bundles) {
+    nodes.push({ id: `bundle:${bundle.id}`, label: bundle.label, type: "bundle", count: bundle.tasks.length, weight: 4 });
+    for (const capability of bundle.capabilities) {
+      edges.push({ source: `bundle:${bundle.id}`, target: `cap:${capability}`, type: "covers", weight: 2 });
+    }
   }
   for (const task of catalog.tasks) {
     nodes.push({
@@ -201,6 +278,11 @@ export function buildTaskGraph(goal = "") {
     edges.push({ source: `group:${task.group}`, target: task.id, type: "contains", weight: 1 });
     for (const capability of task.capabilities) {
       edges.push({ source: task.id, target: `cap:${capability}`, type: "touches", weight: task.kind === "check" ? 2 : 1 });
+    }
+  }
+  for (const bundle of bundles) {
+    for (const task of bundle.tasks.slice(0, 4)) {
+      edges.push({ source: `bundle:${bundle.id}`, target: task.id, type: "preflights-with", weight: 2 });
     }
   }
 
@@ -222,6 +304,7 @@ export function buildTaskGraph(goal = "") {
       groups: catalog.groups.length,
       tasks: catalog.total,
       capabilities: nodes.filter((node) => node.type === "capability").length,
+      bundles: bundles.length,
     },
   };
 }
@@ -231,5 +314,6 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   const goal = rest.join(" ");
   if (mode === "graph") console.log(JSON.stringify(buildTaskGraph(goal), null, 2));
   else if (mode === "rank") console.log(JSON.stringify(rankTaskRoutes(goal), null, 2));
+  else if (mode === "bundles") console.log(JSON.stringify(buildPreflightBundles(), null, 2));
   else console.log(JSON.stringify(buildTaskCatalog(), null, 2));
 }
