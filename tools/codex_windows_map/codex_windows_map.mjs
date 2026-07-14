@@ -202,12 +202,19 @@ function parseTasklist(stdout) {
       pid: row[1] || "",
       session_name: row[2] || "",
       session_number: row[3] || "",
-      memory: row[4] || "",
+      memory: cleanWindowsCell(row[4] || ""),
       status: row[5] || "",
       user: row[6] || "",
       cpu_time: row[7] || "",
-      window_title: row.slice(8).join(",") || "",
+      window_title: cleanWindowsCell(row.slice(8).join(",") || ""),
     }));
+}
+
+function cleanWindowsCell(value) {
+  return String(value || "")
+    .replace(/\uFFFD+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function parseModuleRows(stdout) {
