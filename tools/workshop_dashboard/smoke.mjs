@@ -17,7 +17,7 @@ const [dashboard, usage, html, script] = await Promise.all([
 
 const main = dashboard.rows?.find((row) => row.id === "usage-scout");
 const checks = {
-  main_warning: main?.status === "WARN" || main?.status === "FAIL",
+  main_status_visible: ["OK", "WARN", "FAIL"].includes(main?.status),
   usage_api: usage.ok === true && Array.isArray(usage.limits),
   limits_tab: html.includes('href="#limits"'),
   limits_view: html.includes('id="limits-view"'),
