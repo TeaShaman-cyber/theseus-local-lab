@@ -419,6 +419,21 @@ async function buildDashboard() {
     ),
   );
 
+  const providerScoutFile = path.join(repoRoot, "outputs", "provider_scout", "provider-scout.json");
+  const providerScoutStat = existsSync(providerScoutFile) ? statSync(providerScoutFile) : null;
+  const providerScout = readJsonFile(providerScoutFile);
+  const providerScoutAge = providerScoutStat ? relativeAge(providerScoutStat.mtime, now) : null;
+  rows.push(
+    item(
+      "provider-scout",
+      "Provider scout",
+      providerScout ? (providerScout.summary?.status === "OK" ? statusFromFreshness(providerScoutAge, 2, 8) : "WARN") : "WARN",
+      providerScout
+        ? `${providerScout.summary?.local_match_count || 0} local provider matches, ${providerScout.summary?.github_capacity_issue_count || 0} GitHub issue matches; ${formatAge(providerScoutAge)} old`
+        : "run node tools/provider_scout/provider_scout.mjs --write",
+    ),
+  );
+
   rows.push(
     item(
       "git-sync",

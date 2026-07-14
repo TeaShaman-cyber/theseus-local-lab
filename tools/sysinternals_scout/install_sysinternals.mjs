@@ -5,6 +5,7 @@ import { createWriteStream, existsSync, mkdirSync, readdirSync, statSync, writeF
 import { get } from "node:https";
 import os from "node:os";
 import path from "node:path";
+import { createByteProgress, createProgressReporter } from "../progress/progress.mjs";
 
 const repoRoot = path.resolve(import.meta.dirname, "..", "..");
 const defaultInstallDir = path.join(os.homedir(), "Tools", "Sysinternals");
@@ -31,29 +32,6 @@ function parseArgs(argv) {
   return args;
 }
 
-function formatBytes(bytes) {
-  if (!Number.isFinite(bytes)) return "unknown";
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KiB`;
-  return `${(bytes / 1024 / 1024).toFixed(1)} MiB`;
-}
-
-function progressBar(received, total) {
-  if (!total) return `${formatBytes(received)} downloaded`;
-  const width = 24;
-  const ratio = Math.max(0, Math.min(1, received / total));
-  const filled = Math.round(ratio * width);
-  return `[${"#".repeat(filled)}${".".repeat(width - filled)}] ${(ratio * 100).toFixed(1)}% ${formatBytes(received)}/${formatBytes(total)}`;
-}
-
-function writeProgress(message, final = false) {
-  if (process.stderr.isTTY) {
-    process.stderr.write(`\r${message}${final ? "\n" : ""}`);
-  } else {
-    process.stderr.write(`${message}\n`);
-  }
-}
-
 function download(url, destination) {
   return new Promise((resolve, reject) => {
     const file = createWriteStream(destination);
@@ -70,20 +48,16 @@ function download(url, destination) {
       }
       const total = Number(response.headers["content-length"] || 0);
       let received = 0;
-      let lastProgress = 0;
-      writeProgress(`Downloading Sysinternals Suite ${total ? `(${formatBytes(total)})` : ""}`.trim());
+      const progress = createByteProgress({ operation: "sysinternals-suite-download", total });
+      progress.start("Downloading Sysinternals Suite");
       response.on("data", (chunk) => {
         received += chunk.length;
-        const now = Date.now();
-        if (now - lastProgress > 500 || received === total) {
-          writeProgress(progressBar(received, total));
-          lastProgress = now;
-        }
+        progress.update(received);
       });
       response.pipe(file);
       file.on("finish", () => {
         file.close();
-        writeProgress(progressBar(received, total), true);
+        progress.done(received, "Download complete");
         resolve();
       });
     });
@@ -156,18 +130,19 @@ function renderMarkdown(manifest) {
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));
+  const progress = createProgressReporter({ operation: "sysinternals-suite-install" });
   mkdirSync(args.workDir, { recursive: true });
   mkdirSync(args.installDir, { recursive: true });
   mkdirSync(args.outputDir, { recursive: true });
 
   const archivePath = path.join(args.workDir, "SysinternalsSuite.zip");
   if (args.reuseArchive && existsSync(archivePath)) {
-    writeProgress(`Reusing archive: ${archivePath}`, true);
+    progress.heartbeat("reuse-archive", "Reusing existing archive", { archive_path: archivePath });
   } else {
     await download(suiteUrl, archivePath);
   }
 
-  writeProgress(`Extracting to ${args.installDir}`, true);
+  progress.heartbeat("extract", "Extracting Sysinternals Suite", { install_dir: args.installDir });
   const extract = await run("tar.exe", ["-xf", archivePath, "-C", args.installDir]);
   if (!extract.ok) {
     throw new Error(`tar extraction failed: ${extract.stderr || extract.stdout || extract.code}`);
@@ -186,6 +161,10 @@ async function main() {
 
   writeFileSync(path.join(args.outputDir, "install-manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
   writeFileSync(path.join(args.outputDir, "install-manifest.md"), renderMarkdown(manifest), "utf8");
+  progress.done("Sysinternals install manifest written", {
+    exe_count: manifest.exe_count,
+    manifest_path: path.join(args.outputDir, "install-manifest.json"),
+  });
 
   if (args.json) console.log(JSON.stringify(manifest, null, 2));
   else {

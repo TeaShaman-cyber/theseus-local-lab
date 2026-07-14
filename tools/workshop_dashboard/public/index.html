@@ -19,6 +19,7 @@
       <a class="nav-link" href="#graph">Task Graph</a>
       <a class="nav-link" href="#codex-issues">Codex Issues</a>
       <a class="nav-link" href="#codex-system">Codex System</a>
+      <a class="nav-link" href="#provider-scout">Provider Scout</a>
       <a class="nav-link" href="#sysinternals-scout">System Scout</a>
       <button id="refresh" type="button">Refresh</button>
       <span id="updated" class="muted">loading</span>
@@ -180,6 +181,32 @@
     <section class="full-panel">
       <h2>Network listeners and services</h2>
       <div id="sysinternals-network-list" class="checks"></div>
+    </section>
+  </section>
+
+  <section id="provider-scout-view" class="view hidden" aria-label="Provider scout">
+    <section class="summary compact-summary">
+      <div id="provider-scout-total" class="overall status-WARN">...</div>
+      <div class="summary-text">
+        <h2>Provider scout</h2>
+        <p id="provider-scout-summary">Reading cached provider health summary.</p>
+      </div>
+    </section>
+
+    <section class="split">
+      <div>
+        <h2>Provider status</h2>
+        <div id="provider-status-list" class="checks"></div>
+      </div>
+      <div>
+        <h2>Local symptoms</h2>
+        <div id="provider-local-list" class="checks"></div>
+      </div>
+    </section>
+
+    <section class="full-panel">
+      <h2>GitHub field signals</h2>
+      <div id="provider-github-list" class="checks"></div>
     </section>
   </section>
 </main>

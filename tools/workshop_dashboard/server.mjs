@@ -107,6 +107,21 @@ function readSysinternalsScout() {
   };
 }
 
+function readProviderScout() {
+  const filePath = path.resolve(here, "..", "..", "outputs", "provider_scout", "provider-scout.json");
+  if (!existsSync(filePath)) {
+    return {
+      ok: false,
+      error: "Provider scout cache not found",
+      hint: "Run node tools/provider_scout/provider_scout.mjs --write",
+    };
+  }
+  return {
+    ok: true,
+    ...JSON.parse(readFileSync(filePath, "utf8")),
+  };
+}
+
 function serveStatic(req, res) {
   const url = new URL(req.url, "http://localhost");
   const requested = url.pathname === "/" ? "/index.html" : url.pathname;
@@ -189,6 +204,14 @@ const server = http.createServer(async (req, res) => {
   if (url.pathname === "/api/sysinternals-scout") {
     try {
       jsonResponse(res, 200, readSysinternalsScout());
+    } catch (error) {
+      jsonResponse(res, 503, { ok: false, error: error.message });
+    }
+    return;
+  }
+  if (url.pathname === "/api/provider-scout") {
+    try {
+      jsonResponse(res, 200, readProviderScout());
     } catch (error) {
       jsonResponse(res, 503, { ok: false, error: error.message });
     }

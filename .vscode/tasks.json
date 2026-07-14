@@ -424,6 +424,26 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus: progress audit",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/progress/progress_audit.mjs",
+        "--write"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus: provider scout",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/provider_scout/provider_scout.mjs",
+        "--write"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus: AutoMem status",
       "type": "process",
       "command": "node",

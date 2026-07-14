@@ -38,6 +38,10 @@ outputs/github_issue_watch/*.md
 outputs/sysinternals_scout/*.json
 outputs/sysinternals_scout/*.md
 outputs/sysinternals_scout/*.zip
+outputs/progress_audit/*.json
+outputs/progress_audit/*.md
+outputs/provider_scout/*.json
+outputs/provider_scout/*.md
 outputs/research_queue/*.jsonl
 outputs/local_inventory/*.json
 outputs/pdf_extracts/*

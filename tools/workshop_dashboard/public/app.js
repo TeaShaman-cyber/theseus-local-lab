@@ -29,6 +29,12 @@ const groups = {
     y: 300,
     nodes: ["observatory-db", "git-sync", "log-lattice", "codex-issues", "codex-system", "sysinternals-scout"],
   },
+  providers: {
+    label: "Providers",
+    x: 850,
+    y: 300,
+    nodes: ["provider-scout"],
+  },
 };
 
 const edges = [
@@ -38,6 +44,7 @@ const edges = [
   ["infra", "workspace"],
   ["persistence", "workspace"],
   ["process", "workspace"],
+  ["workspace", "providers"],
 ];
 
 function statusClass(status) {
@@ -238,6 +245,8 @@ async function refresh() {
       await refreshCodexIssues();
     } else if (location.hash === "#codex-system") {
       await refreshCodexSystem();
+    } else if (location.hash === "#provider-scout") {
+      await refreshProviderScout();
     } else if (location.hash === "#sysinternals-scout") {
       await refreshSysinternalsScout();
     } else {
@@ -261,12 +270,14 @@ function switchView() {
   const showGraph = location.hash === "#graph";
   const showCodexIssues = location.hash === "#codex-issues";
   const showCodexSystem = location.hash === "#codex-system";
+  const showProviderScout = location.hash === "#provider-scout";
   const showSysinternalsScout = location.hash === "#sysinternals-scout";
-  byId("status-view").classList.toggle("hidden", showTasks || showGraph || showCodexIssues || showCodexSystem || showSysinternalsScout);
+  byId("status-view").classList.toggle("hidden", showTasks || showGraph || showCodexIssues || showCodexSystem || showProviderScout || showSysinternalsScout);
   byId("tasks-view").classList.toggle("hidden", !showTasks);
   byId("graph-view").classList.toggle("hidden", !showGraph);
   byId("codex-issues-view").classList.toggle("hidden", !showCodexIssues);
   byId("codex-system-view").classList.toggle("hidden", !showCodexSystem);
+  byId("provider-scout-view").classList.toggle("hidden", !showProviderScout);
   byId("sysinternals-scout-view").classList.toggle("hidden", !showSysinternalsScout);
   byId("refresh").textContent = showTasks
     ? "Refresh tasks"
@@ -276,9 +287,11 @@ function switchView() {
         ? "Refresh issues"
         : showCodexSystem
           ? "Refresh system"
-          : showSysinternalsScout
-            ? "Refresh scout"
-            : "Refresh";
+          : showProviderScout
+            ? "Refresh providers"
+            : showSysinternalsScout
+              ? "Refresh scout"
+              : "Refresh";
   refresh();
 }
 
@@ -633,6 +646,84 @@ async function refreshSysinternalsScout() {
   byId("sysinternals-tool-list").innerHTML = renderSysinternalsTools(payload.sysinternals_tools || {});
   byId("sysinternals-process-list").innerHTML = renderSysinternalsProcesses(payload.processes || {});
   byId("sysinternals-network-list").innerHTML = renderSysinternalsNetwork(payload.network || {});
+}
+
+function renderProviderStatus(payload) {
+  if (!payload.openai_status?.ok) {
+    return `<div class="check-row"><span class="pill status-FAIL">FAIL</span><strong>OpenAI status</strong><span class="muted">${escapeHtml(payload.openai_status?.error || "unavailable")}</span></div>`;
+  }
+  const rows = [
+    ["OpenAI status", payload.openai_status.description || payload.openai_status.indicator || "unknown"],
+    ["Active incidents", String(payload.openai_status.active_incidents?.length || 0)],
+    ["Maintenances", String(payload.openai_status.scheduled_maintenances?.length || 0)],
+  ];
+  return rows
+    .map(
+      ([label, value]) => `
+        <div class="check-row">
+          <span class="pill ${payload.openai_status.indicator === "none" ? "status-OK" : "status-WARN"}">STATUS</span>
+          <strong>${escapeHtml(label)}</strong>
+          <span class="muted">${escapeHtml(value)}</span>
+        </div>
+      `,
+    )
+    .join("");
+}
+
+function renderProviderLocal(payload) {
+  const matches = payload.local?.matches || [];
+  if (!matches.length) {
+    return '<div class="check-row"><span class="pill status-OK">OK</span><strong>No recent local provider symptoms</strong><span class="muted">session scan clean</span></div>';
+  }
+  return matches
+    .map(
+      (match) => `
+        <div class="check-row">
+          <span class="pill status-WARN">${escapeHtml(match.count)}</span>
+          <strong>${escapeHtml(match.id)}</strong>
+          <span class="muted">${escapeHtml(match.category)} · ${escapeHtml(match.source?.file || "")}</span>
+        </div>
+      `,
+    )
+    .join("");
+}
+
+function renderProviderGithub(payload) {
+  return (payload.github?.searches || [])
+    .map(
+      (search) => `
+        <div class="check-row">
+          <span class="pill ${search.ok && search.total_count ? "status-WARN" : search.ok ? "status-OK" : "status-FAIL"}">${escapeHtml(search.ok ? search.total_count : "!")}</span>
+          <strong>${escapeHtml(search.query)}</strong>
+          <span class="muted">${escapeHtml(search.ok ? (search.items || []).slice(0, 3).map((item) => `#${item.number}`).join(", ") : search.error || search.status)}</span>
+        </div>
+      `,
+    )
+    .join("");
+}
+
+async function refreshProviderScout() {
+  const response = await fetch("/api/provider-scout", { cache: "no-store" });
+  const payload = await response.json();
+  byId("updated").textContent = new Date(payload.generated_at || Date.now()).toLocaleString();
+  if (!payload.ok) {
+    byId("provider-scout-summary").textContent = payload.hint || payload.error || "No Provider scout cache.";
+    byId("provider-scout-total").textContent = "!";
+    byId("provider-scout-total").className = "overall status-WARN";
+    byId("provider-status-list").innerHTML = "";
+    byId("provider-local-list").innerHTML = "";
+    byId("provider-github-list").innerHTML = "";
+    return;
+  }
+  const local = payload.summary?.local_match_count || 0;
+  const github = payload.summary?.github_capacity_issue_count || 0;
+  byId("provider-scout-total").textContent = String(local);
+  byId("provider-scout-total").className = `overall ${payload.summary?.status === "OK" ? "status-OK" : "status-WARN"}`;
+  byId("provider-scout-summary").textContent =
+    `${payload.summary?.openai_status_indicator || "unknown"} status, ${local} local provider matches, ${github} public GitHub issue matches.`;
+  byId("provider-status-list").innerHTML = renderProviderStatus(payload);
+  byId("provider-local-list").innerHTML = renderProviderLocal(payload);
+  byId("provider-github-list").innerHTML = renderProviderGithub(payload);
 }
 
 byId("refresh").addEventListener("click", refresh);

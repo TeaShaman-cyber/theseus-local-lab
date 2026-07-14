@@ -117,6 +117,26 @@ test("allows Sysinternals suite installer as a known safe wrapper", () => {
   assert.equal(decision.reason, "known-safe-wrapper");
 });
 
+test("allows progress audit as a known safe wrapper", () => {
+  const decision = evaluateAction({
+    surface: "shell",
+    command: "node tools/progress/progress_audit.mjs --write",
+  });
+
+  assert.equal(decision.verdict, "allow");
+  assert.equal(decision.reason, "known-safe-wrapper");
+});
+
+test("allows provider scout as a known safe wrapper", () => {
+  const decision = evaluateAction({
+    surface: "shell",
+    command: "node tools/provider_scout/provider_scout.mjs --write",
+  });
+
+  assert.equal(decision.verdict, "allow");
+  assert.equal(decision.reason, "known-safe-wrapper");
+});
+
 test("allows read-only workshop dashboard wrappers", () => {
   const dashboard = evaluateAction({
     surface: "shell",
