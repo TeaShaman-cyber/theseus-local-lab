@@ -45,3 +45,13 @@ For Theseus this means:
 
 Do not treat route scores as final reward. Promote a proposal only after it
 matches verified behavior on later tasks.
+
+Separate score integrity from harness repair. Penalizing a bad route can keep
+reports honest, but it does not explain why the route happened or prevent repeat
+failure. A proposal from the learning loop should point to a concrete system
+change: policy, task route, preflight, regression test, dashboard alert, memory
+entry, or an explicit "no action" rationale.
+
+Do not accept a reward-model update that only makes the metric look better.
+Accept it when the measured signal maps to a causal change in agent behavior or
+environment constraints.

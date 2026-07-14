@@ -93,6 +93,21 @@ Known-safe wrappers get positive reinforcement, but they can still lose when
 they do not fit the goal. This prevents "use the blessed wrapper" from becoming
 a new proxy that replaces the actual task.
 
+Penalty is score hygiene, not behavior change. When a route fails, the useful
+learning artifact is not "subtract more points"; it is one or more concrete
+changes to the harness:
+
+- classify the failure class;
+- add or tighten a policy guardrail;
+- change a VS Code task, preflight bundle, or route candidate;
+- add a regression test or dashboard alert;
+- store the accepted decision in memory;
+- document why no action is needed.
+
+A reward model must not promote a route-policy change from score movement alone.
+It needs causal evidence that the future route became more observable,
+verifiable, or harder to misuse.
+
 ## Intended Use
 
 This is not a full sandbox. It is a small policy gate that makes repeated

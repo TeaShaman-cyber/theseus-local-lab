@@ -186,6 +186,7 @@ function renderMarkdown(summary, { days }) {
     "## Guardrail",
     "",
     "Treat these proposals as review candidates. Do not turn route scores into final reward until a later task verifies the behavior.",
+    "Penalty is score hygiene, not harness repair. Promote only proposals that map to a concrete policy, task, preflight, test, dashboard, memory, or documented no-action change.",
     "",
   );
   return lines.join("\n");
