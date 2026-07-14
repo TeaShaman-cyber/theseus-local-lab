@@ -31,6 +31,13 @@ outputs/sysinternals_scout/sysinternals-scout.json
 outputs/sysinternals_scout/sysinternals-scout.md
 ```
 
+The local field guide and machine-readable source map are:
+
+```text
+tools/sysinternals_scout/SYSINTERNALS_FIELD_GUIDE.md
+tools/sysinternals_scout/sysinternals_reference.json
+```
+
 The workshop dashboard reads the cached JSON:
 
 ```text

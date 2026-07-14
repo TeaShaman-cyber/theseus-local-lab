@@ -1,0 +1,165 @@
+{
+  "schema": 1,
+  "generated_from": "Microsoft Learn Sysinternals documentation",
+  "source_index": [
+    "https://learn.microsoft.com/sysinternals/",
+    "https://learn.microsoft.com/sysinternals/downloads/",
+    "https://learn.microsoft.com/sysinternals/downloads/sysinternals-suite",
+    "https://learn.microsoft.com/sysinternals/downloads/process-explorer",
+    "https://learn.microsoft.com/sysinternals/downloads/procmon",
+    "https://learn.microsoft.com/sysinternals/downloads/procdump",
+    "https://learn.microsoft.com/sysinternals/downloads/tcpview",
+    "https://learn.microsoft.com/sysinternals/downloads/sysmon",
+    "https://learn.microsoft.com/sysinternals/downloads/pstools",
+    "https://learn.microsoft.com/sysinternals/downloads/accesschk",
+    "https://learn.microsoft.com/sysinternals/downloads/sigcheck",
+    "https://learn.microsoft.com/sysinternals/downloads/rammap"
+  ],
+  "layers": [
+    {
+      "id": "L0",
+      "name": "builtin-scout",
+      "default": true,
+      "examples": ["tasklist", "netstat", "wevtutil"],
+      "policy": "always-light-read-only"
+    },
+    {
+      "id": "L1",
+      "name": "portable-read-only",
+      "default": true,
+      "examples": ["handle", "tcpvcon", "pslist", "listdlls", "sigcheck", "accesschk"],
+      "policy": "bounded-read-only"
+    },
+    {
+      "id": "L2",
+      "name": "bounded-capture",
+      "default": false,
+      "examples": ["procmon", "procdump"],
+      "policy": "incident-only"
+    },
+    {
+      "id": "L3",
+      "name": "persistent-telemetry",
+      "default": false,
+      "examples": ["sysmon"],
+      "policy": "design-review-first"
+    },
+    {
+      "id": "L4",
+      "name": "disruptive-admin",
+      "default": false,
+      "examples": ["pskill", "pssuspend", "psshutdown", "sdelete", "notmyfault"],
+      "policy": "explicit-user-approval"
+    }
+  ],
+  "tools": [
+    {
+      "id": "process-explorer",
+      "binaries": ["procexp.exe", "procexp64.exe"],
+      "layer": "L1",
+      "machine_readable": false,
+      "primary_use": "Human process tree, owner, handle, DLL, and search inspection.",
+      "theseus_default": "human-gui-only",
+      "source": "https://learn.microsoft.com/sysinternals/downloads/process-explorer"
+    },
+    {
+      "id": "process-monitor",
+      "binaries": ["procmon.exe", "procmon64.exe"],
+      "layer": "L2",
+      "machine_readable": "pml/csv after bounded capture",
+      "primary_use": "Real-time file, registry, process, thread, DLL activity with filters and stack capture.",
+      "theseus_default": "incident-only-timeboxed",
+      "source": "https://learn.microsoft.com/sysinternals/downloads/procmon"
+    },
+    {
+      "id": "procdump",
+      "binaries": ["procdump.exe", "procdump64.exe"],
+      "layer": "L2",
+      "machine_readable": true,
+      "primary_use": "CPU spike, hung window, exception, counter-triggered, or explicit process dump capture.",
+      "privacy_risk": "dumps may contain secrets and private memory",
+      "theseus_default": "explicit-target-mini-or-triage-only",
+      "source": "https://learn.microsoft.com/sysinternals/downloads/procdump"
+    },
+    {
+      "id": "tcpview-tcpvcon",
+      "binaries": ["tcpview.exe", "tcpvcon.exe"],
+      "layer": "L1",
+      "machine_readable": "tcpvcon -a -c -n",
+      "primary_use": "TCP/UDP endpoint inventory with owning process names.",
+      "theseus_default": "prefer-tcpvcon-over-netstat-when-installed",
+      "source": "https://learn.microsoft.com/sysinternals/downloads/tcpview"
+    },
+    {
+      "id": "handle",
+      "binaries": ["handle.exe", "handle64.exe"],
+      "layer": "L1",
+      "machine_readable": true,
+      "primary_use": "Find open files, directories, named objects, and handles by process.",
+      "theseus_default": "bounded-read-only-lookup",
+      "source": "https://learn.microsoft.com/sysinternals/downloads/handle"
+    },
+    {
+      "id": "pstools",
+      "binaries": ["pslist.exe", "psinfo.exe", "psloglist.exe", "psloggedon.exe", "psexec.exe", "pskill.exe", "pssuspend.exe"],
+      "layer": "mixed",
+      "machine_readable": true,
+      "primary_use": "Local and remote command-line administration utilities.",
+      "theseus_default": "read-only-members-only",
+      "avoid_by_default": ["psexec", "pskill", "pssuspend", "psshutdown", "pspasswd"],
+      "source": "https://learn.microsoft.com/sysinternals/downloads/pstools"
+    },
+    {
+      "id": "accesschk",
+      "binaries": ["accesschk.exe", "accesschk64.exe"],
+      "layer": "L1",
+      "machine_readable": true,
+      "primary_use": "Effective access checks for files, directories, registry, services, processes, shares, and objects.",
+      "theseus_default": "report-only",
+      "source": "https://learn.microsoft.com/sysinternals/downloads/accesschk"
+    },
+    {
+      "id": "sigcheck",
+      "binaries": ["sigcheck.exe", "sigcheck64.exe"],
+      "layer": "L1",
+      "machine_readable": "csv supported",
+      "primary_use": "Version, hash, timestamp, signature, certificate, and optional VirusTotal status checks.",
+      "theseus_default": "local-signature-hash-only",
+      "privacy_note": "VirusTotal lookup/upload requires explicit approval",
+      "source": "https://learn.microsoft.com/sysinternals/downloads/sigcheck"
+    },
+    {
+      "id": "autoruns",
+      "binaries": ["autoruns.exe", "autorunsc.exe"],
+      "layer": "L1",
+      "machine_readable": "autorunsc export",
+      "primary_use": "Autostart inventory.",
+      "theseus_default": "read-only-export",
+      "source": "https://learn.microsoft.com/sysinternals/downloads/autoruns"
+    },
+    {
+      "id": "sysmon",
+      "binaries": ["sysmon.exe", "sysmon64.exe"],
+      "layer": "L3",
+      "machine_readable": "Windows Event Log",
+      "primary_use": "Persistent host telemetry for process, network, driver, file, registry, DNS, WMI, and pipe events.",
+      "theseus_default": "config-review-first",
+      "source": "https://learn.microsoft.com/sysinternals/downloads/sysmon"
+    },
+    {
+      "id": "rammap",
+      "binaries": ["rammap.exe"],
+      "layer": "L1",
+      "machine_readable": false,
+      "primary_use": "Human physical memory usage analysis and snapshots.",
+      "theseus_default": "human-guided-analysis",
+      "source": "https://learn.microsoft.com/sysinternals/downloads/rammap"
+    }
+  ],
+  "install_strategy": {
+    "preferred_path": "C:\\Tools\\Sysinternals",
+    "path_probe": "where procexp procmon procdump handle tcpview tcpvcon sysmon autorunsc sigcheck accesschk pslist",
+    "live_unc_pattern": "\\\\live.sysinternals.com\\tools\\<toolname>",
+    "background_dependency_policy": "do not silently depend on Sysinternals Live for background monitors"
+  }
+}
