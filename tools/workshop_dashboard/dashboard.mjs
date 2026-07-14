@@ -388,6 +388,22 @@ async function buildDashboard() {
     ),
   );
 
+  const codexSystemFile = path.join(repoRoot, "outputs", "codex_system_watch", "codex-system.json");
+  const codexSystemStat = existsSync(codexSystemFile) ? statSync(codexSystemFile) : null;
+  const codexSystem = readJsonFile(codexSystemFile);
+  const codexSystemAge = codexSystemStat ? relativeAge(codexSystemStat.mtime, now) : null;
+  const codexEventCount = codexSystem?.windows_events?.matched || 0;
+  rows.push(
+    item(
+      "codex-system",
+      "Codex local system watch",
+      codexSystem ? (codexEventCount > 0 ? "WARN" : statusFromFreshness(codexSystemAge, 12, 48)) : "WARN",
+      codexSystem
+        ? `${codexSystem.versions?.codex_cli?.version || "unknown CLI"}, ${codexEventCount} matched Windows events; ${formatAge(codexSystemAge)} old`
+        : "run node tools/codex_system_watch/codex_system_watch.mjs --write",
+    ),
+  );
+
   rows.push(
     item(
       "git-sync",

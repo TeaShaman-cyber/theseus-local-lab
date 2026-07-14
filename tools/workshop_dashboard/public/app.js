@@ -27,7 +27,7 @@ const groups = {
     label: "Workspace",
     x: 620,
     y: 300,
-    nodes: ["observatory-db", "git-sync", "log-lattice", "codex-issues"],
+    nodes: ["observatory-db", "git-sync", "log-lattice", "codex-issues", "codex-system"],
   },
 };
 
@@ -236,6 +236,8 @@ async function refresh() {
       await refreshGraph();
     } else if (location.hash === "#codex-issues") {
       await refreshCodexIssues();
+    } else if (location.hash === "#codex-system") {
+      await refreshCodexSystem();
     } else {
       const response = await fetch("/api/dashboard", { cache: "no-store" });
       const dashboard = await response.json();
@@ -256,11 +258,21 @@ function switchView() {
   const showTasks = location.hash === "#tasks";
   const showGraph = location.hash === "#graph";
   const showCodexIssues = location.hash === "#codex-issues";
-  byId("status-view").classList.toggle("hidden", showTasks || showGraph || showCodexIssues);
+  const showCodexSystem = location.hash === "#codex-system";
+  byId("status-view").classList.toggle("hidden", showTasks || showGraph || showCodexIssues || showCodexSystem);
   byId("tasks-view").classList.toggle("hidden", !showTasks);
   byId("graph-view").classList.toggle("hidden", !showGraph);
   byId("codex-issues-view").classList.toggle("hidden", !showCodexIssues);
-  byId("refresh").textContent = showTasks ? "Refresh tasks" : showGraph ? "Refresh graph" : showCodexIssues ? "Refresh issues" : "Refresh";
+  byId("codex-system-view").classList.toggle("hidden", !showCodexSystem);
+  byId("refresh").textContent = showTasks
+    ? "Refresh tasks"
+    : showGraph
+      ? "Refresh graph"
+      : showCodexIssues
+        ? "Refresh issues"
+        : showCodexSystem
+          ? "Refresh system"
+          : "Refresh";
   refresh();
 }
 
@@ -471,6 +483,84 @@ async function refreshCodexIssues() {
     .slice(0, 18)
     .map(renderIssueCard)
     .join("");
+}
+
+function renderVersionRows(payload) {
+  const versions = payload.versions || {};
+  const rows = [
+    ["Codex CLI", versions.codex_cli?.version || "unknown"],
+    ["Desktop package", (versions.desktop_app?.versions_from_windowsapps || []).join(", ") || "unknown"],
+    ["Discovered paths", String((versions.discovered_paths || []).length)],
+  ];
+  return rows
+    .map(
+      ([label, value]) => `
+        <div class="check-row">
+          <span class="pill status-OK">INFO</span>
+          <strong>${escapeHtml(label)}</strong>
+          <span class="muted">${escapeHtml(value)}</span>
+        </div>
+      `,
+    )
+    .join("");
+}
+
+function renderCodexEventTags(events) {
+  const tags = events.tags || [];
+  const providers = events.providers || [];
+  const rows = [
+    ...tags.slice(0, 6).map((item) => [`tag:${item.tag}`, item.count]),
+    ...providers.slice(0, 4).map((item) => [`provider:${item.provider}`, item.count]),
+  ];
+  return rows.length
+    ? rows
+        .map(
+          ([label, count]) => `
+            <div class="check-row">
+              <span class="pill status-WARN">SEEN</span>
+              <strong>${escapeHtml(label)}</strong>
+              <span class="muted">${escapeHtml(count)}</span>
+            </div>
+          `,
+        )
+        .join("")
+    : '<div class="check-row"><span class="pill status-OK">OK</span><strong>No matched events</strong><span class="muted">quiet window</span></div>';
+}
+
+function renderCodexEvents(events) {
+  return (events.events || []).slice(0, 14).map((event) => {
+    const title = `${event.time_created || "unknown time"} ${event.provider || "unknown provider"} #${event.event_id || "?"} x${event.occurrences || 1}`;
+    return `
+      <div class="check-row event-row">
+        <span class="pill status-WARN">${escapeHtml(event.level || "?")}</span>
+        <strong>${escapeHtml(title)}</strong>
+        <span class="muted">${escapeHtml(event.message_excerpt || "")}</span>
+      </div>
+    `;
+  }).join("") || '<div class="check-row"><span class="pill status-OK">OK</span><strong>No matched events</strong><span class="muted">quiet window</span></div>';
+}
+
+async function refreshCodexSystem() {
+  const response = await fetch("/api/codex-system", { cache: "no-store" });
+  const payload = await response.json();
+  byId("updated").textContent = new Date(payload.generated_at || Date.now()).toLocaleString();
+  if (!payload.ok) {
+    byId("codex-system-summary").textContent = payload.hint || payload.error || "No Codex system cache.";
+    byId("codex-system-total").textContent = "!";
+    byId("codex-version-list").innerHTML = "";
+    byId("codex-event-tags").innerHTML = "";
+    byId("codex-event-list").innerHTML = "";
+    return;
+  }
+  const matched = payload.windows_events?.matched || 0;
+  const uniqueMatched = payload.windows_events?.unique_matched || matched;
+  byId("codex-system-total").textContent = String(matched);
+  byId("codex-system-total").className = `overall ${matched > 0 ? "status-WARN" : "status-OK"}`;
+  byId("codex-system-summary").textContent =
+    `${payload.versions?.codex_cli?.version || "unknown CLI"}; ${matched} matched Windows events (${uniqueMatched} unique) in ${payload.windows_events?.window_hours || "?"}h.`;
+  byId("codex-version-list").innerHTML = renderVersionRows(payload);
+  byId("codex-event-tags").innerHTML = renderCodexEventTags(payload.windows_events || {});
+  byId("codex-event-list").innerHTML = renderCodexEvents(payload.windows_events || {});
 }
 
 byId("refresh").addEventListener("click", refresh);

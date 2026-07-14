@@ -70,6 +70,18 @@ http://127.0.0.1:5180/api/codex-issues
 The dashboard never polls GitHub directly on every refresh. It only displays
 the latest local cache so the panel remains fast and rate-limit friendly.
 
+The `Codex System` tab reads a cached local system report:
+
+```text
+node tools/codex_system_watch/codex_system_watch.mjs --write
+http://127.0.0.1:5180/#codex-system
+http://127.0.0.1:5180/api/codex-system
+```
+
+This report uses `codex --version`, `where.exe codex`, and read-only
+`wevtutil` queries against the Windows Application log. It stores a compact
+summary only, not raw Windows log archives.
+
 ## Signals
 
 - AutoMem API health
@@ -87,6 +99,7 @@ the latest local cache so the panel remains fast and rate-limit friendly.
 - session timeline freshness
 - local observatory DB freshness
 - cached OpenAI Codex GitHub issue summary
+- cached Codex local system/version/event summary
 - Git sync and dirty-file state
 
 The script does not start, stop, rebuild, or mutate services. It also does not

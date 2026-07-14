@@ -77,6 +77,21 @@ function readCodexIssues() {
   };
 }
 
+function readCodexSystem() {
+  const filePath = path.resolve(here, "..", "..", "outputs", "codex_system_watch", "codex-system.json");
+  if (!existsSync(filePath)) {
+    return {
+      ok: false,
+      error: "Codex system cache not found",
+      hint: "Run node tools/codex_system_watch/codex_system_watch.mjs --write",
+    };
+  }
+  return {
+    ok: true,
+    ...JSON.parse(readFileSync(filePath, "utf8")),
+  };
+}
+
 function serveStatic(req, res) {
   const url = new URL(req.url, "http://localhost");
   const requested = url.pathname === "/" ? "/index.html" : url.pathname;
@@ -143,6 +158,14 @@ const server = http.createServer(async (req, res) => {
   if (url.pathname === "/api/codex-issues") {
     try {
       jsonResponse(res, 200, readCodexIssues());
+    } catch (error) {
+      jsonResponse(res, 503, { ok: false, error: error.message });
+    }
+    return;
+  }
+  if (url.pathname === "/api/codex-system") {
+    try {
+      jsonResponse(res, 200, readCodexSystem());
     } catch (error) {
       jsonResponse(res, 503, { ok: false, error: error.message });
     }

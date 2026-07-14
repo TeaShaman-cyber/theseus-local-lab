@@ -87,6 +87,16 @@ test("allows GitHub issue watch as a known safe wrapper", () => {
   assert.equal(decision.reason, "known-safe-wrapper");
 });
 
+test("allows Codex system watch as a known safe wrapper", () => {
+  const decision = evaluateAction({
+    surface: "shell",
+    command: "node tools/codex_system_watch/codex_system_watch.mjs --write",
+  });
+
+  assert.equal(decision.verdict, "allow");
+  assert.equal(decision.reason, "known-safe-wrapper");
+});
+
 test("allows read-only workshop dashboard wrappers", () => {
   const dashboard = evaluateAction({
     surface: "shell",

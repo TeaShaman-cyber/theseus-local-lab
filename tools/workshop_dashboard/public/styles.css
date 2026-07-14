@@ -413,6 +413,10 @@ select {
   grid-template-columns: 72px minmax(220px, 0.7fr) 1fr;
 }
 
+.event-row {
+  grid-template-columns: 72px minmax(260px, 0.8fr) 1fr;
+}
+
 .full-panel {
   margin-top: 20px;
 }

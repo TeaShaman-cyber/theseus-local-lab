@@ -395,6 +395,16 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus: refresh Codex local system watch",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/codex_system_watch/codex_system_watch.mjs",
+        "--write"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus: AutoMem status",
       "type": "process",
       "command": "node",

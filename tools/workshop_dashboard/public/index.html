@@ -18,6 +18,7 @@
       <a class="nav-link" href="#tasks">VS Code Tasks</a>
       <a class="nav-link" href="#graph">Task Graph</a>
       <a class="nav-link" href="#codex-issues">Codex Issues</a>
+      <a class="nav-link" href="#codex-system">Codex System</a>
       <button id="refresh" type="button">Refresh</button>
       <span id="updated" class="muted">loading</span>
     </div>
@@ -126,6 +127,32 @@
     <section class="full-panel">
       <h2>High-signal and fresh issues</h2>
       <div id="codex-issue-list" class="task-list"></div>
+    </section>
+  </section>
+
+  <section id="codex-system-view" class="view hidden" aria-label="Codex local system watch">
+    <section class="summary compact-summary">
+      <div id="codex-system-total" class="overall status-WARN">...</div>
+      <div class="summary-text">
+        <h2>Codex local system watch</h2>
+        <p id="codex-system-summary">Reading cached local Codex system summary.</p>
+      </div>
+    </section>
+
+    <section class="split">
+      <div>
+        <h2>Version</h2>
+        <div id="codex-version-list" class="checks"></div>
+      </div>
+      <div>
+        <h2>Event pressure</h2>
+        <div id="codex-event-tags" class="checks"></div>
+      </div>
+    </section>
+
+    <section class="full-panel">
+      <h2>Recent matched Windows events</h2>
+      <div id="codex-event-list" class="checks"></div>
     </section>
   </section>
 </main>
