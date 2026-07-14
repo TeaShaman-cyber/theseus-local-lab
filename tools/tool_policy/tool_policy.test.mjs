@@ -88,6 +88,16 @@ test("allows usage scout as a known safe wrapper", () => {
   assert.equal(decision.reason, "known-safe-wrapper");
 });
 
+test("allows OCR lens as a known safe wrapper", () => {
+  const decision = evaluateAction({
+    surface: "shell",
+    command: "node tools/ocr_lens/ocr_lens.mjs doctor",
+  });
+
+  assert.equal(decision.verdict, "allow");
+  assert.equal(decision.reason, "known-safe-wrapper");
+});
+
 test("allows learning-loop analyzer as a known safe wrapper", () => {
   const decision = evaluateAction({
     surface: "shell",

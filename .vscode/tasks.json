@@ -184,6 +184,27 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus OCR Lens: build",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/ocr_lens/ocr_lens.mjs",
+        "${input:ocrLensInput}",
+        "--write"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus OCR Lens: doctor",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/ocr_lens/ocr_lens.mjs",
+        "doctor"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus Harness Errors: scan",
       "type": "process",
       "command": "node",
@@ -1062,6 +1083,12 @@
       "type": "promptString",
       "description": "Visible usage/limit percentage remaining, or blank if unknown",
       "default": ""
+    },
+    {
+      "id": "ocrLensInput",
+      "type": "promptString",
+      "description": "PDF, image, Markdown, or text path for the lightweight OCR lens",
+      "default": "C:\\Users\\s.poklad\\Downloads\\Да, сделай чистый Markdown-файл без лишних пояснен.md"
     },
     {
       "id": "memoryHookSummary",

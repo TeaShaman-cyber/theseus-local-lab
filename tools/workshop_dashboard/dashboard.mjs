@@ -399,6 +399,27 @@ async function buildDashboard() {
     ),
   );
 
+  const ocrLensFile = path.join(repoRoot, "outputs", "ocr_lens", "latest.json");
+  const ocrLensStat = existsSync(ocrLensFile) ? statSync(ocrLensFile) : null;
+  const ocrLens = readJsonFile(ocrLensFile);
+  const ocrLensAge = ocrLensStat ? relativeAge(ocrLensStat.mtime, now) : null;
+  const ocrLensStatus =
+    ocrLens?.extraction?.status === "text_ready"
+      ? statusFromFreshness(ocrLensAge, 24, 96)
+      : ocrLens
+        ? "WARN"
+        : "WARN";
+  rows.push(
+    item(
+      "ocr-lens",
+      "OCR lens",
+      ocrLensStatus,
+      ocrLens
+        ? `${ocrLens.extraction?.status || "unknown"}; ${ocrLens.source?.filename || "unknown"}; ${ocrLens.extraction?.pages_read || 0}/${ocrLens.extraction?.page_count || 0} pages; ${formatAge(ocrLensAge)} old`
+        : "run node tools/ocr_lens/ocr_lens.mjs <file.pdf> --write",
+    ),
+  );
+
   const observatoryState = ["state.db", "state.db-shm", "state.db-wal"]
     .map((name) => {
       const filePath = path.join(repoRoot, "stateful-agent-net", "data", name);
