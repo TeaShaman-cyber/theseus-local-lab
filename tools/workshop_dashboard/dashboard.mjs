@@ -129,6 +129,15 @@ function latestFile(dir, predicate = () => true) {
   return files[0] || null;
 }
 
+function readJsonFile(filePath) {
+  if (!existsSync(filePath)) return null;
+  try {
+    return JSON.parse(readFileSync(filePath, "utf8"));
+  } catch {
+    return null;
+  }
+}
+
 function readJsonl(dir) {
   const full = path.resolve(repoRoot, dir);
   if (!existsSync(full)) return [];
@@ -358,6 +367,24 @@ async function buildDashboard() {
       "Local observatory DB",
       observatoryState ? statusFromFreshness(observatoryAge, 24, 96) : "WARN",
       observatoryState ? `${observatoryState.name}, ${formatAge(observatoryAge)} old` : "stateful-agent-net/data/state.db not found",
+    ),
+  );
+
+  const codexIssuesFile = path.join(repoRoot, "outputs", "github_issue_watch", "openai-codex.json");
+  const codexIssuesStat = existsSync(codexIssuesFile) ? statSync(codexIssuesFile) : null;
+  const codexIssues = readJsonFile(codexIssuesFile);
+  const codexIssuesAge = codexIssuesStat ? relativeAge(codexIssuesStat.mtime, now) : null;
+  rows.push(
+    item(
+      "codex-issues",
+      "OpenAI Codex issues",
+      codexIssues ? statusFromFreshness(codexIssuesAge, 12, 48) : "WARN",
+      codexIssues
+        ? `${codexIssues.high_signal_count || 0} high-signal, ${codexIssues.new_count || 0} new, ${codexIssues.updated_count || 0} updated; ${formatAge(codexIssuesAge)} old`
+        : "run node tools/github_issue_watch/github_issue_watch.mjs --write",
+      {
+        url: codexIssues?.source_url || "https://github.com/openai/codex/issues",
+      },
     ),
   );
 

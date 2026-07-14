@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { spawn } from "node:child_process";
-import { createReadStream, existsSync } from "node:fs";
+import { createReadStream, existsSync, readFileSync } from "node:fs";
 import http from "node:http";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -62,6 +62,21 @@ function runDashboard() {
   });
 }
 
+function readCodexIssues() {
+  const filePath = path.resolve(here, "..", "..", "outputs", "github_issue_watch", "openai-codex.json");
+  if (!existsSync(filePath)) {
+    return {
+      ok: false,
+      error: "issue summary cache not found",
+      hint: "Run node tools/github_issue_watch/github_issue_watch.mjs --write",
+    };
+  }
+  return {
+    ok: true,
+    ...JSON.parse(readFileSync(filePath, "utf8")),
+  };
+}
+
 function serveStatic(req, res) {
   const url = new URL(req.url, "http://localhost");
   const requested = url.pathname === "/" ? "/index.html" : url.pathname;
@@ -120,6 +135,14 @@ const server = http.createServer(async (req, res) => {
   if (url.pathname === "/api/task-bundles") {
     try {
       jsonResponse(res, 200, buildPreflightBundles());
+    } catch (error) {
+      jsonResponse(res, 503, { ok: false, error: error.message });
+    }
+    return;
+  }
+  if (url.pathname === "/api/codex-issues") {
+    try {
+      jsonResponse(res, 200, readCodexIssues());
     } catch (error) {
       jsonResponse(res, 503, { ok: false, error: error.message });
     }

@@ -14,7 +14,7 @@ const GROUPS = [
   ["observability", "Observability", /timeline|journal|harness|learning loop|workshop|observatory|status/i],
   ["advisors", "Advisors", /advisor|copilot|bothub|codewhale|council/i],
   ["vm", "VM & SSH", /vm|ssh|ubuntu|image transfer/i],
-  ["research", "Research & data", /research|stra?zh|index|inventory|lint/i],
+  ["research", "Research & data", /research|stra?zh|index|inventory|lint|github issue|field report/i],
 ];
 
 const CAPABILITIES = [
@@ -26,7 +26,7 @@ const CAPABILITIES = [
   ["observability", "Observability", /status|health|timeline|journal|log lattice|dashboard|harness|learning loop/i],
   ["advisor", "Advisors", /advisor|copilot|bothub|council|codewhale/i],
   ["vm", "VM/SSH", /vm|ssh|ubuntu|image transfer/i],
-  ["research", "Research", /research|stra?zh|index|inventory|observatory/i],
+  ["research", "Research", /research|stra?zh|index|inventory|observatory|github issue|field report/i],
   ["lint", "Lint/check", /lint|check|scan|verify|smoke/i],
 ];
 

@@ -77,6 +77,16 @@ test("allows harness error scanner as a known safe wrapper", () => {
   assert.equal(decision.reason, "known-safe-wrapper");
 });
 
+test("allows GitHub issue watch as a known safe wrapper", () => {
+  const decision = evaluateAction({
+    surface: "shell",
+    command: "node tools/github_issue_watch/github_issue_watch.mjs --write",
+  });
+
+  assert.equal(decision.verdict, "allow");
+  assert.equal(decision.reason, "known-safe-wrapper");
+});
+
 test("allows read-only workshop dashboard wrappers", () => {
   const dashboard = evaluateAction({
     surface: "shell",

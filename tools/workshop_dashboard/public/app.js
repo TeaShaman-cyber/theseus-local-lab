@@ -27,7 +27,7 @@ const groups = {
     label: "Workspace",
     x: 620,
     y: 300,
-    nodes: ["observatory-db", "git-sync", "log-lattice"],
+    nodes: ["observatory-db", "git-sync", "log-lattice", "codex-issues"],
   },
 };
 
@@ -234,6 +234,8 @@ async function refresh() {
       await refreshTasks();
     } else if (location.hash === "#graph") {
       await refreshGraph();
+    } else if (location.hash === "#codex-issues") {
+      await refreshCodexIssues();
     } else {
       const response = await fetch("/api/dashboard", { cache: "no-store" });
       const dashboard = await response.json();
@@ -253,10 +255,12 @@ async function refresh() {
 function switchView() {
   const showTasks = location.hash === "#tasks";
   const showGraph = location.hash === "#graph";
-  byId("status-view").classList.toggle("hidden", showTasks || showGraph);
+  const showCodexIssues = location.hash === "#codex-issues";
+  byId("status-view").classList.toggle("hidden", showTasks || showGraph || showCodexIssues);
   byId("tasks-view").classList.toggle("hidden", !showTasks);
   byId("graph-view").classList.toggle("hidden", !showGraph);
-  byId("refresh").textContent = showTasks ? "Refresh tasks" : showGraph ? "Refresh graph" : "Refresh";
+  byId("codex-issues-view").classList.toggle("hidden", !showCodexIssues);
+  byId("refresh").textContent = showTasks ? "Refresh tasks" : showGraph ? "Refresh graph" : showCodexIssues ? "Refresh issues" : "Refresh";
   refresh();
 }
 
@@ -417,6 +421,56 @@ async function refreshGraph() {
   taskGraph = await response.json();
   renderTaskGraph(taskGraph);
   renderGraphDetails(taskGraph);
+}
+
+function renderIssueTags(tags = []) {
+  return tags
+    .slice(0, 10)
+    .map((item) => `<span>${escapeHtml(item.tag)}: ${escapeHtml(item.count)}</span>`)
+    .join("");
+}
+
+function renderIssueCard(issue) {
+  const flags = [
+    issue.high_signal ? "high signal" : null,
+    issue.is_new ? "new" : null,
+    issue.recently_updated ? "updated" : null,
+  ].filter(Boolean);
+  return `
+    <article class="task-card issue-card">
+      <div class="task-card-head">
+        <span class="pill ${issue.high_signal ? "status-WARN" : "status-OK"}">#${escapeHtml(issue.number)}</span>
+        <strong><a href="${escapeHtml(issue.url)}" target="_blank" rel="noreferrer">${escapeHtml(issue.title)}</a></strong>
+      </div>
+      <div class="task-meta">
+        ${flags.map((flag) => `<span>${escapeHtml(flag)}</span>`).join("")}
+        <span>${escapeHtml(issue.comments)} comments</span>
+        ${(issue.tags || []).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}
+      </div>
+      <p class="muted">${escapeHtml(issue.excerpt || "")}</p>
+    </article>
+  `;
+}
+
+async function refreshCodexIssues() {
+  const response = await fetch("/api/codex-issues", { cache: "no-store" });
+  const payload = await response.json();
+  byId("updated").textContent = new Date(payload.generated_at || Date.now()).toLocaleString();
+  if (!payload.ok) {
+    byId("codex-issues-summary").textContent = payload.hint || payload.error || "No issue summary cache.";
+    byId("codex-issue-tags").innerHTML = "";
+    byId("codex-issue-list").innerHTML = "";
+    return;
+  }
+  byId("codex-issues-total").textContent = String(payload.high_signal_count || 0);
+  byId("codex-issues-summary").textContent =
+    `${payload.fetched_open_issues} open issues sampled, ${payload.new_count} new, ${payload.updated_count} updated in ${payload.window_hours}h.`;
+  byId("codex-issue-tags").innerHTML = renderIssueTags(payload.tags || []);
+  byId("codex-issue-list").innerHTML = (payload.issues || [])
+    .filter((issue) => issue.high_signal || issue.is_new || issue.recently_updated)
+    .slice(0, 18)
+    .map(renderIssueCard)
+    .join("");
 }
 
 byId("refresh").addEventListener("click", refresh);

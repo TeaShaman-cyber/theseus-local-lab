@@ -59,6 +59,17 @@ The graph view also exposes preflight bundles for high-centrality subsystems:
 Docker, memory, secrets, backup, VM/SSH, and Git. Bundles are read-only route
 recommendations, not browser-executed commands.
 
+The `Codex Issues` tab reads the cached OpenAI Codex GitHub issue field report:
+
+```text
+node tools/github_issue_watch/github_issue_watch.mjs --write
+http://127.0.0.1:5180/#codex-issues
+http://127.0.0.1:5180/api/codex-issues
+```
+
+The dashboard never polls GitHub directly on every refresh. It only displays
+the latest local cache so the panel remains fast and rate-limit friendly.
+
 ## Signals
 
 - AutoMem API health
@@ -75,6 +86,7 @@ recommendations, not browser-executed commands.
 - research queue pending count
 - session timeline freshness
 - local observatory DB freshness
+- cached OpenAI Codex GitHub issue summary
 - Git sync and dirty-file state
 
 The script does not start, stop, rebuild, or mutate services. It also does not

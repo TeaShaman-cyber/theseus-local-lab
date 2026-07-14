@@ -17,6 +17,7 @@
       <a class="nav-link" href="#status">Status</a>
       <a class="nav-link" href="#tasks">VS Code Tasks</a>
       <a class="nav-link" href="#graph">Task Graph</a>
+      <a class="nav-link" href="#codex-issues">Codex Issues</a>
       <button id="refresh" type="button">Refresh</button>
       <span id="updated" class="muted">loading</span>
     </div>
@@ -105,6 +106,26 @@
     <section class="full-panel">
       <h2>Preflight bundles</h2>
       <div id="bundle-list" class="bundle-list"></div>
+    </section>
+  </section>
+
+  <section id="codex-issues-view" class="view hidden" aria-label="OpenAI Codex GitHub issue field report">
+    <section class="summary compact-summary">
+      <div id="codex-issues-total" class="overall status-WARN">...</div>
+      <div class="summary-text">
+        <h2>OpenAI Codex issue field report</h2>
+        <p id="codex-issues-summary">Reading cached GitHub issue summary.</p>
+      </div>
+    </section>
+
+    <section class="full-panel">
+      <h2>Tag pressure</h2>
+      <div id="codex-issue-tags" class="tag-strip"></div>
+    </section>
+
+    <section class="full-panel">
+      <h2>High-signal and fresh issues</h2>
+      <div id="codex-issue-list" class="task-list"></div>
     </section>
   </section>
 </main>

@@ -317,6 +317,29 @@ select {
   font-size: 12px;
 }
 
+.tag-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.tag-strip span {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  padding: 4px 10px;
+}
+
+.issue-card a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.issue-card a:hover {
+  text-decoration: underline;
+}
+
 .task-card code {
   display: block;
   min-height: 48px;

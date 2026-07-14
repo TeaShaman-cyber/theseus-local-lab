@@ -385,6 +385,16 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus: refresh OpenAI Codex issue field report",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/github_issue_watch/github_issue_watch.mjs",
+        "--write"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus: AutoMem status",
       "type": "process",
       "command": "node",
