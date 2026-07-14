@@ -415,6 +415,28 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus: Codex Windows map snapshot",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/codex_windows_map/codex_windows_map.mjs",
+        "snapshot",
+        "--write"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus: Codex Windows map compare",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/codex_windows_map/codex_windows_map.mjs",
+        "compare",
+        "--write"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus: install Sysinternals suite",
       "type": "process",
       "command": "node",

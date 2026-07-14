@@ -27,7 +27,7 @@ const groups = {
     label: "Workspace",
     x: 620,
     y: 300,
-    nodes: ["observatory-db", "git-sync", "log-lattice", "codex-issues", "codex-system", "sysinternals-scout"],
+    nodes: ["observatory-db", "git-sync", "log-lattice", "codex-issues", "codex-system", "sysinternals-scout", "codex-windows-map"],
   },
   providers: {
     label: "Providers",
@@ -249,6 +249,8 @@ async function refresh() {
       await refreshProviderScout();
     } else if (location.hash === "#sysinternals-scout") {
       await refreshSysinternalsScout();
+    } else if (location.hash === "#codex-windows-map") {
+      await refreshCodexWindowsMap();
     } else {
       const response = await fetch("/api/dashboard", { cache: "no-store" });
       const dashboard = await response.json();
@@ -272,13 +274,15 @@ function switchView() {
   const showCodexSystem = location.hash === "#codex-system";
   const showProviderScout = location.hash === "#provider-scout";
   const showSysinternalsScout = location.hash === "#sysinternals-scout";
-  byId("status-view").classList.toggle("hidden", showTasks || showGraph || showCodexIssues || showCodexSystem || showProviderScout || showSysinternalsScout);
+  const showCodexWindowsMap = location.hash === "#codex-windows-map";
+  byId("status-view").classList.toggle("hidden", showTasks || showGraph || showCodexIssues || showCodexSystem || showProviderScout || showSysinternalsScout || showCodexWindowsMap);
   byId("tasks-view").classList.toggle("hidden", !showTasks);
   byId("graph-view").classList.toggle("hidden", !showGraph);
   byId("codex-issues-view").classList.toggle("hidden", !showCodexIssues);
   byId("codex-system-view").classList.toggle("hidden", !showCodexSystem);
   byId("provider-scout-view").classList.toggle("hidden", !showProviderScout);
   byId("sysinternals-scout-view").classList.toggle("hidden", !showSysinternalsScout);
+  byId("codex-windows-map-view").classList.toggle("hidden", !showCodexWindowsMap);
   byId("refresh").textContent = showTasks
     ? "Refresh tasks"
     : showGraph
@@ -288,10 +292,12 @@ function switchView() {
         : showCodexSystem
           ? "Refresh system"
           : showProviderScout
-            ? "Refresh providers"
-            : showSysinternalsScout
-              ? "Refresh scout"
-              : "Refresh";
+          ? "Refresh providers"
+          : showSysinternalsScout
+            ? "Refresh scout"
+            : showCodexWindowsMap
+              ? "Refresh map"
+            : "Refresh";
   refresh();
 }
 
@@ -646,6 +652,114 @@ async function refreshSysinternalsScout() {
   byId("sysinternals-tool-list").innerHTML = renderSysinternalsTools(payload.sysinternals_tools || {});
   byId("sysinternals-process-list").innerHTML = renderSysinternalsProcesses(payload.processes || {});
   byId("sysinternals-network-list").innerHTML = renderSysinternalsNetwork(payload.network || {});
+}
+
+function renderCodexWindowsMapMetrics(payload) {
+  const metrics = payload.graph?.metrics || {};
+  const summary = payload.summary || {};
+  const rows = [
+    ["Graph nodes", metrics.nodes],
+    ["Graph edges", metrics.edges],
+    ["Focused processes", summary.focused_processes],
+    ["Focused connections", metrics.focused_connections],
+    ["Deep sampled", metrics.deep_sampled_processes],
+    ["openai/codex main", summary.upstream_sha],
+    ["Provider status", summary.provider_status],
+  ];
+  return rows
+    .map(
+      ([label, value]) => `
+        <div class="check-row">
+          <span class="pill status-OK">MAP</span>
+          <strong>${escapeHtml(label)}</strong>
+          <span class="muted">${escapeHtml(value ?? "unknown")}</span>
+        </div>
+      `,
+    )
+    .join("");
+}
+
+function renderCodexWindowsMapProcesses(payload) {
+  return (payload.processes?.focused || []).slice(0, 18).map((process) => {
+    const title = `${process.image || "unknown"} #${process.pid || "?"}`;
+    const detail = [process.status, process.memory, process.window_title].filter(Boolean).join(" · ");
+    return `
+      <div class="check-row event-row">
+        <span class="pill status-OK">PROC</span>
+        <strong>${escapeHtml(title)}</strong>
+        <span class="muted">${escapeHtml(detail)}</span>
+      </div>
+    `;
+  }).join("") || '<div class="check-row"><span class="pill status-WARN">EMPTY</span><strong>No focused process rows</strong><span class="muted">snapshot may be stale or too strict</span></div>';
+}
+
+function renderCodexWindowsMapSamples(payload) {
+  return (payload.deep_samples || []).slice(0, 18).map((sample) => {
+    const ok = sample.dlls?.collection?.tasklist_modules_ok || sample.dlls?.collection?.listdlls_ok || sample.handles?.collection?.handle_ok;
+    const title = `${sample.image || "unknown"} #${sample.pid || "?"}`;
+    const detail = `${sample.dlls?.names?.length || 0} DLL names · ${sample.dlls?.paths?.length || 0} DLL paths · ${sample.handles?.samples?.length || 0} focused handles`;
+    return `
+      <div class="check-row event-row">
+        <span class="pill ${ok ? "status-OK" : "status-WARN"}">SAMPLE</span>
+        <strong>${escapeHtml(title)}</strong>
+        <span class="muted">${escapeHtml(detail)}</span>
+      </div>
+    `;
+  }).join("") || '<div class="check-row"><span class="pill status-WARN">EMPTY</span><strong>No deep samples</strong><span class="muted">run the snapshot task</span></div>';
+}
+
+function renderCodexWindowsMapCompare(payload) {
+  const compare = payload.latest_compare;
+  if (!compare) {
+    return '<div class="check-row"><span class="pill status-WARN">BASELINE</span><strong>No compare yet</strong><span class="muted">run two snapshots, then compare</span></div>';
+  }
+  const rows = [
+    ["Before", compare.before?.generated_at],
+    ["After", compare.after?.generated_at],
+    ["Processes +", compare.changes?.processes?.added?.length],
+    ["Processes -", compare.changes?.processes?.removed?.length],
+    ["Connections +", compare.changes?.connections?.added_count],
+    ["Connections -", compare.changes?.connections?.removed_count],
+    ["Graph edges +", compare.changes?.graph?.added_edges_count],
+    ["Graph edges -", compare.changes?.graph?.removed_edges_count],
+  ];
+  return rows
+    .map(
+      ([label, value]) => `
+        <div class="check-row">
+          <span class="pill status-OK">DIFF</span>
+          <strong>${escapeHtml(label)}</strong>
+          <span class="muted">${escapeHtml(value ?? "unknown")}</span>
+        </div>
+      `,
+    )
+    .join("");
+}
+
+async function refreshCodexWindowsMap() {
+  const response = await fetch("/api/codex-windows-map", { cache: "no-store" });
+  const payload = await response.json();
+  byId("updated").textContent = new Date(payload.generated_at || Date.now()).toLocaleString();
+  if (!payload.ok) {
+    byId("codex-windows-map-summary").textContent = payload.hint || payload.error || "No Codex Windows map cache.";
+    byId("codex-windows-map-total").textContent = "!";
+    byId("codex-windows-map-total").className = "overall status-WARN";
+    byId("codex-windows-map-metrics").innerHTML = "";
+    byId("codex-windows-map-processes").innerHTML = "";
+    byId("codex-windows-map-samples").innerHTML = "";
+    byId("codex-windows-map-compare").innerHTML = "";
+    return;
+  }
+  const nodes = payload.graph?.metrics?.nodes || 0;
+  const edges = payload.graph?.metrics?.edges || 0;
+  byId("codex-windows-map-total").textContent = String(nodes);
+  byId("codex-windows-map-total").className = "overall status-OK";
+  byId("codex-windows-map-summary").textContent =
+    `${nodes} graph nodes, ${edges} edges, ${payload.summary?.focused_processes || 0} focused processes; Codex ${payload.summary?.codex_cli || "unknown"}.`;
+  byId("codex-windows-map-metrics").innerHTML = renderCodexWindowsMapMetrics(payload);
+  byId("codex-windows-map-processes").innerHTML = renderCodexWindowsMapProcesses(payload);
+  byId("codex-windows-map-samples").innerHTML = renderCodexWindowsMapSamples(payload);
+  byId("codex-windows-map-compare").innerHTML = renderCodexWindowsMapCompare(payload);
 }
 
 function renderProviderStatus(payload) {

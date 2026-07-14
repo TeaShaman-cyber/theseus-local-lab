@@ -127,6 +127,16 @@ test("allows progress audit as a known safe wrapper", () => {
   assert.equal(decision.reason, "known-safe-wrapper");
 });
 
+test("allows Codex Windows map as a known safe wrapper", () => {
+  const decision = evaluateAction({
+    surface: "shell",
+    command: "node tools/codex_windows_map/codex_windows_map.mjs snapshot --write",
+  });
+
+  assert.equal(decision.verdict, "allow");
+  assert.equal(decision.reason, "known-safe-wrapper");
+});
+
 test("allows provider scout as a known safe wrapper", () => {
   const decision = evaluateAction({
     surface: "shell",

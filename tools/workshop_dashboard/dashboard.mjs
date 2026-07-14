@@ -419,6 +419,21 @@ async function buildDashboard() {
     ),
   );
 
+  const codexWindowsMapFile = path.join(repoRoot, "outputs", "codex_windows_map", "latest.json");
+  const codexWindowsMapStat = existsSync(codexWindowsMapFile) ? statSync(codexWindowsMapFile) : null;
+  const codexWindowsMap = readJsonFile(codexWindowsMapFile);
+  const codexWindowsMapAge = codexWindowsMapStat ? relativeAge(codexWindowsMapStat.mtime, now) : null;
+  rows.push(
+    item(
+      "codex-windows-map",
+      "Codex Windows graph map",
+      codexWindowsMap ? statusFromFreshness(codexWindowsMapAge, 12, 48) : "WARN",
+      codexWindowsMap
+        ? `${codexWindowsMap.graph?.metrics?.nodes || 0} nodes, ${codexWindowsMap.graph?.metrics?.edges || 0} edges, ${codexWindowsMap.summary?.focused_processes || 0} focused processes; ${formatAge(codexWindowsMapAge)} old`
+        : "run node tools/codex_windows_map/codex_windows_map.mjs snapshot --write",
+    ),
+  );
+
   const providerScoutFile = path.join(repoRoot, "outputs", "provider_scout", "provider-scout.json");
   const providerScoutStat = existsSync(providerScoutFile) ? statSync(providerScoutFile) : null;
   const providerScout = readJsonFile(providerScoutFile);

@@ -42,6 +42,10 @@ outputs/progress_audit/*.json
 outputs/progress_audit/*.md
 outputs/provider_scout/*.json
 outputs/provider_scout/*.md
+outputs/codex_windows_map/*.json
+outputs/codex_windows_map/*.md
+outputs/codex_windows_map/snapshots/*.json
+outputs/codex_windows_map/snapshots/*.md
 outputs/research_queue/*.jsonl
 outputs/local_inventory/*.json
 outputs/pdf_extracts/*

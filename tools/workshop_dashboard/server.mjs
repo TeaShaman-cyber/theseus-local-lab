@@ -122,6 +122,23 @@ function readProviderScout() {
   };
 }
 
+function readCodexWindowsMap() {
+  const latestPath = path.resolve(here, "..", "..", "outputs", "codex_windows_map", "latest.json");
+  const comparePath = path.resolve(here, "..", "..", "outputs", "codex_windows_map", "compare-latest.json");
+  if (!existsSync(latestPath)) {
+    return {
+      ok: false,
+      error: "Codex Windows map cache not found",
+      hint: "Run node tools/codex_windows_map/codex_windows_map.mjs snapshot --write",
+    };
+  }
+  return {
+    ok: true,
+    ...JSON.parse(readFileSync(latestPath, "utf8")),
+    latest_compare: existsSync(comparePath) ? JSON.parse(readFileSync(comparePath, "utf8")) : null,
+  };
+}
+
 function serveStatic(req, res) {
   const url = new URL(req.url, "http://localhost");
   const requested = url.pathname === "/" ? "/index.html" : url.pathname;
@@ -212,6 +229,14 @@ const server = http.createServer(async (req, res) => {
   if (url.pathname === "/api/provider-scout") {
     try {
       jsonResponse(res, 200, readProviderScout());
+    } catch (error) {
+      jsonResponse(res, 503, { ok: false, error: error.message });
+    }
+    return;
+  }
+  if (url.pathname === "/api/codex-windows-map") {
+    try {
+      jsonResponse(res, 200, readCodexWindowsMap());
     } catch (error) {
       jsonResponse(res, 503, { ok: false, error: error.message });
     }

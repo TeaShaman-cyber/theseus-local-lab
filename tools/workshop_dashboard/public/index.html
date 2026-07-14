@@ -21,6 +21,7 @@
       <a class="nav-link" href="#codex-system">Codex System</a>
       <a class="nav-link" href="#provider-scout">Provider Scout</a>
       <a class="nav-link" href="#sysinternals-scout">System Scout</a>
+      <a class="nav-link" href="#codex-windows-map">Windows Map</a>
       <button id="refresh" type="button">Refresh</button>
       <span id="updated" class="muted">loading</span>
     </div>
@@ -181,6 +182,38 @@
     <section class="full-panel">
       <h2>Network listeners and services</h2>
       <div id="sysinternals-network-list" class="checks"></div>
+    </section>
+  </section>
+
+  <section id="codex-windows-map-view" class="view hidden" aria-label="Codex Windows graph map">
+    <section class="summary compact-summary">
+      <div id="codex-windows-map-total" class="overall status-OK">...</div>
+      <div class="summary-text">
+        <h2>Codex Windows graph map</h2>
+        <p id="codex-windows-map-summary">Reading cached Codex Windows graph snapshot.</p>
+      </div>
+    </section>
+
+    <section class="split">
+      <div>
+        <h2>Graph metrics</h2>
+        <div id="codex-windows-map-metrics" class="checks"></div>
+      </div>
+      <div>
+        <h2>Focused processes</h2>
+        <div id="codex-windows-map-processes" class="checks"></div>
+      </div>
+    </section>
+
+    <section class="split">
+      <div>
+        <h2>DLL and file samples</h2>
+        <div id="codex-windows-map-samples" class="checks"></div>
+      </div>
+      <div>
+        <h2>Latest compare</h2>
+        <div id="codex-windows-map-compare" class="checks"></div>
+      </div>
     </section>
   </section>
 
