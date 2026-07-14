@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { appendFileSync, existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { collectUsageSnapshot } from "../usage_scout/usage_scout.mjs";
@@ -17,6 +17,9 @@ function parseArgs(argv) {
     goal: "",
     note: "",
     lens: "",
+    artifact: "",
+    deepReads: null,
+    memoryDraft: "",
     quality: "",
   };
 
@@ -28,6 +31,9 @@ function parseArgs(argv) {
     else if (item === "--goal") args.goal = argv[++i] || "";
     else if (item === "--note") args.note = argv[++i] || "";
     else if (item === "--lens") args.lens = argv[++i] || "";
+    else if (item === "--artifact") args.artifact = argv[++i] || "";
+    else if (item === "--deep-reads") args.deepReads = Number(argv[++i]);
+    else if (item === "--memory-draft") args.memoryDraft = argv[++i] || "";
     else if (item === "--quality") args.quality = argv[++i] || "";
   }
 
@@ -86,6 +92,16 @@ function lensSummary(filePath) {
   };
 }
 
+function artifactSummary(filePath) {
+  if (!filePath || !existsSync(filePath)) return null;
+  const stat = statSync(filePath);
+  return {
+    path: filePath,
+    bytes: stat.size,
+    modified_at: stat.mtime.toISOString(),
+  };
+}
+
 function trialPath(trial) {
   return path.join(outputDir, `${trial.replace(/[^a-z0-9_.-]+/giu, "-")}.json`);
 }
@@ -137,6 +153,9 @@ async function mark(args) {
     quality: args.quality,
     usage: usageSummary(snapshot),
     lens: lensSummary(args.lens),
+    artifact: artifactSummary(args.artifact),
+    deep_reads: Number.isFinite(args.deepReads) ? args.deepReads : null,
+    memory_draft: args.memoryDraft || "",
   };
   trial.delta = delta(trial.marks.start?.usage, trial.marks.end?.usage);
   const filePath = writeTrial(trial);
@@ -170,6 +189,9 @@ function report(args) {
       used_percent_delta: trial.delta?.used_percent_delta ?? null,
       session_total_tokens_delta: trial.delta?.session_total_tokens_delta ?? null,
       lens_ratio: trial.marks.start?.lens?.ratio ?? trial.marks.end?.lens?.ratio ?? null,
+      deep_reads: trial.marks.end?.deep_reads ?? trial.marks.start?.deep_reads ?? null,
+      artifact: trial.marks.end?.artifact?.path || trial.marks.start?.artifact?.path || "",
+      memory_draft: trial.marks.end?.memory_draft || trial.marks.start?.memory_draft || "",
       quality: trial.marks.end?.quality || "",
     },
   };
@@ -188,4 +210,4 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   });
 }
 
-export { delta, lensSummary, report, usageSummary };
+export { artifactSummary, delta, lensSummary, report, usageSummary };

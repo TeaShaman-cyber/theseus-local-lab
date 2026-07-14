@@ -5,7 +5,7 @@ import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 
-import { delta, lensSummary, usageSummary } from "./lens_usage_trial.mjs";
+import { artifactSummary, delta, lensSummary, usageSummary } from "./lens_usage_trial.mjs";
 
 test("summarizes the binding usage limit", () => {
   const summary = usageSummary({
@@ -56,6 +56,21 @@ test("summarizes source lens metrics", () => {
     assert.equal(summary.schema, "theseus.source_lens.v1");
     assert.equal(summary.source_count, 5);
     assert.equal(summary.ratio, 4);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("summarizes output artifacts without reading their contents", () => {
+  const dir = mkdtempSync(path.join(os.tmpdir(), "lens-usage-artifact-"));
+  const filePath = path.join(dir, "result.md");
+  try {
+    writeFileSync(filePath, "# Result\n", "utf8");
+
+    const summary = artifactSummary(filePath);
+    assert.equal(summary.path, filePath);
+    assert.equal(summary.bytes, 9);
+    assert.match(summary.modified_at, /^\d{4}-\d{2}-\d{2}T/);
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }

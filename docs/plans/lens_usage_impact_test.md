@@ -50,7 +50,7 @@ node tools/usage_scout/usage_scout.mjs
 node tools/source_lens/source_lens.mjs <source> --query "<goal>" --write --memory-draft
 node tools/ocr_lens/ocr_lens.mjs <document> --write
 node tools/lens_usage_trial/lens_usage_trial.mjs start --trial <id> --route lens --goal "<goal>" --lens outputs/source_lens/latest.json
-node tools/lens_usage_trial/lens_usage_trial.mjs end --trial <id> --route lens --quality "<quality note>" --lens outputs/source_lens/latest.json
+node tools/lens_usage_trial/lens_usage_trial.mjs end --trial <id> --route lens --quality "<quality note>" --lens outputs/source_lens/latest.json --artifact <result.md> --deep-reads <n>
 node tools/lens_usage_trial/lens_usage_trial.mjs report --trial <id>
 node tools/session_timeline/timeline.mjs add ...
 ```
@@ -61,6 +61,8 @@ Prefer `lens_usage_trial` for paired measurements. It records:
 - visible weekly-limit percent delta;
 - session cumulative token delta from the rollout stream;
 - lens compression metrics when a lens JSON path is supplied;
+- result artifact metadata without reading the artifact body;
+- deep-read count after the lens;
 - a quality note so reduced usage cannot count as success by itself.
 
 ## Success Criteria

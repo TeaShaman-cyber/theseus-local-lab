@@ -253,6 +253,12 @@
         "${input:lensUsageTrialGoal}",
         "--lens",
         "${input:lensUsageLensPath}",
+        "--artifact",
+        "${input:lensUsageArtifactPath}",
+        "--deep-reads",
+        "${input:lensUsageDeepReads}",
+        "--memory-draft",
+        "${input:lensUsageMemoryDraftPath}",
         "--quality",
         "${input:lensUsageQualityNote}",
         "--note",
@@ -1202,6 +1208,24 @@
       "id": "lensUsageTrialNote",
       "type": "promptString",
       "description": "Short observable note for this trial mark",
+      "default": ""
+    },
+    {
+      "id": "lensUsageArtifactPath",
+      "type": "promptString",
+      "description": "Optional result artifact produced by this trial",
+      "default": ""
+    },
+    {
+      "id": "lensUsageDeepReads",
+      "type": "promptString",
+      "description": "Number of deep source reads after the lens",
+      "default": "0"
+    },
+    {
+      "id": "lensUsageMemoryDraftPath",
+      "type": "promptString",
+      "description": "Optional memory draft created by this trial",
       "default": ""
     },
     {

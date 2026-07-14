@@ -36,6 +36,7 @@ outputs/source_lens/*.json
 outputs/source_lens/*.md
 outputs/lens_usage_trial/*.json
 outputs/lens_usage_trial/*.jsonl
+outputs/lens_usage_trial/*.md
 outputs/learning_loop/*.md
 outputs/learning_loop/*.json
 outputs/harness_errors/*.md
