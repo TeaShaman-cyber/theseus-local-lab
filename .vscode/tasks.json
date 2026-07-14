@@ -219,6 +219,60 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus Lens Usage Trial: start",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/lens_usage_trial/lens_usage_trial.mjs",
+        "start",
+        "--trial",
+        "${input:lensUsageTrialId}",
+        "--route",
+        "${input:lensUsageTrialRoute}",
+        "--goal",
+        "${input:lensUsageTrialGoal}",
+        "--lens",
+        "${input:lensUsageLensPath}",
+        "--note",
+        "${input:lensUsageTrialNote}"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Lens Usage Trial: end",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/lens_usage_trial/lens_usage_trial.mjs",
+        "end",
+        "--trial",
+        "${input:lensUsageTrialId}",
+        "--route",
+        "${input:lensUsageTrialRoute}",
+        "--goal",
+        "${input:lensUsageTrialGoal}",
+        "--lens",
+        "${input:lensUsageLensPath}",
+        "--quality",
+        "${input:lensUsageQualityNote}",
+        "--note",
+        "${input:lensUsageTrialNote}"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Lens Usage Trial: report",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/lens_usage_trial/lens_usage_trial.mjs",
+        "report",
+        "--trial",
+        "${input:lensUsageTrialId}"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus Harness Errors: scan",
       "type": "process",
       "command": "node",
@@ -1115,6 +1169,46 @@
       "type": "promptString",
       "description": "Question or goal used to rank the source lens reading route",
       "default": "codex windows provider failure usage limits"
+    },
+    {
+      "id": "lensUsageTrialId",
+      "type": "promptString",
+      "description": "Stable id for a lens usage A/B trial",
+      "default": "codex-issues-lens-001"
+    },
+    {
+      "id": "lensUsageTrialRoute",
+      "type": "pickString",
+      "description": "Trial route being measured",
+      "options": [
+        "lens",
+        "baseline"
+      ],
+      "default": "lens"
+    },
+    {
+      "id": "lensUsageTrialGoal",
+      "type": "promptString",
+      "description": "Short goal for the usage trial",
+      "default": "Analyze OpenAI Codex issue watch with Source Lens first"
+    },
+    {
+      "id": "lensUsageLensPath",
+      "type": "promptString",
+      "description": "Optional latest lens JSON path used in this trial",
+      "default": "outputs\\source_lens\\latest.json"
+    },
+    {
+      "id": "lensUsageTrialNote",
+      "type": "promptString",
+      "description": "Short observable note for this trial mark",
+      "default": ""
+    },
+    {
+      "id": "lensUsageQualityNote",
+      "type": "promptString",
+      "description": "Quality note after the trial, not just token savings",
+      "default": ""
     },
     {
       "id": "memoryHookSummary",

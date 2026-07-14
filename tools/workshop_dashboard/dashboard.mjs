@@ -399,6 +399,27 @@ async function buildDashboard() {
     ),
   );
 
+  const lensUsageTrialFile = path.join(repoRoot, "outputs", "lens_usage_trial", "latest.json");
+  const lensUsageTrialStat = existsSync(lensUsageTrialFile) ? statSync(lensUsageTrialFile) : null;
+  const lensUsageTrial = readJsonFile(lensUsageTrialFile);
+  const lensUsageTrialAge = lensUsageTrialStat ? relativeAge(lensUsageTrialStat.mtime, now) : null;
+  const lensUsageDelta = lensUsageTrial?.delta?.used_percent_delta;
+  const lensUsageStatus = lensUsageTrial
+    ? lensUsageTrial.marks?.start && !lensUsageTrial.marks?.end
+      ? "WARN"
+      : statusFromFreshness(lensUsageTrialAge, 24, 96)
+    : "WARN";
+  rows.push(
+    item(
+      "lens-usage-trial",
+      "Lens usage trial",
+      lensUsageStatus,
+      lensUsageTrial
+        ? `${lensUsageTrial.trial || "unknown"}; ${lensUsageTrial.route || "unknown"}; ${lensUsageDelta ?? "pending"} pp, ${lensUsageTrial.delta?.session_total_tokens_delta ?? "pending"} tokens; ${formatAge(lensUsageTrialAge)} old`
+        : "run node tools/lens_usage_trial/lens_usage_trial.mjs start --trial <id>",
+    ),
+  );
+
   const ocrLensFile = path.join(repoRoot, "outputs", "ocr_lens", "latest.json");
   const ocrLensStat = existsSync(ocrLensFile) ? statSync(ocrLensFile) : null;
   const ocrLens = readJsonFile(ocrLensFile);

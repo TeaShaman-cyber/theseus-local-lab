@@ -21,7 +21,7 @@ const groups = {
     label: "Process",
     x: 300,
     y: 300,
-    nodes: ["research-queue", "session-timeline", "model-runtime", "usage-scout", "ocr-lens", "source-lens"],
+    nodes: ["research-queue", "session-timeline", "model-runtime", "usage-scout", "lens-usage-trial", "ocr-lens", "source-lens"],
   },
   workspace: {
     label: "Workspace",

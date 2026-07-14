@@ -108,6 +108,16 @@ test("allows source lens as a known safe wrapper", () => {
   assert.equal(decision.reason, "known-safe-wrapper");
 });
 
+test("allows lens usage trial recorder as a known safe wrapper", () => {
+  const decision = evaluateAction({
+    surface: "shell",
+    command: "node tools/lens_usage_trial/lens_usage_trial.mjs start --trial codex-issues-lens-001",
+  });
+
+  assert.equal(decision.verdict, "allow");
+  assert.equal(decision.reason, "known-safe-wrapper");
+});
+
 test("allows learning-loop analyzer as a known safe wrapper", () => {
   const decision = evaluateAction({
     surface: "shell",

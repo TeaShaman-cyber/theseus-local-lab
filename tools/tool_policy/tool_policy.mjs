@@ -26,6 +26,7 @@ const safeWrappers = [
   /^node\s+tools[\\/]usage_scout[\\/]usage_scout\.mjs\b/i,
   /^node\s+tools[\\/]ocr_lens[\\/]ocr_lens\.mjs\b/i,
   /^node\s+tools[\\/]source_lens[\\/]source_lens\.mjs\b/i,
+  /^node\s+tools[\\/]lens_usage_trial[\\/]lens_usage_trial\.mjs\b/i,
   /^node\s+tools[\\/]tool_policy[\\/]route_ranker\.mjs\b/i,
   /^node\s+tools[\\/]vscode_bridge[\\/]bridge\.mjs\b/i,
   /^node\s+tools[\\/]workshop_dashboard[\\/]dashboard\.mjs\b/i,
