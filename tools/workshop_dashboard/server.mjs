@@ -5,6 +5,7 @@ import { createReadStream, existsSync } from "node:fs";
 import http from "node:http";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { buildTaskCatalog } from "./tasks.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const publicDir = path.join(here, "public");
@@ -90,6 +91,14 @@ const server = http.createServer(async (req, res) => {
       return;
     }
     jsonResponse(res, 200, result.dashboard);
+    return;
+  }
+  if (url.pathname === "/api/tasks") {
+    try {
+      jsonResponse(res, 200, buildTaskCatalog());
+    } catch (error) {
+      jsonResponse(res, 503, { ok: false, error: error.message });
+    }
     return;
   }
   serveStatic(req, res);

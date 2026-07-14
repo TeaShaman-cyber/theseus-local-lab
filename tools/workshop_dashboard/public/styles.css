@@ -89,6 +89,23 @@ button:hover {
   gap: 12px;
 }
 
+.nav-link {
+  color: var(--text);
+  text-decoration: none;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 8px 10px;
+  background: var(--panel);
+}
+
+.nav-link:hover {
+  border-color: var(--muted);
+}
+
+.hidden {
+  display: none !important;
+}
+
 .summary {
   grid-template-columns: auto 1fr;
   align-items: center;
@@ -128,6 +145,10 @@ button:hover {
 .summary-text {
   display: grid;
   gap: 6px;
+}
+
+.compact-summary {
+  margin-bottom: 16px;
 }
 
 .map-wrap {
@@ -218,11 +239,107 @@ svg {
   font-weight: 700;
 }
 
+.task-controls {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(180px, 280px);
+  gap: 12px;
+  margin: 20px 0 14px;
+}
+
+input,
+select {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--panel);
+  color: var(--text);
+  padding: 10px 12px;
+  font: inherit;
+}
+
+.task-groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.task-group {
+  display: grid;
+  gap: 5px;
+  text-align: left;
+  min-height: 92px;
+}
+
+.task-group span,
+.task-group small {
+  color: var(--muted);
+}
+
+.task-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 12px;
+}
+
+.task-card {
+  display: grid;
+  gap: 10px;
+  min-height: 196px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.task-card-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 10px;
+}
+
+.task-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.task-meta span {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  padding: 2px 8px;
+  font-size: 12px;
+}
+
+.task-card code {
+  display: block;
+  min-height: 48px;
+  max-height: 92px;
+  overflow: auto;
+  padding: 10px;
+  border-radius: 6px;
+  background: #0d1115;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.task-actions {
+  display: flex;
+  gap: 8px;
+  align-self: end;
+}
+
 @media (max-width: 760px) {
   .topbar,
   .summary,
   .split,
-  .check-row {
+  .check-row,
+  .task-controls {
     grid-template-columns: 1fr;
   }
 

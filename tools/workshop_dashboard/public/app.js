@@ -64,6 +64,8 @@ function byId(id) {
   return document.getElementById(id);
 }
 
+let taskCatalog = null;
+
 function renderMap(dashboard) {
   const svg = byId("map");
   const rows = dashboard.rows || [];
@@ -153,9 +155,13 @@ function render(dashboard) {
 async function refresh() {
   byId("refresh").disabled = true;
   try {
-    const response = await fetch("/api/dashboard", { cache: "no-store" });
-    const dashboard = await response.json();
-    render(dashboard);
+    if (location.hash === "#tasks") {
+      await refreshTasks();
+    } else {
+      const response = await fetch("/api/dashboard", { cache: "no-store" });
+      const dashboard = await response.json();
+      render(dashboard);
+    }
   } catch (error) {
     render({
       generated_at: new Date().toISOString(),
@@ -167,6 +173,125 @@ async function refresh() {
   }
 }
 
+function switchView() {
+  const showTasks = location.hash === "#tasks";
+  byId("status-view").classList.toggle("hidden", showTasks);
+  byId("tasks-view").classList.toggle("hidden", !showTasks);
+  byId("refresh").textContent = showTasks ? "Refresh tasks" : "Refresh";
+  refresh();
+}
+
+function taskKindClass(kind) {
+  if (kind === "check") return "status-OK";
+  if (kind === "action") return "status-WARN";
+  if (kind === "advisor") return "status-UNKNOWN";
+  return "status-UNKNOWN";
+}
+
+function escapeHtml(value) {
+  return String(value || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
+    const area = document.createElement("textarea");
+    area.value = text;
+    document.body.append(area);
+    area.select();
+    document.execCommand("copy");
+    area.remove();
+  }
+}
+
+function renderTaskGroups(catalog) {
+  byId("task-total").textContent = String(catalog.total || 0);
+  const groupSelect = byId("task-group");
+  const selected = groupSelect.value || "all";
+  groupSelect.innerHTML = '<option value="all">All groups</option>';
+  for (const group of catalog.groups || []) {
+    const option = document.createElement("option");
+    option.value = group.id;
+    option.textContent = `${group.label} (${group.count})`;
+    groupSelect.append(option);
+  }
+  groupSelect.value = [...groupSelect.options].some((option) => option.value === selected) ? selected : "all";
+
+  byId("task-groups").innerHTML = (catalog.groups || [])
+    .map(
+      (group) => `
+        <button class="task-group" type="button" data-group="${escapeHtml(group.id)}">
+          <strong>${escapeHtml(group.label)}</strong>
+          <span>${group.count} tasks</span>
+          <small>${group.checks} checks · ${group.actions} actions · ${group.advisors} advisors</small>
+        </button>
+      `,
+    )
+    .join("");
+}
+
+function renderTaskList() {
+  if (!taskCatalog) return;
+  const query = byId("task-filter").value.trim().toLowerCase();
+  const group = byId("task-group").value;
+  const tasks = (taskCatalog.tasks || []).filter((task) => {
+    const text = `${task.label} ${task.command} ${task.group_label} ${task.route_hint}`.toLowerCase();
+    return (group === "all" || task.group === group) && (!query || text.includes(query));
+  });
+
+  byId("task-list").innerHTML = tasks
+    .map(
+      (task) => `
+        <article class="task-card">
+          <div class="task-card-head">
+            <span class="pill ${taskKindClass(task.kind)}">${escapeHtml(task.kind)}</span>
+            <strong>${escapeHtml(task.label)}</strong>
+          </div>
+          <div class="task-meta">
+            <span>${escapeHtml(task.group_label)}</span>
+            <span>${escapeHtml(task.route_hint)}</span>
+            ${task.has_inputs ? "<span>needs input</span>" : "<span>no input</span>"}
+          </div>
+          <code>${escapeHtml(task.command || "(no command)")}</code>
+          <div class="task-actions">
+            <button type="button" data-copy-label="${escapeHtml(task.label)}">Copy label</button>
+            <button type="button" data-copy-command="${escapeHtml(task.command)}">Copy command</button>
+          </div>
+        </article>
+      `,
+    )
+    .join("");
+}
+
+async function refreshTasks() {
+  const response = await fetch("/api/tasks", { cache: "no-store" });
+  taskCatalog = await response.json();
+  byId("updated").textContent = new Date(taskCatalog.generated_at).toLocaleString();
+  renderTaskGroups(taskCatalog);
+  renderTaskList();
+}
+
 byId("refresh").addEventListener("click", refresh);
-refresh();
+byId("task-filter").addEventListener("input", renderTaskList);
+byId("task-group").addEventListener("change", renderTaskList);
+byId("task-groups").addEventListener("click", (event) => {
+  const button = event.target.closest("[data-group]");
+  if (!button) return;
+  byId("task-group").value = button.dataset.group;
+  renderTaskList();
+});
+byId("task-list").addEventListener("click", (event) => {
+  const labelButton = event.target.closest("[data-copy-label]");
+  if (labelButton) copyText(labelButton.dataset.copyLabel);
+  const commandButton = event.target.closest("[data-copy-command]");
+  if (commandButton) copyText(commandButton.dataset.copyCommand);
+});
+window.addEventListener("hashchange", switchView);
+if (!location.hash) location.hash = "#status";
+switchView();
 setInterval(refresh, 60_000);

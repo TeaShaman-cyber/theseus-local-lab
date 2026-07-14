@@ -14,35 +14,59 @@
       <h1>Workshop Dashboard</h1>
     </div>
     <div class="actions">
+      <a class="nav-link" href="#status">Status</a>
+      <a class="nav-link" href="#tasks">VS Code Tasks</a>
       <button id="refresh" type="button">Refresh</button>
       <span id="updated" class="muted">loading</span>
     </div>
   </header>
 
-  <section class="summary" aria-label="Overall workshop status">
-    <div id="overall" class="overall">...</div>
-    <div class="summary-text">
-      <h2 id="summary-title">Reading workshop state</h2>
-      <p id="summary-detail">Checking memory, Docker, backups, hooks, observability, and Git sync.</p>
-    </div>
+  <section id="status-view" class="view">
+    <section class="summary" aria-label="Overall workshop status">
+      <div id="overall" class="overall">...</div>
+      <div class="summary-text">
+        <h2 id="summary-title">Reading workshop state</h2>
+        <p id="summary-detail">Checking memory, Docker, backups, hooks, observability, and Git sync.</p>
+      </div>
+    </section>
+
+    <section class="map-wrap" aria-label="System status map">
+      <svg id="map" role="img" aria-labelledby="map-title map-desc" viewBox="0 0 920 420">
+        <title id="map-title">Theseus workshop system map</title>
+        <desc id="map-desc">A grouped status graph for memory, infrastructure, persistence, process, and workspace checks.</desc>
+      </svg>
+    </section>
+
+    <section class="split">
+      <div>
+        <h2>Warnings</h2>
+        <ul id="warnings" class="warning-list"></ul>
+      </div>
+      <div>
+        <h2>All checks</h2>
+        <div id="checks" class="checks"></div>
+      </div>
+    </section>
   </section>
 
-  <section class="map-wrap" aria-label="System status map">
-    <svg id="map" role="img" aria-labelledby="map-title map-desc" viewBox="0 0 920 420">
-      <title id="map-title">Theseus workshop system map</title>
-      <desc id="map-desc">A grouped status graph for memory, infrastructure, persistence, process, and workspace checks.</desc>
-    </svg>
-  </section>
+  <section id="tasks-view" class="view hidden" aria-label="VS Code task map">
+    <section class="summary compact-summary">
+      <div id="task-total" class="overall status-OK">...</div>
+      <div class="summary-text">
+        <h2>VS Code task panel</h2>
+        <p>Read-only map of project tasks. Use VS Code to run them; this page helps choose the right button.</p>
+      </div>
+    </section>
 
-  <section class="split">
-    <div>
-      <h2>Warnings</h2>
-      <ul id="warnings" class="warning-list"></ul>
-    </div>
-    <div>
-      <h2>All checks</h2>
-      <div id="checks" class="checks"></div>
-    </div>
+    <section class="task-controls">
+      <input id="task-filter" type="search" placeholder="Filter tasks...">
+      <select id="task-group">
+        <option value="all">All groups</option>
+      </select>
+    </section>
+
+    <section id="task-groups" class="task-groups"></section>
+    <section id="task-list" class="task-list"></section>
   </section>
 </main>
 <script src="/app.js"></script>

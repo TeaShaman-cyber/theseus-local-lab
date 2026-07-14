@@ -30,6 +30,17 @@ the same data as:
 http://127.0.0.1:5180/api/dashboard
 ```
 
+The `VS Code Tasks` tab maps `.vscode/tasks.json` into groups and task cards:
+
+```text
+http://127.0.0.1:5180/#tasks
+http://127.0.0.1:5180/api/tasks
+```
+
+This task view is intentionally read-only. It helps choose the right VS Code
+button without exposing a browser endpoint that can launch arbitrary local
+commands.
+
 ## Signals
 
 - AutoMem API health
