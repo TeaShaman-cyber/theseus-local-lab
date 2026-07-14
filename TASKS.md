@@ -1,6 +1,6 @@
 # Theseus Local Lab Kanban
 
-Updated: 2026-07-10
+Updated: 2026-07-15
 
 ## Inbox
 
@@ -60,6 +60,14 @@ Updated: 2026-07-10
     sync outward.
 
 ## Ready
+
+- [ ] P1 Run runtime resilience sea trial.
+  - Outcome: execute one small continuity task through AutoMem recall, route
+    choice, safe permission/tool denial, failure classification, evidence save,
+    `RETURN_TO_CYCLE`, and verification across Git/AutoMem/Deepnote.
+  - Tracks: `model_identity_drift`, `audit_context_cost`,
+    `premature_stop_after_formal_deliverable`.
+  - Plan: `docs/plans/runtime_resilience_sea_trial.md`.
 
 - [ ] P1 Verify cloud backup restore path.
   - Outcome: download or inspect a Google Drive-synced archive, read manifest,

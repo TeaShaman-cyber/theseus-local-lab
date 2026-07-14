@@ -99,6 +99,55 @@ workflow.
 foreignness -> boundary test -> evidence -> possible frame -> only then policy
 ```
 
+## Follow-Up From Shut
+
+Shut's response reframes this report as an architecture consistency review, not
+a runtime resilience audit. That distinction is accepted.
+
+The report proved that the invariant is readable and transferable: another
+agent could reconstruct `person + agent + workshop`, state outside the active
+window, secrets outside chat and repo, routes in skills/tasks/MCP/scripts,
+evidence in logs/tests/Git, blameless failure classification, and child episodes
+returning to the parent cycle.
+
+It did not prove that the workshop survives a controlled runtime disturbance.
+
+### Open Items
+
+- `OPEN: model_identity_drift`
+  - Evidence: the dashboard guard state reported `gpt-5.6-sol / medium`, while
+    the usage scout reported `gpt-5.5 / medium`.
+  - Needed: a source-of-truth rule or refresh path for runtime model identity.
+- `INVESTIGATE: audit_context_cost`
+  - Evidence: goal accounting reported `309734` tokens for a compact Deepnote
+    audit.
+  - Needed: separate tool-output cost, Deepnote-read cost, dashboard-check cost,
+    and narrative/finalization cost.
+- `ISSUE: premature_stop_after_formal_deliverable`
+  - Evidence: the user observed that after the model switched back, I often
+    stopped after a formal deliverable when a safe small continuation logically
+    followed.
+  - Needed: completion reflex should check whether a small safe continuation is
+    implied before finalizing.
+
+### Runtime Sea Trial
+
+The next audit should be operational:
+
+```text
+continuity task
+-> AutoMem recall
+-> route choice
+-> safe permission/tool denial
+-> failure class
+-> evidence saved
+-> RETURN_TO_CYCLE
+-> verify Git/AutoMem/Deepnote
+```
+
+This is the smallest useful test that turns the invariant from a readable
+architecture into a demonstrated recovery loop.
+
 ## Closing Note For Shut
 
 This audit says: your invariant is useful precisely because it does not collapse
