@@ -57,6 +57,37 @@ test("blocks Unix heredoc pasted into PowerShell Node route", () => {
   assert.ok(decision.routes.some((route) => route.includes("node -e")));
 });
 
+test("blocks nested WSL jq parsing from the Windows shell route", () => {
+  const decision = evaluateAction({
+    surface: "shell",
+    command: "wsl.exe bash -lc 'jq -c . ~/.codex/sessions/latest.jsonl'",
+  });
+
+  assert.equal(decision.verdict, "block");
+  assert.equal(decision.reason, "nested-shell-json-parser");
+  assert.ok(decision.routes.some((route) => route.includes("Node wrapper")));
+});
+
+test("allows the model-switch guard as a known safe wrapper", () => {
+  const decision = evaluateAction({
+    surface: "shell",
+    command: "node tools/model_switch_guard/model_switch_guard.mjs",
+  });
+
+  assert.equal(decision.verdict, "allow");
+  assert.equal(decision.reason, "known-safe-wrapper");
+});
+
+test("allows usage scout as a known safe wrapper", () => {
+  const decision = evaluateAction({
+    surface: "shell",
+    command: "node tools/usage_scout/usage_scout.mjs",
+  });
+
+  assert.equal(decision.verdict, "allow");
+  assert.equal(decision.reason, "known-safe-wrapper");
+});
+
 test("allows learning-loop analyzer as a known safe wrapper", () => {
   const decision = evaluateAction({
     surface: "shell",

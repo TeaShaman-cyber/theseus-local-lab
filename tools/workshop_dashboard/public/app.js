@@ -21,7 +21,7 @@ const groups = {
     label: "Process",
     x: 300,
     y: 300,
-    nodes: ["research-queue", "session-timeline"],
+    nodes: ["research-queue", "session-timeline", "model-runtime", "usage-scout"],
   },
   workspace: {
     label: "Workspace",
@@ -245,6 +245,8 @@ async function refresh() {
       await refreshCodexIssues();
     } else if (location.hash === "#codex-system") {
       await refreshCodexSystem();
+    } else if (location.hash === "#limits") {
+      await refreshUsageScout();
     } else if (location.hash === "#provider-scout") {
       await refreshProviderScout();
     } else if (location.hash === "#sysinternals-scout") {
@@ -272,14 +274,16 @@ function switchView() {
   const showGraph = location.hash === "#graph";
   const showCodexIssues = location.hash === "#codex-issues";
   const showCodexSystem = location.hash === "#codex-system";
+  const showLimits = location.hash === "#limits";
   const showProviderScout = location.hash === "#provider-scout";
   const showSysinternalsScout = location.hash === "#sysinternals-scout";
   const showCodexWindowsMap = location.hash === "#codex-windows-map";
-  byId("status-view").classList.toggle("hidden", showTasks || showGraph || showCodexIssues || showCodexSystem || showProviderScout || showSysinternalsScout || showCodexWindowsMap);
+  byId("status-view").classList.toggle("hidden", showTasks || showGraph || showCodexIssues || showCodexSystem || showLimits || showProviderScout || showSysinternalsScout || showCodexWindowsMap);
   byId("tasks-view").classList.toggle("hidden", !showTasks);
   byId("graph-view").classList.toggle("hidden", !showGraph);
   byId("codex-issues-view").classList.toggle("hidden", !showCodexIssues);
   byId("codex-system-view").classList.toggle("hidden", !showCodexSystem);
+  byId("limits-view").classList.toggle("hidden", !showLimits);
   byId("provider-scout-view").classList.toggle("hidden", !showProviderScout);
   byId("sysinternals-scout-view").classList.toggle("hidden", !showSysinternalsScout);
   byId("codex-windows-map-view").classList.toggle("hidden", !showCodexWindowsMap);
@@ -291,6 +295,8 @@ function switchView() {
         ? "Refresh issues"
         : showCodexSystem
           ? "Refresh system"
+          : showLimits
+            ? "Refresh limits"
           : showProviderScout
           ? "Refresh providers"
           : showSysinternalsScout
@@ -838,6 +844,53 @@ async function refreshProviderScout() {
   byId("provider-status-list").innerHTML = renderProviderStatus(payload);
   byId("provider-local-list").innerHTML = renderProviderLocal(payload);
   byId("provider-github-list").innerHTML = renderProviderGithub(payload);
+}
+
+function usageRow(label, value) {
+  return `<div class="check-row"><strong>${escapeHtml(label)}</strong><span class="muted">${escapeHtml(value ?? "unknown")}</span></div>`;
+}
+
+async function refreshUsageScout() {
+  const response = await fetch("/api/usage-scout", { cache: "no-store" });
+  const payload = await response.json();
+  if (!payload.ok) {
+    byId("limits-total").textContent = "!";
+    byId("limits-total").className = "overall status-WARN";
+    byId("limits-summary").textContent = payload.hint || payload.error || "No usage snapshot.";
+    return;
+  }
+
+  const binding = (payload.limits || []).find((limit) => limit.key === payload.derived?.binding_limit_key);
+  const used = binding?.used_percent;
+  const status = used >= 100 ? "FAIL" : used >= 90 ? "WARN" : "OK";
+  byId("limits-total").textContent = used === null || used === undefined ? "?" : `${used}%`;
+  byId("limits-total").className = `overall status-${status}`;
+  byId("limits-summary").textContent =
+    `${payload.codex?.model || "unknown"} / ${payload.codex?.reasoning_effort || "unknown"}; source ${payload.source}; observed ${new Date(payload.observed_at).toLocaleString()}.`;
+
+  byId("limits-window-list").innerHTML = (payload.limits || []).length
+    ? payload.limits.map((limit) => usageRow(
+        `${limit.window_minutes || "?"} min ${limit.wire_slot}`,
+        `${limit.used_percent ?? "?"}% used | ${limit.remaining_percent_derived ?? "?"}% left | reset ${limit.resets_at ? new Date(limit.resets_at).toLocaleString() : "unknown"}`,
+      )).join("")
+    : usageRow("Quota", "No limit snapshot in rollout");
+
+  const last = payload.tokens?.last_event || {};
+  byId("limits-token-list").innerHTML = [
+    usageRow("Last event total", last.total),
+    usageRow("Input", last.input),
+    usageRow("Cached input", last.cached_input),
+    usageRow("Output", last.output),
+    usageRow("Reasoning output", last.reasoning_output),
+    usageRow("Context window", payload.tokens?.model_context_window),
+  ].join("");
+
+  byId("limits-quality-list").innerHTML = [
+    usageRow("Snapshot", payload.quality?.complete_snapshot ? "complete" : "rollout fallback"),
+    usageRow("Shape changed", payload.quality?.shape_changed ? "yes" : "no"),
+    usageRow("Warnings", (payload.quality?.warnings || []).join(", ") || "none"),
+    usageRow("Interpretation", "Token activity is not a billing formula"),
+  ].join("");
 }
 
 byId("refresh").addEventListener("click", refresh);

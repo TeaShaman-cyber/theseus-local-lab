@@ -22,9 +22,12 @@ const safeWrappers = [
   /^node\s+tools[\\/]learning_loop[\\/]learning_loop\.mjs\b/i,
   /^node\s+tools[\\/]service_status[\\/]service_status\.mjs\b/i,
   /^node\s+tools[\\/]session_timeline[\\/]timeline\.mjs\b/i,
+  /^node\s+tools[\\/]model_switch_guard[\\/]model_switch_guard\.mjs\b/i,
+  /^node\s+tools[\\/]usage_scout[\\/]usage_scout\.mjs\b/i,
   /^node\s+tools[\\/]tool_policy[\\/]route_ranker\.mjs\b/i,
   /^node\s+tools[\\/]vscode_bridge[\\/]bridge\.mjs\b/i,
   /^node\s+tools[\\/]workshop_dashboard[\\/]dashboard\.mjs\b/i,
+  /^node\s+tools[\\/]workshop_dashboard[\\/]smoke\.mjs\b/i,
   /^node\s+tools[\\/]docker_control_plane[\\/](direct_bridge|bridge|smoke_direct_bridge)\.mjs\b/i,
 ];
 
@@ -108,6 +111,19 @@ export function evaluateAction(action = {}) {
       "Promote longer logic into a small checked-in .mjs wrapper.",
       "Use WSL bash only as an explicit route, not by pasting heredoc into PowerShell.",
     ]);
+  }
+
+  if (/^wsl(\.exe)?\s+bash\s+-lc\b/i.test(command) && /\bjq\b/i.test(command)) {
+    return decision(
+      "block",
+      "nested-shell-json-parser",
+      "Nested PowerShell-to-WSL JSON parsing is blocked because quoting failures are hard to observe and repeat.",
+      [
+        "Use a small checked-in Node wrapper for JSON or JSONL parsing.",
+        "Run a checked-in shell script directly inside WSL when Unix tooling is genuinely required.",
+        "Keep PowerShell as a thin launcher only.",
+      ],
+    );
   }
 
   if (/^git\s+add\s+(-A|--all|\.)(\s|$)/i.test(command)) {

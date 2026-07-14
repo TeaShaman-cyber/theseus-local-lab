@@ -351,6 +351,54 @@ async function buildDashboard() {
     ),
   );
 
+  const modelRuntimeFile = path.join(repoRoot, "outputs", "model_switch_guard", "state.json");
+  const modelRuntime = readJsonFile(modelRuntimeFile);
+  const modelRuntimeObservedAt = modelRuntime?.observed_at ? new Date(modelRuntime.observed_at) : null;
+  const modelRuntimeAge = modelRuntimeObservedAt ? relativeAge(modelRuntimeObservedAt, now) : null;
+  rows.push(
+    item(
+      "model-runtime",
+      "Model runtime",
+      modelRuntime ? statusFromFreshness(modelRuntimeAge, 12, 48) : "WARN",
+      modelRuntime
+        ? `${modelRuntime.model || "unknown"} / ${modelRuntime.reasoning_effort || "unknown"}; ${formatAge(modelRuntimeAge)} since preflight`
+        : "model-switch guard has not observed this runtime yet",
+    ),
+  );
+
+  const usageScoutFile = path.join(repoRoot, "outputs", "usage_scout", "latest.json");
+  const usageScout = readJsonFile(usageScoutFile);
+  const usageObservedAt = usageScout?.observed_at ? new Date(usageScout.observed_at) : null;
+  const usageAge = usageObservedAt ? relativeAge(usageObservedAt, now) : null;
+  const bindingLimit = usageScout?.limits?.find(
+    (limit) => limit.key === usageScout?.derived?.binding_limit_key,
+  );
+  const usagePercent = bindingLimit?.used_percent;
+  const usageStatus =
+    usagePercent >= 100 ? "FAIL" : usagePercent >= 90 ? "WARN" : statusFromFreshness(usageAge, 2, 8);
+  const usageDetail = usageScout
+    ? [
+        `${usageScout.codex?.model || "unknown"} / ${usageScout.codex?.reasoning_effort || "unknown"}`,
+        bindingLimit
+          ? `${bindingLimit.window_minutes || "?"}m: ${bindingLimit.used_percent ?? "?"}% used, ${bindingLimit.remaining_percent_derived ?? "?"}% left`
+          : "binding limit unknown",
+        `${formatAge(usageAge)} old`,
+        usageScout.source || "unknown source",
+      ].join("; ")
+    : "run node tools/usage_scout/usage_scout.mjs";
+  rows.push(
+    item(
+      "usage-scout",
+      "Codex usage scout",
+      usageScout
+        ? usageScout.quality?.warnings?.length
+          ? "WARN"
+          : usageStatus
+        : "WARN",
+      usageDetail,
+    ),
+  );
+
   const observatoryState = ["state.db", "state.db-shm", "state.db-wal"]
     .map((name) => {
       const filePath = path.join(repoRoot, "stateful-agent-net", "data", name);

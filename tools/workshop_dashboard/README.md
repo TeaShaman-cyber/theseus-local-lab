@@ -70,6 +70,24 @@ http://127.0.0.1:5180/api/codex-issues
 The dashboard never polls GitHub directly on every refresh. It only displays
 the latest local cache so the panel remains fast and rate-limit friendly.
 
+The `Limits` tab reads the rollout-backed Codex usage cache:
+
+```text
+node tools/usage_scout/usage_scout.mjs
+http://127.0.0.1:5180/#limits
+http://127.0.0.1:5180/api/usage-scout
+```
+
+The main status view warns at 90 percent usage and fails at 100 percent. Token
+activity remains separate from quota consumption and is not treated as a
+billing formula.
+
+After rebuilding the web container, verify the live user-visible surface with:
+
+```text
+node tools/workshop_dashboard/smoke.mjs
+```
+
 The `Codex System` tab reads a cached local system report:
 
 ```text

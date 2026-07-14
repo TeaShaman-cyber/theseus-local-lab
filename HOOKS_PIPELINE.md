@@ -14,9 +14,12 @@ integrations when the user asks or when a planned research pass starts.
 hook event
   -> hooks/hook-router.mjs
     -> PreCompact: tools/memory_hook/memory_hook.mjs --mode compact
-    -> UserPromptSubmit/PostToolUse or THESEUS_HOOK_RESEARCH=1:
+    -> UserPromptSubmit: tools/model_switch_guard/model_switch_guard.mjs
+       injects a preflight only after model/effort changes
+    -> PostToolUse or THESEUS_HOOK_RESEARCH=1:
        hooks/research-queue-hook.mjs
-    -> Stop: no-op by default, or checkpoint when THESEUS_HOOK_STOP_CHECKPOINT=1
+    -> Stop: tools/usage_scout/usage_scout.mjs refreshes local usage state
+       + checkpoint when THESEUS_HOOK_STOP_CHECKPOINT=1
   -> local outputs first
   -> Codex processes memory drafts / research queue / timeline later
 ```
@@ -64,13 +67,13 @@ statusMessage = "Routing Stop hook"
 
 Useful events for this project:
 
-- `UserPromptSubmit`: queue public research questions when routed through
-  `hook-router` or when `THESEUS_HOOK_RESEARCH=1` is set.
+- `UserPromptSubmit`: run the model-switch guard before the next agent turn.
 - `PostToolUse`: queue connector/browser follow-up when routed through
   `hook-router` or when `THESEUS_HOOK_RESEARCH=1` is set.
 - `PreCompact`: write a compact state packet through `tools/memory_hook`.
-- `Stop`: no-op by default to avoid queue noise; set
-  `THESEUS_HOOK_STOP_CHECKPOINT=1` only when end-of-turn checkpoints are needed.
+- `Stop`: refresh the rollout-backed usage snapshot; set
+  `THESEUS_HOOK_STOP_CHECKPOINT=1` when an additional memory checkpoint is
+  needed.
 
 Keep lifecycle hooks fail-soft and non-blocking. Add blocking hooks only after a
 route proves useful, quiet, and safe under real Codex restarts.
@@ -114,5 +117,5 @@ Optional environment variables:
 Official Codex docs describe hooks as deterministic lifecycle scripts and list
 common locations, event names, trust review, and inline TOML structure:
 
-- https://developers.openai.com/codex/hooks
-- https://developers.openai.com/codex/config-advanced
+- [Codex hooks](https://developers.openai.com/codex/hooks)
+- [Advanced Codex configuration](https://developers.openai.com/codex/config-advanced)

@@ -19,6 +19,7 @@
       <a class="nav-link" href="#graph">Task Graph</a>
       <a class="nav-link" href="#codex-issues">Codex Issues</a>
       <a class="nav-link" href="#codex-system">Codex System</a>
+      <a class="nav-link" href="#limits">Limits</a>
       <a class="nav-link" href="#provider-scout">Provider Scout</a>
       <a class="nav-link" href="#sysinternals-scout">System Scout</a>
       <a class="nav-link" href="#codex-windows-map">Windows Map</a>
@@ -240,6 +241,32 @@
     <section class="full-panel">
       <h2>GitHub field signals</h2>
       <div id="provider-github-list" class="checks"></div>
+    </section>
+  </section>
+
+  <section id="limits-view" class="view hidden" aria-label="Codex limits and token activity">
+    <section class="summary compact-summary">
+      <div id="limits-total" class="overall status-WARN">...</div>
+      <div class="summary-text">
+        <h2>Codex limits</h2>
+        <p id="limits-summary">Reading the latest local usage snapshot.</p>
+      </div>
+    </section>
+
+    <section class="split">
+      <div>
+        <h2>Quota windows</h2>
+        <div id="limits-window-list" class="checks"></div>
+      </div>
+      <div>
+        <h2>Token activity</h2>
+        <div id="limits-token-list" class="checks"></div>
+      </div>
+    </section>
+
+    <section class="full-panel">
+      <h2>Source quality</h2>
+      <div id="limits-quality-list" class="checks"></div>
     </section>
   </section>
 </main>

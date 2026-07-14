@@ -112,26 +112,34 @@ if (shouldQueueResearch(event)) {
   process.exit(0);
 }
 
-if (event === "Stop" && shouldCheckpointStop()) {
-  const result = runNode(
-    [
-      "tools/memory_hook/memory_hook.mjs",
-      "--mode",
-      "checkpoint",
-      "--summary",
-      "Codex Stop lifecycle hook checkpoint",
-      "--tag",
-      "codex-hook",
-      "--tag",
-      "stop",
-      "--stdin",
-    ],
-    hookInput,
-  );
+if (event === "Stop") {
+  const usageResult = runNode(["tools/usage_scout/usage_scout.mjs"], hookInput);
+  const checkpointResult = shouldCheckpointStop()
+    ? runNode(
+        [
+          "tools/memory_hook/memory_hook.mjs",
+          "--mode",
+          "checkpoint",
+          "--summary",
+          "Codex Stop lifecycle hook checkpoint",
+          "--tag",
+          "codex-hook",
+          "--tag",
+          "stop",
+          "--stdin",
+        ],
+        hookInput,
+      )
+    : null;
+  const ok = usageResult.status === 0 && (!checkpointResult || checkpointResult.status === 0);
+  const result = {
+    stdout: [usageResult.stdout, checkpointResult?.stdout].filter(Boolean).join("\n"),
+    stderr: [usageResult.stderr, checkpointResult?.stderr].filter(Boolean).join("\n"),
+  };
   response({
-    ok: result.status === 0,
-    route: "memory-hook:checkpoint",
-    statusMessage: result.status === 0 ? "Stop checkpoint written." : "Stop checkpoint failed softly.",
+    ok,
+    route: checkpointResult ? "usage-scout+memory-hook:checkpoint" : "usage-scout",
+    statusMessage: ok ? "Usage snapshot refreshed." : "Stop observability hook failed softly.",
     result,
   });
   process.exit(0);

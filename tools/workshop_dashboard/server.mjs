@@ -122,6 +122,21 @@ function readProviderScout() {
   };
 }
 
+function readUsageScout() {
+  const filePath = path.resolve(here, "..", "..", "outputs", "usage_scout", "latest.json");
+  if (!existsSync(filePath)) {
+    return {
+      ok: false,
+      error: "Codex usage snapshot not found",
+      hint: "Run node tools/usage_scout/usage_scout.mjs",
+    };
+  }
+  return {
+    ok: true,
+    ...JSON.parse(readFileSync(filePath, "utf8")),
+  };
+}
+
 function readCodexWindowsMap() {
   const latestPath = path.resolve(here, "..", "..", "outputs", "codex_windows_map", "latest.json");
   const comparePath = path.resolve(here, "..", "..", "outputs", "codex_windows_map", "compare-latest.json");
@@ -229,6 +244,14 @@ const server = http.createServer(async (req, res) => {
   if (url.pathname === "/api/provider-scout") {
     try {
       jsonResponse(res, 200, readProviderScout());
+    } catch (error) {
+      jsonResponse(res, 503, { ok: false, error: error.message });
+    }
+    return;
+  }
+  if (url.pathname === "/api/usage-scout") {
+    try {
+      jsonResponse(res, 200, readUsageScout());
     } catch (error) {
       jsonResponse(res, 503, { ok: false, error: error.message });
     }

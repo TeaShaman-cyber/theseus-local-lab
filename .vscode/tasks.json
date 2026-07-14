@@ -175,6 +175,15 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus Usage Scout: snapshot",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/usage_scout/usage_scout.mjs"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus Harness Errors: scan",
       "type": "process",
       "command": "node",
