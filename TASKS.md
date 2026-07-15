@@ -61,6 +61,14 @@ Updated: 2026-07-15
 
 ## Ready
 
+- [ ] P2 Add Graphify harness pilot task.
+  - Outcome: create a repeatable wrapper or VS Code task that builds a sanitized
+    corpus outside ignored repo paths, runs `graphify extract --code-only`, runs
+    smoke queries, and writes a compact summary.
+  - Guardrail: do not run `graphify install`; do not modify `AGENTS.md`, Codex
+    hooks, Git hooks, or secret-bearing files.
+  - Pilot: `docs/research/graphify_pilot_2026-07-15.md`.
+
 - [ ] P1 Run runtime resilience sea trial.
   - Outcome: execute one small continuity task through AutoMem recall, route
     choice, safe permission/tool denial, failure classification, evidence save,
