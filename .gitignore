@@ -54,6 +54,8 @@ outputs/provider_scout/*.json
 outputs/provider_scout/*.md
 outputs/graphify_harness/*.json
 outputs/graphify_harness/*.md
+outputs/chat_corpus_lens/*.json
+outputs/chat_corpus_lens/*.md
 outputs/codex_windows_map/*.json
 outputs/codex_windows_map/*.md
 outputs/codex_windows_map/snapshots/*.json

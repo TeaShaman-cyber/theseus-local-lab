@@ -470,6 +470,26 @@ async function buildDashboard() {
     ),
   );
 
+  const chatCorpusLensFile = path.join(repoRoot, "outputs", "chat_corpus_lens", "latest.json");
+  const chatCorpusLensStat = existsSync(chatCorpusLensFile) ? statSync(chatCorpusLensFile) : null;
+  const chatCorpusLens = readJsonFile(chatCorpusLensFile);
+  const chatCorpusLensAge = chatCorpusLensStat ? relativeAge(chatCorpusLensStat.mtime, now) : null;
+  rows.push(
+    item(
+      "chat-corpus-lens",
+      "Chat corpus lens",
+      chatCorpusLens ? statusFromFreshness(chatCorpusLensAge, 48, 168) : "WARN",
+      chatCorpusLens
+        ? [
+            chatCorpusLens.source?.chat_title || chatCorpusLens.source?.filename || "chat",
+            `${chatCorpusLens.extraction?.messages ?? "?"} messages`,
+            `${chatCorpusLens.compression?.source_to_lens_ratio ?? "?"}x`,
+            `${formatAge(chatCorpusLensAge)} old`,
+          ].join("; ")
+        : "run Theseus Chat Corpus Lens: Strazh trial",
+    ),
+  );
+
   const ocrLensFile = path.join(repoRoot, "outputs", "ocr_lens", "latest.json");
   const ocrLensStat = existsSync(ocrLensFile) ? statSync(ocrLensFile) : null;
   const ocrLens = readJsonFile(ocrLensFile);
