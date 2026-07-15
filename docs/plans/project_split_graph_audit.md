@@ -60,16 +60,47 @@ flowchart LR
   duplicated memory routes.
 - Docker bridge: document current Windows API status and a WSL-safe route before
   enabling any always-on WSL bridge.
+- Skills and hooks: audit both project-local and `C:\Users\s.poklad\.codex`
+  configs for hardcoded monolith paths, old Docker bridges, and stale memory
+  routes before switching the agent runtime to WSL.
 
 ## Docker API Bridge Finding
 
 Windows Docker API currently responds on `http://127.0.0.1:2375/_ping` and the
 Windows Docker CLI can use `DOCKER_HOST=tcp://127.0.0.1:2375`.
 
-WSL cannot reach that same address because `127.0.0.1` resolves inside WSL.
-`host.docker.internal:2375` and the WSL nameserver did not connect during the
-initial probe. A future WSL bridge should use a deliberately scoped Windows
-portproxy or small local bridge rather than exposing Docker broadly.
+WSL cannot reach that raw daemon address because `127.0.0.1` resolves inside
+WSL. `host.docker.internal:2375` and the WSL nameserver did not connect during
+the initial probe.
+
+The Docker socket proxy prototype in `D:\theseus-observatory` does work from
+WSL at `http://127.0.0.1:23760` and blocks write operations with `403`. This is
+the preferred read-only diagnostic bridge for WSL agents.
+
+## Docker Proxy Research Update
+
+See `docs/research/docker_wsl_agent_proxy_research_2026-07-16.md`.
+
+Current recommendation:
+
+- keep raw `tcp://127.0.0.1:2375` as a Windows-local legacy bridge only;
+- use `D:\theseus-observatory\docker-proxy-lattice` for read-heavy WSL/agent
+  diagnostics;
+- keep privileged actions behind the Theseus Docker MCP/control-plane;
+- optionally deploy Portainer CE as a human-facing Web UI, not as the narrow
+  agent permission layer.
+
+## Current Audit Findings
+
+- `C:\Users\s.poklad\.codex\hooks.json` and project `.codex/hooks.json` still
+  point to the monolith hook-router path. This is acceptable while the monolith
+  remains the active harness, but it is not portable to WSL without a wrapper or
+  generated config.
+- `C:\Users\s.poklad\.codex\config.toml` still contains monolith paths for
+  AutoMem MCP and Docker control-plane MCP.
+- Some knowledge-tool README examples still point to old
+  `C:\Users\s.poklad\Documents\Codex\2026-07-08` corpus paths. Those tools are
+  now fallback-only in the monolith and active in `D:\theseus-knowledge-base`.
 
 ## ACL Preparation
 

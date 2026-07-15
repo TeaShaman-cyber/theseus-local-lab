@@ -7,7 +7,7 @@ import { evaluateAction, rankRoutes, applyVerification } from "./tool_policy.mjs
 test("blocks raw Docker shell commands and routes to Docker MCP or VS Code task", () => {
   const decision = evaluateAction({
     surface: "shell",
-    command: "docker compose -f backup-lattice/docker-compose.yml logs --tail=40 backup-runner",
+    command: "docker compose -f D:/theseus-backup/backup-lattice/docker-compose.yml logs --tail=40 backup-runner",
   });
 
   assert.equal(decision.verdict, "block");
@@ -222,6 +222,16 @@ test("allows provider scout as a known safe wrapper", () => {
   const decision = evaluateAction({
     surface: "shell",
     command: "node tools/provider_scout/provider_scout.mjs --write",
+  });
+
+  assert.equal(decision.verdict, "allow");
+  assert.equal(decision.reason, "known-safe-wrapper");
+});
+
+test("allows Docker proxy probe as a known safe wrapper", () => {
+  const decision = evaluateAction({
+    surface: "shell",
+    command: "node D:/theseus-observatory/tools/docker_proxy_probe/docker_proxy_probe.mjs",
   });
 
   assert.equal(decision.verdict, "allow");

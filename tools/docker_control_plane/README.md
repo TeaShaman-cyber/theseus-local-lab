@@ -11,6 +11,19 @@ Current preferred path: Docker Desktop exposes its daemon on
 `tcp://127.0.0.1:2375`, and Codex uses a small allowlisted stdio MCP server that
 sets `DOCKER_HOST` to that TCP endpoint.
 
+Important: treat raw `2375` as a Windows-local legacy bridge, not the durable
+agent contract. Docker's own documentation warns that unauthenticated TCP daemon
+access can become root-equivalent host access if exposed outside an isolated
+local boundary.
+
+For WSL migration, prefer an allowlisted layer:
+
+- read-heavy diagnostics through
+  `D:\theseus-observatory\docker-proxy-lattice` on `http://127.0.0.1:23760`;
+- privileged actions through this Theseus Docker MCP/control plane;
+- Portainer CE as an optional human-facing Web UI, not the minimal agent
+  permission layer.
+
 Fallback path: if TCP exposure is disabled later, run `daemon.mjs` in the normal
 user context and connect Codex through `bridge.mjs`.
 

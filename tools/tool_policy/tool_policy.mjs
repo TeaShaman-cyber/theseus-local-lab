@@ -20,6 +20,7 @@ const safeWrappers = [
   /^node\s+tools[\\/]sysinternals_scout[\\/]install_sysinternals\.mjs\b/i,
   /^node\s+tools[\\/]sysinternals_scout[\\/]sysinternals_scout\.mjs\b/i,
   /^node\s+tools[\\/]codex_windows_map[\\/]codex_windows_map\.mjs\b/i,
+  /^node\s+D:[\\/]theseus-observatory[\\/]tools[\\/]docker_proxy_probe[\\/]docker_proxy_probe\.mjs\b/i,
   /^node\s+tools[\\/]learning_loop[\\/]learning_loop\.mjs\b/i,
   /^node\s+tools[\\/]service_status[\\/]service_status\.mjs\b/i,
   /^node\s+tools[\\/]session_timeline[\\/]timeline\.mjs\b/i,
