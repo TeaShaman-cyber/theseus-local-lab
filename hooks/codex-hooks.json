@@ -38,6 +38,19 @@
           }
         ]
       }
+    ],
+    "PostCompact": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:\\Users\\s.poklad\\Documents\\Codex\\2026-07-08\\life-science-research-plugin-life-science-4\\hooks\\hook-router.mjs\" --event PostCompact",
+            "timeout": 10,
+            "statusMessage": "Routing Theseus PostCompact hook"
+          }
+        ]
+      }
     ]
   }
 }
