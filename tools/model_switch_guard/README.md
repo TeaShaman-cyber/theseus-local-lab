@@ -14,3 +14,10 @@ observation or a change it:
 - stays silent on later prompts while the runtime remains stable.
 
 The state file is operational output and must not be committed.
+
+If the hook misses a runtime change after an app update or model switch, refresh
+the state from the latest usage scout snapshot:
+
+```text
+node tools/model_switch_guard/model_switch_guard.mjs --sync-from-usage-scout
+```

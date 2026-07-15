@@ -1,0 +1,35 @@
+{
+  "harness": {
+    "description": "Theseus harness, dashboard, routing, memory-hook, and task surface.",
+    "items": [
+      "tools/tool_policy",
+      "tools/workshop_dashboard",
+      "tools/source_lens",
+      "tools/session_timeline",
+      "tools/memory_hook",
+      "tools/git_safety",
+      "tools/harness_errors",
+      ".agents/skills",
+      ".vscode/tasks.json",
+      "AGENTS.md",
+      "TASKS.md"
+    ]
+  },
+  "memory": {
+    "description": "Memory-stack code and lightweight docs. External AutoMem data remains out of scope until an importer exists.",
+    "items": [
+      "tools/memory_hook",
+      ".agents/skills/theseus-memory-stack",
+      "docs/research/graphify_reviews_2026-07-15.md"
+    ]
+  },
+  "observatory": {
+    "description": "Local observatory code, status surfaces, and research notes already committed to the repo.",
+    "items": [
+      "tools/workshop_dashboard",
+      "tools/service_status",
+      "docs/research",
+      "TASKS.md"
+    ]
+  }
+}

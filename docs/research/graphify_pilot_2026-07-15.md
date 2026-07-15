@@ -217,15 +217,22 @@ Implemented:
 - ignored summaries under `outputs/graphify_harness/*.md` and
   `outputs/graphify_harness/*.json`
 
+Related review note:
+
+- `docs/research/graphify_reviews_2026-07-15.md`
+
 The wrapper:
 
 - reuses or bootstraps an isolated Graphify venv;
 - uses Codex bundled Python 3.12 when available;
 - builds a sanitized corpus outside ignored repo paths;
+- supports scoped corpus profiles from
+  `tools/graphify_harness/corpus_profiles.json`;
 - runs `graphify extract --code-only`;
 - runs fixed smoke checks: query, explain, path, diagnose;
 - writes JSONL progress events to stderr;
-- writes `latest.md` and `latest.json` summaries;
+- writes profile-specific `latest_<profile>.md` and
+  `latest_<profile>.json` summaries;
 - never calls `graphify install`;
 - never modifies `AGENTS.md`, hooks, or Git config.
 
@@ -235,8 +242,8 @@ Runtime proof:
 status: ok
 nodes: 217
 edges: 493
-summary: outputs\graphify_harness\graphify_harness_2026-07-15T052403Z.md
-latest: outputs\graphify_harness\latest.md
+summary: outputs\graphify_harness\graphify_harness_harness_2026-07-15T054216Z.md
+latest: outputs\graphify_harness\latest_harness.md
 ```
 
 The workshop task graph now classifies this as:

@@ -13,30 +13,13 @@ const repoRoot = path.resolve(here, "..", "..");
 const graphifyVersion = env.GRAPHIFY_VERSION || "0.9.16";
 const graphifyPackage = `graphifyy==${graphifyVersion}`;
 const pilotRoot = env.GRAPHIFY_PILOT_ROOT || path.resolve(repoRoot, "..", "graphify-theseus-pilot");
-const corpusDir = path.join(pilotRoot, "corpus");
-const outRoot = path.join(pilotRoot, "out");
-const graphDir = path.join(outRoot, "graphify-out");
-const graphPath = path.join(graphDir, "graph.json");
 const outputDir = path.join(repoRoot, "outputs", "graphify_harness");
 const venvDir = env.GRAPHIFY_VENV || path.join(repoRoot, "work", "graphify-pilot", "venv-codex");
 const graphifyExe = path.join(venvDir, process.platform === "win32" ? "Scripts" : "bin", process.platform === "win32" ? "graphify.exe" : "graphify");
 const pythonExe = path.join(venvDir, process.platform === "win32" ? "Scripts" : "bin", process.platform === "win32" ? "python.exe" : "python");
+const profilesPath = path.join(here, "corpus_profiles.json");
 
 const reporter = createProgressReporter({ operation: "graphify_harness" });
-
-const corpusItems = [
-  "tools/tool_policy",
-  "tools/workshop_dashboard",
-  "tools/source_lens",
-  "tools/session_timeline",
-  "tools/memory_hook",
-  "tools/git_safety",
-  "tools/harness_errors",
-  ".agents/skills",
-  ".vscode/tasks.json",
-  "AGENTS.md",
-  "TASKS.md",
-];
 
 function run(command, args, options = {}) {
   const result = spawnSync(command, args, {
@@ -64,13 +47,26 @@ function fail(message, details = {}) {
 }
 
 function parseArgs(argv) {
-  const args = { ensure: true };
+  const args = { ensure: true, profile: env.GRAPHIFY_PROFILE || "harness" };
   for (let i = 0; i < argv.length; i += 1) {
     const item = argv[i];
     if (item === "--no-install") args.ensure = false;
     if (item === "--pilot-root") args.pilotRoot = argv[++i];
+    if (item === "--profile") args.profile = argv[++i];
   }
   return args;
+}
+
+function loadProfile(name) {
+  const profiles = JSON.parse(readFileSync(profilesPath, "utf8"));
+  const profile = profiles[name];
+  if (!profile) {
+    fail("Unknown Graphify corpus profile", { profile: name, available: Object.keys(profiles) });
+  }
+  if (!Array.isArray(profile.items) || !profile.items.length) {
+    fail("Graphify corpus profile has no items", { profile: name });
+  }
+  return { name, ...profile };
 }
 
 function candidatePythons() {
@@ -138,7 +134,7 @@ function ensureGraphify() {
   return { installed: true, reused: false, version: version.stdout.trim() };
 }
 
-function copyIntoCorpus(sourceRelative) {
+function copyIntoCorpus(sourceRelative, corpusDir) {
   const source = path.join(repoRoot, sourceRelative);
   if (!existsSync(source)) return { source: sourceRelative, copied: false, reason: "missing" };
   const destination = path.join(corpusDir, sourceRelative);
@@ -148,13 +144,13 @@ function copyIntoCorpus(sourceRelative) {
   return { source: sourceRelative, copied: true };
 }
 
-function buildCorpus() {
+function buildCorpus(profile, corpusDir) {
   rmSync(corpusDir, { recursive: true, force: true });
   mkdirSync(corpusDir, { recursive: true });
-  return corpusItems.map(copyIntoCorpus);
+  return profile.items.map((item) => copyIntoCorpus(item, corpusDir));
 }
 
-function readGraphStats() {
+function readGraphStats(graphPath) {
   const graph = JSON.parse(readFileSync(graphPath, "utf8"));
   const relations = {};
   for (const edge of graph.edges || graph.links || []) {
@@ -176,15 +172,20 @@ function runGraphify(args, phase) {
   return result;
 }
 
-function writeSummary({ install, copied, extract, query, explain, pathResult, diagnose, stats }) {
+function writeSummary({ install, profile, copied, extract, query, explain, pathResult, diagnose, stats, corpusDir, graphPath }) {
   mkdirSync(outputDir, { recursive: true });
   const stamp = new Date().toISOString().replaceAll(":", "").replace(/\.\d{3}Z$/, "Z");
-  const jsonPath = path.join(outputDir, `graphify_harness_${stamp}.json`);
-  const mdPath = path.join(outputDir, `graphify_harness_${stamp}.md`);
-  const latestJsonPath = path.join(outputDir, "latest.json");
-  const latestMdPath = path.join(outputDir, "latest.md");
+  const jsonPath = path.join(outputDir, `graphify_harness_${profile.name}_${stamp}.json`);
+  const mdPath = path.join(outputDir, `graphify_harness_${profile.name}_${stamp}.md`);
+  const latestJsonPath = path.join(outputDir, `latest_${profile.name}.json`);
+  const latestMdPath = path.join(outputDir, `latest_${profile.name}.md`);
   const payload = {
     generated_at: new Date().toISOString(),
+    profile: {
+      name: profile.name,
+      description: profile.description || "",
+      items: profile.items,
+    },
     graphify: install,
     pilot_root: pilotRoot,
     corpus_dir: corpusDir,
@@ -209,7 +210,7 @@ function writeSummary({ install, copied, extract, query, explain, pathResult, di
     .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
     .map(([relation, count]) => `- ${relation}: ${count}`)
     .join("\n");
-  const md = `# Graphify Harness Lens\n\nGenerated: ${payload.generated_at}\n\n## Result\n\n- Graphify: ${install.version}${install.reused ? " (reused venv)" : " (installed)"}\n- Nodes: ${stats.nodes}\n- Edges: ${stats.edges}\n- Graph format: ${stats.format}\n- Graph path: ${graphPath}\n\n## Relations\n\n${relationRows}\n\n## Smoke Query\n\n\`\`\`text\n${query.stdout.trim()}\n\`\`\`\n\n## Explain buildDashboard()\n\n\`\`\`text\n${explain.stdout.trim()}\n\`\`\`\n\n## Path buildDashboard() -> scan_staged.mjs\n\n\`\`\`text\n${pathResult.stdout.trim()}\n\`\`\`\n\n## Diagnose\n\n\`\`\`json\n${diagnose.stdout.trim()}\n\`\`\`\n`;
+  const md = `# Graphify Harness Lens\n\nGenerated: ${payload.generated_at}\n\n## Profile\n\n- Name: ${profile.name}\n- Description: ${profile.description || ""}\n\n## Result\n\n- Graphify: ${install.version}${install.reused ? " (reused venv)" : " (installed)"}\n- Nodes: ${stats.nodes}\n- Edges: ${stats.edges}\n- Graph format: ${stats.format}\n- Graph path: ${graphPath}\n\n## Relations\n\n${relationRows}\n\n## Smoke Query\n\n\`\`\`text\n${query.stdout.trim()}\n\`\`\`\n\n## Explain buildDashboard()\n\n\`\`\`text\n${explain.stdout.trim()}\n\`\`\`\n\n## Path buildDashboard() -> scan_staged.mjs\n\n\`\`\`text\n${pathResult.stdout.trim()}\n\`\`\`\n\n## Diagnose\n\n\`\`\`json\n${diagnose.stdout.trim()}\n\`\`\`\n`;
   writeFileSync(mdPath, md);
   writeFileSync(latestMdPath, md);
   return { jsonPath, mdPath, latestJsonPath, latestMdPath };
@@ -220,16 +221,21 @@ function main() {
   if (parsed.pilotRoot) {
     fail("--pilot-root is reserved for a future version; use GRAPHIFY_PILOT_ROOT for now");
   }
-  reporter.heartbeat("start", "starting Graphify harness lens", { pilot_root: pilotRoot });
+  const profile = loadProfile(parsed.profile);
+  const corpusDir = path.join(pilotRoot, profile.name, "corpus");
+  const outRoot = path.join(pilotRoot, profile.name, "out");
+  const graphDir = path.join(outRoot, "graphify-out");
+  const graphPath = path.join(graphDir, "graph.json");
+  reporter.heartbeat("start", "starting Graphify harness lens", { pilot_root: pilotRoot, profile: profile.name });
   const install = parsed.ensure ? ensureGraphify() : { installed: existsSync(graphifyExe), reused: true, version: "unknown" };
   if (!install.installed) fail("Graphify executable is missing and --no-install was set", { graphifyExe });
 
-  reporter.heartbeat("corpus", "copying sanitized corpus", { items: corpusItems.length });
-  const copied = buildCorpus();
+  reporter.heartbeat("corpus", "copying sanitized corpus", { profile: profile.name, items: profile.items.length });
+  const copied = buildCorpus(profile, corpusDir);
   rmSync(outRoot, { recursive: true, force: true });
 
   const extract = runGraphify(["extract", corpusDir, "--code-only", "--out", outRoot, "--no-cluster"], "extract");
-  const stats = readGraphStats();
+  const stats = readGraphStats(graphPath);
   const query = runGraphify(
     ["query", "what connects dashboard to git status", "--graph", graphPath, "--budget", "1200"],
     "query",
@@ -237,7 +243,7 @@ function main() {
   const explain = runGraphify(["explain", "buildDashboard()", "--graph", graphPath], "explain");
   const pathResult = runGraphify(["path", "buildDashboard()", "scan_staged.mjs", "--graph", graphPath], "path");
   const diagnose = runGraphify(["diagnose", "multigraph", "--graph", graphPath, "--json"], "diagnose");
-  const summary = writeSummary({ install, copied, extract, query, explain, pathResult, diagnose, stats });
+  const summary = writeSummary({ install, profile, copied, extract, query, explain, pathResult, diagnose, stats, corpusDir, graphPath });
   reporter.done("Graphify harness lens completed", {
     nodes: stats.nodes,
     edges: stats.edges,

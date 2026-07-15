@@ -642,6 +642,16 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus: Model runtime sync from usage scout",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/model_switch_guard/model_switch_guard.mjs",
+        "--sync-from-usage-scout"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus: Workshop dashboard web start",
       "type": "process",
       "command": "docker",

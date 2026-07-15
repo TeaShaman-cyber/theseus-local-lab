@@ -11,6 +11,14 @@ Graphify agent hooks or editing `AGENTS.md`.
 node tools/graphify_harness/graphify_harness.mjs
 ```
 
+Optional scoped profiles:
+
+```text
+node tools/graphify_harness/graphify_harness.mjs --profile harness
+node tools/graphify_harness/graphify_harness.mjs --profile memory
+node tools/graphify_harness/graphify_harness.mjs --profile observatory
+```
+
 Outputs:
 
 - generated corpus and graph:
@@ -18,6 +26,8 @@ Outputs:
 - compact ignored summaries:
   `outputs/graphify_harness/*.md`
   `outputs/graphify_harness/*.json`
+
+Corpus profiles live in `tools/graphify_harness/corpus_profiles.json`.
 
 ## Guardrails
 

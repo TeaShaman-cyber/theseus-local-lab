@@ -96,6 +96,55 @@ async function readState(path) {
   }
 }
 
+export async function syncFromUsageScout(options = {}) {
+  const workspace = options.workspace || process.cwd();
+  const statePath = options.statePath || join(workspace, "outputs", "model_switch_guard", "state.json");
+  const usagePath = options.usagePath || join(workspace, "outputs", "usage_scout", "latest.json");
+  const usage = JSON.parse(await readFile(usagePath, "utf8"));
+  const current = {
+    model: clean(usage?.codex?.model) || "unknown",
+    reasoning_effort: clean(usage?.codex?.reasoning_effort) || "unknown",
+  };
+  if (current.model === "unknown" && current.reasoning_effort === "unknown") {
+    throw new Error("Usage scout snapshot does not contain codex model identity");
+  }
+
+  const previous = await readState(statePath);
+  const transition = evaluateTransition(previous, current);
+  const observedAt = usage.observed_at || usage.collected_at || new Date().toISOString();
+  const nextState = {
+    ...current,
+    observed_at: observedAt,
+    synchronized_at: new Date().toISOString(),
+    source: "usage-scout",
+  };
+
+  await mkdir(dirname(statePath), { recursive: true });
+  await writeFile(statePath, `${JSON.stringify(nextState, null, 2)}\n`, "utf8");
+
+  let timeline = null;
+  if (transition.changed || options.writeEvent) {
+    timeline = await writeTimelineEvent(
+      {
+        source: "model-switch-guard",
+        event: "model-runtime-synchronized",
+        note: `Model runtime synchronized from usage scout: ${current.model}/${current.reasoning_effort}.`,
+        tags: ["model-switch", "usage-scout", "sync", ...transition.fields],
+        metrics: {
+          previous_model: previous.model || null,
+          previous_reasoning_effort: previous.reasoning_effort || null,
+          current_model: current.model,
+          current_reasoning_effort: current.reasoning_effort,
+        },
+        artifacts: [relative(workspace, statePath), relative(workspace, usagePath)],
+      },
+      { workspace, sinkUrl: options.sinkUrl },
+    );
+  }
+
+  return { current, previous, transition, statePath, usagePath, timeline };
+}
+
 export async function runModelSwitchGuard(hookPayload = {}, options = {}) {
   const workspace = options.workspace || process.cwd();
   const statePath = options.statePath || join(workspace, "outputs", "model_switch_guard", "state.json");
@@ -156,6 +205,11 @@ async function readStdin() {
 
 async function main() {
   try {
+    if (process.argv.includes("--sync-from-usage-scout")) {
+      const result = await syncFromUsageScout();
+      process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
+      return;
+    }
     const payload = await readStdin();
     const result = await runModelSwitchGuard(payload);
     process.stdout.write(`${JSON.stringify(hookResponse(result))}\n`);
