@@ -301,6 +301,8 @@ async function buildDashboard() {
 
   const mirrorCandidates = [
     env.THESEUS_CLOUD_MIRROR_DIR,
+    "C:/Users/s.poklad/Мой диск/theseus-backup-cloud-mirror",
+    "D:/theseus-backup/local-archives/legacy-theseus-cloud-backups-20260715",
     path.resolve(repoRoot, "..", "..", "theseus-cloud-backups"),
     path.resolve(repoRoot, "..", "theseus-cloud-backups"),
     "/cloud-backups",

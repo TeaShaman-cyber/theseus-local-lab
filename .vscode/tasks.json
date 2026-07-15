@@ -1017,13 +1017,14 @@
       "args": [
         "compose",
         "-f",
-        "agent-shell/docker-compose.yml",
-        "run",
-        "--rm",
-        "agent-shell",
-        "bash",
-        "-lc",
-        "python3 tools/backup_lattice/backup_lattice.py once --mirror-dir /workspace/../theseus-cloud-backups"
+        "D:\\theseus-backup\\backup-lattice\\docker-compose.yml",
+        "exec",
+        "backup-runner",
+        "python3",
+        "tools/backup_lattice/backup_lattice.py",
+        "once",
+        "--mirror-dir",
+        "/mirror"
       ],
       "options": {
         "env": {

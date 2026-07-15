@@ -146,8 +146,9 @@ async function main() {
   }
 
   if (command === "backup") {
-    printSection("Backup runner compose ps", await composePs("backup-lattice/docker-compose.yml"));
-    printSection("Backup runner logs", await composeLogs("backup-lattice/docker-compose.yml", "backup-runner", tail));
+    const backupCompose = "D:/theseus-backup/backup-lattice/docker-compose.yml";
+    printSection("Backup runner compose ps", await composePs(backupCompose));
+    printSection("Backup runner logs", await composeLogs(backupCompose, "backup-runner", tail));
     return;
   }
 

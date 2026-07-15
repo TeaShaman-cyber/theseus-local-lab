@@ -1,0 +1,78 @@
+# Theseus Project Split Graph Audit
+
+Status: active cleanup plan.
+
+## Active Projects
+
+| Project | Path | Role |
+|---|---|---|
+| Local lab monolith | `C:\Users\s.poklad\Documents\Codex\2026-07-08\life-science-research-plugin-life-science-4` | Core harness, skills, hooks, dashboards, fallback copies |
+| Backup | `D:\theseus-backup` | Backup runner, restore notes, legacy archives, Google Drive mirror config |
+| Knowledge base | `D:\theseus-knowledge-base` | Drive/chat corpus indexing, Graphify, OCR/source lenses |
+| NII | `D:\theseus-nii` | CodeWhale, conclaves, A2A, local model workers |
+| Observatory | `D:\theseus-observatory` | Local telemetry, Codex/system/GitHub issue watchers |
+| Public observatory | `D:\theseus-public-observatory` | Public-facing observatory site/data surface |
+
+## Current Runtime Edges
+
+```mermaid
+flowchart LR
+  Lab["theseus-local-lab"]
+  Backup["D:/theseus-backup"]
+  KB["D:/theseus-knowledge-base"]
+  NII["D:/theseus-nii"]
+  Obs["D:/theseus-observatory"]
+  PubObs["D:/theseus-public-observatory"]
+  Drive["Google Drive mirror"]
+  Docker["Docker Desktop"]
+  Tasks["VS Code tasks"]
+  Wrappers["Node wrappers"]
+  Dashboard["Workshop dashboard"]
+  Skills["Codex skills"]
+  Hooks["Codex hooks"]
+
+  Lab --> Skills
+  Lab --> Hooks
+  Lab --> Tasks
+  Lab --> Wrappers
+  Lab --> Dashboard
+  Tasks --> Backup
+  Dashboard --> Backup
+  Dashboard --> Drive
+  Backup --> Docker
+  Backup --> Drive
+  Lab -. fallback copies .-> KB
+  Lab -. fallback copies .-> NII
+  Lab -. fallback copies .-> Obs
+  Obs --> PubObs
+```
+
+## Cleanup Targets
+
+- VS Code tasks: replace monolith-local backup, observatory, Graphify, and
+  corpus paths with active `D:\theseus-*` projects.
+- Node wrappers: prefer active project paths and keep old monolith copies as
+  explicit fallback only.
+- Dashboard and service status: read active backup/observatory paths first.
+- Skills: remove stale Windows/PowerShell bridges and update references to
+  active projects.
+- Hooks: audit for old monolith paths, old Docker bridge assumptions, and
+  duplicated memory routes.
+- Docker bridge: document current Windows API status and a WSL-safe route before
+  enabling any always-on WSL bridge.
+
+## Docker API Bridge Finding
+
+Windows Docker API currently responds on `http://127.0.0.1:2375/_ping` and the
+Windows Docker CLI can use `DOCKER_HOST=tcp://127.0.0.1:2375`.
+
+WSL cannot reach that same address because `127.0.0.1` resolves inside WSL.
+`host.docker.internal:2375` and the WSL nameserver did not connect during the
+initial probe. A future WSL bridge should use a deliberately scoped Windows
+portproxy or small local bridge rather than exposing Docker broadly.
+
+## ACL Preparation
+
+`CodexSandboxUsers` has full inherited access on active `D:\theseus-*`
+projects. This prepares the next WSL/sandbox migration attempt without editing
+per-project permissions again.
