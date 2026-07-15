@@ -11,6 +11,8 @@ const outDir = path.join(repoRoot, "outputs", "memory_reflex");
 const promptPath = path.join(outDir, "latest_prompt.json");
 const recallPath = path.join(outDir, "latest_recall.json");
 const statusPath = path.join(outDir, "latest.json");
+const latestRecallItemsPath = path.join(outDir, "latest_recall_items.json");
+const defaultApiUrl = process.env.AUTOMEM_API_URL || "http://127.0.0.1:8001";
 
 function parseArgs(argv) {
   const args = {
@@ -89,6 +91,74 @@ function shortPrompt(payload, raw) {
   return text.replace(/\s+/g, " ").trim().slice(0, 240);
 }
 
+function isLocalApi(apiUrl) {
+  try {
+    const url = new URL(apiUrl);
+    return ["127.0.0.1", "localhost", "host.docker.internal"].includes(url.hostname);
+  } catch {
+    return false;
+  }
+}
+
+function resolveToken(apiUrl) {
+  return process.env.AUTOMEM_API_TOKEN || (isLocalApi(apiUrl) ? "test-token" : "");
+}
+
+function recallUrl(apiUrl, query, limit) {
+  const url = new URL("/recall", apiUrl.endsWith("/") ? apiUrl : `${apiUrl}/`);
+  url.searchParams.set("query", query || "theseus-local-lab current task memory reflex");
+  url.searchParams.set("limit", String(limit));
+  url.searchParams.set("state_mode", "current");
+  url.searchParams.set("recency_bias", "auto");
+  return url;
+}
+
+function summarizeItem(item) {
+  const memory = item.memory && typeof item.memory === "object" ? item.memory : {};
+  const summary = item.summary || memory.summary || item.title || "";
+  const content = item.content || memory.content || item.text || "";
+  const label = String(summary || content || item.memory_id || item.id || "memory")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 180);
+  return label;
+}
+
+function itemTags(item) {
+  const memory = item.memory && typeof item.memory === "object" ? item.memory : {};
+  const tags = Array.isArray(item.tags) ? item.tags : Array.isArray(memory.tags) ? memory.tags : [];
+  return tags.map((tag) => String(tag)).slice(0, 8);
+}
+
+async function recallAutoMem(query, options = {}) {
+  const apiUrl = options.apiUrl || defaultApiUrl;
+  const token = resolveToken(apiUrl);
+  const response = await fetch(recallUrl(apiUrl, query, options.limit || 3), {
+    headers: {
+      accept: "application/json",
+      ...(token ? { authorization: `Bearer ${token}` } : {}),
+    },
+    signal: AbortSignal.timeout(options.timeoutMs || 3500),
+  });
+  const body = await response.text();
+  if (!response.ok) {
+    throw new Error(`AutoMem recall failed: HTTP ${response.status} ${body.slice(0, 160)}`);
+  }
+  const payload = JSON.parse(body);
+  const results = Array.isArray(payload.results) ? payload.results : [];
+  return {
+    api_url: apiUrl,
+    query,
+    count: results.length,
+    items: results.slice(0, options.limit || 3).map((item) => ({
+      memory_id: item.memory_id || item.id || null,
+      summary: summarizeItem(item),
+      tags: itemTags(item),
+      score: item.final_score ?? item.score ?? null,
+    })),
+  };
+}
+
 async function writeStatus(extra = {}) {
   const now = new Date();
   const latestPrompt = await readJson(promptPath);
@@ -120,32 +190,53 @@ async function preflight(args, rawInput) {
   const now = new Date();
   const payload = tryParseJson(rawInput);
   const prompt = shortPrompt(payload, rawInput);
+  const recallQuery = args.query || prompt || "theseus-local-lab current task memory reflex";
   const record = {
     created_at: now.toISOString(),
     source: args.source || "UserPromptSubmit",
     prompt_preview: prompt,
-    expectation: "For non-trivial Theseus work, call AutoMem health/recall before reasoning; use MemPalace for episodic detail when available.",
+    expectation: "Use AutoMem as the default project-memory reflex for Theseus work; use MemPalace for episodic detail when available.",
   };
   await mkdir(outDir, { recursive: true });
   await writeFile(promptPath, `${JSON.stringify(record, null, 2)}\n`, "utf8");
+  let recall = null;
+  let recallError = "";
+  try {
+    recall = await recallAutoMem(recallQuery, { limit: 3 });
+    const recallRecord = {
+      created_at: now.toISOString(),
+      source: "UserPromptSubmit:auto",
+      query: recallQuery,
+      note: `AutoMem preflight recall returned ${recall.count} result(s).`,
+    };
+    await writeFile(recallPath, `${JSON.stringify(recallRecord, null, 2)}\n`, "utf8");
+    await writeFile(latestRecallItemsPath, `${JSON.stringify(recall, null, 2)}\n`, "utf8");
+  } catch (error) {
+    recallError = String(error?.message || error).slice(0, 300);
+  }
   await writeTimelineEvent(
     {
       source: "memory-reflex",
       event: "memory-preflight-expected",
-      note: record.expectation,
+      note: recall ? `AutoMem preflight recall returned ${recall.count} result(s).` : record.expectation,
       tags: ["memory-reflex", "user-prompt-submit", "automem"],
-      artifacts: [path.relative(repoRoot, promptPath)],
+      artifacts: [path.relative(repoRoot, promptPath), recall ? path.relative(repoRoot, latestRecallItemsPath) : ""].filter(Boolean),
+      metrics: {
+        recall_count: recall?.count ?? null,
+      },
     },
     { workspace: repoRoot },
   );
-  const status = await writeStatus({ preflight: record });
+  const status = await writeStatus({ preflight: record, recall, recall_error: recallError || undefined });
+  const prelude = recall?.items?.length
+    ? ` AutoMem prelude: ${recall.items.map((item) => item.summary).filter(Boolean).slice(0, 3).join(" | ")}`
+    : "";
   return {
     continue: true,
     suppressOutput: true,
-    systemMessage:
-      status.status === "OK"
-        ? "Memory reflex: AutoMem recall is fresh."
-        : "Memory reflex: for non-trivial work, call AutoMem health/recall before reasoning, then mark memory_reflex.",
+    systemMessage: recall
+      ? `Memory reflex: AutoMem recall is fresh.${prelude}`
+      : `Memory reflex: AutoMem preflight recall unavailable; use MCP memory for Theseus/project context. ${recallError}`,
   };
 }
 

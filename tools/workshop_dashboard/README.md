@@ -106,8 +106,10 @@ node tools/memory_reflex/memory_reflex.mjs mark --query "current task"
 ```
 
 `UserPromptSubmit` writes a preflight expectation. Agents should mark the row
-after they actually call AutoMem recall. This does not replace AutoMem; it makes
-forgetting to use AutoMem visible.
+after they actually call MCP AutoMem recall outside the local preflight. The
+preflight itself also attempts a small read-only AutoMem `/recall` by HTTP and
+stores the short result locally. This does not replace AutoMem; it makes
+forgetting or failing to use AutoMem visible.
 
 After rebuilding the web container, verify the live user-visible surface with:
 
