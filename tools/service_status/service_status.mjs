@@ -157,6 +157,14 @@ async function main() {
     return;
   }
 
+  if (command === "wsl-preflight") {
+    printSection(
+      "WSL migration preflight",
+      await run("node", ["tools/wsl_migration_preflight/wsl_migration_preflight.mjs"], { timeoutMs: 45_000 }),
+    );
+    return;
+  }
+
   if (command === "port") {
     const host = String(args.host || "127.0.0.1");
     const port = asInt(args.port, 0);
@@ -165,7 +173,7 @@ async function main() {
     return;
   }
 
-  console.log("Usage: node tools/service_status/service_status.mjs <automem|observatory|backup|docker-control-health|port>");
+  console.log("Usage: node tools/service_status/service_status.mjs <automem|observatory|backup|docker-control-health|wsl-preflight|port>");
 }
 
 main().catch((error) => {

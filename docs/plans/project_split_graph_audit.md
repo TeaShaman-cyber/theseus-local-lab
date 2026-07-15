@@ -101,6 +101,34 @@ Current recommendation:
 - Some knowledge-tool README examples still point to old
   `C:\Users\s.poklad\Documents\Codex\2026-07-08` corpus paths. Those tools are
   now fallback-only in the monolith and active in `D:\theseus-knowledge-base`.
+- WSL preflight is now a first-class wrapper:
+  `node tools/wsl_migration_preflight/wsl_migration_preflight.mjs`.
+  Current result is `WARN`, not `FAIL`: WSL sees Node/Git/GitHub CLI, all
+  active `D:\theseus-*` projects, VS Code CLI, and the Docker socket proxy on
+  `127.0.0.1:23760`. Remaining warnings are WSL SSH-agent, global Codex config
+  portability, and legacy raw `2375` routes in VS Code tasks.
+
+## WSL Migration Issue Scan
+
+See `docs/research/codex_wsl_issue_scan_2026-07-16.md`.
+
+Open upstream Codex issues align with our local symptoms:
+
+- `CODEX_HOME` and SQLite/socket state can break when runtime state lives on
+  `/mnt/c`.
+- Windows config and UNC cwd can leak into WSL execution.
+- Windows `TEMP/TMP` forwarding through `WSLENV` can break Linux tools.
+- Browser/Chrome/Computer Use bridges and attachment paths are not proven WSL
+  native.
+
+Current recommendation:
+
+- keep WSL as a guarded pilot and Unix tool layer;
+- keep Codex runtime state Windows-native until WSL-native config/cache is
+  explicitly prepared;
+- fix or accept WSL SSH-agent as a pilot constraint before relying on SSH git;
+- use WSL GitHub CLI HTTPS auth as the immediate Git fallback;
+- run WSL preflight after each Codex update or environment switch.
 
 ## ACL Preparation
 

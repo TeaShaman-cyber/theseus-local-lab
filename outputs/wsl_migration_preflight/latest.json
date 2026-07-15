@@ -1,0 +1,186 @@
+{
+  "generated_at": "2026-07-15T23:09:06.727Z",
+  "status": "WARN",
+  "recommendation": "migration is possible only as a guarded pilot; fix warnings before making WSL default",
+  "checks": [
+    {
+      "name": "windows-node",
+      "status": "OK",
+      "detail": "Windows Node v24.18.0",
+      "evidence": {
+        "ok": true,
+        "status": 0,
+        "signal": null,
+        "stdout": "v24.18.0",
+        "stderr": ""
+      }
+    },
+    {
+      "name": "windows-docker-proxy",
+      "status": "OK",
+      "detail": "Docker socket proxy probe works from Windows",
+      "evidence": {
+        "verdict": "OK",
+        "ping": 200,
+        "version": 200,
+        "containers": 200,
+        "blocked_post": 403
+      }
+    },
+    {
+      "name": "wsl-runtime",
+      "status": "OK",
+      "detail": "WSL runtime has user, Node, and Git visibility",
+      "evidence": {
+        "ok": true,
+        "status": 0,
+        "signal": null,
+        "stdout": "user=poklad\nhome=/home/poklad\nnode=/usr/local/bin/node\nnode_version=v24.18.0\ngit=/usr/bin/git\ngh=/usr/bin/gh",
+        "stderr": ""
+      }
+    },
+    {
+      "name": "wsl-runtime-env",
+      "status": "OK",
+      "detail": "WSL runtime env has no obvious Codex/Temp portability leak",
+      "evidence": {
+        "stdout": "CODEX_HOME=\nWSLENV=\nTMP=\nTEMP=\nXDG_RUNTIME_DIR=/run/user/1000",
+        "warnings": []
+      }
+    },
+    {
+      "name": "wsl-github-cli",
+      "status": "OK",
+      "detail": "GitHub CLI auth is visible from WSL",
+      "evidence": {
+        "ok": true,
+        "status": 0,
+        "signal": null,
+        "stdout": "github.com\n  ✓ Logged in to github.com account TeaShaman-cyber (/home/poklad/.config/gh/hosts.yml)\n  - Active account: true\n  - Git operations protocol: https\n  - Token: <redacted>\n  - Token scopes: 'admin:enterprise', 'admin:gpg_key', 'admin:org', 'admin:org_hook', 'admin:public_key', 'admin:repo_hook', 'admin:ssh_signing_key', 'audit_log', 'codespace', 'copilot', 'delete:packages', 'delete_repo', 'gist', 'notifications', 'project', 'repo', 'user', 'workflow', 'write:discussion', 'write:network_configurations', 'write:packages'",
+        "stderr": ""
+      }
+    },
+    {
+      "name": "wsl-project-paths",
+      "status": "OK",
+      "detail": "WSL can see active D: Theseus projects",
+      "evidence": {
+        "stdout": "OK /mnt/d/theseus-backup\nOK /mnt/d/theseus-knowledge-base\nOK /mnt/d/theseus-nii\nOK /mnt/d/theseus-observatory\nOK /mnt/d/theseus-public-observatory",
+        "missing": []
+      }
+    },
+    {
+      "name": "wsl-docker-proxy",
+      "status": "OK",
+      "detail": "Docker socket proxy probe works from WSL",
+      "evidence": {
+        "verdict": "OK",
+        "ping": 200,
+        "version": 200,
+        "containers": 200,
+        "blocked_post": 403
+      }
+    },
+    {
+      "name": "wsl-ssh-agent",
+      "status": "WARN",
+      "detail": "WSL SSH agent is installed but no active SSH_AUTH_SOCK is visible",
+      "evidence": {
+        "ok": true,
+        "status": 0,
+        "signal": null,
+        "stdout": "ssh_agent=/usr/bin/ssh-agent\nssh_add=/usr/bin/ssh-add\nssh_auth_sock_socket=0\nCould not open a connection to your authentication agent.",
+        "stderr": ""
+      }
+    },
+    {
+      "name": "wsl-vscode-bridge",
+      "status": "OK",
+      "detail": "VS Code CLI is visible from WSL",
+      "evidence": {
+        "ok": true,
+        "status": 0,
+        "signal": null,
+        "stdout": "code=/mnt/c/Users/s.poklad/AppData/Local/Programs/Microsoft VS Code/bin/code\nvscode_project_tasks=monolith",
+        "stderr": ""
+      }
+    },
+    {
+      "name": "codex-hooks-json",
+      "status": "OK",
+      "detail": "Codex hooks JSON parse check",
+      "evidence": {
+        "project": {
+          "exists": true,
+          "parse_ok": true
+        },
+        "global": {
+          "exists": true,
+          "parse_ok": true
+        }
+      }
+    },
+    {
+      "name": "codex-global-config-portability",
+      "status": "WARN",
+      "detail": "Global Codex config still has Windows-local or raw Docker assumptions",
+      "evidence": {
+        "exists": true,
+        "hits": [
+          {
+            "pattern": "windows-monolith-path",
+            "count": 8
+          },
+          {
+            "pattern": "raw-docker-2375",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "name": "vscode-task-portability",
+      "status": "WARN",
+      "detail": "VS Code task portability scan",
+      "evidence": {
+        "exists": true,
+        "hits": [
+          {
+            "pattern": "raw-docker-2375",
+            "count": 17
+          },
+          {
+            "pattern": "wsl-command",
+            "count": 2
+          }
+        ]
+      }
+    }
+  ],
+  "issue_findings": [
+    {
+      "issue": 31426,
+      "url": "https://github.com/openai/codex/issues/31426",
+      "finding": "CODEX_HOME on /mnt/c can break WSL SQLite/socket state initialization.",
+      "local_mitigation": "Use WSL-native CODEX_HOME/cache before agent migration; do not run runtime state from DrvFS."
+    },
+    {
+      "issue": 18506,
+      "url": "https://github.com/openai/codex/issues/18506",
+      "finding": "UNC cwd and Windows config leaking into WSL are known failure classes.",
+      "local_mitigation": "Keep config/runtime paths explicit per context and verify cwd before relying on hooks/tasks."
+    },
+    {
+      "issue": 32733,
+      "url": "https://github.com/openai/codex/issues/32733",
+      "finding": "Windows TEMP/TMP forwarded through WSLENV can break Linux tooling on DrvFS.",
+      "local_mitigation": "Preflight should flag TEMP/TMP leakage and prefer WSL-native temp/cache paths."
+    },
+    {
+      "issue": 31049,
+      "url": "https://github.com/openai/codex/issues/31049",
+      "finding": "WSL-native mode can hide Chrome bridge and pass Windows attachment paths to Linux agent.",
+      "local_mitigation": "Treat browser/computer-use bridges as Windows-context tools unless WSL mapping is proven."
+    }
+  ]
+}

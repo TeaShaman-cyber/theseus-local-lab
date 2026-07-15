@@ -667,6 +667,29 @@ async function buildDashboard() {
     ),
   );
 
+  const wslPreflightFile = path.join(repoRoot, "outputs", "wsl_migration_preflight", "latest.json");
+  const wslPreflightStat = existsSync(wslPreflightFile) ? statSync(wslPreflightFile) : null;
+  const wslPreflight = readJsonFile(wslPreflightFile);
+  const wslPreflightAge = wslPreflightStat ? relativeAge(wslPreflightStat.mtime, now) : null;
+  const wslFailures = wslPreflight?.checks?.filter((check) => check.status === "FAIL").length || 0;
+  const wslWarnings = wslPreflight?.checks?.filter((check) => check.status === "WARN").length || 0;
+  rows.push(
+    item(
+      "wsl-migration-preflight",
+      "WSL migration preflight",
+      wslPreflight
+        ? wslFailures > 0
+          ? "FAIL"
+          : wslWarnings > 0
+            ? "WARN"
+            : statusFromFreshness(wslPreflightAge, 12, 48)
+        : "WARN",
+      wslPreflight
+        ? `${wslPreflight.recommendation}; ${wslFailures} fail, ${wslWarnings} warn; ${formatAge(wslPreflightAge)} old`
+        : "run node tools/wsl_migration_preflight/wsl_migration_preflight.mjs",
+    ),
+  );
+
   const providerScoutFile = path.join(repoRoot, "outputs", "provider_scout", "provider-scout.json");
   const providerScoutStat = existsSync(providerScoutFile) ? statSync(providerScoutFile) : null;
   const providerScout = readJsonFile(providerScoutFile);
@@ -703,9 +726,13 @@ async function buildDashboard() {
 function filterDashboardRows(dashboard, rowIds = []) {
   if (!rowIds.length) return dashboard;
   const wanted = new Set(rowIds);
+  const rows = dashboard.rows.filter((row) => wanted.has(row.id));
+  const statusRank = { OK: 0, WARN: 1, FAIL: 2 };
+  const overall = rows.reduce((acc, row) => (statusRank[row.status] > statusRank[acc] ? row.status : acc), "OK");
   return {
     ...dashboard,
-    rows: dashboard.rows.filter((row) => wanted.has(row.id)),
+    overall,
+    rows,
     filtered_rows: rowIds,
   };
 }
@@ -737,7 +764,7 @@ buildDashboard()
     } else {
       console.log(renderMarkdown(filtered));
     }
-    if (dashboard.overall === "FAIL") process.exitCode = 1;
+    if (filtered.overall === "FAIL") process.exitCode = 1;
   })
   .catch((error) => {
     console.error(error.message);
