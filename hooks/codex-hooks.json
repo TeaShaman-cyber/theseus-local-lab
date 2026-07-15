@@ -6,9 +6,9 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"C:\\Users\\s.poklad\\Documents\\Codex\\2026-07-08\\life-science-research-plugin-life-science-4\\tools\\model_switch_guard\\model_switch_guard.mjs\"",
+            "command": "node \"C:\\Users\\s.poklad\\Documents\\Codex\\2026-07-08\\life-science-research-plugin-life-science-4\\hooks\\hook-router.mjs\" --event UserPromptSubmit",
             "timeout": 10,
-            "statusMessage": "Checking Theseus model runtime"
+            "statusMessage": "Routing Theseus UserPromptSubmit hook"
           }
         ]
       }

@@ -9,6 +9,7 @@ const safeWrappers = [
   /^node\s+tools[\\/]git_safety[\\/]scan_staged\.mjs\b/i,
   /^node\s+tools[\\/]git_safety[\\/]commit_checkpoint\.mjs\b/i,
   /^node\s+tools[\\/]memory_hook[\\/]memory_hook\.mjs\b/i,
+  /^node\s+tools[\\/]memory_reflex[\\/]memory_reflex\.mjs\b/i,
   /^node\s+tools[\\/]provider_scout[\\/]provider_scout\.mjs\b/i,
   /^node\s+tools[\\/]research_queue[\\/]enqueue\.mjs\b/i,
   /^node\s+tools[\\/]research_queue[\\/]list\.mjs\b/i,

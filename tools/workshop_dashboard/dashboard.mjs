@@ -443,6 +443,32 @@ async function buildDashboard() {
     ),
   );
 
+  const memoryReflexFile = path.join(repoRoot, "outputs", "memory_reflex", "latest.json");
+  const memoryReflexStat = existsSync(memoryReflexFile) ? statSync(memoryReflexFile) : null;
+  const memoryReflex = readJsonFile(memoryReflexFile);
+  const memoryReflexAge = memoryReflexStat ? relativeAge(memoryReflexStat.mtime, now) : null;
+  rows.push(
+    item(
+      "memory-reflex",
+      "Memory recall reflex",
+      memoryReflex
+        ? memoryReflex.status === "FAIL"
+          ? "FAIL"
+          : memoryReflex.status === "WARN"
+            ? "WARN"
+            : statusFromFreshness(memoryReflexAge, 2, 8)
+        : "WARN",
+      memoryReflex
+        ? [
+            memoryReflex.recommendation || "unknown",
+            `prompt ${memoryReflex.ages_minutes?.prompt ?? "?"}m`,
+            `recall ${memoryReflex.ages_minutes?.recall ?? "?"}m`,
+            `${formatAge(memoryReflexAge)} old`,
+          ].join("; ")
+        : "run node tools/memory_reflex/memory_reflex.mjs mark after AutoMem recall",
+    ),
+  );
+
   const lensUsageTrialFile = path.join(repoRoot, "outputs", "lens_usage_trial", "latest.json");
   const lensUsageTrialStat = existsSync(lensUsageTrialFile) ? statSync(lensUsageTrialFile) : null;
   const lensUsageTrial = readJsonFile(lensUsageTrialFile);

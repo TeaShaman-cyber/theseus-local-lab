@@ -164,6 +164,27 @@ if (event === "PostCompact") {
   process.exit(0);
 }
 
+if (event === "UserPromptSubmit") {
+  const memoryReflexResult = runNode(["tools/memory_reflex/memory_reflex.mjs", "preflight", "--source", "UserPromptSubmit"], hookInput);
+  const modelSwitchResult = runNode(["tools/model_switch_guard/model_switch_guard.mjs"], hookInput);
+  const researchResult = shouldQueueResearch(event) ? runNode(["hooks/research-queue-hook.mjs"], hookInput) : null;
+  const ok =
+    memoryReflexResult.status === 0 &&
+    modelSwitchResult.status === 0 &&
+    (!researchResult || researchResult.status === 0);
+  const result = {
+    stdout: [memoryReflexResult.stdout, modelSwitchResult.stdout, researchResult?.stdout].filter(Boolean).join("\n"),
+    stderr: [memoryReflexResult.stderr, modelSwitchResult.stderr, researchResult?.stderr].filter(Boolean).join("\n"),
+  };
+  response({
+    ok,
+    route: "memory-reflex+model-switch-guard+research-queue",
+    statusMessage: ok ? "Memory preflight refreshed." : "UserPromptSubmit hook failed softly.",
+    result,
+  });
+  process.exit(0);
+}
+
 if (shouldQueueResearch(event)) {
   const result = runNode(["hooks/research-queue-hook.mjs"], hookInput);
   response({

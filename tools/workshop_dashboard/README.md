@@ -98,6 +98,17 @@ It never invokes Codex compaction. It only recommends a compact checkpoint, and
 with `--checkpoint` it writes one through the memory hook when pressure is high
 and the previous state packet is stale.
 
+The `Memory recall reflex` row reads the local memory reflex marker:
+
+```text
+node tools/memory_reflex/memory_reflex.mjs status
+node tools/memory_reflex/memory_reflex.mjs mark --query "current task"
+```
+
+`UserPromptSubmit` writes a preflight expectation. Agents should mark the row
+after they actually call AutoMem recall. This does not replace AutoMem; it makes
+forgetting to use AutoMem visible.
+
 After rebuilding the web container, verify the live user-visible surface with:
 
 ```text
@@ -143,6 +154,7 @@ launch Process Explorer, Process Monitor, dumps, or trace capture.
 - latest compact state packet
 - research queue pending count
 - session timeline freshness
+- memory recall reflex freshness
 - local observatory DB freshness
 - cached OpenAI Codex GitHub issue summary
 - cached Codex local system/version/event summary

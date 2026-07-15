@@ -98,6 +98,16 @@ test("allows context pressure watch as a known safe wrapper", () => {
   assert.equal(decision.reason, "known-safe-wrapper");
 });
 
+test("allows memory reflex marker as a known safe wrapper", () => {
+  const decision = evaluateAction({
+    surface: "shell",
+    command: "node tools/memory_reflex/memory_reflex.mjs mark --query current-task",
+  });
+
+  assert.equal(decision.verdict, "allow");
+  assert.equal(decision.reason, "known-safe-wrapper");
+});
+
 test("allows OCR lens as a known safe wrapper", () => {
   const decision = evaluateAction({
     surface: "shell",
