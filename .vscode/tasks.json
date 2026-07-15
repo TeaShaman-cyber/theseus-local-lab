@@ -219,6 +219,15 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus Graphify Harness: build",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/graphify_harness/graphify_harness.mjs"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus Lens Usage Trial: start",
       "type": "process",
       "command": "node",

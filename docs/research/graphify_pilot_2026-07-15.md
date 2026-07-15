@@ -207,19 +207,59 @@ whole repository into context.
 Do not install Graphify hooks or AGENTS modifications until a wrapper is
 designed around the existing Theseus skill-router and hook policy.
 
-## Next Step
+## Implementation Follow-Up
 
-Create a repeatable project wrapper or VS Code task:
+Implemented:
+
+- `tools/graphify_harness/graphify_harness.mjs`
+- `tools/graphify_harness/README.md`
+- VS Code task: `Theseus Graphify Harness: build`
+- ignored summaries under `outputs/graphify_harness/*.md` and
+  `outputs/graphify_harness/*.json`
+
+The wrapper:
+
+- reuses or bootstraps an isolated Graphify venv;
+- uses Codex bundled Python 3.12 when available;
+- builds a sanitized corpus outside ignored repo paths;
+- runs `graphify extract --code-only`;
+- runs fixed smoke checks: query, explain, path, diagnose;
+- writes JSONL progress events to stderr;
+- writes `latest.md` and `latest.json` summaries;
+- never calls `graphify install`;
+- never modifies `AGENTS.md`, hooks, or Git config.
+
+Runtime proof:
 
 ```text
-Theseus: graphify harness pilot
+status: ok
+nodes: 217
+edges: 493
+summary: outputs\graphify_harness\graphify_harness_2026-07-15T052403Z.md
+latest: outputs\graphify_harness\latest.md
 ```
 
-Desired behavior:
+The workshop task graph now classifies this as:
 
-- build a sanitized corpus outside ignored repo paths;
-- run `graphify extract --code-only`;
-- run one or two fixed smoke queries;
-- write a compact JSON/Markdown summary under ignored outputs;
-- never call `graphify install`;
-- never modify `AGENTS.md`, hooks, or Git config.
+```text
+label: Theseus Graphify Harness: build
+group: Graph lens
+route_hint: Node wrapper
+capabilities: graph, observability
+```
+
+## Future Step
+
+Consider a second-stage wrapper:
+
+```text
+Theseus: graphify harness serve
+```
+
+Candidate behavior:
+
+- serve `graph.json` through Graphify MCP or HTTP;
+- expose query/path/explain as a narrow local tool;
+- keep `extract --code-only` as the default safe build mode;
+- do not add Graphify hooks until the Theseus skill-router explicitly routes
+  them.
