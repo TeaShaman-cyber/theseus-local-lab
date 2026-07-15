@@ -461,11 +461,13 @@ async function buildDashboard() {
       memoryReflex
         ? [
             memoryReflex.recommendation || "unknown",
+            `confirmed ${memoryReflex.confirmed === true ? "yes" : "no"}`,
+            `kind ${memoryReflex.latest_recall?.kind || memoryReflex.latest_recall?.source || "?"}`,
             `prompt ${memoryReflex.ages_minutes?.prompt ?? "?"}m`,
             `recall ${memoryReflex.ages_minutes?.recall ?? "?"}m`,
             `${formatAge(memoryReflexAge)} old`,
           ].join("; ")
-        : "run node tools/memory_reflex/memory_reflex.mjs mark after AutoMem recall",
+        : "run node tools/memory_reflex/memory_reflex.mjs mark --kind recall after MCP AutoMem action",
     ),
   );
 

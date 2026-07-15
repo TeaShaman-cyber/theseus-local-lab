@@ -19,6 +19,7 @@ function parseArgs(argv) {
     mode: "status",
     query: "",
     source: "manual",
+    kind: "recall",
     note: "",
   };
 
@@ -32,6 +33,10 @@ function parseArgs(argv) {
     }
     if (item === "--source") {
       args.source = next;
+      index += 1;
+    }
+    if (item === "--kind") {
+      args.kind = next;
       index += 1;
     }
     if (item === "--note") {
@@ -70,10 +75,19 @@ function ageMinutes(filePath, now = new Date()) {
   return Math.max(0, (now.getTime() - statSync(filePath).mtime.getTime()) / 60_000);
 }
 
-function classify({ recallAge, promptAge }) {
+function isConfirmedMemoryAction(record) {
+  if (!record) return false;
+  if (record.confirmed === true) return true;
+  const source = String(record.source || "");
+  if (source === "UserPromptSubmit:auto") return false;
+  return ["manual", "agent", "mcp", "mcp-recall", "mcp-store", "mcp-health"].includes(source);
+}
+
+function classify({ recallAge, promptAge, latestRecall }) {
   if (recallAge === null) return "WARN";
-  if (recallAge <= 30) return "OK";
   if (promptAge !== null && promptAge <= 30 && recallAge > promptAge) return "WARN";
+  if (recallAge <= 30 && isConfirmedMemoryAction(latestRecall)) return "OK";
+  if (recallAge <= 30) return "WARN";
   if (recallAge <= 180) return "WARN";
   return "FAIL";
 }
@@ -165,20 +179,22 @@ async function writeStatus(extra = {}) {
   const latestRecall = await readJson(recallPath);
   const promptAge = ageMinutes(promptPath, now);
   const recallAge = ageMinutes(recallPath, now);
-  const status = classify({ recallAge, promptAge });
+  const confirmed = isConfirmedMemoryAction(latestRecall);
+  const status = classify({ recallAge, promptAge, latestRecall });
   const output = {
     generated_at: now.toISOString(),
     status,
     recommendation:
       status === "OK"
-        ? "memory recall is fresh"
-        : "run AutoMem recall before non-trivial reasoning and mark the reflex",
+        ? "confirmed memory action is fresh"
+        : "confirm MCP AutoMem recall/store/health and mark the reflex",
     latest_prompt: latestPrompt,
     latest_recall: latestRecall,
     ages_minutes: {
       prompt: promptAge === null ? null : Number(promptAge.toFixed(1)),
       recall: recallAge === null ? null : Number(recallAge.toFixed(1)),
     },
+    confirmed,
     ...extra,
   };
   await mkdir(outDir, { recursive: true });
@@ -242,11 +258,14 @@ async function preflight(args, rawInput) {
 
 async function mark(args) {
   const now = new Date();
+  const kind = String(args.kind || "recall").replace(/[^a-z0-9_-]+/gi, "-").slice(0, 40) || "recall";
   const record = {
     created_at: now.toISOString(),
-    source: args.source || "agent",
+    source: args.source || `mcp-${kind}`,
+    kind,
+    confirmed: true,
     query: args.query || "",
-    note: args.note || "AutoMem recall was performed in this turn.",
+    note: args.note || `AutoMem ${kind} was performed in this turn.`,
   };
   await mkdir(outDir, { recursive: true });
   await writeFile(recallPath, `${JSON.stringify(record, null, 2)}\n`, "utf8");
