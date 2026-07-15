@@ -223,7 +223,54 @@
       "type": "process",
       "command": "node",
       "args": [
-        "tools/graphify_harness/graphify_harness.mjs"
+        "tools/graphify_harness/graphify_harness.mjs",
+        "--profile",
+        "${input:graphifyProfile}"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Graphify Harness: query",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/graphify_harness/graphify_query.mjs",
+        "--profile",
+        "${input:graphifyProfile}",
+        "--command",
+        "query",
+        "${input:graphifyQuery}"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Graphify Harness: explain",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/graphify_harness/graphify_query.mjs",
+        "--profile",
+        "${input:graphifyProfile}",
+        "--command",
+        "explain",
+        "${input:graphifyNode}"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Graphify Harness: path",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/graphify_harness/graphify_query.mjs",
+        "--profile",
+        "${input:graphifyProfile}",
+        "--command",
+        "path",
+        "--from",
+        "${input:graphifyFrom}",
+        "--to",
+        "${input:graphifyTo}"
       ],
       "problemMatcher": []
     },
@@ -637,7 +684,7 @@
       "args": [
         "tools/workshop_dashboard/dashboard.mjs",
         "--rows",
-        "model-runtime,usage-scout,lens-usage-trial,git-sync"
+        "model-runtime,usage-scout,lens-usage-trial,graphify-harness,git-sync"
       ],
       "problemMatcher": []
     },
@@ -1349,6 +1396,41 @@
       "type": "promptString",
       "description": "Image manifest filename already copied to ~/theseus-local-lab/incoming",
       "default": "theseus-mempalace-pilot.manifest.json"
+    },
+    {
+      "id": "graphifyProfile",
+      "type": "pickString",
+      "description": "Graphify corpus profile",
+      "options": [
+        "harness",
+        "memory",
+        "observatory"
+      ],
+      "default": "harness"
+    },
+    {
+      "id": "graphifyQuery",
+      "type": "promptString",
+      "description": "Question for the Graphify corpus map",
+      "default": "what connects dashboard to git safety"
+    },
+    {
+      "id": "graphifyNode",
+      "type": "promptString",
+      "description": "Graphify node to explain",
+      "default": "buildDashboard()"
+    },
+    {
+      "id": "graphifyFrom",
+      "type": "promptString",
+      "description": "Graphify path start node",
+      "default": "buildDashboard()"
+    },
+    {
+      "id": "graphifyTo",
+      "type": "promptString",
+      "description": "Graphify path target node",
+      "default": "scan_staged.mjs"
     }
   ]
 }

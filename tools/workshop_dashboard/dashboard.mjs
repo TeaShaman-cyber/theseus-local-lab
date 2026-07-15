@@ -443,6 +443,33 @@ async function buildDashboard() {
     ),
   );
 
+  const graphifyLatest = readJsonFile(path.join(repoRoot, "outputs", "graphify_harness", "latest_harness.json"));
+  const graphifyLatestStat = existsSync(path.join(repoRoot, "outputs", "graphify_harness", "latest_harness.json"))
+    ? statSync(path.join(repoRoot, "outputs", "graphify_harness", "latest_harness.json"))
+    : null;
+  const graphifyQuery = readJsonFile(path.join(repoRoot, "outputs", "graphify_harness", "latest_query_harness.json"));
+  const graphifyAge = graphifyLatestStat ? relativeAge(graphifyLatestStat.mtime, now) : null;
+  const graphifyStatus = graphifyLatest
+    ? graphifyQuery?.status === "failed"
+      ? "WARN"
+      : statusFromFreshness(graphifyAge, 48, 168)
+    : "WARN";
+  rows.push(
+    item(
+      "graphify-harness",
+      "Graphify harness lens",
+      graphifyStatus,
+      graphifyLatest
+        ? [
+            `${graphifyLatest.stats?.nodes ?? "?"} nodes`,
+            `${graphifyLatest.stats?.edges ?? "?"} edges`,
+            `${formatAge(graphifyAge)} old`,
+            graphifyQuery ? `last ${graphifyQuery.command || "query"}: ${graphifyQuery.status}` : "no query yet",
+          ].join("; ")
+        : "run Theseus Graphify Harness: build",
+    ),
+  );
+
   const ocrLensFile = path.join(repoRoot, "outputs", "ocr_lens", "latest.json");
   const ocrLensStat = existsSync(ocrLensFile) ? statSync(ocrLensFile) : null;
   const ocrLens = readJsonFile(ocrLensFile);
