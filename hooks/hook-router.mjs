@@ -51,6 +51,34 @@ function shouldCheckpointStop() {
   return process.env.THESEUS_HOOK_STOP_CHECKPOINT === "1";
 }
 
+function parseJsonOutput(result) {
+  try {
+    return JSON.parse(String(result?.stdout || ""));
+  } catch {
+    return null;
+  }
+}
+
+function stopStatusMessage({ ok, usageOk, pressure }) {
+  const pressureStatus = pressure?.status || "unknown";
+  const checkpointAttempted = Boolean(pressure?.checkpoint?.attempted);
+  const checkpointOk = pressure?.checkpoint?.ok;
+
+  if (pressureStatus === "FAIL" || pressureStatus === "WARN" || checkpointAttempted) {
+    if (checkpointAttempted && checkpointOk === false) {
+      return "Context pressure recommends compact, but checkpoint refresh failed softly.";
+    }
+    if (checkpointAttempted && checkpointOk === true) {
+      return "Context pressure checkpoint refreshed; manual compact is safe if continuing.";
+    }
+    return "Context pressure recommends compact; latest checkpoint is still recent.";
+  }
+
+  if (ok && usageOk) return "Usage snapshot refreshed.";
+  if (ok) return "Context pressure refreshed from cached usage.";
+  return "Stop observability hook failed softly.";
+}
+
 function response({ ok, route, statusMessage, result }) {
   const stderr = result?.stderr ? String(result.stderr).slice(0, 1000) : "";
   const stdout = result?.stdout ? String(result.stdout).slice(0, 1000) : "";
@@ -149,7 +177,7 @@ if (shouldQueueResearch(event)) {
 
 if (event === "Stop") {
   const usageResult = runNode(["tools/usage_scout/usage_scout.mjs"], hookInput);
-  const pressureResult = runNode(["tools/context_pressure_watch/context_pressure_watch.mjs"], hookInput);
+  const pressureResult = runNode(["tools/context_pressure_watch/context_pressure_watch.mjs", "--checkpoint"], hookInput);
   const checkpointResult = shouldCheckpointStop()
     ? runNode(
         [
@@ -167,6 +195,7 @@ if (event === "Stop") {
         hookInput,
       )
     : null;
+  const pressure = parseJsonOutput(pressureResult);
   const ok = pressureResult.status === 0 && (!checkpointResult || checkpointResult.status === 0);
   const result = {
     stdout: [usageResult.stdout, pressureResult.stdout, checkpointResult?.stdout].filter(Boolean).join("\n"),
@@ -175,12 +204,7 @@ if (event === "Stop") {
   response({
     ok,
     route: checkpointResult ? "usage-scout+context-pressure+memory-hook:checkpoint" : "usage-scout+context-pressure",
-    statusMessage:
-      ok && usageResult.status === 0
-        ? "Usage snapshot refreshed."
-        : ok
-          ? "Context pressure refreshed from cached usage."
-          : "Stop observability hook failed softly.",
+    statusMessage: stopStatusMessage({ ok, usageOk: usageResult.status === 0, pressure }),
     result,
   });
   process.exit(0);
