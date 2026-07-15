@@ -223,6 +223,19 @@ async function main() {
     ),
   );
 
+  const ubuntuVmSsh = wsl(
+    "ssh -o BatchMode=yes -o ConnectTimeout=5 theseus-ubuntu-vm 'echo ssh-ok; whoami; hostname' 2>&1 | sed -e 's/[A-Za-z0-9+\\/=]\\{20,\\}/<redacted>/g' | head -20",
+    { timeoutMs: 12_000 },
+  );
+  checks.push(
+    check(
+      "wsl-ubuntu-vm-ssh",
+      ubuntuVmSsh.ok && /ssh-ok/.test(ubuntuVmSsh.stdout) ? "OK" : "WARN",
+      ubuntuVmSsh.ok ? "WSL can connect to Ubuntu VM through SSH alias" : "WSL SSH alias to Ubuntu VM did not verify",
+      ubuntuVmSsh,
+    ),
+  );
+
   const vscode = wsl(
     [
       "command -v code | sed 's#^#code=#' || true",

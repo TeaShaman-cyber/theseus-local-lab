@@ -63,19 +63,20 @@ Confirmed OK:
 - WSL can reach the read-only Docker socket proxy on `127.0.0.1:23760`.
 - The proxy blocks Docker writes with HTTP 403.
 - WSL sees VS Code CLI.
+- WSL SSH-agent is bootstrapped in `~/.profile`.
+- WSL can connect to the Ubuntu VM through the `theseus-ubuntu-vm` SSH alias.
 - Project and global hook JSON parse.
 
 Current warnings:
 
-- WSL SSH agent is installed, but no active `SSH_AUTH_SOCK` is visible.
 - Global Codex config still contains Windows-local monolith paths and raw
   `127.0.0.1:2375`.
 - VS Code tasks still contain raw `127.0.0.1:2375` routes.
 
 ## Pre-Migration Fix List
 
-1. Add a persistent WSL SSH-agent bootstrap or bridge.
-2. Keep GitHub CLI HTTPS auth as the immediate WSL Git fallback.
+1. Keep GitHub CLI HTTPS auth as the immediate WSL Git fallback.
+2. Keep the WSL SSH-agent bootstrap and Ubuntu VM SSH alias under preflight.
 3. Move or generate WSL-native Codex runtime/cache config before making WSL the
    default agent environment.
 4. Keep browser, Computer Use, Chrome, and attachment-path workflows in the
@@ -88,8 +89,8 @@ Current warnings:
 
 ## Decision
 
-Do not attempt a full WSL move until the SSH-agent and config portability
-warnings are either fixed or explicitly accepted as pilot constraints.
+Do not attempt a full WSL move until config portability warnings are either
+fixed or explicitly accepted as pilot constraints.
 
 Use WSL today for:
 

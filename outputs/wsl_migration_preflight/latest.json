@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-15T23:09:06.727Z",
+  "generated_at": "2026-07-15T23:29:53.878Z",
   "status": "WARN",
   "recommendation": "migration is possible only as a guarded pilot; fix warnings before making WSL default",
   "checks": [
@@ -83,13 +83,25 @@
     },
     {
       "name": "wsl-ssh-agent",
-      "status": "WARN",
-      "detail": "WSL SSH agent is installed but no active SSH_AUTH_SOCK is visible",
+      "status": "OK",
+      "detail": "WSL SSH agent socket is visible",
       "evidence": {
         "ok": true,
         "status": 0,
         "signal": null,
-        "stdout": "ssh_agent=/usr/bin/ssh-agent\nssh_add=/usr/bin/ssh-add\nssh_auth_sock_socket=0\nCould not open a connection to your authentication agent.",
+        "stdout": "ssh_agent=/usr/bin/ssh-agent\nssh_add=/usr/bin/ssh-add\nssh_auth_sock_socket=1\n256 SHA256:<redacted> theseus-wsl-agent@spoklad (ED25519)",
+        "stderr": ""
+      }
+    },
+    {
+      "name": "wsl-ubuntu-vm-ssh",
+      "status": "OK",
+      "detail": "WSL can connect to Ubuntu VM through SSH alias",
+      "evidence": {
+        "ok": true,
+        "status": 0,
+        "signal": null,
+        "stdout": "ssh-ok\nsysadmin\nubuntu2204lts",
         "stderr": ""
       }
     },

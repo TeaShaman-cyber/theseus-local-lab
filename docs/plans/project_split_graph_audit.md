@@ -105,8 +105,9 @@ Current recommendation:
   `node tools/wsl_migration_preflight/wsl_migration_preflight.mjs`.
   Current result is `WARN`, not `FAIL`: WSL sees Node/Git/GitHub CLI, all
   active `D:\theseus-*` projects, VS Code CLI, and the Docker socket proxy on
-  `127.0.0.1:23760`. Remaining warnings are WSL SSH-agent, global Codex config
-  portability, and legacy raw `2375` routes in VS Code tasks.
+  `127.0.0.1:23760`. WSL SSH-agent is bootstrapped, and WSL can connect to the
+  Ubuntu VM through `theseus-ubuntu-vm`. Remaining warnings are global Codex
+  config portability and legacy raw `2375` routes in VS Code tasks.
 
 ## WSL Migration Issue Scan
 
@@ -126,8 +127,8 @@ Current recommendation:
 - keep WSL as a guarded pilot and Unix tool layer;
 - keep Codex runtime state Windows-native until WSL-native config/cache is
   explicitly prepared;
-- fix or accept WSL SSH-agent as a pilot constraint before relying on SSH git;
 - use WSL GitHub CLI HTTPS auth as the immediate Git fallback;
+- use WSL SSH alias `theseus-ubuntu-vm` for Ubuntu VM work;
 - run WSL preflight after each Codex update or environment switch.
 
 ## ACL Preparation

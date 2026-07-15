@@ -228,6 +228,16 @@ test("allows WSL migration preflight as a known safe wrapper", () => {
   assert.equal(decision.reason, "known-safe-wrapper");
 });
 
+test("allows WSL SSH agent bootstrap as a known safe wrapper", () => {
+  const decision = evaluateAction({
+    surface: "shell",
+    command: "node tools/wsl_ssh_agent_bootstrap/wsl_ssh_agent_bootstrap.mjs",
+  });
+
+  assert.equal(decision.verdict, "allow");
+  assert.equal(decision.reason, "known-safe-wrapper");
+});
+
 test("allows provider scout as a known safe wrapper", () => {
   const decision = evaluateAction({
     surface: "shell",
