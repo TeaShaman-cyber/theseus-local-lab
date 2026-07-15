@@ -30,6 +30,8 @@ outputs/tool_policy/*.jsonl
 outputs/model_switch_guard/*.json
 outputs/usage_scout/*.json
 outputs/usage_scout/*.jsonl
+outputs/context_pressure/*.json
+outputs/context_pressure/*.jsonl
 outputs/ocr_lens/*.json
 outputs/ocr_lens/*.md
 outputs/source_lens/*.json

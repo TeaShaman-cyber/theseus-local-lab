@@ -101,6 +101,41 @@ if (event === "PreCompact") {
   process.exit(0);
 }
 
+if (event === "PostCompact") {
+  const checkpointResult = runNode(
+    [
+      "tools/memory_hook/memory_hook.mjs",
+      "--mode",
+      "checkpoint",
+      "--summary",
+      "Codex PostCompact lifecycle hook confirmed compaction boundary survived",
+      "--goal",
+      "Resume Theseus work from compact state packet, dashboard, AutoMem, and MemPalace rather than relying on lost active context",
+      "--open-loop",
+      "Verify latest state packet, usage scout, context pressure, and git state before continuing long work",
+      "--tag",
+      "codex-hook",
+      "--tag",
+      "postcompact",
+      "--stdin",
+    ],
+    hookInput,
+  );
+  const pressureResult = runNode(["tools/context_pressure_watch/context_pressure_watch.mjs"], hookInput);
+  const ok = checkpointResult.status === 0 && pressureResult.status === 0;
+  const result = {
+    stdout: [checkpointResult.stdout, pressureResult.stdout].filter(Boolean).join("\n"),
+    stderr: [checkpointResult.stderr, pressureResult.stderr].filter(Boolean).join("\n"),
+  };
+  response({
+    ok,
+    route: "memory-hook:checkpoint+context-pressure",
+    statusMessage: ok ? "PostCompact recovery checkpoint written." : "PostCompact hook failed softly.",
+    result,
+  });
+  process.exit(0);
+}
+
 if (shouldQueueResearch(event)) {
   const result = runNode(["hooks/research-queue-hook.mjs"], hookInput);
   response({
@@ -114,6 +149,7 @@ if (shouldQueueResearch(event)) {
 
 if (event === "Stop") {
   const usageResult = runNode(["tools/usage_scout/usage_scout.mjs"], hookInput);
+  const pressureResult = runNode(["tools/context_pressure_watch/context_pressure_watch.mjs"], hookInput);
   const checkpointResult = shouldCheckpointStop()
     ? runNode(
         [
@@ -131,15 +167,20 @@ if (event === "Stop") {
         hookInput,
       )
     : null;
-  const ok = usageResult.status === 0 && (!checkpointResult || checkpointResult.status === 0);
+  const ok = pressureResult.status === 0 && (!checkpointResult || checkpointResult.status === 0);
   const result = {
-    stdout: [usageResult.stdout, checkpointResult?.stdout].filter(Boolean).join("\n"),
-    stderr: [usageResult.stderr, checkpointResult?.stderr].filter(Boolean).join("\n"),
+    stdout: [usageResult.stdout, pressureResult.stdout, checkpointResult?.stdout].filter(Boolean).join("\n"),
+    stderr: [usageResult.stderr, pressureResult.stderr, checkpointResult?.stderr].filter(Boolean).join("\n"),
   };
   response({
     ok,
-    route: checkpointResult ? "usage-scout+memory-hook:checkpoint" : "usage-scout",
-    statusMessage: ok ? "Usage snapshot refreshed." : "Stop observability hook failed softly.",
+    route: checkpointResult ? "usage-scout+context-pressure+memory-hook:checkpoint" : "usage-scout+context-pressure",
+    statusMessage:
+      ok && usageResult.status === 0
+        ? "Usage snapshot refreshed."
+        : ok
+          ? "Context pressure refreshed from cached usage."
+          : "Stop observability hook failed softly.",
     result,
   });
   process.exit(0);

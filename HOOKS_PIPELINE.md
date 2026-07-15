@@ -14,11 +14,14 @@ integrations when the user asks or when a planned research pass starts.
 hook event
   -> hooks/hook-router.mjs
     -> PreCompact: tools/memory_hook/memory_hook.mjs --mode compact
+    -> PostCompact: tools/memory_hook/memory_hook.mjs --mode checkpoint
+       + tools/context_pressure_watch/context_pressure_watch.mjs
     -> UserPromptSubmit: tools/model_switch_guard/model_switch_guard.mjs
        injects a preflight only after model/effort changes
     -> PostToolUse or THESEUS_HOOK_RESEARCH=1:
        hooks/research-queue-hook.mjs
     -> Stop: tools/usage_scout/usage_scout.mjs refreshes local usage state
+       + tools/context_pressure_watch/context_pressure_watch.mjs
        + checkpoint when THESEUS_HOOK_STOP_CHECKPOINT=1
   -> local outputs first
   -> Codex processes memory drafts / research queue / timeline later
@@ -71,6 +74,8 @@ Useful events for this project:
 - `PostToolUse`: queue connector/browser follow-up when routed through
   `hook-router` or when `THESEUS_HOOK_RESEARCH=1` is set.
 - `PreCompact`: write a compact state packet through `tools/memory_hook`.
+- `PostCompact`: write a recovery checkpoint and refresh context-pressure
+  status after compaction.
 - `Stop`: refresh the rollout-backed usage snapshot; set
   `THESEUS_HOOK_STOP_CHECKPOINT=1` when an additional memory checkpoint is
   needed.

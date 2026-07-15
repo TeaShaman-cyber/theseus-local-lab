@@ -88,6 +88,16 @@ test("allows usage scout as a known safe wrapper", () => {
   assert.equal(decision.reason, "known-safe-wrapper");
 });
 
+test("allows context pressure watch as a known safe wrapper", () => {
+  const decision = evaluateAction({
+    surface: "shell",
+    command: "node tools/context_pressure_watch/context_pressure_watch.mjs --checkpoint",
+  });
+
+  assert.equal(decision.verdict, "allow");
+  assert.equal(decision.reason, "known-safe-wrapper");
+});
+
 test("allows OCR lens as a known safe wrapper", () => {
   const decision = evaluateAction({
     surface: "shell",

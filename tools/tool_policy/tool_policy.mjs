@@ -24,6 +24,7 @@ const safeWrappers = [
   /^node\s+tools[\\/]session_timeline[\\/]timeline\.mjs\b/i,
   /^node\s+tools[\\/]model_switch_guard[\\/]model_switch_guard\.mjs\b/i,
   /^node\s+tools[\\/]usage_scout[\\/]usage_scout\.mjs\b/i,
+  /^node\s+tools[\\/]context_pressure_watch[\\/]context_pressure_watch\.mjs\b/i,
   /^node\s+tools[\\/]ocr_lens[\\/]ocr_lens\.mjs\b/i,
   /^node\s+tools[\\/]source_lens[\\/]source_lens\.mjs\b/i,
   /^node\s+tools[\\/]lens_usage_trial[\\/]lens_usage_trial\.mjs\b/i,

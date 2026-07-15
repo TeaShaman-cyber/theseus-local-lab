@@ -422,6 +422,27 @@ async function buildDashboard() {
     ),
   );
 
+  const contextPressureFile = path.join(repoRoot, "outputs", "context_pressure", "latest.json");
+  const contextPressureStat = existsSync(contextPressureFile) ? statSync(contextPressureFile) : null;
+  const contextPressure = readJsonFile(contextPressureFile);
+  const contextPressureAge = contextPressureStat ? relativeAge(contextPressureStat.mtime, now) : null;
+  rows.push(
+    item(
+      "context-pressure",
+      "Context pressure",
+      contextPressure ? (contextPressure.status === "FAIL" ? "FAIL" : contextPressure.status === "WARN" ? "WARN" : statusFromFreshness(contextPressureAge, 2, 8)) : "WARN",
+      contextPressure
+        ? [
+            contextPressure.recommendation || "unknown",
+            `usage ${contextPressure.signals?.usage?.used_percent ?? "?"}%`,
+            `token ratio ${contextPressure.signals?.active_turn_tokens?.ratio ?? "?"}`,
+            `packet ${contextPressure.signals?.state_packet?.age_minutes ?? "?"}m`,
+            `${formatAge(contextPressureAge)} old`,
+          ].join("; ")
+        : "run node tools/context_pressure_watch/context_pressure_watch.mjs",
+    ),
+  );
+
   const lensUsageTrialFile = path.join(repoRoot, "outputs", "lens_usage_trial", "latest.json");
   const lensUsageTrialStat = existsSync(lensUsageTrialFile) ? statSync(lensUsageTrialFile) : null;
   const lensUsageTrial = readJsonFile(lensUsageTrialFile);

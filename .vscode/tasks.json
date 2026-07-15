@@ -519,6 +519,15 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus Context Pressure: check",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/context_pressure_watch/context_pressure_watch.mjs"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus: index Strazh JSON",
       "type": "process",
       "command": "node",

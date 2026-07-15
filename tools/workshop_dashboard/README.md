@@ -87,6 +87,17 @@ The main status view warns at 90 percent usage and fails at 100 percent. Token
 activity remains separate from quota consumption and is not treated as a
 billing formula.
 
+The `Context pressure` row reads the local compaction guard:
+
+```text
+node tools/context_pressure_watch/context_pressure_watch.mjs
+node tools/context_pressure_watch/context_pressure_watch.mjs --checkpoint
+```
+
+It never invokes Codex compaction. It only recommends a compact checkpoint, and
+with `--checkpoint` it writes one through the memory hook when pressure is high
+and the previous state packet is stale.
+
 After rebuilding the web container, verify the live user-visible surface with:
 
 ```text
