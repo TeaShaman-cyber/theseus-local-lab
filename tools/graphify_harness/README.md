@@ -40,6 +40,32 @@ Outputs:
 
 Corpus profiles live in `tools/graphify_harness/corpus_profiles.json`.
 
+Prepare a user-provided DeepSeek chat export for a separate semantic corpus:
+
+```text
+node tools/graphify_harness/normalize_chat_export.mjs --input <chat.json> --out <ignored-corpus.md>
+```
+
+The normalizer retains visible messages plus a separately labelled
+`reasoning_trace` layer from the user-provided export. It excludes service
+metadata and performs a basic token/private-key redaction pass before a
+semantic backend sees the text. A reasoning trace is source-specific evidence,
+not a verified factual claim.
+
+For an approved provider stored in Infisical, run the semantic extractor through
+the Windows-to-WSL bridge rather than copying provider values into WSL files:
+
+```text
+infisical run --env=local --path=/providers -- node tools/graphify_harness/run_semantic_wsl.mjs --corpus <corpus-dir> --out <ignored-output-dir>
+```
+
+The bridge forwards an OpenAI-compatible provider only to the child WSL
+process. It emits provider names and boolean checks, never key values.
+Its default semantic venv lives at
+`/home/poklad/.cache/theseus-graphify/venv`, outside the Windows-mounted
+workspace; set `GRAPHIFY_WSL_EXE` only when deliberately using another native
+WSL installation.
+
 ## Guardrails
 
 - Does not run `graphify install`.
