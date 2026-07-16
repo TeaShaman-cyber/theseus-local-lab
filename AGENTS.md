@@ -4,6 +4,17 @@ This file is the short entry map for agents working in this repository. Keep it
 small. Put procedures in scripts, detailed references in docs, and durable
 lessons in AutoMem/MemPalace.
 
+## North Star
+
+Codex is the current lead harness because Theseus has accumulated expertise,
+tools, memory, and trust around this environment. It is not the final substrate.
+
+Design for platform independence without losing the agent relationship, memory,
+style, or engineering process. Externalize durable state into memory, routes,
+secrets, logs, checks, skills, dashboards, worker profiles, and evidence
+packets so the workshop can survive model, provider, IDE, OS, or harness
+changes.
+
 ## Route First
 
 Before non-trivial work, use the smallest matching project skill:
