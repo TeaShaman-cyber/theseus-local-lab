@@ -62,6 +62,7 @@ const command =
 const argsTemplate = process.env.COPILOT_ADVISOR_ARGS || DEFAULT_ARGS;
 const args = splitArgs(argsTemplate, prompt);
 const childEnv = { ...process.env };
+const timeoutMs = Number.parseInt(process.env.COPILOT_ADVISOR_TIMEOUT_MS || "45000", 10);
 
 if (process.env.COPILOT_ADVISOR_PROXY) {
   childEnv.HTTP_PROXY ||= process.env.COPILOT_ADVISOR_PROXY;
@@ -90,6 +91,7 @@ if (
       env: childEnv,
       shell: false,
       stdio: ["ignore", "pipe", "pipe"],
+      timeout: Number.isFinite(timeoutMs) && timeoutMs > 0 ? timeoutMs : 45000,
     },
   );
 } else {
@@ -98,7 +100,15 @@ if (
     env: childEnv,
     shell: process.platform === "win32",
     stdio: ["ignore", "pipe", "pipe"],
+    timeout: Number.isFinite(timeoutMs) && timeoutMs > 0 ? timeoutMs : 45000,
   });
+}
+
+if (result.error?.code === "ETIMEDOUT") {
+  console.error("");
+  console.error(`Copilot advisor timed out after ${timeoutMs}ms.`);
+  console.error("Use the VS Code task or Copilot chat UI as the fallback route.");
+  process.exit(124);
 }
 
 if (result.error) {

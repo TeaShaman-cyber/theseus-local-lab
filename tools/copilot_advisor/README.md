@@ -12,6 +12,11 @@ This bridge is deliberately small:
 - The command is configurable, so the same bridge can work with a future
   `copilot` CLI, `gh copilot`, WSL, or a container wrapper.
 
+The bridge has a 45-second timeout by default. Set
+`COPILOT_ADVISOR_TIMEOUT_MS` only when a bounded longer request is justified.
+On timeout it returns exit code `124`; use the visible VS Code Copilot chat as
+the fallback rather than waiting indefinitely.
+
 ## Use From VS Code
 
 Run the task:
