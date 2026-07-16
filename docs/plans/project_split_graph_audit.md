@@ -12,6 +12,7 @@ Status: active cleanup plan.
 | NII | `D:\theseus-nii` | CodeWhale, conclaves, A2A, local model workers |
 | Observatory | `D:\theseus-observatory` | Local telemetry, Codex/system/GitHub issue watchers |
 | Public observatory | `D:\theseus-public-observatory` | Public-facing observatory site/data surface |
+| OSINT | `D:\theseus-osint` | Public-source research cards, plugin capability audits, GitHub issue/release scans |
 
 ## Current Runtime Edges
 
@@ -23,6 +24,7 @@ flowchart LR
   NII["D:/theseus-nii"]
   Obs["D:/theseus-observatory"]
   PubObs["D:/theseus-public-observatory"]
+  OSINT["D:/theseus-osint"]
   Drive["Google Drive mirror"]
   Docker["Docker Desktop"]
   Tasks["VS Code tasks"]
@@ -45,6 +47,9 @@ flowchart LR
   Lab -. fallback copies .-> NII
   Lab -. fallback copies .-> Obs
   Obs --> PubObs
+  OSINT --> Lab
+  OSINT --> Obs
+  OSINT --> KB
 ```
 
 ## Cleanup Targets
@@ -60,6 +65,9 @@ flowchart LR
   duplicated memory routes.
 - Docker bridge: document current Windows API status and a WSL-safe route before
   enabling any always-on WSL bridge.
+- OSINT: keep public-source research, connector capability audits, and GitHub
+  issue/release scans in `D:\theseus-osint`; store only distilled findings in
+  AutoMem and route/task docs.
 - Skills and hooks: audit both project-local and `C:\Users\s.poklad\.codex`
   configs for hardcoded monolith paths, old Docker bridges, and stale memory
   routes before switching the agent runtime to WSL.
