@@ -5,6 +5,7 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSy
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { writeTimelineEvent } from "../session_timeline/event_writer.mjs";
+import { collectUsageSnapshot } from "../usage_scout/usage_scout.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(here, "..", "..");
@@ -19,6 +20,7 @@ function parseArgs(argv) {
     warnPacketMinutes: 60,
     failPacketMinutes: 180,
     minCheckpointMinutes: 45,
+    refreshUsage: true,
     json: true,
   };
 
@@ -46,6 +48,7 @@ function parseArgs(argv) {
       args.minCheckpointMinutes = Number(next);
       index += 1;
     }
+    if (item === "--no-refresh-usage") args.refreshUsage = false;
   }
 
   return args;
@@ -131,7 +134,24 @@ function runMemoryCheckpoint(summary, goal, openLoop) {
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   const now = new Date();
-  const usage = readJson(path.join(repoRoot, "outputs", "usage_scout", "latest.json"));
+  let usageRefresh = { attempted: false, ok: null, error: null };
+  let usage = null;
+  if (args.refreshUsage) {
+    usageRefresh = { attempted: true, ok: false, error: null };
+    try {
+      const result = await collectUsageSnapshot({ workspace: repoRoot });
+      usage = result.snapshot;
+      usageRefresh = {
+        attempted: true,
+        ok: true,
+        changed: result.changed,
+        observed_at: result.snapshot?.observed_at || null,
+      };
+    } catch (error) {
+      usageRefresh = { attempted: true, ok: false, error: error.message };
+    }
+  }
+  if (!usage) usage = readJson(path.join(repoRoot, "outputs", "usage_scout", "latest.json"));
   const bindingLimit = usage?.limits?.find((limit) => limit.key === usage?.derived?.binding_limit_key);
   const usedPercent = Number(bindingLimit?.used_percent);
   const usageStatus = thresholdStatus(usedPercent, args.warnUsagePercent, args.failUsagePercent);
@@ -197,6 +217,7 @@ async function main() {
           : null,
         window_minutes: bindingLimit?.window_minutes ?? null,
         observed_at: usage?.observed_at || null,
+        refresh: usageRefresh,
       },
       active_turn_tokens: {
         status: tokenStatus,
@@ -247,4 +268,3 @@ async function main() {
 }
 
 await main();
-

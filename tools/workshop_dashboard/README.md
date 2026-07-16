@@ -10,6 +10,7 @@ backups, Docker, observability, the observatory, and Git sync.
 node tools/workshop_dashboard/dashboard.mjs
 node tools/workshop_dashboard/dashboard.mjs --json
 node tools/workshop_dashboard/dashboard.mjs --rows model-runtime,usage-scout,lens-usage-trial,git-sync
+node tools/workshop_dashboard/dashboard.mjs --rows codex-hooks,context-pressure,usage-scout
 ```
 
 Use `--rows` for agent-facing checks inside Codex. It keeps the human web
@@ -74,6 +75,17 @@ http://127.0.0.1:5180/api/codex-issues
 
 The dashboard never polls GitHub directly on every refresh. It only displays
 the latest local cache so the panel remains fast and rate-limit friendly.
+
+The `Codex hooks config` row checks the local project hook layer:
+
+```text
+node tools/workshop_dashboard/dashboard.mjs --rows codex-hooks
+```
+
+It warns when hooks are defined in both `.codex/hooks.json` and
+`.codex/config.toml`, when required lifecycle events are missing, or when the
+project hook JSON cannot be parsed. Keep `.codex/hooks.json` as the canonical
+hook layer and reserve `.codex/config.toml` for non-hook project settings.
 
 The `Limits` tab reads the rollout-backed Codex usage cache:
 

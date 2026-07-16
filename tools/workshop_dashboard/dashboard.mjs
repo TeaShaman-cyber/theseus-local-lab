@@ -144,6 +144,61 @@ function readJsonFile(filePath) {
   }
 }
 
+function readTextFile(filePath) {
+  if (!existsSync(filePath)) return null;
+  try {
+    return readFileSync(filePath, "utf8");
+  } catch {
+    return null;
+  }
+}
+
+function hookConfigHealth() {
+  const projectHooksPath = path.join(repoRoot, ".codex", "hooks.json");
+  const projectConfigPath = path.join(repoRoot, ".codex", "config.toml");
+  const hooksText = readTextFile(projectHooksPath);
+  const configText = readTextFile(projectConfigPath);
+  const projectHooks = readJsonFile(projectHooksPath);
+  const hooksJsonPresent = hooksText !== null;
+  const hooksTomlPresent = /\[\[hooks\.[^\]]+\]\]/.test(configText || "");
+  const duplicateLayer = hooksJsonPresent && hooksTomlPresent;
+  const requiredEvents = ["UserPromptSubmit", "Stop", "PreCompact", "PostCompact"];
+  const missingEvents = projectHooks?.hooks
+    ? requiredEvents.filter((event) => !Array.isArray(projectHooks.hooks[event]) || projectHooks.hooks[event].length === 0)
+    : requiredEvents;
+  const hookNameCounts = hooksText
+    ? requiredEvents.map((event) => ({
+        event,
+        count: (hooksText.match(new RegExp(`"${event}"\\s*:`, "g")) || []).length,
+      }))
+    : [];
+  const duplicateEvents = hookNameCounts.filter((entry) => entry.count > 1).map((entry) => `${entry.event}:${entry.count}`);
+  const status = !hooksJsonPresent || !projectHooks || missingEvents.length
+    ? "FAIL"
+    : duplicateLayer || duplicateEvents.length
+      ? "WARN"
+      : "OK";
+  const details = [];
+  if (!hooksJsonPresent) details.push("project hooks.json missing");
+  else if (!projectHooks) details.push("project hooks.json parse failed");
+  if (missingEvents.length) details.push(`missing ${missingEvents.join(", ")}`);
+  if (duplicateLayer) details.push("hooks defined in both hooks.json and config.toml");
+  if (duplicateEvents.length) details.push(`duplicate event keys ${duplicateEvents.join(", ")}`);
+  if (!details.length) details.push("single hooks.json layer with required lifecycle events");
+  return {
+    status,
+    detail: details.join("; "),
+    meta: {
+      project_hooks_json: projectHooksPath,
+      project_config_toml: projectConfigPath,
+      hooks_json_present: hooksJsonPresent,
+      hooks_toml_present: hooksTomlPresent,
+      missing_events: missingEvents,
+      duplicate_events: duplicateEvents,
+    },
+  };
+}
+
 function readJsonl(dir) {
   const full = path.resolve(repoRoot, dir);
   if (!existsSync(full)) return [];
@@ -246,6 +301,8 @@ async function buildDashboard() {
   rows.push(item("keychain", "Infisical keychain", keychain.ok ? "OK" : "WARN", keychain.ok ? "port 8088 open" : keychain.error));
   rows.push(item("docker-tcp", "Docker TCP", dockerTcp.ok ? "OK" : "FAIL", dockerTcp.ok ? "port 2375 open" : dockerTcp.error));
   rows.push(item("log-lattice", "Log lattice", logLattice.ok ? "OK" : "WARN", logLattice.ok ? "health endpoint responds" : logLattice.error || `HTTP ${logLattice.status}`));
+  const hooksHealth = hookConfigHealth();
+  rows.push(item("codex-hooks", "Codex hooks config", hooksHealth.status, hooksHealth.detail, hooksHealth.meta));
   rows.push(
     item(
       "docker-control",
@@ -288,7 +345,13 @@ async function buildDashboard() {
     rows.push(item("docker-ps", "Docker containers", "WARN", docker.error || "docker ps unavailable"));
   }
 
-  const latestBackup = latestFile("backups/data", (name) => name.endsWith(".tar.gz"));
+  const backupCandidates = [
+    env.THESEUS_BACKUP_DATA_DIR,
+    "D:/theseus-backup/backups/data",
+    "backups/data",
+  ].filter(Boolean);
+  const backupDir = backupCandidates.find((candidate) => existsSync(candidate));
+  const latestBackup = backupDir ? latestFile(backupDir, (name) => name.endsWith(".tar.gz")) : null;
   const backupAge = latestBackup ? relativeAge(latestBackup.mtime, now) : null;
   rows.push(
     item(

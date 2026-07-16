@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-15T23:29:53.878Z",
+  "generated_at": "2026-07-16T04:51:59.247Z",
   "status": "WARN",
   "recommendation": "migration is possible only as a guarded pilot; fix warnings before making WSL default",
   "checks": [
@@ -141,7 +141,7 @@
         "hits": [
           {
             "pattern": "windows-monolith-path",
-            "count": 8
+            "count": 16
           },
           {
             "pattern": "raw-docker-2375",

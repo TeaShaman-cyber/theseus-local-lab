@@ -79,7 +79,7 @@ function stopStatusMessage({ ok, usageOk, pressure }) {
   return "Stop observability hook failed softly.";
 }
 
-function response({ ok, route, statusMessage, result }) {
+function response({ ok, route, statusMessage, result, suppressOutput = true }) {
   const stderr = result?.stderr ? String(result.stderr).slice(0, 1000) : "";
   const stdout = result?.stdout ? String(result.stdout).slice(0, 1000) : "";
   if (!ok) {
@@ -90,7 +90,7 @@ function response({ ok, route, statusMessage, result }) {
   process.stdout.write(
     `${JSON.stringify({
       continue: true,
-      suppressOutput: true,
+      suppressOutput,
       systemMessage: `${statusMessage} (${route}, ok=${ok})`,
     })}\n`,
   );
@@ -227,6 +227,7 @@ if (event === "Stop") {
     route: checkpointResult ? "usage-scout+context-pressure+memory-hook:checkpoint" : "usage-scout+context-pressure",
     statusMessage: stopStatusMessage({ ok, usageOk: usageResult.status === 0, pressure }),
     result,
+    suppressOutput: pressure?.status === "OK",
   });
   process.exit(0);
 }
