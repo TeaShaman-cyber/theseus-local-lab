@@ -160,7 +160,7 @@ async function main() {
 
   const wslGithub = wsl(
     "gh auth status --hostname github.com 2>&1 | sed -e 's/Token: .*/Token: <redacted>/' -e 's/[A-Za-z0-9_\\-]\\{30,\\}/<redacted>/g' | head -20",
-    { timeoutMs: 12_000 },
+    { timeoutMs: 25_000 },
   );
   checks.push(
     check(

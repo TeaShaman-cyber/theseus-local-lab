@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-16T04:51:59.247Z",
+  "generated_at": "2026-07-16T20:38:13.026Z",
   "status": "WARN",
   "recommendation": "migration is possible only as a guarded pilot; fix warnings before making WSL default",
   "checks": [
@@ -50,14 +50,15 @@
     },
     {
       "name": "wsl-github-cli",
-      "status": "OK",
-      "detail": "GitHub CLI auth is visible from WSL",
+      "status": "WARN",
+      "detail": "GitHub CLI auth did not verify from WSL",
       "evidence": {
-        "ok": true,
-        "status": 0,
-        "signal": null,
-        "stdout": "github.com\n  ✓ Logged in to github.com account TeaShaman-cyber (/home/poklad/.config/gh/hosts.yml)\n  - Active account: true\n  - Git operations protocol: https\n  - Token: <redacted>\n  - Token scopes: 'admin:enterprise', 'admin:gpg_key', 'admin:org', 'admin:org_hook', 'admin:public_key', 'admin:repo_hook', 'admin:ssh_signing_key', 'audit_log', 'codespace', 'copilot', 'delete:packages', 'delete_repo', 'gist', 'notifications', 'project', 'repo', 'user', 'workflow', 'write:discussion', 'write:network_configurations', 'write:packages'",
-        "stderr": ""
+        "ok": false,
+        "status": null,
+        "signal": "SIGTERM",
+        "stdout": "",
+        "stderr": "",
+        "error": "spawnSync wsl.exe ETIMEDOUT"
       }
     },
     {

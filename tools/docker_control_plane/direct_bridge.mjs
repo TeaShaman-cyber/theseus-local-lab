@@ -5,13 +5,16 @@ import { stdin, stdout, env, cwd } from "node:process";
 import { resolve, relative, isAbsolute } from "node:path";
 
 const PROJECT_ROOT = resolve(env.THESEUS_PROJECT_ROOT || cwd());
-const DOCKER_HOST = env.DOCKER_HOST || "tcp://127.0.0.1:2375";
+// Windows retains its explicit localhost TCP bridge in the MCP profile. WSL
+// intentionally leaves DOCKER_HOST unset so Docker uses its native Unix socket.
+const DOCKER_HOST = env.DOCKER_HOST || null;
+const DOCKER_CONTEXT = DOCKER_HOST || "default Docker context";
 const MAX_OUTPUT_CHARS = 80_000;
 
 const tools = [
   {
     name: "docker_tcp_health",
-    description: "Check Docker daemon reachability through DOCKER_HOST=tcp://127.0.0.1:2375.",
+    description: "Check reachability through the configured Docker host or native Docker context.",
     inputSchema: { type: "object", properties: {}, additionalProperties: false },
   },
   {
@@ -121,7 +124,7 @@ function runDocker(args, options = {}) {
       cwd: options.cwd || PROJECT_ROOT,
       shell: false,
       windowsHide: true,
-      env: { ...env, DOCKER_HOST },
+      env: DOCKER_HOST ? { ...env, DOCKER_HOST } : { ...env },
       stdio: ["ignore", "pipe", "pipe"],
     });
     let out = "";
@@ -144,7 +147,7 @@ function runDocker(args, options = {}) {
       clearTimeout(timeout);
       resolveRun({
         ok: false,
-        docker_host: DOCKER_HOST,
+        docker_host: DOCKER_CONTEXT,
         args,
         code: null,
         signal: null,
@@ -158,7 +161,7 @@ function runDocker(args, options = {}) {
       clearTimeout(timeout);
       resolveRun({
         ok: code === 0 && !killed,
-        docker_host: DOCKER_HOST,
+        docker_host: DOCKER_CONTEXT,
         args,
         code,
         signal,

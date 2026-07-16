@@ -7,9 +7,10 @@ authorized in the normal `s.poklad` user session. Direct `docker.exe` MCP
 servers inherit the sandbox identity and fail on Docker Desktop state such as
 `C:\Users\s.poklad\.docker\config.json` or `npipe:////./pipe/docker_engine`.
 
-Current preferred path: Docker Desktop exposes its daemon on
-`tcp://127.0.0.1:2375`, and Codex uses a small allowlisted stdio MCP server that
-sets `DOCKER_HOST` to that TCP endpoint.
+For Windows, Docker Desktop can expose its daemon on `tcp://127.0.0.1:2375`,
+and Codex can use a small allowlisted stdio MCP server with an explicit
+`DOCKER_HOST`. In WSL, leave `DOCKER_HOST` unset: the same bridge then uses the
+native Docker Unix socket.
 
 Important: treat raw `2375` as a Windows-local legacy bridge, not the durable
 agent contract. Docker's own documentation warns that unauthenticated TCP daemon
@@ -29,7 +30,8 @@ user context and connect Codex through `bridge.mjs`.
 
 ## Files
 
-- `direct_bridge.mjs` - preferred MCP stdio bridge; talks to Docker over TCP.
+- `direct_bridge.mjs` - preferred MCP stdio bridge; uses an explicit Docker
+  host when configured, otherwise the native Docker context.
 - `daemon.mjs` - fallback HTTP daemon; run from VS Code or a normal user terminal.
 - `bridge.mjs` - fallback MCP stdio bridge for the daemon.
 
