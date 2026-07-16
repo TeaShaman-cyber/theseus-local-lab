@@ -1,6 +1,11 @@
 {
   "harness": {
     "description": "Theseus harness, dashboard, routing, memory-hook, and task surface.",
+    "smoke": {
+      "query": "what connects dashboard to git status",
+      "explain": "buildDashboard()",
+      "path": { "from": "buildDashboard()", "to": "scan_staged.mjs" }
+    },
     "items": [
       "tools/tool_policy",
       "tools/workshop_dashboard",
@@ -17,6 +22,11 @@
   },
   "memory": {
     "description": "Memory-stack code and lightweight docs. External AutoMem data remains out of scope until an importer exists.",
+    "smoke": {
+      "query": "what connects memory hook to agent routing",
+      "explain": "buildPacket()",
+      "path": { "from": "memory_hook.mjs", "to": "buildPacket()" }
+    },
     "items": [
       "tools/memory_hook",
       ".agents/skills/theseus-memory-stack",
@@ -25,6 +35,11 @@
   },
   "observatory": {
     "description": "Local observatory code, status surfaces, and research notes already committed to the repo.",
+    "smoke": {
+      "query": "what connects dashboard to service status",
+      "explain": "buildDashboard()",
+      "path": { "from": "dashboard.mjs", "to": "buildDashboard()" }
+    },
     "items": [
       "tools/workshop_dashboard",
       "tools/service_status",

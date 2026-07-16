@@ -29,6 +29,7 @@ function run(command, args, options = {}) {
     shell: false,
     windowsHide: true,
     maxBuffer: options.maxBuffer || 10 * 1024 * 1024,
+    timeout: options.timeoutMs || 0,
   });
   return {
     ok: result.status === 0,
@@ -36,6 +37,7 @@ function run(command, args, options = {}) {
     stdout: result.stdout || "",
     stderr: result.stderr || "",
     error: result.error ? result.error.message : "",
+    timed_out: result.error?.code === "ETIMEDOUT" || result.status === 124,
   };
 }
 
@@ -172,7 +174,20 @@ function runGraphify(args, phase) {
   return result;
 }
 
-function writeSummary({ install, profile, copied, extract, query, explain, pathResult, diagnose, stats, corpusDir, graphPath }) {
+function runGraphifyOptional(args, phase, timeoutMs) {
+  reporter.heartbeat(phase, `graphify ${args.join(" ")}`, { timeout_ms: timeoutMs });
+  // GNU timeout owns the Graphify process on WSL, so a stalled analysis does
+  // not survive Node's timeout as an orphan consuming CPU in the background.
+  if (process.platform !== "win32") {
+    const seconds = Math.max(1, Math.ceil(timeoutMs / 1000));
+    return run("timeout", ["--kill-after=2s", `${seconds}s`, graphifyExe, ...args], {
+      maxBuffer: 20 * 1024 * 1024,
+    });
+  }
+  return run(graphifyExe, args, { maxBuffer: 20 * 1024 * 1024, timeoutMs });
+}
+
+function writeSummary({ install, profile, smokePlan, copied, extract, query, explain, pathResult, diagnose, stats, corpusDir, graphPath }) {
   mkdirSync(outputDir, { recursive: true });
   const stamp = new Date().toISOString().replaceAll(":", "").replace(/\.\d{3}Z$/, "Z");
   const jsonPath = path.join(outputDir, `graphify_harness_${profile.name}_${stamp}.json`);
@@ -185,6 +200,7 @@ function writeSummary({ install, profile, copied, extract, query, explain, pathR
       name: profile.name,
       description: profile.description || "",
       items: profile.items,
+      smoke: smokePlan,
     },
     graphify: install,
     pilot_root: pilotRoot,
@@ -194,9 +210,29 @@ function writeSummary({ install, profile, copied, extract, query, explain, pathR
     stats,
     smoke: {
       query: query.stdout,
+      query_status: {
+        ok: query.ok,
+        timed_out: query.timed_out,
+        error: query.error || query.stderr || null,
+      },
       explain: explain.stdout,
+      explain_status: {
+        ok: explain.ok,
+        timed_out: explain.timed_out,
+        error: explain.error || explain.stderr || null,
+      },
       path: pathResult.stdout,
+      path_status: {
+        ok: pathResult.ok,
+        timed_out: pathResult.timed_out,
+        error: pathResult.error || pathResult.stderr || null,
+      },
       diagnose: diagnose.stdout,
+      diagnose_status: {
+        ok: diagnose.ok,
+        timed_out: diagnose.timed_out,
+        error: diagnose.error || diagnose.stderr || null,
+      },
     },
     extract: {
       stdout: extract.stdout,
@@ -211,8 +247,19 @@ function writeSummary({ install, profile, copied, extract, query, explain, pathR
     .map(([relation, count]) => `- ${relation}: ${count}`)
     .join("\n");
   const md = `# Graphify Harness Lens\n\nGenerated: ${payload.generated_at}\n\n## Profile\n\n- Name: ${profile.name}\n- Description: ${profile.description || ""}\n\n## Result\n\n- Graphify: ${install.version}${install.reused ? " (reused venv)" : " (installed)"}\n- Nodes: ${stats.nodes}\n- Edges: ${stats.edges}\n- Graph format: ${stats.format}\n- Graph path: ${graphPath}\n\n## Relations\n\n${relationRows}\n\n## Smoke Query\n\n\`\`\`text\n${query.stdout.trim()}\n\`\`\`\n\n## Explain buildDashboard()\n\n\`\`\`text\n${explain.stdout.trim()}\n\`\`\`\n\n## Path buildDashboard() -> scan_staged.mjs\n\n\`\`\`text\n${pathResult.stdout.trim()}\n\`\`\`\n\n## Diagnose\n\n\`\`\`json\n${diagnose.stdout.trim()}\n\`\`\`\n`;
-  writeFileSync(mdPath, md);
-  writeFileSync(latestMdPath, md);
+  const renderedMd = `${md
+    .replace("## Smoke Query", `## Smoke Query: ${smokePlan.query}`)
+    .replace("## Explain buildDashboard()", `## Explain ${smokePlan.explain}`)
+    .replace("## Path buildDashboard() -> scan_staged.mjs", `## Path ${smokePlan.path.from} -> ${smokePlan.path.to}`)}
+## Smoke Status
+
+- Query: ${query.ok ? "OK" : query.timed_out ? "WARN: timed out" : "WARN: failed"}
+- Explain: ${explain.ok ? "OK" : explain.timed_out ? "WARN: timed out" : "WARN: failed"}
+- Path: ${pathResult.ok ? "OK" : pathResult.timed_out ? "WARN: timed out" : "WARN: failed"}
+- Diagnose: ${diagnose.ok ? "OK" : diagnose.timed_out ? "WARN: timed out" : "WARN: failed"}
+`;
+  writeFileSync(mdPath, renderedMd);
+  writeFileSync(latestMdPath, renderedMd);
   return { jsonPath, mdPath, latestJsonPath, latestMdPath };
 }
 
@@ -222,6 +269,7 @@ function main() {
     fail("--pilot-root is reserved for a future version; use GRAPHIFY_PILOT_ROOT for now");
   }
   const profile = loadProfile(parsed.profile);
+  const smokePlan = profile.smoke;
   const corpusDir = path.join(pilotRoot, profile.name, "corpus");
   const outRoot = path.join(pilotRoot, profile.name, "out");
   const graphDir = path.join(outRoot, "graphify-out");
@@ -236,14 +284,19 @@ function main() {
 
   const extract = runGraphify(["extract", corpusDir, "--code-only", "--out", outRoot, "--no-cluster"], "extract");
   const stats = readGraphStats(graphPath);
-  const query = runGraphify(
-    ["query", "what connects dashboard to git status", "--graph", graphPath, "--budget", "1200"],
+  const query = runGraphifyOptional(
+    ["query", smokePlan.query, "--graph", graphPath, "--budget", "1200"],
     "query",
+    20_000,
   );
-  const explain = runGraphify(["explain", "buildDashboard()", "--graph", graphPath], "explain");
-  const pathResult = runGraphify(["path", "buildDashboard()", "scan_staged.mjs", "--graph", graphPath], "path");
-  const diagnose = runGraphify(["diagnose", "multigraph", "--graph", graphPath, "--json"], "diagnose");
-  const summary = writeSummary({ install, profile, copied, extract, query, explain, pathResult, diagnose, stats, corpusDir, graphPath });
+  const explain = runGraphifyOptional(["explain", smokePlan.explain, "--graph", graphPath], "explain", 5_000);
+  const pathResult = runGraphifyOptional(
+    ["path", smokePlan.path.from, smokePlan.path.to, "--graph", graphPath],
+    "path",
+    5000,
+  );
+  const diagnose = runGraphifyOptional(["diagnose", "multigraph", "--graph", graphPath, "--json"], "diagnose", 5_000);
+  const summary = writeSummary({ install, profile, smokePlan, copied, extract, query, explain, pathResult, diagnose, stats, corpusDir, graphPath });
   reporter.done("Graphify harness lens completed", {
     nodes: stats.nodes,
     edges: stats.edges,

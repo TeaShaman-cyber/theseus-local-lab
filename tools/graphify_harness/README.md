@@ -48,3 +48,12 @@ Corpus profiles live in `tools/graphify_harness/corpus_profiles.json`.
 - Uses Codex bundled Python 3.12 when available.
 - Writes JSONL progress events to stderr.
 - Query commands reuse an existing graph and do not rebuild it.
+- Each corpus profile owns its own smoke query and graph-node checks; profiles
+  do not borrow names from the harness profile.
+- On WSL, optional `explain`, `path`, and `diagnose` calls run under a process
+  timeout that also terminates the stalled Graphify child. A timeout is written
+  as `WARN` in the ignored summary; a healthy graph and query are still useful
+  evidence and are not discarded.
+- This is currently a code-structure lens. Google Drive prose, PDFs, and chat
+  exports need a separate provenance-preserving semantic ingest before they can
+  be represented as a text knowledge graph.
