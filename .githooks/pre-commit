@@ -1,2 +1,3 @@
 #!/bin/sh
+node tools/git_safety/normalize_staged_text.mjs
 node tools/git_safety/scan_staged.mjs
