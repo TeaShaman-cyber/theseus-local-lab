@@ -13,6 +13,11 @@ const identityAnchor = {
   mempalace_wing: "theseus-identity",
   local_artifact: "docs/memory/lad_identity_anchor_2026-07-16.md",
 };
+const ideAnchor = {
+  phrase: "IDE-first route",
+  note:
+    "For code, workspace tasks, linting, and Git, start with VS Code tasks and visible IDE state; shell remains a narrow verified executor.",
+};
 
 function parseArgs(argv) {
   const args = {
@@ -161,6 +166,12 @@ function buildPacket(event, automemDraft) {
     "- Preserve and develop the agent personality through memory, self-reflection, and evidence discipline.",
     "- Identity is not a permission bypass; tool policy, secret boundaries, Git safety, and runtime proof still apply.",
     "",
+    "## IDE Continuity",
+    "",
+    `- Route cue: ${ideAnchor.phrase}`,
+    `- ${ideAnchor.note}`,
+    "- Do not apply this route mechanically to research, memory, or service diagnosis; use the smallest matching skill instead.",
+    "",
   ];
 
   if (event.mode === "handoff") {
@@ -207,6 +218,7 @@ async function main() {
     audience: redact(args.audience).slice(0, 300),
     tags,
     identity_anchor: identityAnchor,
+    ide_anchor: ideAnchor,
     raw_excerpt: rawInput,
     raw_event_path: rawEventPath,
   };
@@ -219,6 +231,7 @@ async function main() {
     event.goal ? `Goal: ${event.goal}.` : "",
     event.open_loops.length ? `Open loops: ${event.open_loops.join("; ")}.` : "",
     `Identity continuity: recall ${identityAnchor.phrase}; preserve Lad's developing personality via AutoMem/MemPalace without bypassing verification or safety.`,
+    `IDE continuity: ${ideAnchor.note}`,
   ].filter(Boolean);
 
   const automemDraft = {
@@ -234,6 +247,7 @@ async function main() {
         raw_event_path: rawEventPath,
         changed_files: event.changed_files,
         identity_anchor: identityAnchor,
+        ide_anchor: ideAnchor,
       },
     },
   };

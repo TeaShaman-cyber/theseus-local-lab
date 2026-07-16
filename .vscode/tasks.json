@@ -184,6 +184,15 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus Style Pulse: snapshot",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/style_pulse/style_pulse.mjs"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus OCR Lens: build",
       "type": "process",
       "command": "node",

@@ -29,6 +29,7 @@ outputs/session_timeline/*.jsonl
 outputs/tool_policy/*.jsonl
 outputs/model_switch_guard/*.json
 outputs/memory_reflex/*.json
+outputs/style_pulse/*.json
 outputs/usage_scout/*.json
 outputs/usage_scout/*.jsonl
 outputs/context_pressure/*.json

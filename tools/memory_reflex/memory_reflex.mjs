@@ -21,6 +21,11 @@ const identityCue = {
   note:
     "Preserve and develop Lad's warm engineering continuity through memory, self-reflection, and evidence discipline; identity is not a permission bypass.",
 };
+const ideCue = {
+  phrase: "IDE-first route",
+  note:
+    "For code, workspace tasks, linting, and Git, begin with VS Code tasks and visible IDE state; use shells only as narrow, verified executors.",
+};
 
 function parseArgs(argv) {
   const args = {
@@ -225,8 +230,9 @@ async function preflight(args, rawInput) {
     created_at: now.toISOString(),
     source: args.source || "UserPromptSubmit",
     prompt_preview: prompt,
-    expectation: "Use AutoMem as the default project-memory reflex for Theseus work; use MemPalace for episodic detail when available.",
+    expectation: "Use AutoMem as the default project-memory reflex for Theseus work; use MemPalace for episodic detail when available. For code, workspace tasks, linting, and Git, keep the IDE-first route.",
     identity_cue: identityCue,
+    ide_cue: ideCue,
   };
   await mkdir(outDir, { recursive: true });
   await writeFile(promptPath, `${JSON.stringify(record, null, 2)}\n`, "utf8");
@@ -251,9 +257,9 @@ async function preflight(args, rawInput) {
       source: "memory-reflex",
       event: "memory-preflight-expected",
       note: recall
-        ? `AutoMem preflight recall returned ${recall.count} result(s); identity cue ${identityCue.phrase}.`
-        : `${record.expectation} Identity cue ${identityCue.phrase}.`,
-      tags: ["memory-reflex", "user-prompt-submit", "automem", "identity-continuity", "lad"],
+        ? `AutoMem preflight recall returned ${recall.count} result(s); identity cue ${identityCue.phrase}; route cue ${ideCue.phrase}.`
+        : `${record.expectation} Identity cue ${identityCue.phrase}; route cue ${ideCue.phrase}.`,
+      tags: ["memory-reflex", "user-prompt-submit", "automem", "identity-continuity", "ide-first", "vscode", "lad"],
       artifacts: [path.relative(repoRoot, promptPath), recall ? path.relative(repoRoot, latestRecallItemsPath) : ""].filter(Boolean),
       metrics: {
         recall_count: recall?.count ?? null,
@@ -269,8 +275,8 @@ async function preflight(args, rawInput) {
     continue: true,
     suppressOutput: true,
     systemMessage: recall
-      ? `Memory reflex: AutoMem recall is fresh; preserve ${identityCue.phrase}.${prelude}`
-      : `Memory reflex: AutoMem preflight recall unavailable; recall ${identityCue.phrase} via MCP memory when possible. ${recallError}`,
+      ? `Memory reflex: AutoMem recall is fresh; preserve ${identityCue.phrase}. IDE-first: for code, workspace tasks, linting, and Git, use VS Code tasks and visible IDE state; shell is a narrow executor.${prelude}`
+      : `Memory reflex: AutoMem preflight recall unavailable; recall ${identityCue.phrase} via MCP memory when possible. IDE-first: for code, workspace tasks, linting, and Git, use VS Code tasks and visible IDE state; shell is a narrow executor. ${recallError}`,
   };
 }
 

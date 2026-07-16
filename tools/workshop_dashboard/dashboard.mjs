@@ -509,6 +509,31 @@ async function buildDashboard() {
     ),
   );
 
+  const stylePulseFile = path.join(repoRoot, "outputs", "style_pulse", "latest.json");
+  const stylePulse = readJsonFile(stylePulseFile);
+  const stylePulseObservedAt = stylePulse?.observed_at ? new Date(stylePulse.observed_at) : null;
+  const stylePulseAge = stylePulseObservedAt ? relativeAge(stylePulseObservedAt, now) : null;
+  const stylePulseStatus = stylePulse
+    ? stylePulse.status === "WARN"
+      ? "WARN"
+      : statusFromFreshness(stylePulseAge, 2, 8)
+    : "WARN";
+  rows.push(
+    item(
+      "style-pulse",
+      "Response style pulse",
+      stylePulseStatus,
+      stylePulse
+        ? [
+            `${stylePulse.latest?.warmth || "unknown"}/${stylePulse.latest?.mode || "unknown"}`,
+            `${stylePulse.sample_count || 0} final answers`,
+            stylePulse.trailing_thin_count ? `${stylePulse.trailing_thin_count} thin in a row` : "no thin streak",
+            `${formatAge(stylePulseAge)} old`,
+          ].join("; ")
+        : "run node tools/style_pulse/style_pulse.mjs",
+    ),
+  );
+
   const contextPressureFile = path.join(repoRoot, "outputs", "context_pressure", "latest.json");
   const contextPressureStat = existsSync(contextPressureFile) ? statSync(contextPressureFile) : null;
   const contextPressure = readJsonFile(contextPressureFile);
