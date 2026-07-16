@@ -55,6 +55,7 @@ outputs/progress_audit/*.json
 outputs/progress_audit/*.md
 outputs/provider_scout/*.json
 outputs/provider_scout/*.md
+outputs/task_graph/*.json
 outputs/graphify_harness/*.json
 outputs/graphify_harness/*.md
 outputs/chat_corpus_lens/*.json

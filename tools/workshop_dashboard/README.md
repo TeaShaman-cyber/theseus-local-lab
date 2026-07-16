@@ -61,6 +61,24 @@ This is the local mathematical substrate for routing. It uses simple weighted
 graph scoring now, and can later hand the same graph JSON to Wolfram, NetworkX,
 or another math advisor.
 
+The graph is meant to be automatic. The VS Code task
+`Theseus: refresh task graph cache` runs on folder open and writes:
+
+```text
+outputs/task_graph/latest.json
+```
+
+Manual graph generation is only a diagnostic fallback:
+
+```text
+node tools/workshop_dashboard/tasks.mjs graph --write "current Theseus workshop route audit"
+```
+
+The graph includes WSL/portability markers such as raw Docker `2375`, hardcoded
+Windows paths, legacy monolith paths, WSL bridges, PowerShell routes, and inline
+shell strings. The main dashboard row `VS Code task graph` warns when the cache
+is stale or when any task still carries portability markers.
+
 The graph view also exposes preflight bundles for high-centrality subsystems:
 Docker, memory, secrets, backup, VM/SSH, and Git. Bundles are read-only route
 recommendations, not browser-executed commands.
@@ -173,6 +191,7 @@ launch Process Explorer, Process Monitor, dumps, or trace capture.
 - cached OpenAI Codex GitHub issue summary
 - cached Codex local system/version/event summary
 - cached lightweight process/network scout
+- cached VS Code task graph and WSL/portability markers
 - Git sync and dirty-file state
 
 The script does not start, stop, rebuild, or mutate services. It also does not

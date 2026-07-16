@@ -730,6 +730,23 @@ async function buildDashboard() {
     ),
   );
 
+  const taskGraphFile = path.join(repoRoot, "outputs", "task_graph", "latest.json");
+  const taskGraphStat = existsSync(taskGraphFile) ? statSync(taskGraphFile) : null;
+  const taskGraph = readJsonFile(taskGraphFile);
+  const taskGraphAge = taskGraphStat ? relativeAge(taskGraphStat.mtime, now) : null;
+  const flaggedTasks = taskGraph?.metrics?.flagged_tasks || 0;
+  const totalTasks = taskGraph?.metrics?.tasks || 0;
+  rows.push(
+    item(
+      "task-graph",
+      "VS Code task graph",
+      taskGraph ? (flaggedTasks > 0 ? "WARN" : statusFromFreshness(taskGraphAge, 12, 48)) : "WARN",
+      taskGraph
+        ? `${totalTasks} tasks, ${flaggedTasks} tasks with portability markers, ${formatAge(taskGraphAge)} old`
+        : "run node tools/workshop_dashboard/tasks.mjs graph --write",
+    ),
+  );
+
   const wslPreflightFile = path.join(repoRoot, "outputs", "wsl_migration_preflight", "latest.json");
   const wslPreflightStat = existsSync(wslPreflightFile) ? statSync(wslPreflightFile) : null;
   const wslPreflight = readJsonFile(wslPreflightFile);

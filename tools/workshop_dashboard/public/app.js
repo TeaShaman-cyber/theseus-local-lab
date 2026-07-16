@@ -125,7 +125,9 @@ function graphNodeClass(node) {
   if (node.type === "group") return "graph-group";
   if (node.type === "capability") return "graph-capability";
   if (node.type === "bundle") return "graph-bundle";
+  if (node.type === "marker") return node.severity === "WARN" ? "graph-marker-warn" : "graph-marker";
   if (node.recommended) return "graph-recommended";
+  if (node.portability_status === "WARN") return "graph-portability-warn";
   if (node.kind === "check") return "graph-check";
   if (node.kind === "action") return "graph-action";
   return "graph-task";
@@ -138,12 +140,14 @@ function renderTaskGraph(graph) {
   const groups = nodes.filter((node) => node.type === "group");
   const caps = nodes.filter((node) => node.type === "capability");
   const bundles = nodes.filter((node) => node.type === "bundle");
+  const markers = nodes.filter((node) => node.type === "marker");
   const tasks = nodes.filter((node) => node.type === "task");
   const positions = new Map();
 
   groups.forEach((node, index) => positions.set(node.id, polar(590, 310, 255, index, groups.length)));
   caps.forEach((node, index) => positions.set(node.id, polar(590, 310, 105, index, caps.length, Math.PI / 8)));
   bundles.forEach((node, index) => positions.set(node.id, polar(590, 310, 180, index, bundles.length, Math.PI / 10)));
+  markers.forEach((node, index) => positions.set(node.id, polar(590, 310, 320, index, markers.length, Math.PI / 18)));
   tasks.forEach((node, index) => {
     const groupIndex = Math.max(0, groups.findIndex((group) => group.id === `group:${node.group}`));
     const base = polar(590, 310, 255, groupIndex, groups.length);
@@ -153,6 +157,7 @@ function renderTaskGraph(graph) {
 
   const visibleTaskIds = new Set([
     ...tasks.filter((node) => node.recommended).map((node) => node.id),
+    ...tasks.filter((node) => node.portability_status === "WARN").slice(0, 24).map((node) => node.id),
     ...tasks.filter((node) => node.kind === "check").slice(0, 20).map((node) => node.id),
   ]);
   const visibleNodes = nodes.filter((node) => node.type !== "task" || visibleTaskIds.has(node.id));
@@ -382,6 +387,8 @@ function renderTaskList() {
             <span>${escapeHtml(task.group_label)}</span>
             <span>${escapeHtml(task.route_hint)}</span>
             ${task.has_inputs ? "<span>needs input</span>" : "<span>no input</span>"}
+            ${task.portability_status && task.portability_status !== "OK" ? `<span>portability ${escapeHtml(task.portability_status)}</span>` : ""}
+            ${(task.portability_markers || []).map((marker) => `<span>${escapeHtml(marker.label)}</span>`).join("")}
           </div>
           <code>${escapeHtml(task.command || "(no command)")}</code>
           <div class="task-actions">
@@ -411,6 +418,9 @@ function renderGraphDetails(graph) {
     ["Groups", graph.metrics?.groups],
     ["Capabilities", graph.metrics?.capabilities],
     ["Bundles", graph.metrics?.bundles],
+    ["Portability markers", graph.metrics?.markers],
+    ["Flagged tasks", graph.metrics?.flagged_tasks],
+    ["WSL-ready tasks", graph.metrics?.wsl_ready_tasks],
     ["Tasks", graph.metrics?.tasks],
   ]
     .map(

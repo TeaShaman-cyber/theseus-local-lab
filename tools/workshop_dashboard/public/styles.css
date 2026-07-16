@@ -386,6 +386,17 @@ select {
   fill: #241a31;
 }
 
+.graph-marker {
+  stroke: var(--unknown);
+  fill: #1c2430;
+}
+
+.graph-marker-warn,
+.graph-portability-warn {
+  stroke: var(--warn);
+  fill: #2a2415;
+}
+
 .graph-check {
   stroke: var(--ok);
 }

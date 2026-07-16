@@ -709,6 +709,21 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus: refresh task graph cache",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/workshop_dashboard/tasks.mjs",
+        "graph",
+        "--write",
+        "current Theseus workshop route audit"
+      ],
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus: Model runtime sync from usage scout",
       "type": "process",
       "command": "node",
