@@ -53,6 +53,8 @@ outputs/sysinternals_scout/*.md
 outputs/sysinternals_scout/*.zip
 outputs/progress_audit/*.json
 outputs/progress_audit/*.md
+outputs/recurrence_audit/*.json
+outputs/recurrence_audit/*.md
 outputs/provider_scout/*.json
 outputs/provider_scout/*.md
 outputs/task_graph/*.json

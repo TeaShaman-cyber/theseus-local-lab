@@ -709,6 +709,16 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus: recurrence audit",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/recurrence_audit/recurrence_audit.mjs",
+        "--write"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus: refresh task graph cache",
       "type": "process",
       "command": "node",

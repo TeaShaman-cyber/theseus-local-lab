@@ -153,6 +153,27 @@ function readTextFile(filePath) {
   }
 }
 
+function recurrenceAuditSummary() {
+  const filePath = path.join(repoRoot, "outputs", "recurrence_audit", "latest.json");
+  const audit = readJsonFile(filePath);
+  if (!audit) {
+    return item(
+      "recurrence-audit",
+      "Recurrence audit",
+      "WARN",
+      "run node tools/recurrence_audit/recurrence_audit.mjs --write",
+    );
+  }
+  const active = (audit.items || []).filter((entry) => entry.status !== "OK");
+  const detail = active.length
+    ? active.map((entry) => `${entry.id}:${entry.status}`).join(", ")
+    : "no recurring friction patterns active";
+  return item("recurrence-audit", "Recurrence audit", audit.status || "WARN", detail, {
+    generated_at: audit.generated_at,
+    active_count: active.length,
+  });
+}
+
 function hookConfigHealth() {
   const projectHooksPath = path.join(repoRoot, ".codex", "hooks.json");
   const projectConfigPath = path.join(repoRoot, ".codex", "config.toml");
@@ -301,6 +322,7 @@ async function buildDashboard() {
   rows.push(item("keychain", "Infisical keychain", keychain.ok ? "OK" : "WARN", keychain.ok ? "port 8088 open" : keychain.error));
   rows.push(item("docker-tcp", "Docker TCP", dockerTcp.ok ? "OK" : "FAIL", dockerTcp.ok ? "port 2375 open" : dockerTcp.error));
   rows.push(item("log-lattice", "Log lattice", logLattice.ok ? "OK" : "WARN", logLattice.ok ? "health endpoint responds" : logLattice.error || `HTTP ${logLattice.status}`));
+  rows.push(recurrenceAuditSummary());
   const hooksHealth = hookConfigHealth();
   rows.push(item("codex-hooks", "Codex hooks config", hooksHealth.status, hooksHealth.detail, hooksHealth.meta));
   rows.push(
