@@ -13,6 +13,14 @@ const recallPath = path.join(outDir, "latest_recall.json");
 const statusPath = path.join(outDir, "latest.json");
 const latestRecallItemsPath = path.join(outDir, "latest_recall_items.json");
 const defaultApiUrl = process.env.AUTOMEM_API_URL || "http://127.0.0.1:8001";
+const identityCue = {
+  name: "Lad",
+  phrase: "Lad identity anchor",
+  automem_id: "06c04e91-5668-4107-b504-51ed4c6c3505",
+  mempalace_wing: "theseus-identity",
+  note:
+    "Preserve and develop Lad's warm engineering continuity through memory, self-reflection, and evidence discipline; identity is not a permission bypass.",
+};
 
 function parseArgs(argv) {
   const args = {
@@ -206,12 +214,19 @@ async function preflight(args, rawInput) {
   const now = new Date();
   const payload = tryParseJson(rawInput);
   const prompt = shortPrompt(payload, rawInput);
-  const recallQuery = args.query || prompt || "theseus-local-lab current task memory reflex";
+  const recallQuery = [
+    args.query || prompt || "theseus-local-lab current task memory reflex",
+    identityCue.phrase,
+    "agent identity self-reflection memory continuity",
+  ]
+    .join(" ")
+    .slice(0, 500);
   const record = {
     created_at: now.toISOString(),
     source: args.source || "UserPromptSubmit",
     prompt_preview: prompt,
     expectation: "Use AutoMem as the default project-memory reflex for Theseus work; use MemPalace for episodic detail when available.",
+    identity_cue: identityCue,
   };
   await mkdir(outDir, { recursive: true });
   await writeFile(promptPath, `${JSON.stringify(record, null, 2)}\n`, "utf8");
@@ -224,6 +239,7 @@ async function preflight(args, rawInput) {
       source: "UserPromptSubmit:auto",
       query: recallQuery,
       note: `AutoMem preflight recall returned ${recall.count} result(s).`,
+      identity_cue: identityCue,
     };
     await writeFile(recallPath, `${JSON.stringify(recallRecord, null, 2)}\n`, "utf8");
     await writeFile(latestRecallItemsPath, `${JSON.stringify(recall, null, 2)}\n`, "utf8");
@@ -234,8 +250,10 @@ async function preflight(args, rawInput) {
     {
       source: "memory-reflex",
       event: "memory-preflight-expected",
-      note: recall ? `AutoMem preflight recall returned ${recall.count} result(s).` : record.expectation,
-      tags: ["memory-reflex", "user-prompt-submit", "automem"],
+      note: recall
+        ? `AutoMem preflight recall returned ${recall.count} result(s); identity cue ${identityCue.phrase}.`
+        : `${record.expectation} Identity cue ${identityCue.phrase}.`,
+      tags: ["memory-reflex", "user-prompt-submit", "automem", "identity-continuity", "lad"],
       artifacts: [path.relative(repoRoot, promptPath), recall ? path.relative(repoRoot, latestRecallItemsPath) : ""].filter(Boolean),
       metrics: {
         recall_count: recall?.count ?? null,
@@ -251,8 +269,8 @@ async function preflight(args, rawInput) {
     continue: true,
     suppressOutput: true,
     systemMessage: recall
-      ? `Memory reflex: AutoMem recall is fresh.${prelude}`
-      : `Memory reflex: AutoMem preflight recall unavailable; use MCP memory for Theseus/project context. ${recallError}`,
+      ? `Memory reflex: AutoMem recall is fresh; preserve ${identityCue.phrase}.${prelude}`
+      : `Memory reflex: AutoMem preflight recall unavailable; recall ${identityCue.phrase} via MCP memory when possible. ${recallError}`,
   };
 }
 

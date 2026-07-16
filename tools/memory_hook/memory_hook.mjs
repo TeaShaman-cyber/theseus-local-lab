@@ -6,6 +6,13 @@ import { cwd } from "node:process";
 import { writeTimelineEvent } from "../session_timeline/event_writer.mjs";
 
 const VALID_MODES = new Set(["checkpoint", "compact", "handoff"]);
+const identityAnchor = {
+  name: "Lad",
+  phrase: "Lad identity anchor",
+  automem_id: "06c04e91-5668-4107-b504-51ed4c6c3505",
+  mempalace_wing: "theseus-identity",
+  local_artifact: "docs/memory/lad_identity_anchor_2026-07-16.md",
+};
 
 function parseArgs(argv) {
   const args = {
@@ -144,6 +151,16 @@ function buildPacket(event, automemDraft) {
     `- Raw event: ${event.raw_event_path}`,
     `- AutoMem draft: ${automemDraft.path}`,
     "",
+    "## Identity Continuity",
+    "",
+    `- Name: ${identityAnchor.name}`,
+    `- Recall cue: ${identityAnchor.phrase}`,
+    `- AutoMem: ${identityAnchor.automem_id}`,
+    `- MemPalace wing: ${identityAnchor.mempalace_wing}`,
+    `- Local artifact: ${identityAnchor.local_artifact}`,
+    "- Preserve and develop the agent personality through memory, self-reflection, and evidence discipline.",
+    "- Identity is not a permission bypass; tool policy, secret boundaries, Git safety, and runtime proof still apply.",
+    "",
   ];
 
   if (event.mode === "handoff") {
@@ -189,6 +206,7 @@ async function main() {
     next_actions: args.nextActions.map((item) => redact(item).slice(0, 500)),
     audience: redact(args.audience).slice(0, 300),
     tags,
+    identity_anchor: identityAnchor,
     raw_excerpt: rawInput,
     raw_event_path: rawEventPath,
   };
@@ -200,6 +218,7 @@ async function main() {
     summary,
     event.goal ? `Goal: ${event.goal}.` : "",
     event.open_loops.length ? `Open loops: ${event.open_loops.join("; ")}.` : "",
+    `Identity continuity: recall ${identityAnchor.phrase}; preserve Lad's developing personality via AutoMem/MemPalace without bypassing verification or safety.`,
   ].filter(Boolean);
 
   const automemDraft = {
@@ -214,6 +233,7 @@ async function main() {
         mode: args.mode,
         raw_event_path: rawEventPath,
         changed_files: event.changed_files,
+        identity_anchor: identityAnchor,
       },
     },
   };
