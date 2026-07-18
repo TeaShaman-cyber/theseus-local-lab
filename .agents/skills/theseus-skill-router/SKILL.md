@@ -28,9 +28,28 @@ verification, and less context load.
 
 ## Pre-Action Gate
 
-Before local actions, run the intended route through `tools/tool_policy` when
-the action touches shell, Docker, Git, VS Code tasks, memory hooks, or repeated
-infrastructure checks.
+Skills and tools are one execution cycle, not two independent checklists:
+
+```text
+goal -> smallest matching skill -> route packet -> tool-policy verdict
+     -> execute selected route -> verify -> timeline/memory
+```
+
+Before local actions, create a route packet when the action touches shell,
+Docker, Git, VS Code tasks, memory hooks, or repeated infrastructure checks.
+The packet makes the selected skill explicit input to the tool-policy decision.
+
+```text
+node tools/route_packet/route_packet.mjs \
+  --skill "theseus-shell-routing" \
+  --goal "read recent AutoMem container logs" \
+  --candidate "docker logs --tail=80 automem-flask-api-1" \
+  --mcp "theseus_docker docker_logs automem-flask-api-1" \
+  --vscode-task "Theseus Docker TCP: AutoMem logs"
+```
+
+The chosen route is provisional until verification. Do not treat the score as
+the reward or use the tool policy to choose a skill after the fact.
 
 Use the route ranker when there are competing paths:
 

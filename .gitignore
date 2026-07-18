@@ -32,6 +32,7 @@ outputs/memory_hook/*.jsonl
 outputs/session_journal/*.md
 outputs/session_timeline/*.jsonl
 outputs/tool_policy/*.jsonl
+outputs/route_packet/*.jsonl
 outputs/model_switch_guard/*.json
 outputs/memory_reflex/*.json
 outputs/style_pulse/*.json

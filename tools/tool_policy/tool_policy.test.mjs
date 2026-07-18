@@ -3,6 +3,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import { evaluateAction, rankRoutes, applyVerification } from "./tool_policy.mjs";
+import { buildRoutePacket } from "../route_packet/route_packet.mjs";
 
 test("blocks raw Docker shell commands and routes to Docker MCP or VS Code task", () => {
   const decision = evaluateAction({
@@ -362,4 +363,20 @@ test("ranks minimal skill router above loading all project skills", () => {
   assert.equal(result.winner.id, "router");
   assert.ok(result.ranked.find((route) => route.id === "all-skills").scores.task_fit < 0);
   assert.ok(result.ranked.find((route) => route.id === "all-skills").scores.context_cost < 0);
+});
+
+test("binds a selected skill to a policy-checked tool route", () => {
+  const packet = buildRoutePacket({
+    goal: "inspect Docker containers",
+    skill: "theseus-shell-routing",
+    candidates: [
+      { command: "docker ps" },
+      { surface: "mcp", command: "theseus_docker docker_ps" },
+    ],
+  });
+
+  assert.equal(packet.selected_skill, "theseus-shell-routing");
+  assert.equal(packet.next_action.surface, "mcp");
+  assert.equal(packet.policy.verdict, "allow");
+  assert.equal(packet.verification.status, "pending");
 });

@@ -198,6 +198,25 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus: route skill to tool",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/route_packet/route_packet.mjs",
+        "--skill",
+        "${input:routePacketSkill}",
+        "--goal",
+        "${input:toolPolicyGoal}",
+        "--candidate",
+        "${input:toolPolicyCandidateA}",
+        "--mcp",
+        "${input:toolPolicyCandidateB}",
+        "--vscode-task",
+        "${input:toolPolicyCandidateC}"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus Learning Loop: daily proposal",
       "type": "process",
       "command": "node",
@@ -1282,6 +1301,19 @@
       "type": "promptString",
       "description": "Goal for route ranking",
       "default": "read recent AutoMem container logs"
+    },
+    {
+      "id": "routePacketSkill",
+      "type": "pickString",
+      "description": "Selected Theseus skill to bind to the tool route",
+      "options": [
+        "theseus-memory-stack",
+        "theseus-shell-routing",
+        "theseus-copilot-advisor",
+        "theseus-plugin-conclave",
+        "theseus-git-hygiene"
+      ],
+      "default": "theseus-shell-routing"
     },
     {
       "id": "toolPolicyCandidateA",

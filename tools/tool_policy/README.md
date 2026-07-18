@@ -80,6 +80,27 @@ The ranker scores routes across:
 - user friction
 - verification strength
 
+## Bind Skill To Tool Choice
+
+`route_packet` closes the gap between a semantic skill choice and a concrete
+tool choice. It records one small, machine-readable handoff:
+
+```text
+selected skill -> ranked candidates -> policy verdict -> verification pending
+```
+
+```text
+node tools/route_packet/route_packet.mjs \
+  --skill "theseus-shell-routing" \
+  --goal "inspect Docker containers" \
+  --candidate "docker ps" \
+  --mcp "theseus_docker docker_ps"
+```
+
+Packets are written to ignored `outputs/route_packet/YYYY-MM-DD.jsonl` and
+mirrored to the session timeline. The packet is a route contract, not a new
+large skill and not an execution sandbox.
+
 This is GRPO-inspired only in the small local sense: compare a group of route
 candidates relative to each other instead of treating one reward score as
 absolute truth.
