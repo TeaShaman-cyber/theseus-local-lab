@@ -9,10 +9,28 @@ import { env, exit } from "node:process";
 
 const repoRoot = path.resolve(import.meta.dirname, "..", "..");
 const host = env.THESEUS_HOST || "127.0.0.1";
+const nativeDockerSocket = "/var/run/docker.sock";
+
+function detectDockerRoute() {
+  const configuredHost = env.DOCKER_HOST?.trim();
+  if (configuredHost) {
+    return {
+      kind: configuredHost.startsWith("unix://") ? "unix" : "tcp",
+      endpoint: configuredHost,
+      configured: true,
+    };
+  }
+  if (process.platform !== "win32" && existsSync(nativeDockerSocket)) {
+    return { kind: "unix", endpoint: nativeDockerSocket, configured: false };
+  }
+  return { kind: "tcp", endpoint: `tcp://${host}:2375`, configured: false };
+}
+
+const dockerRoute = detectDockerRoute();
 const dockerEnv = {
   ...env,
-  DOCKER_HOST: env.DOCKER_HOST || `tcp://${host}:2375`,
 };
+if (dockerRoute.kind === "tcp") dockerEnv.DOCKER_HOST = dockerRoute.endpoint;
 const dockerConfig = path.join(repoRoot, "tools", "docker_control_plane", "docker-cli-config");
 if (existsSync(dockerConfig)) dockerEnv.DOCKER_CONFIG = dockerConfig;
 
@@ -310,7 +328,7 @@ async function buildDashboard() {
     httpGet(localUrl(8001, "/health")),
     tcpCheck(host, 5174),
     tcpCheck(host, 8088),
-    tcpCheck(host, 2375),
+    dockerRoute.kind === "tcp" ? tcpCheck(host, 2375) : Promise.resolve({ ok: true, not_applicable: true }),
     httpGet(localUrl(8768, "/health")),
     httpGet(localUrl(8767, "/health")),
     dockerContainers(),
@@ -320,7 +338,27 @@ async function buildDashboard() {
   rows.push(item("automem-api", "AutoMem API", automem.ok ? "OK" : "FAIL", automem.ok ? "health endpoint responds" : automem.error || `HTTP ${automem.status}`));
   rows.push(item("graph-viewer", "AutoMem graph viewer", graphViewer.ok ? "OK" : "WARN", graphViewer.ok ? "port 5174 open" : graphViewer.error));
   rows.push(item("keychain", "Infisical keychain", keychain.ok ? "OK" : "WARN", keychain.ok ? "port 8088 open" : keychain.error));
-  rows.push(item("docker-tcp", "Docker TCP", dockerTcp.ok ? "OK" : "FAIL", dockerTcp.ok ? "port 2375 open" : dockerTcp.error));
+  rows.push(
+    item(
+      "docker-route",
+      "Active Docker route",
+      docker.ok ? "OK" : "FAIL",
+      docker.ok
+        ? `${dockerRoute.kind} ${dockerRoute.endpoint}${dockerRoute.configured ? " (configured)" : " (runtime default)"}`
+        : `Docker CLI failed on ${dockerRoute.kind} ${dockerRoute.endpoint}: ${docker.error || "unknown error"}`,
+      { kind: dockerRoute.kind, endpoint: dockerRoute.endpoint, configured: dockerRoute.configured },
+    ),
+  );
+  rows.push(
+    item(
+      "docker-tcp",
+      "Docker TCP (Windows bridge)",
+      dockerRoute.kind === "tcp" ? (dockerTcp.ok ? "OK" : "FAIL") : "OK",
+      dockerRoute.kind === "tcp"
+        ? (dockerTcp.ok ? "port 2375 open" : dockerTcp.error)
+        : `N/A: native Unix socket route is active (${dockerRoute.endpoint})`,
+    ),
+  );
   rows.push(item("log-lattice", "Log lattice", logLattice.ok ? "OK" : "WARN", logLattice.ok ? "health endpoint responds" : logLattice.error || `HTTP ${logLattice.status}`));
   rows.push(recurrenceAuditSummary());
   const hooksHealth = hookConfigHealth();
@@ -329,8 +367,10 @@ async function buildDashboard() {
     item(
       "docker-control",
       "Docker control fallback",
-      dockerControl.ok || dockerTcp.ok ? "OK" : "WARN",
-      dockerControl.ok
+      dockerRoute.kind === "unix" || dockerControl.ok || dockerTcp.ok ? "OK" : "WARN",
+      dockerRoute.kind === "unix"
+        ? `N/A: WSL uses ${dockerRoute.endpoint} directly`
+        : dockerControl.ok
         ? "health endpoint responds"
         : dockerTcp.ok
           ? "fallback daemon not running; preferred Docker TCP works"

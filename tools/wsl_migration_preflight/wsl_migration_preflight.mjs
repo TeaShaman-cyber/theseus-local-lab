@@ -106,16 +106,32 @@ async function main() {
     ),
   );
 
+  const windowsDocker = run("docker", ["version", "--format", "{{.Server.Version}}"], { timeoutMs: 15_000 });
+  checks.push(
+    check(
+      "windows-native-docker",
+      windowsDocker.ok ? "OK" : "WARN",
+      windowsDocker.ok
+        ? `Windows reaches Docker Desktop directly (server ${windowsDocker.stdout})`
+        : "Windows Docker CLI did not verify; inspect Docker Desktop before a migration pilot",
+      windowsDocker,
+    ),
+  );
+
   const winProbe = existsSync(observatoryProbe)
     ? run("node", [observatoryProbe], { timeoutMs: 15_000 })
     : { ok: false, stdout: "", stderr: "probe file missing" };
   const winProbeSummary = summarizeDockerProbe(winProbe.stdout);
   checks.push(
     check(
-      "windows-docker-proxy",
-      winProbe.ok && winProbeSummary.verdict === "OK" ? "OK" : "WARN",
-      winProbe.ok ? "Docker socket proxy probe works from Windows" : "Docker socket proxy probe failed from Windows",
-      { ...winProbeSummary, stderr: winProbe.stderr || undefined },
+      "windows-legacy-docker-proxy",
+      windowsDocker.ok || (winProbe.ok && winProbeSummary.verdict === "OK") ? "OK" : "WARN",
+      winProbe.ok && winProbeSummary.verdict === "OK"
+        ? "Optional legacy Docker proxy works from Windows"
+        : windowsDocker.ok
+          ? "N/A: Windows reaches Docker Desktop directly"
+          : "Legacy Docker proxy did not verify; direct Docker CLI is the preferred route",
+      { ...winProbeSummary, native_docker_ready: windowsDocker.ok, stderr: winProbe.stderr || undefined },
     ),
   );
 
@@ -190,14 +206,38 @@ async function main() {
     ),
   );
 
+  const wslNativeDocker = wsl(
+    [
+      "[ -S /var/run/docker.sock ] && echo docker_socket=present || echo docker_socket=missing",
+      "docker context show 2>&1 | sed 's#^#docker_context=#'",
+      "docker version --format '{{.Server.Version}}' 2>&1 | sed 's#^#docker_server=#'",
+    ].join("; "),
+    { timeoutMs: 15_000 },
+  );
+  const nativeDockerReady = wslNativeDocker.ok && /docker_socket=present/.test(wslNativeDocker.stdout) && /docker_server=/.test(wslNativeDocker.stdout);
+  checks.push(
+    check(
+      "wsl-native-docker",
+      nativeDockerReady ? "OK" : "FAIL",
+      nativeDockerReady
+        ? "WSL reaches Docker Desktop through /var/run/docker.sock"
+        : "WSL native Docker socket or Docker CLI did not verify",
+      wslNativeDocker,
+    ),
+  );
+
   const wslProbe = wsl(`node ${observatoryProbeWsl}`, { timeoutMs: 20_000 });
   const wslProbeSummary = summarizeDockerProbe(wslProbe.stdout);
   checks.push(
     check(
-      "wsl-docker-proxy",
-      wslProbe.ok && wslProbeSummary.verdict === "OK" ? "OK" : "FAIL",
-      wslProbe.ok ? "Docker socket proxy probe works from WSL" : "Docker socket proxy probe failed from WSL",
-      { ...wslProbeSummary, stderr: wslProbe.stderr || undefined },
+      "wsl-legacy-docker-proxy",
+      nativeDockerReady || (wslProbe.ok && wslProbeSummary.verdict === "OK") ? "OK" : "WARN",
+      wslProbe.ok && wslProbeSummary.verdict === "OK"
+        ? "Optional legacy Docker proxy also works from WSL"
+        : nativeDockerReady
+          ? "N/A: legacy proxy is not required because the native Docker socket works"
+          : "Legacy Docker proxy did not verify; native socket remains the preferred route",
+      { ...wslProbeSummary, native_docker_ready: nativeDockerReady, stderr: wslProbe.stderr || undefined },
     ),
   );
 
@@ -224,7 +264,7 @@ async function main() {
   );
 
   const ubuntuVmSsh = wsl(
-    "ssh -o BatchMode=yes -o ConnectTimeout=5 theseus-ubuntu-vm 'echo ssh-ok; whoami; hostname' 2>&1 | sed -e 's/[A-Za-z0-9+\\/=]\\{20,\\}/<redacted>/g' | head -20",
+    "ssh -o BatchMode=yes -o ConnectTimeout=5 theseus-ubuntu-vm 'echo ssh-ok; whoami; hostname' > /tmp/theseus-ubuntu-vm-ssh.log 2>&1; status=$?; sed -e 's/[A-Za-z0-9+\\/=]\\{20,\\}/<redacted>/g' /tmp/theseus-ubuntu-vm-ssh.log | head -20; exit $status",
     { timeoutMs: 12_000 },
   );
   checks.push(
@@ -260,8 +300,8 @@ async function main() {
   checks.push(
     check(
       "codex-hooks-json",
-      projectHooks.parse_ok && globalHooks.parse_ok ? "OK" : "WARN",
-      "Codex hooks JSON parse check",
+      projectHooks.parse_ok && (!globalHooks.exists || globalHooks.parse_ok) ? "OK" : "WARN",
+      globalHooks.exists ? "Project and global Codex hooks JSON parse check" : "Project Codex hooks JSON parses; no global duplicate layer",
       {
         project: { exists: projectHooks.exists, parse_ok: projectHooks.parse_ok, error: projectHooks.error },
         global: { exists: globalHooks.exists, parse_ok: globalHooks.parse_ok, error: globalHooks.error },

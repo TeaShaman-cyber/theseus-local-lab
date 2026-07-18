@@ -7,7 +7,7 @@ import { promisify } from "node:util";
 
 const execFileAsync = promisify(execFile);
 
-test("dashboard exposes the style pulse as a process check", async () => {
+test("dashboard exposes the style pulse and active Docker route as process checks", async () => {
   let stdout = "";
   try {
     ({ stdout } = await execFileAsync(process.execPath, ["tools/workshop_dashboard/dashboard.mjs", "--json"], {
@@ -19,7 +19,10 @@ test("dashboard exposes the style pulse as a process check", async () => {
   }
   const dashboard = JSON.parse(stdout);
   const row = dashboard.rows.find((item) => item.id === "style-pulse");
+  const dockerRoute = dashboard.rows.find((item) => item.id === "docker-route");
 
   assert.ok(row, "style pulse row should be visible on the workshop dashboard");
   assert.ok(["OK", "WARN", "FAIL"].includes(row.status));
+  assert.ok(dockerRoute, "active Docker route should be visible on the workshop dashboard");
+  assert.ok(["tcp", "unix"].includes(dockerRoute.meta?.kind));
 });
