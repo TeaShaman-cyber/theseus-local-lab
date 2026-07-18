@@ -22,6 +22,20 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus Memory: MemPalace health",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/service_status/service_status.mjs",
+        "port",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "18765"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus: git status",
       "type": "process",
       "command": "git",

@@ -10,7 +10,11 @@ backup-lattice/data/
 .codex/
 .git/
 tmp/
-work/
+work/*
+!work/mempalace-pilot/
+work/mempalace-pilot/*
+!work/mempalace-pilot/docker-compose.yml
+!work/mempalace-pilot/MEMORY_PALACE_JUNIOR.md
 node_modules/
 tools/infisical_cli/node_modules/
 tools/infisical_cli/package-lock.json

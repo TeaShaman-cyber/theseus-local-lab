@@ -17,6 +17,13 @@
       "health_url": "http://127.0.0.1:8088/"
     },
     {
+      "id": "mempalace",
+      "compose_file": "work/mempalace-pilot/docker-compose.yml",
+      "startup_grace_seconds": 60,
+      "containers": ["theseus-mempalace"],
+      "health_url": "http://127.0.0.1:18765/healthz"
+    },
+    {
       "id": "graph-viewer",
       "compose_file": "automem-graph-viewer/docker-compose.yml",
       "startup_grace_seconds": 60,

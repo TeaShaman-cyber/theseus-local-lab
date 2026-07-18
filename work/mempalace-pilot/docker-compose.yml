@@ -1,0 +1,27 @@
+name: theseus-mempalace
+
+services:
+  mempalace:
+    build:
+      context: ./repo
+      dockerfile: Dockerfile
+    image: theseus-mempalace:pilot
+    container_name: theseus-mempalace
+    command: ["serve", "--host", "0.0.0.0", "--port", "8765", "--allow-insecure"]
+    ports:
+      - "127.0.0.1:18765:8765"
+    volumes:
+      - theseus-mempalace-clean:/data
+    environment:
+      MEMPALACE_PALACE_PATH: /data/palace
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"from urllib.request import urlopen; assert urlopen('http://127.0.0.1:8765/healthz', timeout=3).read().strip() == b'ok'\""]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+volumes:
+  theseus-mempalace-clean:
+    external: true
