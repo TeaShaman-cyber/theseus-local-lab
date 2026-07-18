@@ -1,0 +1,64 @@
+---
+name: theseus-plugin-conclave
+description: Use for fresh research, scientific evidence, external technical second opinions, connected-plugin choice, or bounded multi-source checks in Theseus. Routes one primary oracle and, when justified, one independent corroborator without creating a noisy plugin swarm.
+---
+
+# Theseus Plugin Conclave
+
+Use plugins as bounded external lenses, never as a replacement for local
+evidence, memory, or verification.
+
+## Before Calling An Oracle
+
+1. Read `tools/plugin_conclave/catalog.json` or run:
+
+   ```text
+   node tools/plugin_conclave/plugin_conclave.mjs --goal "<goal>"
+   ```
+
+2. Select one primary route. Add one independent corroborator only for a
+   changing, consequential, disputed, or research-grade claim.
+3. Keep prompts non-secret and task-scoped. State whether the result is a
+   confirmed fact, source report, or hypothesis.
+4. Treat write-capable apps as executors, not advisors. Do not mutate Drive,
+   Notion, Deepnote, Todoist, Gmail, ButlerBrain, or external workspaces merely
+   because their tools are available.
+
+## Authority Order
+
+1. Local tests, logs, service status, and reproducible artifacts.
+2. Primary sources and official documentation.
+3. A targeted oracle plus an independent corroborator when needed.
+4. Community reports, reviews, and model suggestions.
+
+`AutoMem` remains durable decision memory. `MemPalace` holds episodic or
+verbatim evidence. Neither is displaced by ButlerBrain, Drive, Engram, or an
+oracle result.
+
+## Routes
+
+| Need | Primary | Optional corroborator |
+|---|---|---|
+| Fresh, broad web evidence | Acumen | Exa or Parallel Search |
+| Site map, crawl, or extraction | Tavily | Exa fetch |
+| Deep cited investigation | Liner | Agora claim/evidence map |
+| Peer-reviewed research | Consensus | Scholar Gateway or SciSpace |
+| Code/runtime debugging | local logs and tests | Replay.io or Copilot advisor |
+| AI models, datasets, evaluations | Hugging Face | AMD/local-model route |
+| Formal model or computation | Wolfram | local test or explicit calculation |
+| Knowledge graph view | Graphify/AutoMem/MemPalace | Ace Knowledge Graph |
+| API/schema readiness | local validation | payload/date/API cleaners |
+
+For the full current audit, roles, and exclusions, see
+`docs/reference/plugin_conclave_catalog.md`.
+
+## Stop Conditions
+
+- Do not ask several search plugins the same question just to manufacture a
+  vote.
+- Do not make a plugin response the source of truth when direct evidence is
+  available.
+- Do not create a new persistent memory store for convenience. Engram is
+  intentionally outside the Theseus memory write path.
+- If a route is unavailable, mark it unavailable and fall back to the next
+  catalogued route; do not silently invent an equivalence.

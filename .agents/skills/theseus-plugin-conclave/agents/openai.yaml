@@ -1,0 +1,6 @@
+interface:
+  display_name: "Theseus Plugin Conclave"
+  short_description: "Route bounded research and external advisors."
+  default_prompt: "Use $theseus-plugin-conclave to select a primary external oracle and, only when justified, one corroborator."
+policy:
+  allow_implicit_invocation: true

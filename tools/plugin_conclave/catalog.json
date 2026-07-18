@@ -1,0 +1,259 @@
+{
+  "schema": "theseus.plugin-conclave.v1",
+  "audited_at": "2026-07-18",
+  "source": "Codex runtime tool inventory: 38 connected apps, 355 app tools; local skill inventory reviewed separately.",
+  "principles": [
+    "One primary oracle, then at most one independent corroborator when the claim is consequential, contested, or time-sensitive.",
+    "Local logs, tests, service status, and reproducible artifacts outrank all external plugin output.",
+    "External memory and write-capable applications are sources or executors, not automatic durable memory."
+  ],
+  "routes": [
+    {
+      "id": "fresh-web",
+      "keywords": ["current", "latest", "news", "web", "search", "recent"],
+      "primary": "acumen",
+      "corroborator": "exa",
+      "output": "dated facts with direct source URLs"
+    },
+    {
+      "id": "site-extraction",
+      "keywords": ["crawl", "website", "site map", "extract", "page"],
+      "primary": "tavily",
+      "corroborator": "exa",
+      "output": "source-bounded extracted content"
+    },
+    {
+      "id": "deep-research",
+      "keywords": ["deep research", "investigate", "literature review", "landscape"],
+      "primary": "liner",
+      "corroborator": "agora",
+      "output": "cited research memo separated into facts, reports, and hypotheses"
+    },
+    {
+      "id": "claim-check",
+      "keywords": ["claim", "disputed", "causality", "fact check", "prediction"],
+      "primary": "agora",
+      "corroborator": "acumen",
+      "output": "claim map with source provenance, causal uncertainty, and dated corroboration"
+    },
+    {
+      "id": "scholarly",
+      "keywords": ["paper", "scholarly", "peer reviewed", "study", "research", "citation"],
+      "primary": "consensus",
+      "corroborator": "scholar-gateway",
+      "output": "primary paper records and scope-aware evidence"
+    },
+    {
+      "id": "engineering-debug",
+      "keywords": ["bug", "debug", "trace", "runtime", "test", "failure", "stack trace"],
+      "primary": "local-evidence",
+      "corroborator": "replay",
+      "output": "reproduction, failure class, evidence, and checked remediation"
+    },
+    {
+      "id": "ai-models",
+      "keywords": ["model", "dataset", "benchmark", "evaluation", "hugging face", "local llm"],
+      "primary": "hugging-face",
+      "corroborator": "amd-local-ai",
+      "output": "model or dataset metadata plus local serving/evaluation constraints"
+    },
+    {
+      "id": "formal-math",
+      "keywords": ["wolfram", "formal", "contract", "graph metric", "calculation", "math"],
+      "primary": "wolfram",
+      "corroborator": "local-evidence",
+      "output": "clearly scoped formal result and an explicit implementation-conformance check"
+    },
+    {
+      "id": "github-vscode",
+      "keywords": ["github", "copilot", "vscode", "ci", "workflow", "pull request"],
+      "primary": "copilot-advisor",
+      "corroborator": "hapi-mcp-registry",
+      "output": "non-secret, bounded implementation recommendation"
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "acumen",
+      "role": "oracle",
+      "plugin": "Acumen by Talarion",
+      "tool_prefix": "acumen_by_talarion_",
+      "use_for": "fresh, verified current facts and research direction",
+      "limits": "not a substitute for direct source review on high-stakes claims"
+    },
+    {
+      "id": "exa",
+      "role": "oracle",
+      "plugin": "Exa",
+      "tool_prefix": "exa_web_",
+      "use_for": "web discovery and clean-page fetch",
+      "limits": "search ranking is not evidence quality"
+    },
+    {
+      "id": "parallel-search",
+      "role": "oracle",
+      "plugin": "Parallel Search",
+      "tool_prefix": "parallel_search_",
+      "use_for": "independent web corroboration",
+      "limits": "use only when an independent search path is justified"
+    },
+    {
+      "id": "tavily",
+      "role": "oracle",
+      "plugin": "Tavily AI",
+      "tool_prefix": "tavily_ai_",
+      "use_for": "site maps, crawling, and source extraction",
+      "limits": "do not crawl broadly without a bounded question"
+    },
+    {
+      "id": "liner",
+      "role": "oracle",
+      "plugin": "Agentic Search by Liner",
+      "tool_prefix": "agentic_search_by_liner_",
+      "use_for": "deep, cited, multi-step research",
+      "limits": "reserve for research-sized questions"
+    },
+    {
+      "id": "agora",
+      "role": "oracle",
+      "plugin": "Agora",
+      "tool_prefix": "agora_",
+      "use_for": "claim checking, causality, evidence, timelines, and prediction claims",
+      "limits": "a graph of claims is not proof of causation"
+    },
+    {
+      "id": "consensus",
+      "role": "oracle",
+      "plugin": "Consensus",
+      "tool_prefix": "consensus_",
+      "use_for": "peer-reviewed paper discovery and paper records",
+      "limits": "fetch a returned paper record before citing it"
+    },
+    {
+      "id": "scholar-gateway",
+      "role": "oracle",
+      "plugin": "Scholar Gateway",
+      "tool_prefix": "scholar_gateway_",
+      "use_for": "independent scholarly semantic retrieval",
+      "limits": "distinguish retrieved passages from paper-wide conclusions"
+    },
+    {
+      "id": "scispace-sider",
+      "role": "oracle",
+      "plugin": "SciSpace and Sider Scholar",
+      "tool_prefix": "scispace_/sider_scholar_",
+      "use_for": "academic comparison, open-access retrieval, and research knowledge-base work",
+      "limits": "do not make a second persistent knowledge base the Theseus memory source"
+    },
+    {
+      "id": "hugging-face",
+      "role": "oracle",
+      "plugin": "Hugging Face",
+      "tool_prefix": "hugging_face_",
+      "use_for": "model, dataset, paper, Space, and evaluation discovery",
+      "limits": "metadata does not prove local hardware compatibility"
+    },
+    {
+      "id": "amd-local-ai",
+      "role": "skill",
+      "plugin": "AMD Skills",
+      "tool_prefix": "amd-skills:",
+      "use_for": "local AMD model serving and evaluation paths",
+      "limits": "use installed skill instructions; do not assume GPU support"
+    },
+    {
+      "id": "replay",
+      "role": "oracle",
+      "plugin": "Replay.io",
+      "tool_prefix": "replay_io_",
+      "use_for": "time-travel browser/runtime debugging when a recording exists",
+      "limits": "requires a recording; local logs remain the primary evidence"
+    },
+    {
+      "id": "copilot-advisor",
+      "role": "oracle",
+      "plugin": "local Theseus bridge",
+      "tool_prefix": "tools/copilot_advisor",
+      "use_for": "bounded GitHub, VS Code, GitHub Actions, and Copilot-specific advice",
+      "limits": "non-secret prompt only; never let advice bypass local checks"
+    },
+    {
+      "id": "hapi-mcp-registry",
+      "role": "source",
+      "plugin": "HAPI MCP Registry",
+      "tool_prefix": "hapi_mcp_registry_",
+      "use_for": "discovering existing MCP servers before reinventing a bridge",
+      "limits": "registry listing is discovery, not trust approval"
+    },
+    {
+      "id": "wolfram",
+      "role": "oracle",
+      "plugin": "Wolfram",
+      "tool_prefix": "wolfram_",
+      "use_for": "formal computation and contract-model checks",
+      "limits": "proves a formal model, not the running system"
+    },
+    {
+      "id": "ace-knowledge-graph",
+      "role": "visualizer",
+      "plugin": "Ace Knowledge Graph",
+      "tool_prefix": "ace_knowledge_graph_",
+      "use_for": "external graph rendering and topic exploration",
+      "limits": "Graphify, AutoMem, and MemPalace retain local graph authority"
+    },
+    {
+      "id": "deepnote",
+      "role": "executor",
+      "plugin": "Deepnote",
+      "tool_prefix": "deepnote_",
+      "use_for": "reproducible remote notebooks and shared data workflows",
+      "limits": "create or run only with an explicit project and owner intent"
+    },
+    {
+      "id": "deterministic-checkers",
+      "role": "executor",
+      "plugin": "Error Log Parser, Requirements Extractor, Payload Completeness Checker, API Response Cleaner",
+      "tool_prefix": "error_log_parser_/requirements_extractor_/payload_completeness_checker_/api_response_cleaner_",
+      "use_for": "narrow structured parsing and payload readiness checks",
+      "limits": "use only for matching structured inputs; they are not general reasoning engines"
+    },
+    {
+      "id": "butlerbrain-drive",
+      "role": "source",
+      "plugin": "ButlerBrain and Google Drive",
+      "tool_prefix": "butlerbrain_/google_drive_",
+      "use_for": "user-owned source retrieval and deliberate synchronization",
+      "limits": "not automatic durable memory; writes require explicit user intent"
+    },
+    {
+      "id": "mempalace-automem",
+      "role": "memory-primary",
+      "plugin": "local MCP",
+      "tool_prefix": "mcp__memory__/mcp__mempalace__",
+      "use_for": "durable decisions, episodic recall, and verified continuity",
+      "limits": "do not duplicate raw external transcripts"
+    }
+  ],
+  "deferred_or_excluded": [
+    {
+      "plugin": "Engram",
+      "reason": "Third persistent memory store; keep outside the automatic Theseus write path to avoid split-brain memory."
+    },
+    {
+      "plugin": "Gmail, Todoist, ButlerBrain write tools, Google Drive write tools",
+      "reason": "Write-capable personal systems require explicit owner intent."
+    },
+    {
+      "plugin": "BioRender, Mermaid Chart, documents, presentations, spreadsheets",
+      "reason": "Output and visualization tools, not advisors; invoke only for a requested artifact."
+    },
+    {
+      "plugin": "FindIp, smarts.bio, life-science-research, DataCamp, Midpage Legal Research, Metaplay SDK Docs",
+      "reason": "Domain-specific routes; keep discoverable but do not pull into general engineering or research conclaves."
+    },
+    {
+      "plugin": "Mnemom, MarcoPolo, OpenAI Developers key-management tools, Sites, plugin management",
+      "reason": "Access, deployment, or external-workspace tools; use only with a concrete task and its native safety procedure."
+    }
+  ]
+}

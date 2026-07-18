@@ -27,6 +27,9 @@ Before non-trivial work, use the smallest matching project skill:
   JSON/text processing, or quoting-sensitive work.
 - `.agents/skills/theseus-copilot-advisor/SKILL.md` for narrow GitHub, VS Code,
   GitHub Actions, Wiki, Issues, Projects, or Copilot tooling advice.
+- `.agents/skills/theseus-plugin-conclave/SKILL.md` for fresh research,
+  external technical second opinions, plugin selection, or a bounded
+  multi-source check.
 - `C:/Users/s.poklad/.codex/skills/local-agent-hygiene/SKILL.md` for local
   infrastructure, VS Code tasks, Docker Desktop, and repeated checks.
 - `C:/Users/s.poklad/.codex/skills/theseus-git-hygiene/SKILL.md` for Git,
@@ -41,6 +44,9 @@ Think of project skills and task runners as two halves of one harness:
 - VS Code tasks, scripts, and MCP tools execute the route;
 - AutoMem/MemPalace preserve why the route changed;
 - `session_timeline` and `log-lattice` preserve what happened.
+- `plugin_conclave` selects outside evidence or bounded advisors; it never
+  replaces local verification, the memory stack, or an explicit owner for a
+  write-capable external service.
 
 ## Prompt Hygiene
 
