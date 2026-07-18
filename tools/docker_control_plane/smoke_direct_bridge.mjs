@@ -5,13 +5,14 @@ import { resolve } from "node:path";
 import { cwd, env, exit } from "node:process";
 
 const bridgePath = resolve(cwd(), "tools/docker_control_plane/direct_bridge.mjs");
+const useLegacyTcp = process.argv.includes("--legacy-tcp");
 const child = spawn("node", [bridgePath], {
   cwd: cwd(),
   shell: false,
   windowsHide: true,
   env: {
     ...env,
-    DOCKER_HOST: env.DOCKER_HOST || "tcp://127.0.0.1:2375",
+    ...(useLegacyTcp ? { DOCKER_HOST: env.DOCKER_HOST || "tcp://127.0.0.1:2375" } : {}),
     THESEUS_PROJECT_ROOT: env.THESEUS_PROJECT_ROOT || cwd(),
   },
   stdio: ["pipe", "pipe", "pipe"],
@@ -74,6 +75,7 @@ try {
         ok: Boolean(init.serverInfo && list.tools?.length && healthPayload.ok),
         server: init.serverInfo,
         tool_count: list.tools?.length || 0,
+        route: useLegacyTcp ? "legacy-tcp" : "active-context",
         docker_host: healthPayload.docker_host,
         docker_code: healthPayload.code,
       },

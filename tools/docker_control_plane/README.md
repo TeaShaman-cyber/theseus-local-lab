@@ -92,7 +92,7 @@ testing.
 
 ## Exposed tools
 
-- `docker_tcp_health`
+- `docker_tcp_health` (compatibility alias; checks the active Docker context)
 - `docker_ps`
 - `docker_logs`
 - `docker_compose_ps`
@@ -101,3 +101,6 @@ testing.
 
 The bridge is intentionally allowlisted. It does not expose arbitrary shell
 execution, secret reads, volume dumps, or destructive Docker operations.
+
+`node tools/docker_control_plane/smoke_direct_bridge.mjs` verifies the active
+Docker context. Add `--legacy-tcp` only when diagnosing the explicit fallback.

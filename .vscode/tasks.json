@@ -350,11 +350,9 @@
     {
       "label": "Theseus Chat Corpus Lens: Strazh trial",
       "type": "process",
-      "command": "wsl",
+      "command": "node",
       "args": [
-        "bash",
-        "-lc",
-        "cd /mnt/c/Users/s.poklad/Documents/Codex/2026-07-08/life-science-research-plugin-life-science-4 && GRAPHIFY_VENV=/home/poklad/.cache/theseus/venvs/graphify node tools/chat_corpus_lens/chat_corpus_lens.mjs --input /mnt/c/Users/s.poklad/Documents/Codex/2026-07-08/Страж.json --label strazh --query \"DeepSeek architecture memory harness Graphify\" --write"
+        "tools/chat_corpus_lens/run_strazh_trial.mjs"
       ],
       "problemMatcher": []
     },
@@ -582,7 +580,7 @@
       "command": "node",
       "args": [
         "tools/strazh_index/index_strazh_json.mjs",
-        "C:\\Users\\s.poklad\\Documents\\Codex\\2026-07-08\\Страж.json",
+        "../Страж.json",
         "outputs"
       ],
       "problemMatcher": []

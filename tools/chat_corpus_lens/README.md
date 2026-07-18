@@ -9,14 +9,14 @@ raw chat data or generated lens outputs.
 ## Run
 
 ```text
-GRAPHIFY_VENV=/home/poklad/.cache/theseus/venvs/graphify node tools/chat_corpus_lens/chat_corpus_lens.mjs --input C:\Users\s.poklad\Documents\Codex\2026-07-08\Страж.json --label strazh --query "DeepSeek architecture memory harness Graphify" --write
+node tools/chat_corpus_lens/run_strazh_trial.mjs
 ```
 
 Outputs are ignored by Git:
 
 ```text
 outputs/chat_corpus_lens/
-C:\Users\s.poklad\Documents\Codex\2026-07-08\graphify-theseus-pilot\chat-corpus\
+<Graphify pilot root>/chat-corpus/
 ```
 
 ## Current Strazh Trial
@@ -43,4 +43,3 @@ Use a WSL-native venv for Graphify:
 
 Do not build heavy Python venvs under `/mnt/c` unless there is a specific reason.
 The Graphify install repeatedly stalled there during wheel installation.
-
