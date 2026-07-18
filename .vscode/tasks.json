@@ -228,6 +228,17 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus: audit skill/tool observatory",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/skill_observatory/skill_observatory.mjs",
+        "audit",
+        "--write"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus Usage Scout: snapshot",
       "type": "process",
       "command": "node",

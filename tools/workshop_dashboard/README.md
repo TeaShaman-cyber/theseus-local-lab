@@ -147,6 +147,23 @@ After rebuilding the web container, verify the live user-visible surface with:
 node tools/workshop_dashboard/smoke.mjs
 ```
 
+The `Skill/tool observatory` row is event-driven. `UserPromptSubmit` stores only
+the expected skill identifiers for non-trivial work; route packets provide the
+selected skill/tool/policy evidence; `Stop` aggregates both into a local cache.
+It never stores prompt text or hidden reasoning. A review warning means either
+a skill was expected at least three times without a route packet, or the same
+tool-policy incident repeated at least three times.
+
+Reviews use a small Pareto queue: at most three high-impact recurring causes
+per cycle. This is a prioritization heuristic, not causal proof. Its `0.80`
+threshold is a tunable baseline for comparing the changing incident
+distribution, not a system constant. The report also computes a separate
+`1/phi` concentration diagnostic. It is a mathematical comparison point,
+never a causal or automatic decision rule. The queue defers lower-impact items
+until the current focus has a causal hypothesis, a small reversible change, and
+a verification result; that is the stop condition for avoiding
+diminishing-return complexity.
+
 The `Codex System` tab reads a cached local system report:
 
 ```text

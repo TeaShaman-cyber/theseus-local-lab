@@ -181,14 +181,16 @@ if (event === "PostCompact") {
 if (event === "UserPromptSubmit") {
   const memoryReflexResult = runNode(["tools/memory_reflex/memory_reflex.mjs", "preflight", "--source", "UserPromptSubmit"], hookInput);
   const modelSwitchResult = runNode(["tools/model_switch_guard/model_switch_guard.mjs"], hookInput);
+  const skillObservatoryResult = runNode(["tools/skill_observatory/skill_observatory.mjs", "expect", "--source", "UserPromptSubmit", "--quiet"], hookInput);
   const researchResult = shouldQueueResearch(event) ? runNode(["hooks/research-queue-hook.mjs"], hookInput) : null;
   const ok =
     memoryReflexResult.status === 0 &&
     modelSwitchResult.status === 0 &&
+    skillObservatoryResult.status === 0 &&
     (!researchResult || researchResult.status === 0);
   const result = {
-    stdout: [memoryReflexResult.stdout, modelSwitchResult.stdout, researchResult?.stdout].filter(Boolean).join("\n"),
-    stderr: [memoryReflexResult.stderr, modelSwitchResult.stderr, researchResult?.stderr].filter(Boolean).join("\n"),
+    stdout: [memoryReflexResult.stdout, modelSwitchResult.stdout, skillObservatoryResult.stdout, researchResult?.stdout].filter(Boolean).join("\n"),
+    stderr: [memoryReflexResult.stderr, modelSwitchResult.stderr, skillObservatoryResult.stderr, researchResult?.stderr].filter(Boolean).join("\n"),
   };
   response({
     ok,
@@ -213,6 +215,7 @@ if (shouldQueueResearch(event)) {
 if (event === "Stop") {
   const usageResult = runNode(["tools/usage_scout/usage_scout.mjs"], hookInput);
   const pressureResult = runNode(["tools/context_pressure_watch/context_pressure_watch.mjs", "--checkpoint"], hookInput);
+  const skillObservatoryResult = runNode(["tools/skill_observatory/skill_observatory.mjs", "audit", "--write", "--quiet"], hookInput);
   const checkpointResult = shouldCheckpointStop()
     ? runNode(
         [
@@ -228,13 +231,15 @@ if (event === "Stop") {
           "--stdin",
         ],
         hookInput,
-      )
+  )
     : null;
   const pressure = parseJsonOutput(pressureResult);
-  const ok = pressureResult.status === 0 && (!checkpointResult || checkpointResult.status === 0);
+  // An observatory WARN (exit 2) requests review but must not block the Stop lifecycle.
+  const observatoryOk = skillObservatoryResult.status === 0 || skillObservatoryResult.status === 2;
+  const ok = pressureResult.status === 0 && observatoryOk && (!checkpointResult || checkpointResult.status === 0);
   const result = {
-    stdout: [usageResult.stdout, pressureResult.stdout, checkpointResult?.stdout].filter(Boolean).join("\n"),
-    stderr: [usageResult.stderr, pressureResult.stderr, checkpointResult?.stderr].filter(Boolean).join("\n"),
+    stdout: [usageResult.stdout, pressureResult.stdout, skillObservatoryResult.stdout, checkpointResult?.stdout].filter(Boolean).join("\n"),
+    stderr: [usageResult.stderr, pressureResult.stderr, skillObservatoryResult.stderr, checkpointResult?.stderr].filter(Boolean).join("\n"),
   };
   response({
     ok,

@@ -192,6 +192,24 @@ function recurrenceAuditSummary() {
   });
 }
 
+function skillObservatorySummary(now = new Date()) {
+  const filePath = path.join(repoRoot, "outputs", "skill_observatory", "latest.json");
+  const report = readJsonFile(filePath);
+  const age = existsSync(filePath) ? relativeAge(statSync(filePath).mtime, now) : null;
+  if (!report) return item("skill-observatory", "Skill/tool observatory", "WARN", "waiting for first Stop hook audit");
+  const underused = report.review_triggers?.underused_skills || [];
+  const incidents = report.review_triggers?.recurring_policy_incidents || [];
+  const focus = (report.priority_policy?.priority_queue || []).map((item) => item.id).join(", ") || "none";
+  const status = report.status === "WARN" ? "WARN" : statusFromFreshness(age, 12, 48);
+  return item(
+    "skill-observatory",
+    "Skill/tool observatory",
+    status,
+    `${report.metrics?.expectations ?? 0} expected, ${report.metrics?.route_packets ?? 0} route packets, ${report.metrics?.policy_incidents ?? 0} policy incidents; focus: ${focus}; ${formatAge(age)} old`,
+    { generated_at: report.generated_at, underused, incidents, priority_queue: report.priority_policy?.priority_queue || [] },
+  );
+}
+
 function recoveryContractSummary() {
   const filePath = path.join(repoRoot, "outputs", "workshop_recovery", "latest.json");
   const report = readJsonFile(filePath);
@@ -376,6 +394,7 @@ async function buildDashboard() {
   rows.push(item("log-lattice", "Log lattice", logLattice.ok ? "OK" : "WARN", logLattice.ok ? "health endpoint responds" : logLattice.error || `HTTP ${logLattice.status}`));
   rows.push(recoveryContractSummary());
   rows.push(recurrenceAuditSummary());
+  rows.push(skillObservatorySummary(now));
   const hooksHealth = hookConfigHealth();
   rows.push(item("codex-hooks", "Codex hooks config", hooksHealth.status, hooksHealth.detail, hooksHealth.meta));
   rows.push(

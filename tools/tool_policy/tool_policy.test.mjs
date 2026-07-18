@@ -99,6 +99,16 @@ test("allows context pressure watch as a known safe wrapper", () => {
   assert.equal(decision.reason, "known-safe-wrapper");
 });
 
+test("allows skill observatory as a known safe wrapper", () => {
+  const decision = evaluateAction({
+    surface: "shell",
+    command: "node tools/skill_observatory/skill_observatory.mjs audit --write --quiet",
+  });
+
+  assert.equal(decision.verdict, "allow");
+  assert.equal(decision.reason, "known-safe-wrapper");
+});
+
 test("allows memory reflex marker as a known safe wrapper", () => {
   const decision = evaluateAction({
     surface: "shell",
