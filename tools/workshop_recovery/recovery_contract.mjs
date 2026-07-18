@@ -95,9 +95,19 @@ async function auditStack(stack, now) {
     if (!health.ok && ageSeconds < stack.startup_grace_seconds) health.status = "WARN";
     else health.status = health.ok ? "OK" : "FAIL";
   }
-  const statuses = [...containers.map((entry) => entry.status), health?.status].filter(Boolean);
+  let commandCheck = null;
+  if (Array.isArray(stack.command_check) && stack.command_check.length > 0) {
+    const [command, ...commandArgs] = stack.command_check;
+    const result = await run(command, commandArgs, 15_000);
+    commandCheck = {
+      ok: result.ok,
+      status: result.ok ? "OK" : "FAIL",
+      detail: (result.stderr || result.stdout || "no output").trim().slice(0, 400),
+    };
+  }
+  const statuses = [...containers.map((entry) => entry.status), health?.status, commandCheck?.status].filter(Boolean);
   const status = statuses.reduce((worst, current) => statusRank(current) > statusRank(worst) ? current : worst, "OK");
-  return { id: stack.id, status, startup_age_seconds: Math.round(ageSeconds), containers, health };
+  return { id: stack.id, status, startup_age_seconds: Math.round(ageSeconds), containers, health, command_check: commandCheck };
 }
 
 async function main() {

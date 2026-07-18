@@ -19,5 +19,7 @@ test("recovery contract exposes every persistent stack with bounded statuses", a
   assert.ok(report.stacks.some((stack) => stack.id === "automem"));
   assert.ok(report.stacks.some((stack) => stack.id === "keychain"));
   assert.ok(report.stacks.some((stack) => stack.id === "mempalace"));
+  const mempalace = report.stacks.find((stack) => stack.id === "mempalace");
+  assert.ok(["OK", "FAIL"].includes(mempalace.command_check?.status));
   for (const stack of report.stacks) assert.ok(["OK", "WARN", "FAIL"].includes(stack.status));
 });
