@@ -384,7 +384,7 @@ async function buildDashboard() {
   rows.push(
     item(
       "docker-tcp",
-      "Docker TCP (Windows bridge)",
+      "Docker legacy TCP bridge",
       dockerRoute.kind === "tcp" ? (dockerTcp.ok ? "OK" : "FAIL") : "OK",
       dockerRoute.kind === "tcp"
         ? (dockerTcp.ok ? "port 2375 open" : dockerTcp.error)
@@ -407,7 +407,7 @@ async function buildDashboard() {
         : dockerControl.ok
         ? "health endpoint responds"
         : dockerTcp.ok
-          ? "fallback daemon not running; preferred Docker TCP works"
+          ? "fallback daemon not running; legacy Docker TCP bridge works"
           : dockerControl.error || `HTTP ${dockerControl.status}`,
     ),
   );

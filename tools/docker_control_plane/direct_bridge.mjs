@@ -5,8 +5,8 @@ import { stdin, stdout, env, cwd } from "node:process";
 import { resolve, relative, isAbsolute } from "node:path";
 
 const PROJECT_ROOT = resolve(env.THESEUS_PROJECT_ROOT || cwd());
-// Windows retains its explicit localhost TCP bridge in the MCP profile. WSL
-// intentionally leaves DOCKER_HOST unset so Docker uses its native Unix socket.
+// DOCKER_HOST is optional for legacy compatibility. With it unset, Docker uses
+// the active native context: Desktop's context on Windows or the Unix socket in WSL.
 const DOCKER_HOST = env.DOCKER_HOST || null;
 const DOCKER_CONTEXT = DOCKER_HOST || "default Docker context";
 const MAX_OUTPUT_CHARS = 80_000;
@@ -14,12 +14,12 @@ const MAX_OUTPUT_CHARS = 80_000;
 const tools = [
   {
     name: "docker_tcp_health",
-    description: "Check reachability through the configured Docker host or native Docker context.",
+    description: "Compatibility alias: check reachability through the active Docker context.",
     inputSchema: { type: "object", properties: {}, additionalProperties: false },
   },
   {
     name: "docker_ps",
-    description: "List running Docker containers through the TCP Docker endpoint.",
+    description: "List running Docker containers through the active Docker context.",
     inputSchema: { type: "object", properties: {}, additionalProperties: false },
   },
   {
@@ -213,7 +213,7 @@ async function handle(method, params) {
     return {
       protocolVersion: "2024-11-05",
       capabilities: { tools: {} },
-      serverInfo: { name: "theseus-docker-tcp-bridge", version: "0.1.0" },
+      serverInfo: { name: "theseus-docker-context-bridge", version: "0.2.0" },
     };
   }
   if (method === "tools/list") {

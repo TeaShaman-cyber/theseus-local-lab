@@ -193,7 +193,7 @@ launch Process Explorer, Process Monitor, dumps, or trace capture.
 - AutoMem API health
 - AutoMem graph viewer port
 - Infisical keychain port
-- Docker TCP port
+- Docker route and optional legacy TCP bridge
 - Log lattice health
 - Docker control fallback health
 - Blameless route incidents from `outputs/tool_policy/*.jsonl`

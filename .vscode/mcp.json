@@ -1,13 +1,12 @@
 {
   "servers": {
-    "theseus-docker-tcp": {
+    "theseus-docker-context": {
       "type": "stdio",
       "command": "node",
       "args": [
         "${workspaceFolder}/tools/docker_control_plane/direct_bridge.mjs"
       ],
       "env": {
-        "DOCKER_HOST": "tcp://127.0.0.1:2375",
         "THESEUS_PROJECT_ROOT": "${workspaceFolder}"
       }
     }

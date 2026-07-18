@@ -497,12 +497,6 @@
         "up",
         "-d"
       ],
-      "options": {
-        "env": {
-          "DOCKER_HOST": "tcp://127.0.0.1:2375",
-          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
-        }
-      },
       "problemMatcher": []
     },
     {
@@ -515,12 +509,6 @@
         "log-lattice/docker-compose.yml",
         "ps"
       ],
-      "options": {
-        "env": {
-          "DOCKER_HOST": "tcp://127.0.0.1:2375",
-          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
-        }
-      },
       "problemMatcher": []
     },
     {
@@ -534,12 +522,6 @@
         "up",
         "-d"
       ],
-      "options": {
-        "env": {
-          "DOCKER_HOST": "tcp://127.0.0.1:2375",
-          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
-        }
-      },
       "problemMatcher": []
     },
     {
@@ -552,12 +534,6 @@
         "automem-graph-viewer/docker-compose.yml",
         "ps"
       ],
-      "options": {
-        "env": {
-          "DOCKER_HOST": "tcp://127.0.0.1:2375",
-          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
-        }
-      },
       "problemMatcher": []
     },
     {
@@ -828,12 +804,6 @@
         "-d",
         "--build"
       ],
-      "options": {
-        "env": {
-          "DOCKER_HOST": "tcp://127.0.0.1:2375",
-          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
-        }
-      },
       "problemMatcher": []
     },
     {
@@ -846,16 +816,10 @@
         "tools/workshop_dashboard/docker-compose.yml",
         "ps"
       ],
-      "options": {
-        "env": {
-          "DOCKER_HOST": "tcp://127.0.0.1:2375",
-          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
-        }
-      },
       "problemMatcher": []
     },
     {
-      "label": "Theseus Docker TCP: ps",
+      "label": "Theseus Docker Context: ps",
       "type": "process",
       "command": "docker",
       "args": [
@@ -863,15 +827,10 @@
         "--format",
         "{{json .}}"
       ],
-      "options": {
-        "env": {
-          "DOCKER_HOST": "tcp://127.0.0.1:2375"
-        }
-      },
       "problemMatcher": []
     },
     {
-      "label": "Theseus Docker TCP: AutoMem logs",
+      "label": "Theseus Docker Context: AutoMem logs",
       "type": "process",
       "command": "docker",
       "args": [
@@ -879,11 +838,6 @@
         "--tail=80",
         "automem-flask-api-1"
       ],
-      "options": {
-        "env": {
-          "DOCKER_HOST": "tcp://127.0.0.1:2375"
-        }
-      },
       "problemMatcher": []
     },
     {
@@ -926,12 +880,6 @@
         "up",
         "-d"
       ],
-      "options": {
-        "env": {
-          "DOCKER_HOST": "tcp://127.0.0.1:2375",
-          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
-        }
-      },
       "problemMatcher": []
     },
     {
@@ -944,12 +892,6 @@
         "secrets-lab/docker-compose.yml",
         "ps"
       ],
-      "options": {
-        "env": {
-          "DOCKER_HOST": "tcp://127.0.0.1:2375",
-          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
-        }
-      },
       "problemMatcher": []
     },
     {
@@ -1100,12 +1042,6 @@
         "-lc",
         "python3 tools/memory_context/export_context.py"
       ],
-      "options": {
-        "env": {
-          "DOCKER_HOST": "tcp://127.0.0.1:2375",
-          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
-        }
-      },
       "problemMatcher": []
     },
     {
@@ -1124,12 +1060,6 @@
         "--mirror-dir",
         "/mirror"
       ],
-      "options": {
-        "env": {
-          "DOCKER_HOST": "tcp://127.0.0.1:2375",
-          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
-        }
-      },
       "problemMatcher": []
     },
     {
@@ -1142,12 +1072,6 @@
         "work/mempalace-pilot/docker-compose.yml",
         "build"
       ],
-      "options": {
-        "env": {
-          "DOCKER_HOST": "tcp://127.0.0.1:2375",
-          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
-        }
-      },
       "problemMatcher": []
     },
     {
@@ -1166,12 +1090,6 @@
         "--wing",
         "theseus-local-lab"
       ],
-      "options": {
-        "env": {
-          "DOCKER_HOST": "tcp://127.0.0.1:2375",
-          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
-        }
-      },
       "problemMatcher": []
     },
     {
@@ -1190,12 +1108,6 @@
         "--wing",
         "strazh-index"
       ],
-      "options": {
-        "env": {
-          "DOCKER_HOST": "tcp://127.0.0.1:2375",
-          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
-        }
-      },
       "problemMatcher": []
     },
     {
@@ -1211,12 +1123,6 @@
         "mempalace",
         "status"
       ],
-      "options": {
-        "env": {
-          "DOCKER_HOST": "tcp://127.0.0.1:2375",
-          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
-        }
-      },
       "problemMatcher": []
     },
     {
@@ -1233,12 +1139,6 @@
         "search",
         "${input:mempalaceSearchQuery}"
       ],
-      "options": {
-        "env": {
-          "DOCKER_HOST": "tcp://127.0.0.1:2375",
-          "DOCKER_CONFIG": "${workspaceFolder}/tools/docker_control_plane/docker-cli-config"
-        }
-      },
       "problemMatcher": []
     },
     {
@@ -1342,7 +1242,7 @@
       "id": "toolPolicyCandidateC",
       "type": "promptString",
       "description": "Candidate VS Code task",
-      "default": "Theseus Docker TCP: AutoMem logs"
+      "default": "Theseus Docker Context: AutoMem logs"
     },
     {
       "id": "timelineEventName",

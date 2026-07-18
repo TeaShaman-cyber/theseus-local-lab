@@ -36,7 +36,7 @@ const PREFLIGHT_BUNDLES = [
   {
     id: "docker-preflight",
     label: "Docker preflight",
-    description: "Check container visibility, Docker TCP route, and service health before Docker actions.",
+    description: "Check container visibility, active Docker route, and service health before Docker actions.",
     capabilities: ["docker", "observability", "lint"],
   },
   {
