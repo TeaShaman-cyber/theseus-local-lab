@@ -13,7 +13,7 @@ services:
     volumes:
       - theseus-mempalace-clean:/data
     environment:
-      MEMPALACE_PALACE_PATH: /data/palace
+      MEMPALACE_PALACE_PATH: /data/.mempalace/palace
     restart: always
     healthcheck:
       test: ["CMD-SHELL", "python -c \"from urllib.request import urlopen; assert urlopen('http://127.0.0.1:8765/healthz', timeout=3).read().strip() == b'ok'\""]
