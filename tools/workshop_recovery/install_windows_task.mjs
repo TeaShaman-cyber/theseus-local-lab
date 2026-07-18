@@ -4,8 +4,8 @@ import { spawnSync } from "node:child_process";
 import path from "node:path";
 
 const taskName = "Theseus Workshop Recovery";
-const runner = path.join(import.meta.dirname, "recovery_contract.mjs");
-const action = `"${process.execPath}" "${runner}" --recover --quiet`;
+const hiddenRunner = path.join(import.meta.dirname, "run_hidden.vbs");
+const action = `"${process.env.SystemRoot}\\System32\\wscript.exe" //B //Nologo "${hiddenRunner}"`;
 const result = spawnSync(
   "schtasks.exe",
   ["/Create", "/TN", taskName, "/TR", action, "/SC", "MINUTE", "/MO", "5", "/F"],
