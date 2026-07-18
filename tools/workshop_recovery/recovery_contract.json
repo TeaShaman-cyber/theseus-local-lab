@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "description": "Persistent Theseus services that must recover after Docker Desktop restarts. Recovery starts canonical existing containers; compose files are bootstrap-only to prevent cross-context duplicate stacks.",
+  "stacks": [
+    {
+      "id": "automem",
+      "compose_file": "work/automem/docker-compose.yml",
+      "startup_grace_seconds": 180,
+      "containers": ["automem-flask-api-1", "automem-falkordb-1", "automem-qdrant-1"],
+      "health_url": "http://127.0.0.1:8001/health"
+    },
+    {
+      "id": "keychain",
+      "compose_file": "secrets-lab/docker-compose.yml",
+      "startup_grace_seconds": 120,
+      "containers": ["theseus-infisical", "theseus-infisical-db", "theseus-infisical-redis"],
+      "health_url": "http://127.0.0.1:8088/"
+    },
+    {
+      "id": "graph-viewer",
+      "compose_file": "automem-graph-viewer/docker-compose.yml",
+      "startup_grace_seconds": 60,
+      "containers": ["theseus-automem-graph-viewer"],
+      "health_url": "http://127.0.0.1:5174/"
+    },
+    {
+      "id": "dashboard",
+      "compose_file": "tools/workshop_dashboard/docker-compose.yml",
+      "startup_grace_seconds": 60,
+      "containers": ["theseus-workshop-dashboard"],
+      "health_url": "http://127.0.0.1:5180/"
+    },
+    {
+      "id": "log-lattice",
+      "compose_file": "log-lattice/docker-compose.yml",
+      "startup_grace_seconds": 60,
+      "containers": ["theseus-log-lattice"],
+      "health_url": "http://127.0.0.1:8768/health"
+    },
+    {
+      "id": "collector",
+      "compose_file": "stateful-agent-net/docker-compose.yml",
+      "startup_grace_seconds": 60,
+      "containers": ["stateful-agent-net-collector-1"]
+    },
+    {
+      "id": "backup",
+      "compose_file": "D:/theseus-backup/backup-lattice/docker-compose.yml",
+      "startup_grace_seconds": 60,
+      "containers": ["theseus-backup-runner"]
+    },
+    {
+      "id": "docker-read-proxy",
+      "compose_file": "D:/theseus-observatory/docker-proxy-lattice/docker-compose.yml",
+      "startup_grace_seconds": 60,
+      "containers": ["theseus-docker-socket-proxy"],
+      "health_url": "http://127.0.0.1:23960/_ping",
+      "reserved_port": 23960
+    }
+  ]
+}

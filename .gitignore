@@ -21,6 +21,7 @@ stateful-agent-net/data/*.db-*
 stateful-agent-net/data/*.sqlite
 stateful-agent-net/data/*.sqlite-*
 outputs/context/*.md
+outputs/workshop_recovery/*.json
 outputs/memory_inbox/*.md
 outputs/memory_inbox/*.json
 outputs/memory_hook/*.jsonl

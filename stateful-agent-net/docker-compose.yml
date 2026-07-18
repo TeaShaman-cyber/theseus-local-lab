@@ -2,7 +2,7 @@ services:
   collector:
     build: .
     command: loop
-    restart: unless-stopped
+    restart: always
     environment:
       STATE_DB_PATH: /data/state.db
       STATE_PACKET_DIR: /outputs/state_packets

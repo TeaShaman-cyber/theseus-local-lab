@@ -20,7 +20,7 @@ local boundary.
 For WSL migration, prefer an allowlisted layer:
 
 - read-heavy diagnostics through
-  `D:\theseus-observatory\docker-proxy-lattice` on `http://127.0.0.1:23760`;
+  `D:\theseus-observatory\docker-proxy-lattice` on `http://127.0.0.1:23960`;
 - privileged actions through this Theseus Docker MCP/control plane;
 - Portainer CE as an optional human-facing Web UI, not the minimal agent
   permission layer.

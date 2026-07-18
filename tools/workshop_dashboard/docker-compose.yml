@@ -4,7 +4,7 @@ services:
       context: ../..
       dockerfile: tools/workshop_dashboard/Dockerfile
     container_name: theseus-workshop-dashboard
-    restart: unless-stopped
+    restart: always
     working_dir: /workspace
     ports:
       - "127.0.0.1:5180:5180"

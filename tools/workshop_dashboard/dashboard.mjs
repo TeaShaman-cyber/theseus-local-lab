@@ -192,6 +192,20 @@ function recurrenceAuditSummary() {
   });
 }
 
+function recoveryContractSummary() {
+  const filePath = path.join(repoRoot, "outputs", "workshop_recovery", "latest.json");
+  const report = readJsonFile(filePath);
+  if (!report) return item("workshop-recovery", "Workshop recovery contract", "WARN", "recovery audit has not run");
+  const stacks = report.stacks || [];
+  const failed = stacks.filter((stack) => stack.status === "FAIL").map((stack) => stack.id);
+  const warned = stacks.filter((stack) => stack.status === "WARN").map((stack) => stack.id);
+  const status = failed.length ? "FAIL" : warned.length ? "WARN" : "OK";
+  const detail = failed.length || warned.length
+    ? `failed: ${failed.join(", ") || "none"}; warming: ${warned.join(", ") || "none"}`
+    : `${stacks.length} declared stacks restored and healthy`;
+  return item("workshop-recovery", "Workshop recovery contract", status, detail, { generated_at: report.generated_at });
+}
+
 function hookConfigHealth() {
   const projectHooksPath = path.join(repoRoot, ".codex", "hooks.json");
   const projectConfigPath = path.join(repoRoot, ".codex", "config.toml");
@@ -327,7 +341,7 @@ async function buildDashboard() {
   const [automem, graphViewer, keychain, dockerTcp, logLattice, dockerControl, docker, git] = await Promise.all([
     httpGet(localUrl(8001, "/health")),
     tcpCheck(host, 5174),
-    tcpCheck(host, 8088),
+    httpGet(localUrl(8088, "/")),
     dockerRoute.kind === "tcp" ? tcpCheck(host, 2375) : Promise.resolve({ ok: true, not_applicable: true }),
     httpGet(localUrl(8768, "/health")),
     httpGet(localUrl(8767, "/health")),
@@ -337,7 +351,7 @@ async function buildDashboard() {
 
   rows.push(item("automem-api", "AutoMem API", automem.ok ? "OK" : "FAIL", automem.ok ? "health endpoint responds" : automem.error || `HTTP ${automem.status}`));
   rows.push(item("graph-viewer", "AutoMem graph viewer", graphViewer.ok ? "OK" : "WARN", graphViewer.ok ? "port 5174 open" : graphViewer.error));
-  rows.push(item("keychain", "Infisical keychain", keychain.ok ? "OK" : "WARN", keychain.ok ? "port 8088 open" : keychain.error));
+  rows.push(item("keychain", "Infisical keychain", keychain.ok ? "OK" : "FAIL", keychain.ok ? "HTTP endpoint responds" : keychain.error || `HTTP ${keychain.status}`));
   rows.push(
     item(
       "docker-route",
@@ -360,6 +374,7 @@ async function buildDashboard() {
     ),
   );
   rows.push(item("log-lattice", "Log lattice", logLattice.ok ? "OK" : "WARN", logLattice.ok ? "health endpoint responds" : logLattice.error || `HTTP ${logLattice.status}`));
+  rows.push(recoveryContractSummary());
   rows.push(recurrenceAuditSummary());
   const hooksHealth = hookConfigHealth();
   rows.push(item("codex-hooks", "Codex hooks config", hooksHealth.status, hooksHealth.detail, hooksHealth.meta));
