@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { env, exit } from "node:process";
 
@@ -31,6 +31,7 @@ function parseArgs(argv) {
     format: "markdown",
     write: false,
     outputDir: path.join(repoRoot, "outputs", "github_issue_watch"),
+    trackedConfig: path.join(import.meta.dirname, "tracked_issues.json"),
   };
 
   for (let i = 0; i < argv.length; i += 1) {
@@ -39,6 +40,7 @@ function parseArgs(argv) {
     else if (item === "--limit") args.limit = Number(argv[++i] || args.limit);
     else if (item === "--since-hours") args.sinceHours = Number(argv[++i] || args.sinceHours);
     else if (item === "--output-dir") args.outputDir = path.resolve(argv[++i] || args.outputDir);
+    else if (item === "--tracked-config") args.trackedConfig = path.resolve(argv[++i] || args.trackedConfig);
     else if (item === "--write") args.write = true;
     else if (item === "--json") args.format = "json";
     else if (item === "--markdown") args.format = "markdown";
@@ -108,6 +110,10 @@ async function fetchIssues({ repo, limit }) {
   url.searchParams.set("direction", "desc");
   url.searchParams.set("per_page", String(limit));
 
+  return fetchGitHubJson(url);
+}
+
+async function fetchGitHubJson(url) {
   const headers = {
     accept: "application/vnd.github+json",
     "user-agent": "theseus-local-lab-github-issue-watch",
@@ -120,8 +126,85 @@ async function fetchIssues({ repo, limit }) {
   if (!response.ok) {
     throw new Error(`GitHub API ${response.status}: ${truncate(body, 300)}`);
   }
-  const parsed = JSON.parse(body);
-  return parsed.filter((item) => !item.pull_request);
+  return JSON.parse(body);
+}
+
+async function readTrackedIssues(configPath) {
+  const raw = await readFile(configPath, "utf8");
+  const parsed = JSON.parse(raw);
+  if (!Array.isArray(parsed.issues)) throw new Error("tracked issue config must contain an issues array");
+  return parsed.issues;
+}
+
+function maintainerComment(comment) {
+  return ["MEMBER", "OWNER", "COLLABORATOR"].includes(comment.author_association);
+}
+
+function reactionCount(item) {
+  return Number(item?.reactions?.total_count || 0);
+}
+
+async function fetchTrackedIssue(entry) {
+  const repo = entry.repo;
+  const number = Number(entry.number);
+  const issue = await fetchGitHubJson(new URL(`https://api.github.com/repos/${repo}/issues/${number}`));
+  const comments = await fetchGitHubJson(new URL(`${issue.comments_url}?per_page=100&sort=created&direction=desc`));
+  const maintainer = comments.find(maintainerComment);
+  const latest = comments[0] || null;
+  const status =
+    issue.state === "closed"
+      ? "closed"
+      : maintainer
+        ? "maintainer_response"
+        : comments.length > 0
+          ? "community_response"
+          : "awaiting_response";
+  return {
+    repo,
+    number,
+    title: issue.title,
+    url: issue.html_url,
+    state: issue.state,
+    status,
+    purpose: entry.purpose || "Theseus upstream report",
+    created_at: issue.created_at,
+    updated_at: issue.updated_at,
+    comments: issue.comments || 0,
+    issue_reactions: reactionCount(issue),
+    labels: (issue.labels || []).map((label) => label.name),
+    maintainer_response: maintainer
+      ? {
+          author: maintainer.user?.login || "unknown",
+          created_at: maintainer.created_at,
+          url: maintainer.html_url,
+          reactions: reactionCount(maintainer),
+        }
+      : null,
+    latest_comment: latest
+      ? {
+          author: latest.user?.login || "unknown",
+          association: latest.author_association || "NONE",
+          created_at: latest.created_at,
+          url: latest.html_url,
+          reactions: reactionCount(latest),
+        }
+      : null,
+  };
+}
+
+async function fetchTrackedIssues(configPath) {
+  const configured = await readTrackedIssues(configPath);
+  const settled = await Promise.allSettled(configured.map(fetchTrackedIssue));
+  return settled.map((result, index) => {
+    if (result.status === "fulfilled") return result.value;
+    return {
+      repo: configured[index].repo,
+      number: configured[index].number,
+      purpose: configured[index].purpose || "Theseus upstream report",
+      status: "unavailable",
+      error: result.reason?.message || String(result.reason),
+    };
+  });
 }
 
 function summarize(issues, args) {
@@ -187,6 +270,19 @@ function renderMarkdown(summary) {
     lines.push(`- #${issue.number} ${issue.title} (${flags || "seen"})`, `  ${issue.url}`);
   }
 
+  lines.push("", "## Our Upstream Reports", "");
+  if (summary.tracked_issues.length === 0) lines.push("- none configured");
+  for (const issue of summary.tracked_issues) {
+    if (issue.status === "unavailable") {
+      lines.push(`- ${issue.repo}#${issue.number}: unavailable (${issue.error})`);
+      continue;
+    }
+    lines.push(
+      `- ${issue.repo}#${issue.number} ${issue.title} (${issue.status}, comments: ${issue.comments}, reactions: ${issue.issue_reactions})`,
+      `  ${issue.url}`,
+    );
+  }
+
   lines.push("");
   return lines.join("\n");
 }
@@ -203,8 +299,10 @@ async function writeOutputs(summary, markdown, outputDir) {
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));
-  const issues = await fetchIssues(args);
+  const rawIssues = await fetchIssues(args);
+  const issues = rawIssues.filter((item) => !item.pull_request);
   const summary = summarize(issues, args);
+  summary.tracked_issues = await fetchTrackedIssues(args.trackedConfig);
   const markdown = renderMarkdown(summary);
   if (args.write) await writeOutputs(summary, markdown, args.outputDir);
   if (args.format === "json") console.log(JSON.stringify(summary, null, 2));

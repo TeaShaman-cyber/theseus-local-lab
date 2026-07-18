@@ -25,6 +25,17 @@ outputs/github_issue_watch/openai-codex.md
 The workshop dashboard reads only this cache. It does not poll GitHub on every
 page refresh.
 
+## Our Upstream Reports
+
+`tracked_issues.json` is a small, reviewed watchlist of reports submitted by
+Theseus. Each refresh records state, labels, issue reactions, latest comment,
+and a separate `maintainer_response` signal based on GitHub's author
+association. This keeps a community reply distinct from a response by a
+repository maintainer.
+
+The watchlist is configuration, not a ledger of private conversations. Keep
+only public issue references and a concise purpose there.
+
 ## Signal Shape
 
 The report highlights issues that match Theseus pain points:

@@ -505,6 +505,29 @@ function renderIssueCard(issue) {
   `;
 }
 
+function renderTrackedIssueCard(issue) {
+  if (issue.status === "unavailable") {
+    return `<article class="task-card"><strong>${escapeHtml(`${issue.repo}#${issue.number}`)}</strong><p class="muted">${escapeHtml(issue.error || "unavailable")}</p></article>`;
+  }
+  const response = issue.maintainer_response
+    ? `maintainer: ${issue.maintainer_response.author}`
+    : issue.latest_comment
+      ? `latest: ${issue.latest_comment.author} (${issue.latest_comment.association})`
+      : "no comments yet";
+  return `
+    <article class="task-card">
+      <a href="${escapeHtml(issue.url)}" target="_blank" rel="noreferrer"><strong>${escapeHtml(`${issue.repo}#${issue.number} ${issue.title}`)}</strong></a>
+      <div class="task-meta">
+        <span>${escapeHtml(issue.status)}</span>
+        <span>${escapeHtml(issue.state)}</span>
+        <span>${escapeHtml(issue.comments)} comments</span>
+        <span>${escapeHtml(issue.issue_reactions)} reactions</span>
+      </div>
+      <p class="muted">${escapeHtml(response)} · ${escapeHtml(issue.purpose || "")}</p>
+    </article>
+  `;
+}
+
 async function refreshCodexIssues() {
   const response = await fetch("/api/codex-issues", { cache: "no-store" });
   const payload = await response.json();
@@ -513,6 +536,7 @@ async function refreshCodexIssues() {
     byId("codex-issues-summary").textContent = payload.hint || payload.error || "No issue summary cache.";
     byId("codex-issue-tags").innerHTML = "";
     byId("codex-issue-list").innerHTML = "";
+    byId("tracked-issue-list").innerHTML = "";
     return;
   }
   byId("codex-issues-total").textContent = String(payload.high_signal_count || 0);
@@ -524,6 +548,9 @@ async function refreshCodexIssues() {
     .slice(0, 18)
     .map(renderIssueCard)
     .join("");
+  byId("tracked-issue-list").innerHTML = (payload.tracked_issues || [])
+    .map(renderTrackedIssueCard)
+    .join("") || '<div class="task-card"><span class="muted">No upstream reports are tracked yet.</span></div>';
 }
 
 function renderVersionRows(payload) {

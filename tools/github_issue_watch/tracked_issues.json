@@ -1,0 +1,10 @@
+{
+  "schema": "theseus.github_issue_watch.tracked.v1",
+  "issues": [
+    {
+      "repo": "openai/codex",
+      "number": 33965,
+      "purpose": "Windows Desktop WSL stdio MCP bridge reproduction and workaround evidence"
+    }
+  ]
+}

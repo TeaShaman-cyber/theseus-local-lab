@@ -717,13 +717,17 @@ async function buildDashboard() {
   const codexIssuesStat = existsSync(codexIssuesFile) ? statSync(codexIssuesFile) : null;
   const codexIssues = readJsonFile(codexIssuesFile);
   const codexIssuesAge = codexIssuesStat ? relativeAge(codexIssuesStat.mtime, now) : null;
+  const trackedIssues = codexIssues?.tracked_issues || [];
+  const trackedResponses = trackedIssues.filter((issue) => issue.status === "maintainer_response").length;
+  const trackedCommunity = trackedIssues.filter((issue) => issue.status === "community_response").length;
+  const trackedPending = trackedIssues.filter((issue) => issue.status === "awaiting_response").length;
   rows.push(
     item(
       "codex-issues",
       "OpenAI Codex issues",
       codexIssues ? statusFromFreshness(codexIssuesAge, 12, 48) : "WARN",
       codexIssues
-        ? `${codexIssues.high_signal_count || 0} high-signal, ${codexIssues.new_count || 0} new, ${codexIssues.updated_count || 0} updated; ${formatAge(codexIssuesAge)} old`
+        ? `${codexIssues.high_signal_count || 0} high-signal, ${codexIssues.new_count || 0} new, ${codexIssues.updated_count || 0} updated; upstream: ${trackedResponses} maintainer, ${trackedCommunity} community, ${trackedPending} waiting; ${formatAge(codexIssuesAge)} old`
         : "run node tools/github_issue_watch/github_issue_watch.mjs --write",
       {
         url: codexIssues?.source_url || "https://github.com/openai/codex/issues",
