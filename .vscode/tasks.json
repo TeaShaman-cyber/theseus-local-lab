@@ -1175,6 +1175,48 @@
       "type": "shell",
       "command": "ssh -o BatchMode=yes -o StrictHostKeyChecking=yes ${input:theseusVmSshAlias} 'bash ~/theseus-local-lab/bin/load_image_archive.sh ~/theseus-local-lab/incoming/${input:imageTransferArchive} ~/theseus-local-lab/incoming/${input:imageTransferManifest}'",
       "problemMatcher": []
+    },
+    {
+      "label": "Theseus Sonar: bootstrap WSL",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/sonar_local/run_wsl.mjs",
+        "bootstrap"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Sonar: refresh AutoMem",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/sonar_local/run_wsl.mjs",
+        "refresh"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Sonar: preflight",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/sonar_local/run_wsl.mjs",
+        "preflight",
+        "--query",
+        "${input:sonarQuery}"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Sonar: status",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/sonar_local/run_wsl.mjs",
+        "status"
+      ],
+      "problemMatcher": []
     }
   ],
   "inputs": [
@@ -1461,6 +1503,12 @@
       "type": "promptString",
       "description": "Graphify path target node",
       "default": "scan_staged.mjs"
+    },
+    {
+      "id": "sonarQuery",
+      "type": "promptString",
+      "description": "Question for the local AutoMem federation preflight",
+      "default": "which memory, route, and runtime evidence should constrain this task"
     }
   ]
 }

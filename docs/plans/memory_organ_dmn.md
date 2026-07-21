@@ -24,18 +24,19 @@ Confirmed reading:
 - Menon, *20 years of the default mode network: a review and synthesis*
   (2023): DMN research covers self-reference, social cognition, episodic and
   autobiographical memory, language, semantic memory, and mind wandering.
-  https://pubmed.ncbi.nlm.nih.gov/37167968/
+  [PubMed 37167968](https://pubmed.ncbi.nlm.nih.gov/37167968/)
 - Spreng et al. meta-analysis: a related core network is implicated in
   autobiographical memory, prospection, navigation, and theory of mind.
-  https://pubmed.ncbi.nlm.nih.gov/18510452/
+  [PubMed 18510452](https://pubmed.ncbi.nlm.nih.gov/18510452/)
 
-## Three Complementary Layers
+## Complementary Layers
 
 | Layer | System | Owns | Must not become |
 | --- | --- | --- | --- |
 | Durable semantic state | AutoMem | decisions, preferences, patterns, causal fixes, typed relations | a raw transcript archive |
 | Episodic evidence | MemPalace | verbatim drawers, diary, exact wording, handoff context | a replacement for ranked semantic recall |
 | Structural lens | Graphify | on-demand corpus and code relations, bounded concept graphs | a stop-hook or always-on background indexer |
+| Federation preflight | Local Sonar | small ranked evidence slices, authority bridges, conflicts, temporal drift, and explicit gaps | another memory authority or a substitute for live verification |
 
 Local files remain evidence and an explicit fallback. They are not the default
 recall route.
@@ -51,7 +52,9 @@ durable_memory_id, episodic_drawer_id, graph_artifact, verification
 ```
 
 1. Before meaningful work: recall AutoMem; retrieve a MemPalace episode when
-   exact wording or prior trajectory matters.
+   exact wording or prior trajectory matters. Use Local Sonar only when a
+   cross-layer route, authority boundary, or temporal conflict needs a compact
+   preflight.
 2. During foreground work: write only verified decisions and reusable failures
    to AutoMem; preserve raw evidence only when it has future evidentiary value.
 3. After a bounded episode: create a MemPalace checkpoint and link its receipt
@@ -61,6 +64,10 @@ durable_memory_id, episodic_drawer_id, graph_artifact, verification
    edges into AutoMem.
 5. During background consolidation: inspect stale, conflicting, or unlinked
    receipts; propose a small merge, relation, archive, or intentional no-op.
+
+Local Sonar keeps a rebuildable DuckDB index on WSL ext4 and reads AutoMem only
+through its authenticated graph API. Basic Memory Cloud can contribute reviewed
+federation contracts or DIFFs, but it is not part of the local hot path.
 
 ## DMN-Inspired Background Cycle
 
@@ -91,15 +98,18 @@ Guardrails:
 - AutoMem is primary and runtime-verified.
 - Graphify is runtime-verified as an on-demand WSL lens; the Strazh DMN corpus
   produced a 44-node, 89-edge graph on 2026-07-16.
-- MemPalace data volume and image are intact. Its desktop MCP transport is
-  being moved from the brittle Windows Docker client route to WSL Docker and
-  needs one Codex restart to reconnect.
+- MemPalace is runtime-verified through MCP: 31 drawers, a 10-room/10-edge
+  episodic graph, and a healthy SQLite integrity check on 2026-07-22.
+- Local Sonar is in trial. Its first verified refresh indexed 247 AutoMem
+  documents, 1690 memory edges, and a 9-node/11-edge federation contract with
+  exact readback. Three route probes recovered the intended evidence in
+  1.3-2.6 seconds of internal ranking time.
 
 ## Next Small Steps
 
-1. Restart Codex and verify MemPalace `status`, `search`, and a tiny diary
-   checkpoint through the WSL-backed MCP route.
-2. Add a read-only memory-organ status card to the workshop dashboard with
+1. Add a read-only memory-organ status card to the workshop dashboard with
    each layer's health, last receipt, and degradation reason.
-3. Introduce the receipt schema in the existing memory hook before adding any
+2. Introduce the receipt schema in the existing memory hook before adding any
    background consolidation scheduler.
+3. Measure whether repeated Local Sonar use improves route selection enough to
+   justify its Windows-to-WSL startup cost before promoting it from trial.

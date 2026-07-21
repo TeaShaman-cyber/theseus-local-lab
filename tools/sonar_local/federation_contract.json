@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "name": "theseus-local-federation",
+  "authority_order": [
+    "UserIntent",
+    "LocalOperationalRuntime",
+    "GitEvidence",
+    "AutoMem",
+    "MemPalace",
+    "Graphify"
+  ],
+  "nodes": [
+    {"id": "UserIntent", "kind": "authority", "domain": "all"},
+    {"id": "LocalOperationalRuntime", "kind": "authority", "domain": "runtime"},
+    {"id": "GitEvidence", "kind": "evidence", "domain": "git"},
+    {"id": "AutoMem", "kind": "memory", "domain": "memory"},
+    {"id": "MemPalace", "kind": "memory", "domain": "memory"},
+    {"id": "Graphify", "kind": "lens", "domain": "corpus"},
+    {"id": "Sonar", "kind": "protocol", "domain": "retrieval"},
+    {"id": "SkillRouter", "kind": "router", "domain": "execution"},
+    {"id": "ToolPolicy", "kind": "guard", "domain": "execution"}
+  ],
+  "edges": [
+    {"source": "Sonar", "relation": "retrieves_from", "target": "AutoMem"},
+    {"source": "Sonar", "relation": "retrieves_from", "target": "MemPalace"},
+    {"source": "Sonar", "relation": "retrieves_from", "target": "Graphify"},
+    {"source": "Sonar", "relation": "constrained_by", "target": "UserIntent"},
+    {"source": "AutoMem", "relation": "must_not_override", "target": "LocalOperationalRuntime"},
+    {"source": "MemPalace", "relation": "must_not_override", "target": "LocalOperationalRuntime"},
+    {"source": "Graphify", "relation": "must_not_override", "target": "LocalOperationalRuntime"},
+    {"source": "SkillRouter", "relation": "constrained_by", "target": "Sonar"},
+    {"source": "SkillRouter", "relation": "constrained_by", "target": "ToolPolicy"},
+    {"source": "ToolPolicy", "relation": "verified_by", "target": "LocalOperationalRuntime"},
+    {"source": "GitEvidence", "relation": "observed_in", "target": "LocalOperationalRuntime"}
+  ],
+  "domains": {
+    "memory": {
+      "keywords": ["memory", "automem", "mempalace", "recall", "compact", "context", "память", "контекст", "сжатие"],
+      "required_nodes": ["AutoMem", "MemPalace", "Sonar"],
+      "requires_live_verification": false
+    },
+    "runtime": {
+      "keywords": ["docker", "wsl", "windows", "service", "container", "ssh", "runtime", "infra", "powershell", "контейнер", "сервис", "инфраструктура"],
+      "required_nodes": ["LocalOperationalRuntime", "Sonar", "SkillRouter", "ToolPolicy"],
+      "requires_live_verification": true
+    },
+    "git": {
+      "keywords": ["git", "github", "commit", "push", "branch", "repo", "репозиторий", "коммит"],
+      "required_nodes": ["GitEvidence", "LocalOperationalRuntime", "SkillRouter", "ToolPolicy"],
+      "requires_live_verification": true
+    },
+    "corpus": {
+      "keywords": ["graphify", "corpus", "pdf", "chat", "drive", "index", "граф", "корпус", "чат", "индекс"],
+      "required_nodes": ["Graphify", "AutoMem", "Sonar"],
+      "requires_live_verification": false
+    }
+  },
+  "aliases": {
+    "powershell": ["wsl", "shell routing", "windows friction", "unix route"],
+    "compact": ["context pressure", "state packet", "memory continuity"],
+    "docker": ["container", "control plane", "runtime verification"],
+    "sonar": ["semantic echolocation", "causal predecessor", "retrieval protocol"],
+    "federation": ["authority bridge", "typed relation", "route enforcement"]
+  }
+}

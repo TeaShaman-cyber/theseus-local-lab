@@ -81,6 +81,7 @@ outputs/research_queue/*.jsonl
 outputs/local_inventory/*.json
 outputs/pdf_extracts/*
 outputs/state_packets/*.md
+outputs/sonar_local/*
 .vs/
 .local_secrets/
 *.log
