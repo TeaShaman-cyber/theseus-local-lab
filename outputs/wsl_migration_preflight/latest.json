@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-16T20:38:13.026Z",
+  "generated_at": "2026-07-22T06:31:36.048Z",
   "status": "WARN",
   "recommendation": "migration is possible only as a guarded pilot; fix warnings before making WSL default",
   "checks": [
@@ -16,15 +16,27 @@
       }
     },
     {
-      "name": "windows-docker-proxy",
+      "name": "windows-native-docker",
       "status": "OK",
-      "detail": "Docker socket proxy probe works from Windows",
+      "detail": "Windows reaches Docker Desktop directly (server 29.6.1)",
       "evidence": {
-        "verdict": "OK",
-        "ping": 200,
-        "version": 200,
-        "containers": 200,
-        "blocked_post": 403
+        "ok": true,
+        "status": 0,
+        "signal": null,
+        "stdout": "29.6.1",
+        "stderr": ""
+      }
+    },
+    {
+      "name": "windows-legacy-docker-proxy",
+      "status": "OK",
+      "detail": "N/A: Windows reaches Docker Desktop directly",
+      "evidence": {
+        "verdict": "UNKNOWN",
+        "parse_error": true,
+        "raw": "",
+        "native_docker_ready": true,
+        "stderr": "probe file missing"
       }
     },
     {
@@ -41,11 +53,15 @@
     },
     {
       "name": "wsl-runtime-env",
-      "status": "OK",
-      "detail": "WSL runtime env has no obvious Codex/Temp portability leak",
+      "status": "WARN",
+      "detail": "CODEX_HOME is on DrvFS; WSLENV forwards TEMP/TMP; TEMP/TMP points to DrvFS",
       "evidence": {
-        "stdout": "CODEX_HOME=\nWSLENV=\nTMP=\nTEMP=\nXDG_RUNTIME_DIR=/run/user/1000",
-        "warnings": []
+        "stdout": "CODEX_HOME=/mnt/c/Users/s.poklad/.codex\nWSLENV=PATHEXT/l:COMSPEC/p:SYSTEMROOT/p:SYSTEMDRIVE:USERNAME:USERDOMAIN:USERPROFILE/p:PROGRAMFILES/p:PROGRAMFILES(X86)/p:PROGRAMW6432/p:PROGRAMDATA/p:LOCALAPPDATA/p:APPDATA/p:TEMP/p:TMP/p:POWERSHELL:PWSH:HTTP_PROXY:HTTPS_PROXY:NO_PROXY:NODE_TLS_REJECT_UNAUTHORIZED:CODEX_HOME/p:LOG_FORMAT:RUST_LOG:CODEX_INTERNAL_ORIGINATOR_OVERRIDE\nTMP=/mnt/c/Users/S82B1~1.POK/AppData/Local/Temp\nTEMP=/mnt/c/Users/S82B1~1.POK/AppData/Local/Temp\nXDG_RUNTIME_DIR=/run/user/1000",
+        "warnings": [
+          "CODEX_HOME is on DrvFS",
+          "WSLENV forwards TEMP/TMP",
+          "TEMP/TMP points to DrvFS"
+        ]
       }
     },
     {
@@ -71,15 +87,27 @@
       }
     },
     {
-      "name": "wsl-docker-proxy",
+      "name": "wsl-native-docker",
       "status": "OK",
-      "detail": "Docker socket proxy probe works from WSL",
+      "detail": "WSL reaches Docker Desktop through /var/run/docker.sock",
       "evidence": {
-        "verdict": "OK",
-        "ping": 200,
-        "version": 200,
-        "containers": 200,
-        "blocked_post": 403
+        "ok": true,
+        "status": 0,
+        "signal": null,
+        "stdout": "docker_socket=present\ndocker_context=default\ndocker_server=29.6.1",
+        "stderr": ""
+      }
+    },
+    {
+      "name": "wsl-legacy-docker-proxy",
+      "status": "OK",
+      "detail": "N/A: legacy proxy is not required because the native Docker socket works",
+      "evidence": {
+        "verdict": "UNKNOWN",
+        "parse_error": true,
+        "raw": "",
+        "native_docker_ready": true,
+        "stderr": "node:internal/modules/run_main:107\n    triggerUncaughtException(\n    ^\n\n[TypeError: fetch failed] {\n  [cause]: Error: connect ECONNREFUSED 127.0.0.1:23760\n      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1706:16) {\n    errno: -111,\n    code: 'ECONNREFUSED',\n    syscall: 'connect',\n    address: '127.0.0.1',\n    port: 23760\n  }\n}\n\nNode.js v24.18.0"
       }
     },
     {
@@ -96,13 +124,13 @@
     },
     {
       "name": "wsl-ubuntu-vm-ssh",
-      "status": "OK",
-      "detail": "WSL can connect to Ubuntu VM through SSH alias",
+      "status": "WARN",
+      "detail": "WSL SSH alias to Ubuntu VM did not verify",
       "evidence": {
-        "ok": true,
-        "status": 0,
+        "ok": false,
+        "status": 255,
         "signal": null,
-        "stdout": "ssh-ok\nsysadmin\nubuntu2204lts",
+        "stdout": "ssh: connect to host 192.168.121.130 port 22: No route to host",
         "stderr": ""
       }
     },
@@ -121,50 +149,36 @@
     {
       "name": "codex-hooks-json",
       "status": "OK",
-      "detail": "Codex hooks JSON parse check",
+      "detail": "Project Codex hooks JSON parses; no global duplicate layer",
       "evidence": {
         "project": {
           "exists": true,
           "parse_ok": true
         },
         "global": {
-          "exists": true,
-          "parse_ok": true
+          "exists": false
         }
       }
     },
     {
       "name": "codex-global-config-portability",
-      "status": "WARN",
-      "detail": "Global Codex config still has Windows-local or raw Docker assumptions",
+      "status": "OK",
+      "detail": "No obvious WSL portability markers found in global config",
       "evidence": {
-        "exists": true,
-        "hits": [
-          {
-            "pattern": "windows-monolith-path",
-            "count": 16
-          },
-          {
-            "pattern": "raw-docker-2375",
-            "count": 1
-          }
-        ]
+        "exists": false,
+        "hits": []
       }
     },
     {
       "name": "vscode-task-portability",
-      "status": "WARN",
+      "status": "OK",
       "detail": "VS Code task portability scan",
       "evidence": {
         "exists": true,
         "hits": [
           {
-            "pattern": "raw-docker-2375",
-            "count": 17
-          },
-          {
             "pattern": "wsl-command",
-            "count": 2
+            "count": 1
           }
         ]
       }
