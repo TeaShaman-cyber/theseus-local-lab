@@ -14,6 +14,21 @@ or continuous monitoring. It samples:
 - public `openai/codex` GitHub issue and repo context;
 - provider scout cache.
 
+It also runs a lightweight MCP process guard:
+
+- `PsList -t` supplies the parent-child tree without a full WMI process scan;
+- only Codex descendants with MCP-like executable names are considered;
+- a bounded PID query fingerprints command lines when a process family has
+  multiplicity;
+- persisted output contains only an entrypoint basename and a short command
+  fingerprint, never the raw command line;
+- exact duplicate command fingerprints under one `codex.exe` set the snapshot
+  and workshop dashboard to `WARN`.
+
+The detector is an observability heuristic. It proves duplicate runtime
+instances, but it cannot identify the owning Codex task or configured MCP name
+until Codex exposes that ownership directly.
+
 ## Tasks
 
 ```text

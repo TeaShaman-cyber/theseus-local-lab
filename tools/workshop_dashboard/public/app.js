@@ -704,6 +704,7 @@ function renderCodexWindowsMapMetrics(payload) {
     ["Graph nodes", metrics.nodes],
     ["Graph edges", metrics.edges],
     ["Focused processes", summary.focused_processes],
+    ["MCP duplicate groups", summary.mcp_exact_duplicate_groups || 0],
     ["Focused connections", metrics.focused_connections],
     ["Deep sampled", metrics.deep_sampled_processes],
     ["openai/codex main", summary.upstream_sha],

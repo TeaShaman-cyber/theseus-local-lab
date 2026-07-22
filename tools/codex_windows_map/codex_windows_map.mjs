@@ -13,6 +13,7 @@ import https from "node:https";
 import os from "node:os";
 import path from "node:path";
 import { createProgressReporter } from "../progress/progress.mjs";
+import { analyzeMcpProcessTree, parsePsListTree } from "./mcp_process_guard.mjs";
 
 const repoRoot = path.resolve(import.meta.dirname, "..", "..");
 const outputDir = path.join(repoRoot, "outputs", "codex_windows_map");
@@ -41,9 +42,14 @@ const fileFocusTerms = [
   "\\microsoft",
   "\\tools\\sysinternals",
 ];
+const wslWindowsHome = (() => {
+  const match = repoRoot.match(/^\/mnt\/([a-z])\/Users\/([^/]+)/i);
+  return match ? `/mnt/${match[1].toLowerCase()}/Users/${match[2]}` : null;
+})();
 const sysinternalsDirs = [
   process.env.THESEUS_SYSINTERNALS_DIR,
   path.join(os.homedir(), "Tools", "Sysinternals"),
+  wslWindowsHome ? path.join(wslWindowsHome, "Tools", "Sysinternals") : null,
   "C:\\Tools\\Sysinternals",
 ].filter(Boolean);
 
@@ -420,6 +426,53 @@ async function collectProcesses() {
   };
 }
 
+async function collectMcpProcessGuard(progress) {
+  const psList = findSysinternalsTool(["pslist64.exe", "pslist.exe"]);
+  if (!psList) {
+    return { status: "UNKNOWN", source: "missing-pslist", candidate_count: 0, multiplicity_groups: [], exact_duplicate_groups: [] };
+  }
+
+  progress.emit("mcp-process-guard", { stage: "pslist-tree" });
+  const treeResult = await run(psList, ["-accepteula", "-t"], { timeoutMs: 12_000 });
+  if (!treeResult.ok) {
+    return {
+      status: "UNKNOWN",
+      source: "pslist-tree",
+      error: (treeResult.stderr || treeResult.stdout || "PsList failed").slice(0, 300),
+      candidate_count: 0,
+      multiplicity_groups: [],
+      exact_duplicate_groups: [],
+    };
+  }
+
+  const rows = parsePsListTree(treeResult.stdout);
+  const initial = analyzeMcpProcessTree(rows);
+  const candidatePids = initial.candidates.map((item) => item.pid).filter((pid) => /^\d+$/.test(pid)).slice(0, 24);
+  let commandDetails = [];
+  let detailStatus = "not-needed";
+  if (initial.multiplicity_groups.length && candidatePids.length) {
+    const filter = candidatePids.map((pid) => `ProcessId = ${pid}`).join(" OR ");
+    const script = `$rows = Get-CimInstance Win32_Process -Filter '${filter}' | Select-Object @{n='pid';e={[string]$_.ProcessId}}, @{n='command_line';e={$_.CommandLine}}; $rows | ConvertTo-Json -Compress`;
+    const detail = await run("powershell.exe", ["-NoProfile", "-NonInteractive", "-Command", script], { timeoutMs: 8_000 });
+    detailStatus = detail.ok ? "bounded-pid-query" : "bounded-pid-query-failed";
+    if (detail.ok && detail.stdout.trim()) {
+      try {
+        const parsed = JSON.parse(detail.stdout);
+        commandDetails = Array.isArray(parsed) ? parsed : [parsed];
+      } catch {
+        detailStatus = "bounded-pid-query-invalid-json";
+      }
+    }
+  }
+
+  return {
+    ...analyzeMcpProcessTree(rows, commandDetails),
+    source: "sysinternals-pslist-tree",
+    detail_status: detailStatus,
+    process_tree_rows: rows.length,
+  };
+}
+
 async function collectProcessDeepSamples(focusedProcesses, args, progress) {
   const listDlls = findSysinternalsTool(["listdlls64.exe", "listdlls.exe"]);
   const handle = findSysinternalsTool(["handle64.exe", "handle.exe"]);
@@ -472,7 +525,7 @@ function addEdge(edges, edge) {
   edges.push(edge);
 }
 
-function buildGraph({ processes, connections, deepSamples, caches, githubRepo }) {
+function buildGraph({ processes, connections, deepSamples, caches, githubRepo, mcpProcessGuard }) {
   const nodes = new Map();
   const edges = [];
 
@@ -483,6 +536,30 @@ function buildGraph({ processes, connections, deepSamples, caches, githubRepo })
   addEdge(edges, { source: "app:codex-desktop", target: "system:windows", relation: "runs-on" });
   addEdge(edges, { source: "project:theseus-local-lab", target: "app:codex-desktop", relation: "observes" });
   addEdge(edges, { source: "project:theseus-local-lab", target: "repo:openai/codex", relation: "watches-upstream" });
+
+  addNode(nodes, {
+    id: "guard:mcp-processes",
+    type: "runtime-guard",
+    label: `MCP process guard: ${mcpProcessGuard.status}`,
+    status: mcpProcessGuard.status,
+  });
+  addEdge(edges, { source: "project:theseus-local-lab", target: "guard:mcp-processes", relation: "monitors" });
+  addEdge(edges, { source: "guard:mcp-processes", target: "app:codex-desktop", relation: "observes-runtime" });
+  for (const group of mcpProcessGuard.exact_duplicate_groups || []) {
+    const groupId = `mcp-duplicate:${group.codex_pid}:${group.command_fingerprint}`;
+    addNode(nodes, {
+      id: groupId,
+      type: "mcp-duplicate-group",
+      label: `${group.image} / ${group.entrypoint} x${group.count}`,
+      status: "WARN",
+    });
+    addEdge(edges, { source: "guard:mcp-processes", target: groupId, relation: "detected" });
+    for (const pid of group.pids) {
+      const processId = `process:${pid}`;
+      addNode(nodes, { id: processId, type: "process", label: `${group.image} #${pid}`, image: group.image, pid, status: "duplicate-candidate" });
+      addEdge(edges, { source: groupId, target: processId, relation: "contains-process" });
+    }
+  }
 
   const focused = processes.focused.slice(0, 40);
   for (const process of focused) {
@@ -554,6 +631,7 @@ function buildGraph({ processes, connections, deepSamples, caches, githubRepo })
       focused_processes: focused.length,
       focused_connections: connections.filter((item) => focusedPids.has(item.pid)).length,
       deep_sampled_processes: deepSamples.length,
+      mcp_exact_duplicate_groups: mcpProcessGuard.exact_duplicate_groups?.length || 0,
     },
   };
 }
@@ -578,16 +656,19 @@ function summarizeSnapshot(snapshot) {
     graph_edges: graph.metrics.edges || 0,
     upstream_sha: snapshot.github_repo?.main_commit?.sha?.slice(0, 12) || "unknown",
     provider_status: snapshot.caches?.provider_scout?.data?.summary?.status || "unknown",
+    mcp_process_guard_status: snapshot.mcp_process_guard?.status || "unknown",
+    mcp_exact_duplicate_groups: snapshot.mcp_process_guard?.exact_duplicate_groups?.length || 0,
   };
 }
 
 async function buildSnapshot(args) {
   const progress = createProgressReporter({ operation: "codex-windows-map" });
   progress.heartbeat("start", "building Codex Windows graph snapshot");
-  const [caches, processData, githubRepo] = await Promise.all([
+  const [caches, processData, githubRepo, mcpProcessGuard] = await Promise.all([
     collectCaches(args, progress),
     collectProcesses(),
     collectGithubRepoContext(),
+    collectMcpProcessGuard(progress),
   ]);
   progress.heartbeat("deep-samples", "sampling focused DLLs and handles", { focused_processes: processData.focused.length });
   const focused = processData.focused.slice(0, args.maxProcesses);
@@ -598,11 +679,12 @@ async function buildSnapshot(args) {
     deepSamples,
     caches,
     githubRepo,
+    mcpProcessGuard,
   });
   const snapshot = {
     schema: "theseus.codex_windows_map.v1",
     generated_at: new Date().toISOString(),
-    status: processData.commands.tasklist.ok && processData.commands.netstat.ok ? "OK" : "WARN",
+    status: processData.commands.tasklist.ok && processData.commands.netstat.ok && mcpProcessGuard.status === "OK" ? "OK" : "WARN",
     mode: "bounded-read-only-snapshot",
     privacy_note: "No raw transcripts, env vars, secrets, full packet traces, ProcMon traces, or dumps are captured.",
     limits: {
@@ -613,6 +695,7 @@ async function buildSnapshot(args) {
     },
     caches,
     github_repo: githubRepo,
+    mcp_process_guard: mcpProcessGuard,
     processes: {
       commands: processData.commands,
       total: processData.processes.length,
@@ -723,6 +806,7 @@ function renderSnapshotMarkdown(snapshot) {
     `- Graph: ${s.graph_nodes} nodes / ${s.graph_edges} edges`,
     `- openai/codex main: ${s.upstream_sha}`,
     `- Provider status: ${s.provider_status}`,
+    `- MCP process guard: ${s.mcp_process_guard_status} (${s.mcp_exact_duplicate_groups} exact duplicate groups)`,
     "",
     "## Focused Processes",
     "",
@@ -731,6 +815,15 @@ function renderSnapshotMarkdown(snapshot) {
   ];
   for (const process of snapshot.processes.focused.slice(0, 30)) {
     lines.push(`| ${process.image} | ${process.pid} | ${process.status || ""} | ${process.memory || ""} | ${String(process.window_title || "").replaceAll("|", "\\|").slice(0, 80)} |`);
+  }
+  lines.push("", "## MCP Process Guard", "");
+  lines.push(`- Status: ${snapshot.mcp_process_guard?.status || "unknown"}`);
+  lines.push(`- Source: ${snapshot.mcp_process_guard?.source || "unknown"}`);
+  lines.push(`- Candidate processes: ${snapshot.mcp_process_guard?.candidate_count || 0}`);
+  lines.push(`- Multiplicity groups: ${snapshot.mcp_process_guard?.multiplicity_groups?.length || 0}`);
+  lines.push(`- Exact duplicate groups: ${snapshot.mcp_process_guard?.exact_duplicate_groups?.length || 0}`);
+  for (const group of snapshot.mcp_process_guard?.exact_duplicate_groups || []) {
+    lines.push(`- WARN ${group.image} / ${group.entrypoint}: ${group.count} processes under codex #${group.codex_pid} (PIDs ${group.pids.join(", ")})`);
   }
   lines.push("", "## Deep Samples", "");
   for (const sample of snapshot.deep_samples) {
