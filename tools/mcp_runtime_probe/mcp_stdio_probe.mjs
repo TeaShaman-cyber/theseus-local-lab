@@ -5,13 +5,21 @@ import { spawn } from "node:child_process";
 function parseArgs(argv) {
   const separator = argv.indexOf("--");
   if (separator < 0 || !argv[separator + 1]) {
-    throw new Error("Usage: mcp_stdio_probe.mjs [--timeout-ms N] -- <command> [args...]");
+    throw new Error("Usage: mcp_stdio_probe.mjs [--timeout-ms N] [--call NAME --args-json JSON] -- <command> [args...]");
   }
 
   let timeoutMs = 15_000;
+  let callName = "";
+  let callArgs = {};
   for (let index = 0; index < separator; index += 1) {
     if (argv[index] === "--timeout-ms") {
       timeoutMs = Number(argv[index + 1]);
+      index += 1;
+    } else if (argv[index] === "--call") {
+      callName = argv[index + 1] || "";
+      index += 1;
+    } else if (argv[index] === "--args-json") {
+      callArgs = JSON.parse(argv[index + 1] || "{}");
       index += 1;
     } else {
       throw new Error(`Unknown option: ${argv[index]}`);
@@ -26,6 +34,8 @@ function parseArgs(argv) {
     timeoutMs,
     command: argv[separator + 1],
     commandArgs: argv.slice(separator + 2),
+    callName,
+    callArgs,
   };
 }
 
@@ -41,6 +51,7 @@ let buffer = "";
 let stderr = "";
 let settled = false;
 let initialized = false;
+let toolNames = [];
 
 function finish(result) {
   if (settled) return;
@@ -83,12 +94,33 @@ child.stdout.on("data", (chunk) => {
     }
 
     if (message.id === 2 && Array.isArray(message.result?.tools)) {
+      toolNames = message.result.tools.map((tool) => tool.name);
+      if (!args.callName) {
+        finish({
+          ok: true,
+          stage: "tools/list",
+          tool_count: toolNames.length,
+          tool_names: toolNames,
+        });
+      } else if (!toolNames.includes(args.callName)) {
+        finish({ ok: false, stage: "tools/call", error: `tool not found: ${args.callName}`, tool_names: toolNames });
+      } else {
+        child.stdin.write(`${JSON.stringify({
+          jsonrpc: "2.0",
+          id: 3,
+          method: "tools/call",
+          params: { name: args.callName, arguments: args.callArgs },
+        })}\n`);
+      }
+    }
+
+    if (message.id === 3) {
       finish({
-        ok: true,
-        stage: "tools/list",
-        server: message.result.serverInfo || null,
-        tool_count: message.result.tools.length,
-        tool_names: message.result.tools.map((tool) => tool.name),
+        ok: !message.error && message.result?.isError !== true,
+        stage: "tools/call",
+        tool: args.callName,
+        result: message.result || null,
+        error: message.error || null,
       });
     }
   }
