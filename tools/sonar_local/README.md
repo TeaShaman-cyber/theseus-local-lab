@@ -29,6 +29,41 @@ node tools/sonar_local/run_wsl.mjs preflight --query "why avoid PowerShell for D
 node tools/sonar_local/run_wsl.mjs status
 ```
 
+## Persistent MCP Route
+
+The Codex integration runs one WSL process for the MCP session instead of
+starting WSL for every query. It exposes three read-only tools:
+
+- `sonar_status`: index health, age, and authority boundaries;
+- `sonar_refresh`: explicit AutoMem-to-DuckDB refresh;
+- `sonar_preflight`: compact evidence, bridge, conflict, drift, and gap packet.
+
+Run the protocol smoke test before registering or after changing the server:
+
+```text
+node tools/sonar_local/run_wsl.mjs mcp-smoke --windows-launcher
+```
+
+Codex launches the persistent server through
+`tools/sonar_local/launch_mcp_wsl.mjs`. After adding or changing its MCP entry,
+restart Codex once so the host reloads the server configuration.
+
+```toml
+[mcp_servers.theseus_sonar]
+command = "node"
+args = [
+  'C:\Users\s.poklad\Documents\Codex\2026-07-08\life-science-research-plugin-life-science-4\tools\sonar_local\launch_mcp_wsl.mjs',
+]
+startup_timeout_sec = 30.0
+tool_timeout_sec = 90.0
+```
+
+Sonar is selective. Invoke it after compact/model switch, for cross-project or
+authority ambiguity, before infrastructure mutation, after repeated failures,
+or when recalled memories conflict or evolved. Do not invoke it for greetings,
+simple facts, formatting, or a task already constrained by one clear memory and
+fresh runtime evidence.
+
 The refresh reads AutoMem through its authenticated HTTP graph API and never
 opens the FalkorDB volume directly. The DuckDB index lives on WSL ext4 at
 `~/.cache/theseus-sonar/sonar.duckdb`; keeping its small writes off `/mnt/c`

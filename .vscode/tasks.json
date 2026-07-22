@@ -1217,6 +1217,17 @@
         "status"
       ],
       "problemMatcher": []
+    },
+    {
+      "label": "Theseus Sonar: MCP smoke",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/sonar_local/run_wsl.mjs",
+        "mcp-smoke",
+        "--windows-launcher"
+      ],
+      "problemMatcher": []
     }
   ],
   "inputs": [

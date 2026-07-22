@@ -20,7 +20,10 @@ For non-trivial Theseus work:
    project names, tools, files, errors, and user corrections.
 3. If MemPalace MCP tools are available, search with `mempalace_search` before
    answering about prior work, decisions, people, projects, or old sessions.
-4. If MemPalace tools are not available, say the MCP layer is missing and use
+4. Invoke Local Sonar only at the selective gate: after compact/model switch,
+   across projects or authorities, before infrastructure mutation, after a
+   repeated failure, or when recalled memories conflict or evolved.
+5. If MemPalace tools are not available, say the MCP layer is missing and use
    `work/mempalace-pilot` docs or curated local artifacts only as an explicit
    degraded fallback.
 
@@ -33,6 +36,7 @@ For non-trivial Theseus work:
 | Health check for persistent memory | AutoMem health, then MemPalace status |
 | Durable decision after discussion | AutoMem store, then verify by recall |
 | Raw repo/file evidence | Local files after memory recall |
+| Compact cross-layer route packet | Local Sonar MCP after the selective gate |
 
 ## Storage Discipline
 
@@ -46,3 +50,7 @@ it exists. Link related memories when the relation is clear.
 Do not silently downgrade to model memory. If AutoMem or MemPalace MCP is
 unavailable, report the missing layer, continue only with the safest fallback,
 and prefer a repair plan over inventing context.
+
+If Local Sonar is unavailable, continue with direct AutoMem/MemPalace recall
+and live verification. Sonar is an optional federation reflex, not a new memory
+authority and not a blocker for routine work.

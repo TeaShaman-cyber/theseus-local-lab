@@ -14,6 +14,7 @@ Pick the smallest set of skills and tools that covers the current request:
 | Request shape | Load first | Then route through |
 |---|---|---|
 | Prior context, durable decisions, handoff, recall | `theseus-memory-stack` | AutoMem, then MemPalace |
+| Cross-layer authority, compact/model switch, repeated failure, conflicting memory | `theseus-memory-stack` | Selective Local Sonar preflight, then live verification |
 | PowerShell, WSL, Bash, Node one-liners, quoting, pipes, JSON/text shell work | `theseus-shell-routing` | WSL/Node/script route, then `local-agent-hygiene` |
 | Windows, Docker, VS Code, local services, repeated commands | `local-agent-hygiene` | `tools/tool_policy` or VS Code tasks |
 | Git status, commit, push, GitHub sync | `theseus-git-hygiene` | Git safety wrapper or VS Code task |
@@ -25,6 +26,20 @@ Pick the smallest set of skills and tools that covers the current request:
 
 If two routes are plausible, prefer the one with lower user friction, stronger
 verification, and less context load.
+
+## Selective Sonar Gate
+
+Call `sonar_preflight` only when at least one condition holds:
+
+- work resumes after compact or a model/harness switch;
+- the task crosses projects or has unclear authority boundaries;
+- a local infrastructure mutation needs memory plus runtime constraints;
+- a failure or route anti-pattern has repeated;
+- recalled decisions conflict, supersede one another, or show temporal drift.
+
+Skip Sonar for trivial prompts and when one clear memory plus fresh runtime
+evidence already constrains the route. Sonar is a read-only preflight, never a
+permission source or substitute for operational verification.
 
 ## Pre-Action Gate
 

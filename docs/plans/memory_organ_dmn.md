@@ -100,10 +100,16 @@ Guardrails:
   produced a 44-node, 89-edge graph on 2026-07-16.
 - MemPalace is runtime-verified through MCP: 31 drawers, a 10-room/10-edge
   episodic graph, and a healthy SQLite integrity check on 2026-07-22.
-- Local Sonar is in trial. Its first verified refresh indexed 247 AutoMem
-  documents, 1690 memory edges, and a 9-node/11-edge federation contract with
-  exact readback. Three route probes recovered the intended evidence in
-  1.3-2.6 seconds of internal ranking time.
+- Local Sonar is instrumented as a persistent WSL stdio MCP server. Its first
+  verified refresh indexed 247 AutoMem documents, 1690 memory edges, and a
+  9-node/11-edge federation contract with exact readback. The full Windows
+  Node-to-WSL route passed initialization, tool discovery, and two calls in one
+  process: 3.50 seconds to establish the session, then 531 ms and 438 ms for
+  consecutive compact preflights.
+- The skill router invokes Sonar selectively after compact/model switch, for
+  cross-authority work, before infrastructure mutation, after repeated failure,
+  or when recalled memories conflict or evolved. Direct AutoMem and MemPalace
+  recall remains the normal path.
 
 ## Next Small Steps
 
@@ -111,5 +117,6 @@ Guardrails:
    each layer's health, last receipt, and degradation reason.
 2. Introduce the receipt schema in the existing memory hook before adding any
    background consolidation scheduler.
-3. Measure whether repeated Local Sonar use improves route selection enough to
-   justify its Windows-to-WSL startup cost before promoting it from trial.
+3. After restarting Codex, observe one real post-compact or cross-project
+   episode and verify selective invocation through the MCP host. Keep the card
+   `Instrumented` until that behavioral check passes.

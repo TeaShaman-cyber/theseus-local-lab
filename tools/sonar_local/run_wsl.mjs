@@ -30,6 +30,16 @@ if (command === "bootstrap") {
   process.exit(result.status ?? 1);
 }
 
+if (command === "mcp-smoke") {
+  const smoke = `${toWslPath(repoRoot)}/tools/sonar_local/mcp_smoke.py`;
+  const result = spawnSync(wslExe, ["-d", distro, "--", python, smoke, ...forwarded], {
+    cwd: repoRoot,
+    env: process.env,
+    stdio: "inherit",
+  });
+  process.exit(result.status ?? 1);
+}
+
 const result = spawnSync(wslExe, args, {
   cwd: repoRoot,
   env: process.env,
