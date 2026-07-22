@@ -52,6 +52,13 @@ Codex can load hooks from user-level or project-level config layers:
 - `~/.codex/hooks.json`
 - `~/.codex/config.toml`
 - `<repo>/.codex/hooks.json`
+
+The tracked source of truth is `hooks/codex-hooks.json`. Install or refresh the
+ignored runtime copy without embedding a machine-specific project path:
+
+```bash
+node tools/hook_config/apply_hooks.mjs
+```
 - `<repo>/.codex/config.toml`
 
 For this repo, prefer a project-local `.codex/config.toml` once the project

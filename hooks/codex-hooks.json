@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"C:\\Users\\s.poklad\\Documents\\Codex\\2026-07-08\\life-science-research-plugin-life-science-4\\hooks\\hook-router.mjs\" --event UserPromptSubmit",
+            "command": "node hooks/hook-router.mjs --event UserPromptSubmit",
             "timeout": 10,
             "statusMessage": "Routing Theseus UserPromptSubmit hook"
           }
@@ -19,7 +19,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"C:\\Users\\s.poklad\\Documents\\Codex\\2026-07-08\\life-science-research-plugin-life-science-4\\hooks\\hook-router.mjs\" --event Stop",
+            "command": "node hooks/hook-router.mjs --event Stop",
             "timeout": 10,
             "statusMessage": "Routing Theseus Stop hook"
           }
@@ -32,7 +32,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"C:\\Users\\s.poklad\\Documents\\Codex\\2026-07-08\\life-science-research-plugin-life-science-4\\hooks\\hook-router.mjs\" --event PreCompact",
+            "command": "node hooks/hook-router.mjs --event PreCompact",
             "timeout": 10,
             "statusMessage": "Routing Theseus PreCompact hook"
           }
@@ -45,7 +45,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"C:\\Users\\s.poklad\\Documents\\Codex\\2026-07-08\\life-science-research-plugin-life-science-4\\hooks\\hook-router.mjs\" --event PostCompact",
+            "command": "node hooks/hook-router.mjs --event PostCompact",
             "timeout": 10,
             "statusMessage": "Routing Theseus PostCompact hook"
           }

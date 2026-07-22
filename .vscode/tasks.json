@@ -745,6 +745,26 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus: Codex runtime audit",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/codex_runtime_audit/codex_runtime_audit.mjs",
+        "--write",
+        "--deep"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus: Apply portable Codex hooks",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/hook_config/apply_hooks.mjs"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus: Workshop dashboard key rows",
       "type": "process",
       "command": "node",
@@ -1045,18 +1065,10 @@
     {
       "label": "Theseus: Create data backup now",
       "type": "process",
-      "command": "docker",
+      "command": "node",
       "args": [
-        "compose",
-        "-f",
-        "D:\\theseus-backup\\backup-lattice\\docker-compose.yml",
-        "exec",
-        "backup-runner",
-        "python3",
-        "tools/backup_lattice/backup_lattice.py",
-        "once",
-        "--mirror-dir",
-        "/mirror"
+        "tools/service_status/service_status.mjs",
+        "backup-now"
       ],
       "problemMatcher": []
     },

@@ -55,6 +55,7 @@ outputs/harness_errors/*.md
 outputs/harness_errors/*.json
 outputs/codex_system_watch/*.json
 outputs/codex_system_watch/*.md
+outputs/codex_runtime_audit/*.json
 outputs/github_issue_watch/*.json
 outputs/github_issue_watch/*.md
 outputs/sysinternals_scout/*.json

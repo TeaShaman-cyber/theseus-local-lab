@@ -7,10 +7,12 @@ import { existsSync } from "node:fs";
 import path from "node:path";
 import { cwd, env, exit } from "node:process";
 
+import { preferredDockerHost, resolveHostPath } from "../runtime_paths/host_path.mjs";
+
 const repoRoot = path.resolve(import.meta.dirname, "..", "..");
 const dockerEnv = {
   ...env,
-  DOCKER_HOST: env.DOCKER_HOST || "tcp://127.0.0.1:2375",
+  DOCKER_HOST: preferredDockerHost({ configuredHost: env.DOCKER_HOST }),
 };
 const dockerConfig = path.join(repoRoot, "tools", "docker_control_plane", "docker-cli-config");
 if (existsSync(dockerConfig)) {
@@ -146,9 +148,28 @@ async function main() {
   }
 
   if (command === "backup") {
-    const backupCompose = "D:/theseus-backup/backup-lattice/docker-compose.yml";
+    const backupCompose = resolveHostPath("D:/theseus-backup/backup-lattice/docker-compose.yml");
     printSection("Backup runner compose ps", await composePs(backupCompose));
     printSection("Backup runner logs", await composeLogs(backupCompose, "backup-runner", tail));
+    return;
+  }
+
+  if (command === "backup-now") {
+    const backupCompose = resolveHostPath("D:/theseus-backup/backup-lattice/docker-compose.yml");
+    printSection(
+      "Create backup recovery point",
+      await run(
+        "docker",
+        [
+          "compose", "-f", backupCompose, "exec", "-T", "backup-runner",
+          "python3", "tools/backup_lattice/backup_lattice.py", "once",
+          "--mirror-dir", "/mirror",
+          "--observatory-db", "/sources/observatory/state.db",
+          "--state-packets-dir", "/sources/state-packets",
+        ],
+        { env: dockerEnv, timeoutMs: 180_000 },
+      ),
+    );
     return;
   }
 
@@ -173,7 +194,7 @@ async function main() {
     return;
   }
 
-  console.log("Usage: node tools/service_status/service_status.mjs <automem|observatory|backup|docker-control-health|wsl-preflight|port>");
+  console.log("Usage: node tools/service_status/service_status.mjs <automem|observatory|backup|backup-now|docker-control-health|wsl-preflight|port>");
 }
 
 main().catch((error) => {

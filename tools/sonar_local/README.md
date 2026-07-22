@@ -50,11 +50,12 @@ restart Codex once so the host reloads the server configuration.
 
 ```toml
 [mcp_servers.theseus_sonar]
-command = "node"
+command = "/usr/local/bin/node"
 args = [
-  'C:\Users\s.poklad\Documents\Codex\2026-07-08\life-science-research-plugin-life-science-4\tools\sonar_local\launch_mcp_wsl.mjs',
+  '/mnt/c/Users/s.poklad/Documents/Codex/2026-07-08/life-science-research-plugin-life-science-4/tools/sonar_local/launch_mcp_wsl.mjs',
 ]
-startup_timeout_sec = 30.0
+cwd = '/mnt/c/Users/s.poklad/Documents/Codex/2026-07-08/life-science-research-plugin-life-science-4'
+startup_timeout_sec = 60.0
 tool_timeout_sec = 90.0
 ```
 

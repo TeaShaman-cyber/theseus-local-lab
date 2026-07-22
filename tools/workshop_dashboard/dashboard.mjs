@@ -7,6 +7,8 @@ import net from "node:net";
 import path from "node:path";
 import { env, exit } from "node:process";
 
+import { resolveHostPath } from "../runtime_paths/host_path.mjs";
+
 const repoRoot = path.resolve(import.meta.dirname, "..", "..");
 const host = env.THESEUS_HOST || "127.0.0.1";
 const nativeDockerSocket = "/var/run/docker.sock";
@@ -153,6 +155,25 @@ function latestFile(dir, predicate = () => true) {
   return files[0] || null;
 }
 
+function backupReceiptSummary(dir) {
+  const full = path.resolve(repoRoot, dir);
+  if (!existsSync(full)) return { latestAttempt: null, latestValid: null };
+  const receipts = readdirSync(full, { withFileTypes: true })
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".tar.gz.receipt.json"))
+    .map((entry) => {
+      const filePath = path.join(full, entry.name);
+      const receipt = readJsonFile(filePath);
+      const stat = statSync(filePath);
+      return { name: entry.name, path: filePath, receipt, mtime: stat.mtime };
+    })
+    .filter((entry) => entry.receipt)
+    .sort((a, b) => b.mtime.getTime() - a.mtime.getTime());
+  return {
+    latestAttempt: receipts[0] || null,
+    latestValid: receipts.find((entry) => entry.receipt.contract?.valid_recovery_point === true) || null,
+  };
+}
+
 function readJsonFile(filePath) {
   if (!existsSync(filePath)) return null;
   try {
@@ -233,6 +254,9 @@ function hookConfigHealth() {
   const hooksJsonPresent = hooksText !== null;
   const hooksTomlPresent = /\[\[hooks\.[^\]]+\]\]/.test(configText || "");
   const duplicateLayer = hooksJsonPresent && hooksTomlPresent;
+  const hardcodedWindowsCommands = hooksText
+    ? (hooksText.match(/[A-Za-z]:\\\\Users\\\\[^\"]+/g) || []).length
+    : 0;
   const requiredEvents = ["UserPromptSubmit", "Stop", "PreCompact", "PostCompact"];
   const missingEvents = projectHooks?.hooks
     ? requiredEvents.filter((event) => !Array.isArray(projectHooks.hooks[event]) || projectHooks.hooks[event].length === 0)
@@ -246,7 +270,7 @@ function hookConfigHealth() {
   const duplicateEvents = hookNameCounts.filter((entry) => entry.count > 1).map((entry) => `${entry.event}:${entry.count}`);
   const status = !hooksJsonPresent || !projectHooks || missingEvents.length
     ? "FAIL"
-    : duplicateLayer || duplicateEvents.length
+    : duplicateLayer || duplicateEvents.length || hardcodedWindowsCommands
       ? "WARN"
       : "OK";
   const details = [];
@@ -255,6 +279,7 @@ function hookConfigHealth() {
   if (missingEvents.length) details.push(`missing ${missingEvents.join(", ")}`);
   if (duplicateLayer) details.push("hooks defined in both hooks.json and config.toml");
   if (duplicateEvents.length) details.push(`duplicate event keys ${duplicateEvents.join(", ")}`);
+  if (hardcodedWindowsCommands) details.push(`${hardcodedWindowsCommands} hook command(s) contain absolute Windows paths`);
   if (!details.length) details.push("single hooks.json layer with required lifecycle events");
   return {
     status,
@@ -266,8 +291,28 @@ function hookConfigHealth() {
       hooks_toml_present: hooksTomlPresent,
       missing_events: missingEvents,
       duplicate_events: duplicateEvents,
+      hardcoded_windows_commands: hardcodedWindowsCommands,
     },
   };
+}
+
+async function codexRuntimeHealth() {
+  const result = await run("node", ["tools/codex_runtime_audit/codex_runtime_audit.mjs"], { timeoutMs: 8000 });
+  let report;
+  try {
+    report = JSON.parse(result.stdout);
+  } catch {
+    return item("codex-runtime", "Codex runtime attachment", "WARN", result.stderr.trim() || "runtime audit did not return JSON");
+  }
+  const unavailable = report.mcp?.unavailable_servers || [];
+  const hookErrors = report.hooks?.error_count || 0;
+  const pathErrors = report.paths?.app_resources_windows_path_join_count || 0;
+  const details = [];
+  if (unavailable.length) details.push(`MCP tools unavailable: ${unavailable.join(", ")}`);
+  if (hookErrors) details.push(`hook warnings/errors: ${hookErrors}`);
+  if (pathErrors) details.push(`malformed app/resources + Windows path events: ${pathErrors}`);
+  if (!details.length) details.push("current Codex process has no attachment warnings");
+  return item("codex-runtime", "Codex runtime attachment", report.status || "WARN", details.join("; "), report);
 }
 
 function readJsonl(dir) {
@@ -356,7 +401,7 @@ async function buildDashboard() {
   const now = new Date();
   const rows = [];
 
-  const [automem, graphViewer, keychain, dockerTcp, logLattice, dockerControl, docker, git] = await Promise.all([
+  const [automem, graphViewer, keychain, dockerTcp, logLattice, dockerControl, docker, git, codexRuntime] = await Promise.all([
     httpGet(localUrl(8001, "/health")),
     tcpCheck(host, 5174),
     httpGet(localUrl(8088, "/")),
@@ -365,6 +410,7 @@ async function buildDashboard() {
     httpGet(localUrl(8767, "/health")),
     dockerContainers(),
     gitState(),
+    codexRuntimeHealth(),
   ]);
 
   rows.push(item("automem-api", "AutoMem API", automem.ok ? "OK" : "FAIL", automem.ok ? "health endpoint responds" : automem.error || `HTTP ${automem.status}`));
@@ -397,6 +443,7 @@ async function buildDashboard() {
   rows.push(skillObservatorySummary(now));
   const hooksHealth = hookConfigHealth();
   rows.push(item("codex-hooks", "Codex hooks config", hooksHealth.status, hooksHealth.detail, hooksHealth.meta));
+  rows.push(codexRuntime);
   rows.push(
     item(
       "docker-control",
@@ -445,16 +492,28 @@ async function buildDashboard() {
     env.THESEUS_BACKUP_DATA_DIR,
     "D:/theseus-backup/backups/data",
     "backups/data",
-  ].filter(Boolean);
+  ].filter(Boolean).map((candidate) => resolveHostPath(candidate));
   const backupDir = backupCandidates.find((candidate) => existsSync(candidate));
   const latestBackup = backupDir ? latestFile(backupDir, (name) => name.endsWith(".tar.gz")) : null;
-  const backupAge = latestBackup ? relativeAge(latestBackup.mtime, now) : null;
+  const backupReceipts = backupDir ? backupReceiptSummary(backupDir) : { latestAttempt: null, latestValid: null };
+  const validArchive = backupReceipts.latestValid?.receipt?.archive || null;
+  const validArchivePath = backupDir && validArchive ? path.join(backupDir, validArchive) : null;
+  const validArchiveStat = validArchivePath && existsSync(validArchivePath) ? statSync(validArchivePath) : null;
+  const backupAge = validArchiveStat ? relativeAge(validArchiveStat.mtime, now) : null;
+  const invalidLatest = backupReceipts.latestAttempt
+    && backupReceipts.latestAttempt.receipt.contract?.valid_recovery_point !== true
+    ? backupReceipts.latestAttempt.receipt.archive
+    : null;
   rows.push(
     item(
       "latest-backup",
       "Latest local backup",
-      latestBackup ? statusFromFreshness(backupAge, 8, 24) : "FAIL",
-      latestBackup ? `${latestBackup.name}, ${formatAge(backupAge)} old, ${latestBackup.length} bytes` : "no local backup archive",
+      validArchiveStat ? statusFromFreshness(backupAge, 8, 24) : "FAIL",
+      validArchiveStat
+        ? `${validArchive}, ${formatAge(backupAge)} old, ${validArchiveStat.size} bytes${invalidLatest ? `; newest attempt ${invalidLatest} is incomplete` : ""}`
+        : latestBackup
+          ? `${latestBackup.name} exists but no contract-valid recovery point is recorded`
+          : "no local backup archive",
     ),
   );
 
@@ -465,7 +524,7 @@ async function buildDashboard() {
     path.resolve(repoRoot, "..", "..", "theseus-cloud-backups"),
     path.resolve(repoRoot, "..", "theseus-cloud-backups"),
     "/cloud-backups",
-  ].filter(Boolean);
+  ].filter(Boolean).map((candidate) => resolveHostPath(candidate));
   const mirrorDir = mirrorCandidates.find((candidate) => existsSync(candidate));
   const latestMirror = mirrorDir
     ? latestFile(path.isAbsolute(mirrorDir) ? mirrorDir : path.relative(repoRoot, mirrorDir), (name) => name.endsWith(".tar.gz"))

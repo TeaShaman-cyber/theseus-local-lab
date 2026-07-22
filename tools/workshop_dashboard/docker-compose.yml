@@ -12,8 +12,10 @@ services:
       THESEUS_HOST: host.docker.internal
       DOCKER_HOST: tcp://host.docker.internal:2375
       THESEUS_CLOUD_MIRROR_DIR: /cloud-backups
+      THESEUS_BACKUP_DATA_DIR: /local-backups
     volumes:
       - ../..:/workspace:ro
       - ${THESEUS_CLOUD_MIRROR_DIR:-C:/Users/s.poklad/Мой диск/theseus-backup-cloud-mirror}:/cloud-backups:ro
+      - ${THESEUS_BACKUP_SOURCE_DIR:-D:/theseus-backup/backups/data}:/local-backups:ro
     extra_hosts:
       - "host.docker.internal:host-gateway"

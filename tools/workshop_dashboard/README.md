@@ -105,6 +105,20 @@ It warns when hooks are defined in both `.codex/hooks.json` and
 project hook JSON cannot be parsed. Keep `.codex/hooks.json` as the canonical
 hook layer and reserve `.codex/config.toml` for non-hook project settings.
 
+The `Codex runtime attachment` row reads the current Codex process events from
+`$CODEX_HOME/logs_2.sqlite`. It reports MCP servers whose startup completed but
+whose tools were not attached, hook runtime errors, and malformed joins between
+the app resources directory and a Windows workspace path. Run the underlying
+audit directly with:
+
+```bash
+node tools/codex_runtime_audit/codex_runtime_audit.mjs --write
+```
+
+The dashboard uses the fast mode. Add `--deep` for a manual inspection of the
+latest rollout `turn_context`; that check reads the tail of a potentially large
+session file and is intentionally excluded from routine dashboard refreshes.
+
 The `Limits` tab reads the rollout-backed Codex usage cache:
 
 ```text
