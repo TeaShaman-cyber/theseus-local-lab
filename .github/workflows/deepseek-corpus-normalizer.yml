@@ -20,9 +20,9 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install data dependencies
-        run: python -m pip install 'ijson==3.5.1' 'pyarrow==17.0.0'
+        run: python -m pip install 'ijson==3.5.1' 'pyarrow==17.0.0' 'duckdb==1.5.1'
       - name: Run normalizer tests
         working-directory: tools/deepseek_corpus_normalizer
-        run: python -m unittest -v test_normalize.py
+        run: python -m unittest -v test_normalize.py test_locate.py
       - name: Run related Drive scout tests
         run: node --test tools/drive_corpus_scout/drive_corpus_scout.test.mjs
