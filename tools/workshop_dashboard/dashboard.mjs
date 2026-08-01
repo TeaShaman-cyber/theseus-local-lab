@@ -288,7 +288,6 @@ function hookConfigHealth() {
   if (duplicateEvents.length) details.push(`duplicate event keys ${duplicateEvents.join(", ")}`);
   if (hardcodedWindowsCommands) details.push(`${hardcodedWindowsCommands} hook command(s) contain absolute Windows paths`);
   if (parentHookLayer) details.push(`parent hook layer also exists at ${parentHooksPath}`);
-  if (legacyNotify) details.push("global legacy_notify uses codex-computer-use.exe");
   if (!details.length) details.push("single hooks.json layer with required lifecycle events");
   return {
     status,
@@ -305,6 +304,7 @@ function hookConfigHealth() {
       parent_hook_layer_present: parentHookLayer,
       global_config_toml: globalConfigPath,
       legacy_notify_present: legacyNotify,
+      legacy_notify_note: legacyNotify ? "built-in desktop notify route; judge by runtime audit" : null,
     },
   };
 }

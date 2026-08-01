@@ -103,9 +103,11 @@ node tools/workshop_dashboard/dashboard.mjs --rows codex-hooks
 It warns when hooks are defined in both `.codex/hooks.json` and
 `.codex/config.toml`, when required lifecycle events are missing, or when the
 project hook JSON cannot be parsed. It also detects a parent `.codex/hooks.json`
-layer and the known Windows `codex-computer-use.exe` legacy notify route. Keep
-the project `.codex/hooks.json` as the canonical hook layer and reserve
-`.codex/config.toml` for non-hook project settings.
+layer. The built-in Windows `codex-computer-use.exe` notify route may be
+recreated by Codex after restart; its presence is informational, while actual
+failures are reported by the runtime audit. Keep the project `.codex/hooks.json`
+as the canonical hook layer and reserve `.codex/config.toml` for non-hook
+project settings.
 
 The `Codex runtime attachment` row reads the current Codex process events from
 `$CODEX_HOME/logs_2.sqlite`. It reports MCP servers whose startup completed but
