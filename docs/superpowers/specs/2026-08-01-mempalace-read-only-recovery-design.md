@@ -12,7 +12,7 @@ Restore MemPalace to the Windows-native Codex contour in a read-only mode first,
 
 The MemPalace profile was deliberately removed after the Codex configuration incident on 2026-08-01. The recovery record makes Windows-native Codex plus native AutoMem the active path and keeps WSL, Infisical, Docker coupling, and physical-local AutoMem binding outside the recovery boundary.
 
-The current local MemPalace probe succeeds against `theseus-mempalace:pilot` and reports server version `3.5.0` with 36 MCP tools. That surface includes both reads and mutations. The official MemPalace documentation likewise describes the default MCP integration as full read/write access, while the official 3.6.0 changelog introduces `mempalace serve --read-only`, which hides and refuses mutating tools.
+The current local MemPalace probe succeeds against `theseus-mempalace:pilot` and reports server version `3.5.0` with 36 MCP tools. That surface includes both reads and mutations. The official MemPalace documentation likewise describes the default MCP integration as full read/write access, while the official 3.6.0 changelog introduces `mempalace serve --read-only`, which hides and refuses mutating tools. The checked-in local 3.5.0 source already contains the same `--read-only` flag and server-side refusal path, so the runtime capability must be tested directly rather than inferred from the version string.
 
 Therefore, adding the existing `3.5.0` stdio profile directly would violate the agreed read-only gate.
 
@@ -36,7 +36,7 @@ original volume
                                       +--> only then: one isolated Codex profile
 ```
 
-The preferred transport is an upstream-supported MemPalace `3.6+` HTTP server with `--read-only`, bound only to loopback and a separate candidate port. If the local image or the Windows Codex client cannot support that route, use a small stdio allowlist bridge over the existing `3.5.0` server as a fallback. The full 36-tool stdio profile is not an acceptable first-stage route.
+The preferred transport is the existing MemPalace server with its native `--read-only` mode, first tested on a clone and bound only to loopback. The initial candidate should reuse the local `3.5.0` image if its runtime accepts the flag; an image update to a verified newer build is a fallback, performed only against the clone before any original-volume cutover. If native read-only is unavailable in the actual image, use a small stdio allowlist bridge over the existing server as a second fallback. The full 36-tool stdio profile is not an acceptable first-stage route.
 
 ## Hard invariants
 
