@@ -92,8 +92,7 @@ function isConfirmedMemoryAction(record) {
   if (!record) return false;
   if (record.confirmed === true) return true;
   const source = String(record.source || "");
-  if (source === "UserPromptSubmit:auto") return false;
-  return ["manual", "agent", "mcp", "mcp-recall", "mcp-store", "mcp-health"].includes(source);
+  return ["manual", "agent", "local-api-recall", "mcp", "mcp-recall", "mcp-store", "mcp-health"].includes(source);
 }
 
 function classify({ recallAge, promptAge, latestRecall }) {
@@ -165,7 +164,7 @@ async function recallAutoMem(query, options = {}) {
       accept: "application/json",
       ...(token ? { authorization: `Bearer ${token}` } : {}),
     },
-    signal: AbortSignal.timeout(options.timeoutMs || 3500),
+    signal: AbortSignal.timeout(options.timeoutMs || 5000),
   });
   const body = await response.text();
   if (!response.ok) {
@@ -200,7 +199,7 @@ async function writeStatus(extra = {}) {
     recommendation:
       status === "OK"
         ? "confirmed memory action is fresh"
-        : "confirm MCP AutoMem recall/store/health and mark the reflex",
+        : "confirm local AutoMem or MCP recall/store/health and mark the reflex",
     latest_prompt: latestPrompt,
     latest_recall: latestRecall,
     ages_minutes: {
@@ -242,7 +241,9 @@ async function preflight(args, rawInput) {
     recall = await recallAutoMem(recallQuery, { limit: 3 });
     const recallRecord = {
       created_at: now.toISOString(),
-      source: "UserPromptSubmit:auto",
+      source: "local-api-recall",
+      confirmed: true,
+      route: "automem-local-api",
       query: recallQuery,
       note: `AutoMem preflight recall returned ${recall.count} result(s).`,
       identity_cue: identityCue,
@@ -276,7 +277,7 @@ async function preflight(args, rawInput) {
     suppressOutput: true,
     systemMessage: recall
       ? `Memory reflex: AutoMem recall is fresh; preserve ${identityCue.phrase}. IDE-first: for code, workspace tasks, linting, and Git, use VS Code tasks and visible IDE state; shell is a narrow executor.${prelude}`
-      : `Memory reflex: AutoMem preflight recall unavailable; recall ${identityCue.phrase} via MCP memory when possible. IDE-first: for code, workspace tasks, linting, and Git, use VS Code tasks and visible IDE state; shell is a narrow executor. ${recallError}`,
+      : `Memory reflex: AutoMem preflight recall unavailable; recall ${identityCue.phrase} through the local API or MCP when possible. IDE-first: for code, workspace tasks, linting, and Git, use VS Code tasks and visible IDE state; shell is a narrow executor. ${recallError}`,
   };
 }
 

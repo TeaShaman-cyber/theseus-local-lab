@@ -7,7 +7,7 @@ import { DatabaseSync } from "node:sqlite";
 import { windowsPathToWsl } from "../runtime_paths/host_path.mjs";
 
 const repoRoot = path.resolve(import.meta.dirname, "..", "..");
-const codexHome = process.env.CODEX_HOME || path.join(process.env.HOME || "", ".codex");
+const codexHome = process.env.CODEX_HOME || path.join(process.env.USERPROFILE || process.env.HOME || "", ".codex");
 const databasePath = path.join(codexHome, "logs_2.sqlite");
 const writeReport = process.argv.includes("--write");
 const deepAudit = process.argv.includes("--deep");
@@ -47,12 +47,19 @@ const recentRows = database.prepare(`
   LIMIT 500
 `).all(processUuid);
 const unavailableRows = recentRows.filter((row) => String(row.feedback_log_body || "").includes("MCP server tools unavailable while building tool list"));
-const hookRows = recentRows.filter((row) =>
-  ["WARN", "ERROR"].includes(row.level)
-  && (String(row.target || "").includes("hook")
-    || String(row.feedback_log_body || "").includes("hook failed")
-    || String(row.feedback_log_body || "").includes("loading hooks from both")),
-).slice(0, 20);
+const hookRows = database.prepare(`
+  SELECT level, target, feedback_log_body, ts
+  FROM logs
+  WHERE process_uuid = ?
+    AND level IN ('WARN', 'ERROR')
+    AND (
+      target LIKE '%hook%'
+      OR feedback_log_body LIKE '%hook failed%'
+      OR feedback_log_body LIKE '%loading hooks from both%'
+    )
+  ORDER BY ts DESC, ts_nanos DESC
+  LIMIT 20
+`).all(processUuid);
 const pathRows = recentRows.filter((row) => /app[\\/]resources[\\/][A-Za-z]:\\/.test(String(row.feedback_log_body || ""))).slice(0, 20);
 
 function latestTurnContext(threadId) {
@@ -97,11 +104,11 @@ function uniqueServerNames(rows) {
   }))].sort();
 }
 
-function sanitizeBody(value) {
-  return String(value || "")
+function sanitizeBody(value, options = {}) {
+  const sanitized = String(value || "")
     .replaceAll(process.env.USERPROFILE || "__NO_USERPROFILE__", "<user-profile>")
-    .replaceAll(codexHome, "<codex-home>")
-    .slice(0, 500);
+    .replaceAll(codexHome, "<codex-home>");
+  return options.tail ? sanitized.slice(-700) : sanitized.slice(0, 500);
 }
 
 const unavailableServers = uniqueServerNames(unavailableRows);
@@ -125,7 +132,7 @@ const report = {
   },
   hooks: {
     error_count: hookRows.length,
-    recent: hookRows.slice(0, 5).map((row) => ({ ...row, feedback_log_body: sanitizeBody(row.feedback_log_body) })),
+    recent: hookRows.slice(0, 5).map((row) => ({ ...row, feedback_log_body: sanitizeBody(row.feedback_log_body, { tail: true }) })),
   },
   paths: {
     app_resources_windows_path_join_count: pathRows.length + malformedContextPaths.length,

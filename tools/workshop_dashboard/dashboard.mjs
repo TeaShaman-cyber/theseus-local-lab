@@ -248,8 +248,13 @@ function recoveryContractSummary() {
 function hookConfigHealth() {
   const projectHooksPath = path.join(repoRoot, ".codex", "hooks.json");
   const projectConfigPath = path.join(repoRoot, ".codex", "config.toml");
+  const parentHooksPath = path.resolve(repoRoot, "..", ".codex", "hooks.json");
+  const codexHome = env.CODEX_HOME || path.join(env.USERPROFILE || env.HOME || "", ".codex");
+  const globalConfigPath = path.join(codexHome, "config.toml");
   const hooksText = readTextFile(projectHooksPath);
   const configText = readTextFile(projectConfigPath);
+  const parentHooksText = readTextFile(parentHooksPath);
+  const globalConfigText = readTextFile(globalConfigPath);
   const projectHooks = readJsonFile(projectHooksPath);
   const hooksJsonPresent = hooksText !== null;
   const hooksTomlPresent = /\[\[hooks\.[^\]]+\]\]/.test(configText || "");
@@ -257,6 +262,8 @@ function hookConfigHealth() {
   const hardcodedWindowsCommands = hooksText
     ? (hooksText.match(/[A-Za-z]:\\\\Users\\\\[^\"]+/g) || []).length
     : 0;
+  const parentHookLayer = parentHooksText !== null;
+  const legacyNotify = /^notify\s*=.*codex-computer-use\.exe/im.test(globalConfigText || "");
   const requiredEvents = ["UserPromptSubmit", "Stop", "PreCompact", "PostCompact"];
   const missingEvents = projectHooks?.hooks
     ? requiredEvents.filter((event) => !Array.isArray(projectHooks.hooks[event]) || projectHooks.hooks[event].length === 0)
@@ -270,7 +277,7 @@ function hookConfigHealth() {
   const duplicateEvents = hookNameCounts.filter((entry) => entry.count > 1).map((entry) => `${entry.event}:${entry.count}`);
   const status = !hooksJsonPresent || !projectHooks || missingEvents.length
     ? "FAIL"
-    : duplicateLayer || duplicateEvents.length || hardcodedWindowsCommands
+    : duplicateLayer || duplicateEvents.length || hardcodedWindowsCommands || parentHookLayer || legacyNotify
       ? "WARN"
       : "OK";
   const details = [];
@@ -280,6 +287,8 @@ function hookConfigHealth() {
   if (duplicateLayer) details.push("hooks defined in both hooks.json and config.toml");
   if (duplicateEvents.length) details.push(`duplicate event keys ${duplicateEvents.join(", ")}`);
   if (hardcodedWindowsCommands) details.push(`${hardcodedWindowsCommands} hook command(s) contain absolute Windows paths`);
+  if (parentHookLayer) details.push(`parent hook layer also exists at ${parentHooksPath}`);
+  if (legacyNotify) details.push("global legacy_notify uses codex-computer-use.exe");
   if (!details.length) details.push("single hooks.json layer with required lifecycle events");
   return {
     status,
@@ -292,6 +301,10 @@ function hookConfigHealth() {
       missing_events: missingEvents,
       duplicate_events: duplicateEvents,
       hardcoded_windows_commands: hardcodedWindowsCommands,
+      parent_hooks_json: parentHooksPath,
+      parent_hook_layer_present: parentHookLayer,
+      global_config_toml: globalConfigPath,
+      legacy_notify_present: legacyNotify,
     },
   };
 }
@@ -309,7 +322,15 @@ async function codexRuntimeHealth() {
   const pathErrors = report.paths?.app_resources_windows_path_join_count || 0;
   const details = [];
   if (unavailable.length) details.push(`MCP tools unavailable: ${unavailable.join(", ")}`);
-  if (hookErrors) details.push(`hook warnings/errors: ${hookErrors}`);
+  if (hookErrors) {
+    const hookKinds = [...new Set((report.hooks?.recent || []).flatMap((row) => {
+      const body = String(row.feedback_log_body || "");
+      const hookName = body.match(/hook_name=([^\s]+)/)?.[1];
+      const osError = body.match(/os error \d+/i)?.[0];
+      return [hookName, osError].filter(Boolean);
+    }))];
+    details.push(`hook warnings/errors: ${hookErrors}${hookKinds.length ? ` (${hookKinds.join(", ")})` : ""}`);
+  }
   if (pathErrors) details.push(`malformed app/resources + Windows path events: ${pathErrors}`);
   if (!details.length) details.push("current Codex process has no attachment warnings");
   return item("codex-runtime", "Codex runtime attachment", report.status || "WARN", details.join("; "), report);

@@ -102,8 +102,10 @@ node tools/workshop_dashboard/dashboard.mjs --rows codex-hooks
 
 It warns when hooks are defined in both `.codex/hooks.json` and
 `.codex/config.toml`, when required lifecycle events are missing, or when the
-project hook JSON cannot be parsed. Keep `.codex/hooks.json` as the canonical
-hook layer and reserve `.codex/config.toml` for non-hook project settings.
+project hook JSON cannot be parsed. It also detects a parent `.codex/hooks.json`
+layer and the known Windows `codex-computer-use.exe` legacy notify route. Keep
+the project `.codex/hooks.json` as the canonical hook layer and reserve
+`.codex/config.toml` for non-hook project settings.
 
 The `Codex runtime attachment` row reads the current Codex process events from
 `$CODEX_HOME/logs_2.sqlite`. It reports MCP servers whose startup completed but
@@ -114,6 +116,11 @@ audit directly with:
 ```bash
 node tools/codex_runtime_audit/codex_runtime_audit.mjs --write
 ```
+
+Configuration health and runtime health are intentionally separate. After a
+broken hook is removed from configuration, its warning remains attached to the
+current Codex process until the app restarts; the dashboard should stay red in
+that interval instead of hiding the incident.
 
 The dashboard uses the fast mode. Add `--deep` for a manual inspection of the
 latest rollout `turn_context`; that check reads the tail of a potentially large
