@@ -1240,9 +1240,32 @@
         "--windows-launcher"
       ],
       "problemMatcher": []
+    },
+    {
+      "label": "Theseus Unix Runtime: probe backend",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/unix_runtime/unix_runtime.mjs",
+        "probe",
+        "--backend",
+        "${input:unixRuntimeBackend}"
+      ],
+      "problemMatcher": []
     }
   ],
   "inputs": [
+    {
+      "id": "unixRuntimeBackend",
+      "type": "pickString",
+      "description": "Unix runtime backend to probe",
+      "options": [
+        "wsl",
+        "docker",
+        "ubuntu-vm"
+      ],
+      "default": "wsl"
+    },
     {
       "id": "copilotAdvisorPrompt",
       "type": "promptString",
