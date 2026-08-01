@@ -2,10 +2,11 @@ import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import { promisify } from "node:util";
+import { fileURLToPath } from "node:url";
 import test from "node:test";
 
 const run = promisify(execFile);
-const repoRoot = new URL("../..", import.meta.url).pathname;
+const repoRoot = fileURLToPath(new URL("../..", import.meta.url));
 
 test("compact state packets preserve the IDE-first route", async () => {
   const { stdout } = await run(
