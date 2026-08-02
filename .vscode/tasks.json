@@ -1310,6 +1310,49 @@
         "${input:codexDoUser}"
       ],
       "problemMatcher": []
+    },
+    {
+      "label": "Family Research: Gramps MCP HTTP endpoint probe",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/unix_runtime/gramps_mcp_http_probe.mjs",
+        "${input:familyResearchHttpsEndpoint}",
+        "/mcp"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Family Research: apply Gramps MCP HTTP profile",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/unix_runtime/gramps_mcp_http_apply.mjs",
+        "${input:codexDoHost}",
+        "${input:codexDoUser}",
+        "--apply"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Family Research: Gramps MCP HTTP protocol probe",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/unix_runtime/gramps_mcp_http_protocol_probe.mjs",
+        "${input:familyResearchHttpsEndpoint}/mcp"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Family Research: Gramps MCP CRUD smoke test",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/unix_runtime/gramps_mcp_http_crud_direct.mjs",
+        "${input:familyResearchHttpsEndpoint}/mcp"
+      ],
+      "problemMatcher": []
     }
   ],
   "inputs": [

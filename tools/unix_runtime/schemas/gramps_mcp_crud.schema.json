@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "initial_people_count": { "type": "integer", "minimum": 0 },
+    "precondition": { "type": "string", "enum": ["passed", "failed_existing_synthetic", "unknown"] },
+    "create": { "type": "string", "enum": ["passed", "failed", "unknown"] },
+    "read": { "type": "string", "enum": ["passed", "failed", "unknown"] },
+    "update": { "type": "string", "enum": ["passed", "failed", "unknown"] },
+    "delete": { "type": "string", "enum": ["passed", "failed", "unknown"] },
+    "cleanup_status": { "type": "string", "enum": ["not_needed", "passed", "failed", "unknown"] },
+    "final_people_count": { "type": "integer", "minimum": 0 },
+    "synthetic_record_remains": { "type": "boolean" }
+  },
+  "required": [
+    "initial_people_count",
+    "precondition",
+    "create",
+    "read",
+    "update",
+    "delete",
+    "cleanup_status",
+    "final_people_count",
+    "synthetic_record_remains"
+  ]
+}

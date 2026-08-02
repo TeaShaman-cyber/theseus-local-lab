@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "generated": "2026-08-02",
+  "status": "baseline",
+  "authority": "filesystem metadata and reviewed SKILL.md frontmatter",
+  "scope_semantics": "project means repository backup location here, not a separate active runtime",
+  "runtime_policy": "one active monolithic project; global Codex skills are the runtime surface; tracked copies are backup/review artifacts",
+  "privacy": "identifiers and role metadata only; no prompts, secrets, transcripts, or raw logs",
+  "counts": {
+    "project": 5,
+    "global": 8,
+    "total_records": 13,
+    "unique_skill_names": 10,
+    "tracked_runtime_name_collisions": [
+      "theseus-memory-stack",
+      "theseus-shell-routing",
+      "theseus-skill-router"
+    ]
+  },
+  "fields": [
+    "id",
+    "scope",
+    "status",
+    "role",
+    "trigger",
+    "handoff_or_executor",
+    "stop_or_verification_note"
+  ],
+  "skills": [
+    {
+      "id": "theseus-skill-router",
+      "scope": "project",
+      "status": "active-overlay-unmodified",
+      "role": "route selection",
+      "trigger": "non-trivial Theseus local-lab work, routing conflicts, tool-policy checks",
+      "handoff_or_executor": "selected project/global skill and route packet",
+      "stop_or_verification_note": "router is a thin dispatcher; selected route remains provisional until verification"
+    },
+    {
+      "id": "theseus-memory-stack",
+      "scope": "project",
+      "status": "active-overlay",
+      "role": "continuity and durable-memory routing",
+      "trigger": "prior context, decisions, handoff, recall, memory or continuity work",
+      "handoff_or_executor": "AutoMem, MemPalace, or bounded local fallback",
+      "stop_or_verification_note": "memory is not current runtime authority; health/recall and write-read verification when applicable"
+    },
+    {
+      "id": "theseus-shell-routing",
+      "scope": "project",
+      "status": "active-overlay",
+      "role": "shell and execution-surface selection",
+      "trigger": "PowerShell, WSL, Bash, Node, Docker, Git, JSON/text, quoting-sensitive work",
+      "handoff_or_executor": "VS Code task, Node wrapper, WSL, MCP, or thin Windows bridge",
+      "stop_or_verification_note": "reroute after one quoting failure; repeated command becomes task/script candidate"
+    },
+    {
+      "id": "theseus-plugin-conclave",
+      "scope": "project",
+      "status": "active",
+      "role": "bounded external second opinion",
+      "trigger": "fresh research, external technical evidence, plugin choice, disputed claim",
+      "handoff_or_executor": "one primary oracle and at most one corroborator",
+      "stop_or_verification_note": "local evidence outranks plugins; no noisy oracle swarm"
+    },
+    {
+      "id": "theseus-copilot-advisor",
+      "scope": "project",
+      "status": "active",
+      "role": "narrow GitHub/VS Code advisor route",
+      "trigger": "Copilot, GitHub Actions, Wiki, Issues, Projects, or Copilot tooling advice",
+      "handoff_or_executor": "existing advisor task or wrapper",
+      "stop_or_verification_note": "second opinion only; local evidence and repository checks remain authoritative"
+    },
+    {
+      "id": "execution-guard",
+      "scope": "global",
+      "status": "adapted-active",
+      "role": "failure-loop guard",
+      "trigger": "same route or failure class is about to be retried",
+      "handoff_or_executor": "stop, fallback, or ask",
+      "stop_or_verification_note": "after materially equivalent repeated failures, declare loop and stop blind retry"
+    },
+    {
+      "id": "imported-memory-gate",
+      "scope": "global",
+      "status": "adapted-active",
+      "role": "imported-memory authority gate",
+      "trigger": "recalled, imported, federated memory may be treated as authority or capability claim",
+      "handoff_or_executor": "current runtime verification before action or promotion",
+      "stop_or_verification_note": "memory claim is not live approval or runtime fact"
+    },
+    {
+      "id": "local-agent-hygiene",
+      "scope": "global",
+      "status": "active",
+      "role": "local execution hygiene",
+      "trigger": "Windows CLI, Docker, VS Code tasks, local services, repeated checks",
+      "handoff_or_executor": "native tool, existing task, MCP, or small wrapper",
+      "stop_or_verification_note": "prefer bounded read-only diagnostics and preserve context boundaries"
+    },
+    {
+      "id": "research-routing",
+      "scope": "global",
+      "status": "adapted-active",
+      "role": "research route selection",
+      "trigger": "external/current research, source discovery, or verification",
+      "handoff_or_executor": "direct authoritative fetch or bounded search/fetch/corroboration route",
+      "stop_or_verification_note": "SEARCH, FETCH, CORROBORATOR, and AUTHORITY remain distinct"
+    },
+    {
+      "id": "theseus-git-hygiene",
+      "scope": "global",
+      "status": "active",
+      "role": "Git/GitHub safety and publication route",
+      "trigger": "Git status, commit, push, GitHub sync, advisor or secret-sensitive staging",
+      "handoff_or_executor": "Git safety scanner, VS Code task, or approved GitHub route",
+      "stop_or_verification_note": "inspect scope, scan staged files, and require explicit push authority"
+    },
+    {
+      "id": "theseus-memory-stack",
+      "scope": "global",
+      "status": "active-default",
+      "role": "continuity and durable-memory routing",
+      "trigger": "prior context, decisions, handoff, recall, memory or continuity work",
+      "handoff_or_executor": "AutoMem, MemPalace, or bounded local fallback",
+      "stop_or_verification_note": "global default; project overlay must be resolved before duplicate selection"
+    },
+    {
+      "id": "theseus-shell-routing",
+      "scope": "global",
+      "status": "active-default",
+      "role": "shell and execution-surface selection",
+      "trigger": "shell, Docker, WSL, Node, Git, quoting, JSON/text, or Windows bridge work",
+      "handoff_or_executor": "VS Code task, Node wrapper, WSL, MCP, or thin Windows bridge",
+      "stop_or_verification_note": "global default; project overlay must be resolved before duplicate selection"
+    },
+    {
+      "id": "theseus-skill-router",
+      "scope": "global",
+      "status": "active-default-unmodified",
+      "role": "route selection",
+      "trigger": "non-trivial Theseus work and skill priority conflicts",
+      "handoff_or_executor": "selected skill and route packet",
+      "stop_or_verification_note": "global default; project router is current overlay and remains under review"
+    }
+  ],
+  "known_gaps": [
+    "No typed handoff graph yet",
+    "Tracked backup drift against global runtime files is not yet audited",
+    "Executor and verification evidence are described but not uniformly correlated",
+    "Historical Grok snapshot is not included as active scope"
+  ],
+  "next": "audit tracked backup drift, then build typed skill graph"
+}

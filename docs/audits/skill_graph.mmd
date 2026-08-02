@@ -1,0 +1,77 @@
+flowchart TD
+  Request["request / current user instruction"]
+  Context["surface + project/runtime context"]
+  RouterP["tracked skill backup\ntheseus-skill-router"]
+  RouterG["global runtime\ntheseus-skill-router"]
+  MemoryP["tracked skill backup\ntheseus-memory-stack"]
+  MemoryG["global runtime\ntheseus-memory-stack"]
+  ShellP["tracked skill backup\ntheseus-shell-routing"]
+  ShellG["global runtime\ntheseus-shell-routing"]
+  Conclave["theseus-plugin-conclave"]
+  Copilot["theseus-copilot-advisor"]
+  Hygiene["local-agent-hygiene"]
+  Git["theseus-git-hygiene"]
+  Research["research-routing"]
+  Imported["imported-memory-gate"]
+  Guard["execution-guard"]
+
+  Task["VS Code task / checked-in script"]
+  MCP["native MCP / connector tool"]
+  WSL["WSL / Node wrapper / thin bridge"]
+  GitExec["Git safety scanner / GitHub route"]
+  Oracle["one primary oracle + optional corroborator"]
+  Evidence["observable evidence"]
+  Stop["stop / fallback / ask"]
+
+  Request -->|requires| Context
+  Context -->|selects| RouterP
+  RouterP -.->|backup of| RouterG
+
+  RouterP -->|selects| MemoryP
+  MemoryP -.->|backup of| MemoryG
+  MemoryP -->|hands_off| MCP
+  MemoryP -->|hands_off| Imported
+
+  RouterP -->|selects| ShellP
+  ShellP -.->|backup of| ShellG
+  ShellP -->|hands_off| Task
+  ShellP -->|hands_off| WSL
+  ShellP -->|hands_off| MCP
+  ShellP -->|requires| Hygiene
+
+  RouterP -->|selects| Conclave
+  Conclave -->|hands_off| Oracle
+  Conclave -->|requires| Evidence
+
+  RouterP -->|selects| Copilot
+  Copilot -->|hands_off| Task
+  Copilot -->|requires| Evidence
+
+  RouterP -->|selects| Git
+  Git -->|hands_off| GitExec
+  Git -->|requires| Evidence
+
+  RouterP -->|selects| Research
+  Research -->|hands_off| Oracle
+  Research -->|requires| Evidence
+
+  RouterP -->|selects| Guard
+  Guard -->|hands_off| Stop
+
+  Task -->|verifies| Evidence
+  MCP -->|verifies| Evidence
+  WSL -->|verifies| Evidence
+  GitExec -->|verifies| Evidence
+  Oracle -->|verifies| Evidence
+
+  Evidence -->|feeds| RouterP
+
+  classDef overlay fill:#e8f0fe,stroke:#356ae6,stroke-width:2px;
+  classDef executor fill:#eef8ee,stroke:#3b7d3b;
+  classDef boundary fill:#fff4df,stroke:#b87400;
+  class RouterP,MemoryP,ShellP overlay;
+  class Task,MCP,WSL,GitExec,Oracle executor;
+  class Evidence,Stop boundary;
+
+  %% Typed edges are the contract under review:
+  %% selects, hands_off, requires, verifies, and backup-of.

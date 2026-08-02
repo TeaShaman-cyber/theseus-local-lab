@@ -1,0 +1,13 @@
+services:
+  gramps_mcp:
+    # Pinned from the validated MVP image (version 1.0.6). Change deliberately
+    # and re-run the protocol/CRUD probes before applying a new image.
+    image: ghcr.io/scormave/gramps-web-mcp@sha256:b49b2ab73cf2ce33fd722c9ca21d28837b8371820c761ad1f47907bda3f929d7
+    restart: unless-stopped
+    env_file:
+      - /root/workspaces/family-research-lab/.runtime/mcp/gramps-web-mcp.env
+    environment:
+      MCP_TRANSPORT: http
+      GRAMPS_READ_ONLY: "false"
+    ports:
+      - "127.0.0.1:8080:8080"

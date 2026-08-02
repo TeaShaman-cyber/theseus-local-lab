@@ -3,6 +3,9 @@
 !.env.example
 .codewhale-home/
 backups/
+!backups/
+!backups/codex-skills/
+!backups/codex-skills/**
 backup-lattice/data/
 .agents/*
 !.agents/skills/
@@ -84,6 +87,8 @@ outputs/local_inventory/*.json
 outputs/pdf_extracts/*
 outputs/state_packets/*.md
 outputs/sonar_local/*
+outputs/gramps_mcp_crud/*
+outputs/gramps_mcp_crud_direct/*
 .vs/
 .local_secrets/
 *.log
