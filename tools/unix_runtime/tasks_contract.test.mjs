@@ -45,3 +45,17 @@ test("defines a separate Family Research codex-do task", () => {
   assert.ok(task.args.includes("${input:codexDoUser}"));
   assert.equal(task.runOptions?.runOn, undefined);
 });
+
+test("defines separate Family Research HTTPS, container, and Caddy tasks", () => {
+  const config = JSON.parse(readFileSync(tasksPath, "utf8"));
+  for (const label of [
+    "Family Research: HTTPS/Caddy endpoint health",
+    "Family Research: remote container status",
+    "Family Research: Caddy/listener status",
+  ]) {
+    const task = config.tasks.find((item) => item.label === label);
+    assert.ok(task, `${label} is missing`);
+    assert.equal(task.type, "process");
+    assert.equal(task.command, "node");
+  }
+});

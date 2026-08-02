@@ -1289,6 +1289,17 @@
         "${input:codexDoUser}"
       ],
       "problemMatcher": []
+    },
+    {
+      "label": "Family Research: Caddy/listener status",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/unix_runtime/caddy_status.mjs",
+        "${input:codexDoHost}",
+        "${input:codexDoUser}"
+      ],
+      "problemMatcher": []
     }
   ],
   "inputs": [
