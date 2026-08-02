@@ -1280,6 +1280,16 @@
       "problemMatcher": []
     },
     {
+      "label": "Family Research: API surface/auth boundary",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/unix_runtime/api_surface.mjs",
+        "${input:familyResearchHttpsEndpoint}"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Family Research: remote container status",
       "type": "process",
       "command": "node",

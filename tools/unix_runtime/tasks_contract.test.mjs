@@ -50,6 +50,7 @@ test("defines separate Family Research HTTPS, container, and Caddy tasks", () =>
   const config = JSON.parse(readFileSync(tasksPath, "utf8"));
   for (const label of [
     "Family Research: HTTPS/Caddy endpoint health",
+    "Family Research: API surface/auth boundary",
     "Family Research: remote container status",
     "Family Research: Caddy/listener status",
   ]) {
