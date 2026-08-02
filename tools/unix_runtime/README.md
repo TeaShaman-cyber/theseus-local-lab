@@ -16,6 +16,11 @@ one backend:
 - `ubuntu-vm` — the configured SSH alias, which may be unavailable when the VM
   is powered off or unreachable.
 
+Family Research also has a separate manual task, `Family Research: codex-do
+read-only probe`. It targets the explicit `codex-do` SSH host/user and the
+fixed `/root/workspaces/family-research-lab` workspace. It is not an alias for
+`ubuntu-vm`, WSL, or Docker and never falls back between those backends.
+
 The task never tries another backend when the selected one fails. Every JSON
 receipt reports the selected backend, status, bounded output, exit outcome,
 postcondition, and `fallback_used: false` in phase one.
@@ -34,6 +39,6 @@ accept arbitrary shell commands.
 
 Only `read-only` probes are available in this phase. `scoped-write` remains
 rejected until a separate task catalogue defines allowlisted operations,
-artifact boundaries, and independent postconditions. WSL, Docker, and the
-Ubuntu VM are interchangeable routes for explicit tool work, not startup
+artifact boundaries, and independent postconditions. WSL, Docker, the Ubuntu
+VM, and `codex-do` are separate routes for explicit tool work, not startup
 services for Codex, hooks, AutoMem, MemPalace, Graphify, or Sonar.

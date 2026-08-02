@@ -13,6 +13,20 @@ const recallPath = path.join(outDir, "latest_recall.json");
 const statusPath = path.join(outDir, "latest.json");
 const latestRecallItemsPath = path.join(outDir, "latest_recall_items.json");
 const defaultApiUrl = process.env.AUTOMEM_API_URL || "http://127.0.0.1:8001";
+
+function nonNegativeInteger(value, fallback) {
+  const parsed = Number.parseInt(String(value ?? ""), 10);
+  return Number.isInteger(parsed) && parsed >= 0 ? parsed : fallback;
+}
+
+function positiveInteger(value, fallback) {
+  const parsed = Number.parseInt(String(value ?? ""), 10);
+  return Number.isInteger(parsed) && parsed > 0 ? parsed : fallback;
+}
+
+const defaultRecallTimeoutMs = positiveInteger(process.env.AUTOMEM_HOOK_TIMEOUT_MS, 3500);
+const defaultRecallRetries = nonNegativeInteger(process.env.AUTOMEM_HOOK_RETRIES, 1);
+const defaultRecallRetryDelayMs = nonNegativeInteger(process.env.AUTOMEM_HOOK_RETRY_DELAY_MS, 150);
 const identityCue = {
   name: "Lad",
   phrase: "Lad identity anchor",
@@ -156,33 +170,64 @@ function itemTags(item) {
   return tags.map((tag) => String(tag)).slice(0, 8);
 }
 
+function isRetryableRecallError(error) {
+  if (error?.retryable === true) return true;
+  const name = String(error?.name || "");
+  const message = String(error?.message || error || "");
+  return (
+    name === "AbortError" ||
+    name === "TimeoutError" ||
+    /aborted|fetch failed|ECONNRESET|ECONNREFUSED|ETIMEDOUT/i.test(message)
+  );
+}
+
+function wait(milliseconds) {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+}
+
 async function recallAutoMem(query, options = {}) {
   const apiUrl = options.apiUrl || defaultApiUrl;
   const token = resolveToken(apiUrl);
-  const response = await fetch(recallUrl(apiUrl, query, options.limit || 3), {
-    headers: {
-      accept: "application/json",
-      ...(token ? { authorization: `Bearer ${token}` } : {}),
-    },
-    signal: AbortSignal.timeout(options.timeoutMs || 5000),
-  });
-  const body = await response.text();
-  if (!response.ok) {
-    throw new Error(`AutoMem recall failed: HTTP ${response.status} ${body.slice(0, 160)}`);
+  const timeoutMs = positiveInteger(options.timeoutMs, defaultRecallTimeoutMs);
+  const retries = nonNegativeInteger(options.retries, defaultRecallRetries);
+  const retryDelayMs = nonNegativeInteger(options.retryDelayMs, defaultRecallRetryDelayMs);
+  const url = recallUrl(apiUrl, query, options.limit || 3);
+
+  for (let attempt = 0; attempt <= retries; attempt += 1) {
+    try {
+      const response = await fetch(url, {
+        headers: {
+          accept: "application/json",
+          ...(token ? { authorization: `Bearer ${token}` } : {}),
+        },
+        signal: AbortSignal.timeout(timeoutMs),
+      });
+      const body = await response.text();
+      if (!response.ok) {
+        const error = new Error(`AutoMem recall failed: HTTP ${response.status} ${body.slice(0, 160)}`);
+        error.retryable = response.status === 408 || response.status === 429 || response.status >= 500;
+        throw error;
+      }
+      const payload = JSON.parse(body);
+      const results = Array.isArray(payload.results) ? payload.results : [];
+      return {
+        api_url: apiUrl,
+        query,
+        count: results.length,
+        items: results.slice(0, options.limit || 3).map((item) => ({
+          memory_id: item.memory_id || item.id || null,
+          summary: summarizeItem(item),
+          tags: itemTags(item),
+          score: item.final_score ?? item.score ?? null,
+        })),
+      };
+    } catch (error) {
+      if (attempt >= retries || !isRetryableRecallError(error)) throw error;
+      await wait(retryDelayMs);
+    }
   }
-  const payload = JSON.parse(body);
-  const results = Array.isArray(payload.results) ? payload.results : [];
-  return {
-    api_url: apiUrl,
-    query,
-    count: results.length,
-    items: results.slice(0, options.limit || 3).map((item) => ({
-      memory_id: item.memory_id || item.id || null,
-      summary: summarizeItem(item),
-      tags: itemTags(item),
-      score: item.final_score ?? item.score ?? null,
-    })),
-  };
+
+  throw new Error("AutoMem recall exhausted its retry budget");
 }
 
 async function writeStatus(extra = {}) {

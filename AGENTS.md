@@ -63,6 +63,19 @@ Before increasing reasoning effort, adding another advisor, or widening tool
 access, check whether the task is missing a success criterion, dependency rule,
 tool route, or verification loop.
 
+## Model And Harness Calibration
+
+Use soft guidance for normal behavior: state the outcome, relevant context,
+success criteria, and preferred route, then leave room for the agent to choose
+an efficient in-scope path. Keep hard boundaries explicit for secrets, access,
+external writes, destructive or costly actions, and scope expansion.
+
+Treat GPT-5.6 family guidance as a baseline, not a promise of identical
+behavior across Sol, Terra, and Luna. Recheck each model or harness change on
+representative tasks, measuring tool calls, context cost, latency, side effects,
+and verification results. Classify external advice as official, observed, or
+hypothesis before turning it into a project rule.
+
 ## Memory
 
 AutoMem is the primary durable memory. MemPalace is the episodic/verbatim layer

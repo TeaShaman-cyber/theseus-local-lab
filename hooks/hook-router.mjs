@@ -79,7 +79,7 @@ function stopStatusMessage({ ok, usageOk, pressure }) {
   return "Stop observability hook failed softly.";
 }
 
-function response({ ok, route, statusMessage, result, suppressOutput = true }) {
+function response({ ok, route, statusMessage, result, suppressOutput = true, systemMessage = "" }) {
   const stderr = result?.stderr ? String(result.stderr).slice(0, 1000) : "";
   const stdout = result?.stdout ? String(result.stdout).slice(0, 1000) : "";
   if (!ok) {
@@ -91,7 +91,7 @@ function response({ ok, route, statusMessage, result, suppressOutput = true }) {
     `${JSON.stringify({
       continue: true,
       suppressOutput,
-      systemMessage: `${statusMessage} (${route}, ok=${ok})`,
+      systemMessage: [systemMessage, `${statusMessage} (${route}, ok=${ok})`].filter(Boolean).join(" "),
     })}\n`,
   );
 }
@@ -182,6 +182,7 @@ if (event === "PostCompact") {
 
 if (event === "UserPromptSubmit") {
   const memoryReflexResult = runNode(["tools/memory_reflex/memory_reflex.mjs", "preflight", "--source", "UserPromptSubmit"], hookInput);
+  const memoryReflexMessage = parseJsonOutput(memoryReflexResult)?.systemMessage;
   const modelSwitchResult = runNode(["tools/model_switch_guard/model_switch_guard.mjs"], hookInput);
   const skillObservatoryResult = runNode(["tools/skill_observatory/skill_observatory.mjs", "expect", "--source", "UserPromptSubmit", "--quiet"], hookInput);
   const researchResult = shouldQueueResearch(event) ? runNode(["hooks/research-queue-hook.mjs"], hookInput) : null;
@@ -199,6 +200,7 @@ if (event === "UserPromptSubmit") {
     route: "memory-reflex+model-switch-guard+research-queue",
     statusMessage: ok ? "Memory preflight refreshed." : "UserPromptSubmit hook failed softly.",
     result,
+    systemMessage: typeof memoryReflexMessage === "string" ? memoryReflexMessage : "",
   });
   process.exit(0);
 }

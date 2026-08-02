@@ -4,8 +4,21 @@ import path from "node:path";
 
 const repoRoot = path.resolve(import.meta.dirname, "..", "..");
 const configPath = process.argv[2] || path.join(os.homedir(), ".codex", "config.toml");
+const automemEntrypoint = path.join(
+  repoRoot,
+  "work",
+  "mcp-automem-bridge",
+  "node_modules",
+  "@verygoodplugins",
+  "mcp-automem",
+  "dist",
+  "index.js",
+);
+const automemApiUrl = process.env.THESEUS_AUTOMEM_API_URL || "http://127.0.0.1:8001";
+const automemApiKey = "test-token";
 const mempalaceImage = process.env.THESEUS_MEMPALACE_IMAGE || "theseus-mempalace:pilot";
 const mempalaceVolume = process.env.THESEUS_MEMPALACE_VOLUME || "theseus-mempalace-clean:/data";
+const includeMempalace = process.argv.includes("--include-mempalace");
 
 function timestamp() {
   return new Date().toISOString().replace(/[-:]/g, "").replace(/\..+/, "").replace("T", "-");
@@ -59,26 +72,35 @@ function ensureSection(lines, header, bodyLines) {
 if (!fs.existsSync(configPath)) {
   throw new Error(`Codex config not found: ${configPath}`);
 }
+if (!fs.existsSync(automemEntrypoint)) {
+  throw new Error(`AutoMem MCP entrypoint not found: ${automemEntrypoint}`);
+}
 
 const before = fs.readFileSync(configPath, "utf8");
 const lines = before.replace(/\r\n/g, "\n").split("\n");
 
-const memory = findSection(lines, "[mcp_servers.memory]");
-if (!memory) {
-  throw new Error("Missing [mcp_servers.memory]; AutoMem must be configured before this script runs.");
-}
-
-setKey(lines, memory, "enabled", "true");
-setKey(lines, memory, "startup_timeout_sec", "30");
-setKey(lines, memory, "tool_timeout_sec", "90");
-
-ensureSection(lines, "[mcp_servers.mempalace]", [
-  "command = 'docker.exe'",
-  `args = ['run', '-i', '--rm', '-v', ${quote(mempalaceVolume)}, ${quote(mempalaceImage)}]`,
+ensureSection(lines, "[mcp_servers.memory]", [
+  "command = 'node'",
+  `args = [${quote(automemEntrypoint)}]`,
   "enabled = true",
-  "startup_timeout_sec = 60",
-  "tool_timeout_sec = 120",
+  "startup_timeout_sec = 30",
+  "tool_timeout_sec = 90",
 ]);
+
+ensureSection(lines, "[mcp_servers.memory.env]", [
+  `AUTOMEM_API_URL = ${quote(automemApiUrl)}`,
+  `AUTOMEM_API_KEY = ${quote(automemApiKey)}`,
+]);
+
+if (includeMempalace) {
+  ensureSection(lines, "[mcp_servers.mempalace]", [
+    "command = 'docker.exe'",
+    `args = ['run', '-i', '--rm', '-v', ${quote(mempalaceVolume)}, ${quote(mempalaceImage)}]`,
+    "enabled = true",
+    "startup_timeout_sec = 60",
+    "tool_timeout_sec = 120",
+  ]);
+}
 
 const after = lines.join("\n").replace(/\n{3,}/g, "\n\n");
 if (after === before) {
@@ -90,7 +112,10 @@ const backupPath = `${configPath}.bak-${timestamp()}`;
 fs.copyFileSync(configPath, backupPath);
 fs.writeFileSync(configPath, after, "utf8");
 
-console.log("Updated Codex MCP memory config.");
+console.log("Updated Codex AutoMem MCP config.");
 console.log(`Backup: ${backupPath}`);
 console.log(`Config: ${configPath}`);
+console.log(`AutoMem endpoint: ${automemApiUrl}`);
+console.log("AutoMem local test auth: enabled");
+console.log(`MemPalace included: ${includeMempalace}`);
 console.log(`Repo: ${repoRoot}`);

@@ -1252,6 +1252,22 @@
         "${input:unixRuntimeBackend}"
       ],
       "problemMatcher": []
+    },
+    {
+      "label": "Family Research: codex-do read-only probe",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/unix_runtime/unix_runtime.mjs",
+        "probe",
+        "--backend",
+        "codex-do",
+        "--host",
+        "${input:codexDoHost}",
+        "--user",
+        "${input:codexDoUser}"
+      ],
+      "problemMatcher": []
     }
   ],
   "inputs": [
@@ -1265,6 +1281,18 @@
         "ubuntu-vm"
       ],
       "default": "wsl"
+    },
+    {
+      "id": "codexDoHost",
+      "type": "promptString",
+      "description": "Family Research codex-do SSH host",
+      "default": "138.68.66.30"
+    },
+    {
+      "id": "codexDoUser",
+      "type": "promptString",
+      "description": "Family Research codex-do SSH user",
+      "default": "root"
     },
     {
       "id": "copilotAdvisorPrompt",

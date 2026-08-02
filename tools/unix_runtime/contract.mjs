@@ -1,4 +1,4 @@
-export const BACKENDS = new Set(["wsl", "docker", "ubuntu-vm"]);
+export const BACKENDS = new Set(["wsl", "docker", "ubuntu-vm", "codex-do"]);
 export const MODES = new Set(["read-only", "scoped-write"]);
 export const STATUSES = new Set([
   "OK",
@@ -47,6 +47,12 @@ export function validateRequest(input) {
   const workspace = input.workspace === undefined
     ? undefined
     : trimField(input.workspace, "workspace", errors);
+  const host = input.host === undefined
+    ? undefined
+    : trimField(input.host, "host", errors);
+  const user = input.user === undefined
+    ? undefined
+    : trimField(input.user, "user", errors);
 
   const timeout_ms = input.timeout_ms === undefined
     ? DEFAULT_TIMEOUT_MS
@@ -71,6 +77,8 @@ export function validateRequest(input) {
     backend,
     task,
     ...(workspace === undefined ? {} : { workspace }),
+    ...(host === undefined ? {} : { host }),
+    ...(user === undefined ? {} : { user }),
     mode,
     timeout_ms,
     allow_fallback,

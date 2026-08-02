@@ -2,6 +2,22 @@ import { BACKENDS, MAX_FIELD_CHARS } from "./contract.mjs";
 
 const WSL_PROBE = "printf 'runtime=wsl\\n'; uname -s; command -v node || true; command -v git || true";
 const VM_PROBE = "printf 'runtime=ubuntu-vm\\n'; uname -s; command -v node || true; command -v git || true";
+const CODEX_DO_WORKSPACE = "/root/workspaces/family-research-lab";
+const CODEX_DO_PROBE = [
+  "printf 'runtime=codex-do\\n'",
+  "printf 'physical_scope=remote-do\\n'",
+  "printf 'project_scope=family-research\\n'",
+  "printf 'remote_host='",
+  "hostname",
+  "printf 'remote_user='",
+  "id -un",
+  `if [ -d ${CODEX_DO_WORKSPACE} ]; then printf 'workspace_present=true\\n'; else printf 'workspace_present=false\\n'; fi`,
+  `printf 'workspace=${CODEX_DO_WORKSPACE}\\n'`,
+  `git -C ${CODEX_DO_WORKSPACE} rev-parse --show-toplevel 2>/dev/null | sed 's/^/git_root=/' || true`,
+  `git -C ${CODEX_DO_WORKSPACE} rev-parse HEAD 2>/dev/null | sed 's/^/git_head=/' || true`,
+  `printf 'tracked_change_count='; git -C ${CODEX_DO_WORKSPACE} status --porcelain=v1 --untracked-files=no 2>/dev/null | wc -l`,
+  `printf 'untracked_count='; git -C ${CODEX_DO_WORKSPACE} ls-files --others --exclude-standard 2>/dev/null | wc -l`,
+].join("; ");
 
 const BACKEND_SPECS = Object.freeze({
   wsl: Object.freeze({
@@ -18,6 +34,11 @@ const BACKEND_SPECS = Object.freeze({
     id: "ubuntu-vm",
     command: "ssh",
     description: "Ubuntu VM over the configured SSH alias",
+  }),
+  "codex-do": Object.freeze({
+    id: "codex-do",
+    command: "ssh",
+    description: "Family Research remote runtime over explicit SSH",
   }),
 });
 
@@ -89,6 +110,21 @@ export function buildProbeInvocation(backend, options = {}) {
 
   if (backend === "docker") {
     return invocation("docker.exe", ["version", "--format", "{{.Server.Version}}"]);
+  }
+
+  if (backend === "codex-do") {
+    const host = readSafeAlias(options, "host");
+    const user = readSafeAlias(options, "user");
+    return invocation("ssh", [
+      "-o",
+      "BatchMode=yes",
+      "-o",
+      "StrictHostKeyChecking=yes",
+      "-o",
+      "ConnectTimeout=10",
+      `${user}@${host}`,
+      CODEX_DO_PROBE,
+    ]);
   }
 
   const host = readSafeAlias(options, "host");

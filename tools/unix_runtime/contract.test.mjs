@@ -8,6 +8,18 @@ test("accepts an explicit read-only probe request", () => {
   assert.equal(result.request.mode, "read-only");
 });
 
+test("accepts a bounded codex-do request with explicit host and user", () => {
+  const result = validateRequest({
+    backend: "codex-do",
+    task: "probe",
+    host: "138.68.66.30",
+    user: "root",
+  });
+  assert.equal(result.ok, true);
+  assert.equal(result.request.host, "138.68.66.30");
+  assert.equal(result.request.user, "root");
+});
+
 test("rejects unknown backends and scoped writes in phase one", () => {
   assert.equal(validateRequest({ backend: "freebsd", task: "probe" }).ok, false);
   assert.equal(validateRequest({ backend: "wsl", task: "probe", mode: "scoped-write" }).ok, false);

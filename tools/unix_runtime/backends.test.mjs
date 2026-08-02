@@ -34,6 +34,27 @@ test("builds Docker and VM probes without caller shell interpolation", () => {
   );
 });
 
+test("builds an isolated codex-do probe with fixed Family Research scope", () => {
+  const remote = buildProbeInvocation("codex-do", {
+    host: "138.68.66.30",
+    user: "root",
+  });
+  assert.equal(remote.command, "ssh");
+  assert.equal(remote.shell, false);
+  assert.ok(remote.args.includes("root@138.68.66.30"));
+  assert.ok(!remote.args.includes("sh"));
+  assert.ok(!remote.args.includes("-lc"));
+  assert.match(String(remote.args.at(-1)), /runtime=codex-do/);
+  assert.match(String(remote.args.at(-1)), /physical_scope=remote-do/);
+  assert.match(String(remote.args.at(-1)), /project_scope=family-research/);
+  assert.match(String(remote.args.at(-1)), /root\/workspaces\/family-research-lab/);
+  assert.ok(!String(remote.args.at(-1)).includes("138.68.66.30"));
+  assert.throws(
+    () => buildProbeInvocation("codex-do", { host: "138.68.66.30", user: "root; whoami" }),
+    /user/i,
+  );
+});
+
 test("rejects unknown backends", () => {
   assert.throws(() => buildProbeInvocation("local-shell", {}), /backend/i);
 });

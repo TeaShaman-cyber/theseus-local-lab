@@ -29,6 +29,12 @@ function backendOptions(request) {
   if (request.backend === "ubuntu-vm") {
     return { host: request.host || process.env.THESEUS_VM_HOST || "theseus-ubuntu-vm" };
   }
+  if (request.backend === "codex-do") {
+    return {
+      host: request.host || process.env.THESEUS_CODEX_DO_HOST || "138.68.66.30",
+      user: request.user || process.env.THESEUS_CODEX_DO_USER || "root",
+    };
+  }
   return {};
 }
 
@@ -38,6 +44,21 @@ function postcondition(backend, stdout, exitCode) {
   }
 
   const text = String(stdout || "");
+  if (backend === "codex-do") {
+    const checks = [
+      [text.includes("runtime=codex-do"), "runtime_identified", "runtime_missing"],
+      [text.includes("physical_scope=remote-do"), "physical_scope_identified", "physical_scope_missing"],
+      [text.includes("project_scope=family-research"), "project_scope_identified", "project_scope_missing"],
+      [text.includes("workspace_present=true"), "workspace_present", "workspace_missing"],
+      [text.includes("git_root=/root/workspaces/family-research-lab"), "git_root_identified", "git_root_missing"],
+      [text.includes("remote_host="), "remote_host_identified", "remote_host_missing"],
+      [text.includes("remote_user=root"), "remote_user_identified", "remote_user_missing"],
+    ];
+    return {
+      passed: checks.every(([passed]) => passed),
+      checks: checks.map(([, passed, failed]) => passed ? passed : failed),
+    };
+  }
   if (backend === "docker") {
     const passed = text.trim().length > 0;
     return {
@@ -60,7 +81,10 @@ function postcondition(backend, stdout, exitCode) {
 
 function statusForExit(backend, exitCode, stderr) {
   if (exitCode === 0) return "OK";
-  if (backend === "ubuntu-vm" && (exitCode === 255 || /connection timed out|connection refused|no route to host|could not resolve/i.test(stderr))) {
+  if (["ubuntu-vm", "codex-do"].includes(backend) && /permission denied|publickey|authentication failed/i.test(stderr)) {
+    return "PERMISSION_DENIED";
+  }
+  if (["ubuntu-vm", "codex-do"].includes(backend) && (exitCode === 255 || /connection timed out|connection refused|no route to host|could not resolve/i.test(stderr))) {
     return "UNAVAILABLE";
   }
   return "UNKNOWN";
@@ -74,6 +98,7 @@ export function parseArgs(argv) {
     distro: undefined,
     cwd: undefined,
     host: undefined,
+    user: undefined,
     no_log: false,
   };
 
@@ -83,6 +108,7 @@ export function parseArgs(argv) {
     ["--distro", "distro"],
     ["--cwd", "cwd"],
     ["--host", "host"],
+    ["--user", "user"],
   ]);
 
   for (let index = 0; index < argv.length; index += 1) {
@@ -252,6 +278,7 @@ export async function main(argv = process.argv.slice(2)) {
     ...(args.distro === undefined ? {} : { distro: args.distro }),
     ...(args.cwd === undefined ? {} : { cwd: args.cwd }),
     ...(args.host === undefined ? {} : { host: args.host }),
+    ...(args.user === undefined ? {} : { user: args.user }),
   };
   const result = await runProbe(request);
   if (!args.no_log) await writeProbeLog(result);
