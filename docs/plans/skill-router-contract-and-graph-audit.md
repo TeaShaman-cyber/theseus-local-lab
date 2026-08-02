@@ -1,6 +1,6 @@
 # Skill Router Contract And Skill Graph Audit
 
-Status: proposed; no skill files changed by this plan.
+Status: active; first router contract edit applied and verified.
 
 ## Outcome
 
@@ -14,6 +14,11 @@ verification condition.
 The main router remains the contract owner. Individual skills own their local
 procedure. Tasks, scripts, MCP tools, and IDE actions own execution. Memory
 stores durable rationale, not live runtime truth.
+
+The current rollback baseline is the private repository commit `ddc7ddf` on
+`main`. It contains the current Gramps MCP workflow, audit artifacts, and
+tracked global skill backups. Any future skill change should remain a small
+reviewable commit after this baseline.
 
 ## Non-goals
 
@@ -57,7 +62,7 @@ Candidate re-entry rule: route once per task or decision epoch; re-enter only
 after a material change in runtime, project, capability, user instruction, or
 task phase.
 
-## Review gates before any router edit
+## Review gates before a router edit
 
 1. **Local baseline** — preserve the restored router and record its current
    routes, gates, and completion reflex.
@@ -67,7 +72,9 @@ task phase.
 3. **Conclave/local corroboration** — compare the candidate against the actual
    Codex router, current global skills, project instructions, and the dated
    Grok snapshot. Local evidence outranks the snapshot.
-4. **User decision** — produce a bounded diff and wait for explicit approval.
+4. **User decision** — produce a bounded diff and proceed only after explicit
+   approval. The current user instruction to continue is approval for the
+   first narrow edit; it does not approve a bulk rewrite.
 
 The review result must be one of:
 
@@ -228,14 +235,17 @@ new speculative route.
 
 ### Phase 5 — Minimal implementation
 
-Only after the review result is `ACCEPT` or `ACCEPT-EDIT`:
+The first review result is `ACCEPT-EDIT`. The first narrow implementation is
+complete:
 
-1. apply the smallest approved edit to the main router;
-2. keep the contract short and move procedures to skills/tools;
-3. add or update route tests;
-4. run syntax, markdown, and focused harness checks;
-5. inspect the diff and verify the no-skill and handoff cases;
-6. record the accepted rationale in the approved memory route.
+1. the execution lifecycle was added to the main router;
+2. the global runtime, project copy, and Git backup were synchronized;
+3. route tests, skill validation, route-packet generation, and diff checks
+   passed;
+4. the review is recorded in `docs/audits/skill-router-review.md`.
+
+The next implementation slice must keep the same size: prove one executor
+handoff and one failure-stop path before changing another skill.
 
 No bulk rewriting of all skills is part of this phase.
 
@@ -277,8 +287,9 @@ Stop and return for a decision when:
 4. Focused route tests under `tools/skill_router/` or the nearest existing
    harness, after the contract shape is approved.
 
-The first deliverable is the inventory and baseline review, not a router
-rewrite.
+The first deliverables were the inventory, typed graph, route fixtures, and
+bounded router review. The router edit remains intentionally small; no bulk
+rewrite of the skill set is implied.
 
 The telemetry audit is a prerequisite for interpreting the later route-eval
 results. If correlation cannot be made reliable with small reversible changes,

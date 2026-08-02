@@ -2,6 +2,23 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "Theseus: skill-router contract tests",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "--test",
+        "tools/tool_policy/tool_policy.test.mjs",
+        "tools/skill_router/representative_cases_contract.test.mjs",
+        "tools/skill_router/route_receipt.test.mjs",
+        "tools/skill_router/memory_route_receipt.test.mjs",
+        "tools/execution_guard/loop_guard.test.mjs",
+        "tools/skill_router/resume_guard.test.mjs",
+        "tools/skill_router/memory_result_check.test.mjs",
+        "tools/skill_router/mempalace_result_check.test.mjs"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus: workshop recovery audit",
       "type": "process",
       "command": "node",

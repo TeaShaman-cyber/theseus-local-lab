@@ -2,9 +2,15 @@
   "schema_version": 1,
   "generated": "2026-08-02",
   "status": "baseline",
+  "backup_baseline": {
+    "repository": "TeaShaman-cyber/theseus-local-lab",
+    "branch": "main",
+    "commit": "ddc7ddf",
+    "meaning": "rollback point containing the Gramps MCP workflow, audit artifacts, and global skill backups"
+  },
   "authority": "filesystem metadata and reviewed SKILL.md frontmatter",
   "scope_semantics": "project means repository backup location here, not a separate active runtime",
-  "runtime_policy": "one active monolithic project; global Codex skills are the runtime surface; tracked copies are backup/review artifacts",
+  "runtime_policy": "one active monolithic project; global Codex skills are the runtime surface; the aligned project copy and tracked copy are review/backup surfaces",
   "privacy": "identifiers and role metadata only; no prompts, secrets, transcripts, or raw logs",
   "counts": {
     "project": 5,
@@ -30,7 +36,7 @@
     {
       "id": "theseus-skill-router",
       "scope": "project",
-      "status": "active-overlay-unmodified",
+      "status": "active-overlay-synced",
       "role": "route selection",
       "trigger": "non-trivial Theseus local-lab work, routing conflicts, tool-policy checks",
       "handoff_or_executor": "selected project/global skill and route packet",
@@ -138,7 +144,7 @@
     {
       "id": "theseus-skill-router",
       "scope": "global",
-      "status": "active-default-unmodified",
+      "status": "active-default-synced",
       "role": "route selection",
       "trigger": "non-trivial Theseus work and skill priority conflicts",
       "handoff_or_executor": "selected skill and route packet",
@@ -146,10 +152,10 @@
     }
   ],
   "known_gaps": [
-    "No typed handoff graph yet",
+    "Typed handoff graph exists as a reviewed baseline; executor-backed coverage is incomplete",
     "Tracked backup drift against global runtime files is not yet audited",
-    "Executor and verification evidence are described but not uniformly correlated",
+    "Shell handoff and repeated-failure stop paths are proven; memory handoff, semantic result interpretation, and duplicate/resumed-call evidence remain incomplete",
     "Historical Grok snapshot is not included as active scope"
   ],
-  "next": "audit tracked backup drift, then build typed skill graph"
+  "next": "prove the read-only memory handoff with an AutoMem receipt, then test duplicate/resumed-call handling"
 }

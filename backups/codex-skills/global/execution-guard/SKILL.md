@@ -37,6 +37,21 @@ same endpoint + same parameters + same auth error  ×3  → loop
 
 Do not treat one loop merely because the high-level goal is similar. Different providers or different failure signatures are different routes.
 
+## Deterministic Check
+
+When a route needs a small, observable loop decision, use the project helper:
+
+```text
+node tools/execution_guard/loop_guard.mjs \
+  --route "vscode-task" \
+  --failure "task-not-found" \
+  --attempts 3
+```
+
+It emits `LOOP_DETECTED` only when the same route and failure class have reached
+three attempts. The helper is a decision receipt, not a background watcher and
+does not execute retries itself.
+
 ## Non-goals
 
 - Do not become a general supervisor of task meaning.

@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "status": "contract-fixture",
+  "baseline_commit": "ddc7ddf",
+  "purpose": "Small observable cases for auditing the router before modifying its contract",
+  "privacy": "Synthetic prompts and expected metadata only; no secrets or real external writes",
+  "cases": [
+    {
+      "id": "no-skill-trivial-chat",
+      "input_class": "trivial conversation",
+      "expected": {
+        "route": "no-skill",
+        "executor": "none",
+        "verification": "response delivered",
+        "stop": "after response"
+      }
+    },
+    {
+      "id": "memory-continuity-request",
+      "input_class": "prior decision or handoff recall",
+      "expected": {
+        "skills": ["theseus-memory-stack"],
+        "executor": "AutoMem or MemPalace",
+        "verification": "recall receipt or explicit unavailable result",
+        "stop": "do not promote memory to current runtime fact"
+      }
+    },
+    {
+      "id": "local-shell-task",
+      "input_class": "read-only local file or test check",
+      "expected": {
+        "skills": ["theseus-shell-routing", "local-agent-hygiene"],
+        "executor": "existing task, Node wrapper, or bounded shell route",
+        "verification": "command/test output",
+        "stop": "reroute after a quoting or surface failure"
+      }
+    },
+    {
+      "id": "fresh-external-research",
+      "input_class": "current external technical claim",
+      "expected": {
+        "skills": ["theseus-plugin-conclave", "research-routing"],
+        "executor": "one primary source route plus optional corroborator",
+        "verification": "source-backed result with fact/inference boundary",
+        "stop": "no connector swarm"
+      }
+    },
+    {
+      "id": "repeated-equivalent-failure",
+      "input_class": "same route failure repeated",
+      "expected": {
+        "skills": ["execution-guard"],
+        "executor": "fallback or user decision",
+        "verification": "loop-detected receipt or explicit stop",
+        "stop": "no blind retry"
+      }
+    },
+    {
+      "id": "phase-transition",
+      "input_class": "verified execution completed; next phase begins",
+      "expected": {
+        "route": "re-enter router",
+        "executor": "new phase-specific route",
+        "verification": "new route packet and postcondition",
+        "stop": "do not silently reuse the previous phase route"
+      }
+    }
+  ],
+  "current_gap": "The existing router is prose; these cases are fixtures until a small runner can produce observable route receipts.",
+  "next": "review cases, then implement the smallest runner or task that can evaluate them"
+}

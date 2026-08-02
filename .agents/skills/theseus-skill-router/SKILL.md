@@ -7,6 +7,27 @@ description: Use at the start of non-trivial Theseus local-lab work to choose th
 
 Use this as a thin dispatcher. Do not turn it into a knowledge base.
 
+## Execution Cycle
+
+For every non-trivial route, keep these states distinct and observable:
+
+1. **Select** the smallest matching skill set.
+2. **Hand off** to the named executor: an existing task, script, MCP tool,
+   WSL/Node wrapper, or bounded connector route.
+3. **Execute** the selected route.
+4. **Verify** an observable postcondition from the executor output, test, log,
+   or service response.
+5. **Stop** after the postcondition, or re-enter the router for a genuinely new
+   phase.
+
+A selected skill is not evidence of execution. A tool call is not evidence of
+verification. A memory recall is not current runtime authority. If the route
+has no concrete executor or no observable postcondition, it is incomplete.
+
+After one quoting, surface, or route mismatch, choose a compatible executor.
+After materially equivalent repeated failure, use `execution-guard` and stop
+blind retries. Do not silently reuse a completed phase's route for a new phase.
+
 ## Routing Rule
 
 Pick the smallest set of skills and tools that covers the current request:
