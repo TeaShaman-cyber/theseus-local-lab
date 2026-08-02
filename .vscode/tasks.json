@@ -1268,6 +1268,16 @@
         "${input:codexDoUser}"
       ],
       "problemMatcher": []
+    },
+    {
+      "label": "Family Research: HTTPS/Caddy endpoint health",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/unix_runtime/https_endpoint.mjs",
+        "${input:familyResearchHttpsEndpoint}"
+      ],
+      "problemMatcher": []
     }
   ],
   "inputs": [
@@ -1293,6 +1303,12 @@
       "type": "promptString",
       "description": "Family Research codex-do SSH user",
       "default": "root"
+    },
+    {
+      "id": "familyResearchHttpsEndpoint",
+      "type": "promptString",
+      "description": "Family Research HTTPS/Caddy endpoint",
+      "default": "https://138-68-66-30.sslip.io"
     },
     {
       "id": "copilotAdvisorPrompt",
