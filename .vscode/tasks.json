@@ -2,6 +2,39 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "Theseus GTD: Windows preflight",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/gtd/gtd_preflight.mjs",
+        "--runtime",
+        "windows"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus GTD: WSL preflight",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/gtd/gtd_preflight.mjs",
+        "--runtime",
+        "wsl"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus GTD: WSL-native preflight",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/gtd/gtd_preflight.mjs",
+        "--runtime",
+        "wsl-native"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus: skill-router contract tests",
       "type": "process",
       "command": "node",
