@@ -2,11 +2,11 @@
 
 Date: 2026-08-07
 Status: Reviewed with metacognitive adversarial pass
-Incubation repository: `evidence-lens` (private)
+Incubation repository: `theseus-sonar` (private)
 
-Historical/internal codename: `Sonar`. The codename remains useful when
-referring to the Theseus implementation, but is not used as the community
-repository identity.
+`Sonar` is the established internal/project identity. The private incubation
+repository keeps that lineage; a future public release may revisit the name
+only after an actual namespace, search, and affiliation review.
 
 ## Context
 
@@ -51,7 +51,7 @@ infrastructure.
 ## Proposed repository boundary
 
 ```text
-evidence-lens/
+theseus-sonar/
 ├── src/sonar/core/
 │   ├── models.py
 │   ├── probing.py
@@ -309,7 +309,7 @@ and transport defaults recorded above before implementation planning.
 
 ## Decision
 
-Proceed with a private `evidence-lens` incubation repository, beginning with a
-design and boundary review. `Sonar` remains the historical/internal codename.
-Repository creation, code extraction, remote publication, and public release
-remain separate approvals.
+Proceed with a private `theseus-sonar` incubation repository, beginning with a
+design and boundary review. Keep the Core community-neutral even though the
+private repository preserves Theseus/Sonar lineage. Repository creation, code
+extraction, remote publication, and public release remain separate approvals.

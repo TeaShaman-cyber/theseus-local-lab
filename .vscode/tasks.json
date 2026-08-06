@@ -561,11 +561,6 @@
         "tools/copilot_advisor/copilot_advisor.mjs",
         "${input:copilotAdvisorPrompt}"
       ],
-      "options": {
-        "env": {
-          "COPILOT_ADVISOR_PROXY": "http://127.0.0.1:10808"
-        }
-      },
       "problemMatcher": []
     },
     {
@@ -1424,6 +1419,87 @@
         "tools/sonar_local/run_wsl.mjs",
         "mcp-smoke",
         "--windows-launcher"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Sonar: Docker build",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/sonar_local/sonar_docker.mjs",
+        "build"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Sonar: Docker status",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/sonar_local/sonar_docker.mjs",
+        "status"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Sonar: Docker refresh",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/sonar_local/sonar_docker.mjs",
+        "refresh"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Sonar: Docker preflight",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/sonar_local/sonar_docker.mjs",
+        "preflight",
+        "--query",
+        "${input:sonarQuery}"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Sonar: Docker MCP smoke",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/sonar_local/sonar_docker.mjs",
+        "mcp-smoke"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Sonar: Docker HTTP start",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/sonar_local/sonar_docker.mjs",
+        "http"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Sonar: Docker HTTP smoke",
+      "type": "process",
+      "command": "docker",
+      "args": [
+        "compose",
+        "-f",
+        "tools/sonar_local/compose.yml",
+        "run",
+        "--rm",
+        "-T",
+        "sonar",
+        "python",
+        "mcp_http_smoke.py",
+        "--url",
+        "http://host.docker.internal:8791/mcp"
       ],
       "problemMatcher": []
     },
