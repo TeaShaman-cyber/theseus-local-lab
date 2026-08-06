@@ -35,6 +35,84 @@
       "problemMatcher": []
     },
     {
+      "label": "Theseus GTD: Docker preflight",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/gtd/gtd_docker.mjs",
+        "preflight"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus GTD: Docker config",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/gtd/gtd_docker.mjs",
+        "config"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus GTD: Docker build",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/gtd/gtd_docker.mjs",
+        "build"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus GTD: Docker diagnostic build",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/gtd/gtd_docker.mjs",
+        "diagnostic-build"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus GTD: Docker crates.io build",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/gtd/gtd_docker.mjs",
+        "crates-build"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus GTD: MCP smoke test",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/gtd/gtd_mcp_smoke.mjs"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus GTD: Review inbox",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/gtd/gtd_mcp_review.mjs",
+        "inbox"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus GTD: Planning state canary",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/gtd/gtd_state_canary.mjs"
+      ],
+      "problemMatcher": []
+    },
+    {
       "label": "Theseus: skill-router contract tests",
       "type": "process",
       "command": "node",
@@ -668,6 +746,64 @@
       "args": [
         "tools/github_issue_watch/github_issue_watch.mjs",
         "--write"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Issues: prepare card",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/github_issue_cards/issue_card_guard.mjs",
+        "prepare",
+        "--card",
+        "${input:githubIssueCardPath}"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Issues: validate card",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/github_issue_cards/issue_card_guard.mjs",
+        "validate",
+        "--card",
+        "${input:githubIssueCardPath}"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Issues: write gate (no write)",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/github_issue_cards/issue_card_guard.mjs",
+        "write-guard",
+        "--card",
+        "${input:githubIssueCardPath}"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Issues: verify read-back fields",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/github_issue_cards/issue_card_guard.mjs",
+        "readback",
+        "--card",
+        "${input:githubIssueCardPath}"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus Issues: guard contract tests",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "--test",
+        "tools/github_issue_cards/issue_card_guard.test.mjs"
       ],
       "problemMatcher": []
     },
@@ -1406,6 +1542,12 @@
     }
   ],
   "inputs": [
+    {
+      "id": "githubIssueCardPath",
+      "type": "promptString",
+      "description": "Path to a filled GitHub Issue action card",
+      "default": "docs/plans/github-issue-card-instance.md"
+    },
     {
       "id": "unixRuntimeBackend",
       "type": "pickString",

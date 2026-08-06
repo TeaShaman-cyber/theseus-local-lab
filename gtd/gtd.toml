@@ -1,0 +1,9 @@
+format_version = 3
+
+[[done]]
+id = "docker-gtd-smoke-20260805"
+title = "Verify Docker GTD MCP lifecycle"
+status = "done"
+notes = "Technical smoke test created by Codex; can be archived after review."
+created_at = "2026-08-05"
+updated_at = "2026-08-05"

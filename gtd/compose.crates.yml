@@ -1,0 +1,9 @@
+services:
+  gtd:
+    build:
+      context: ..
+      dockerfile: gtd/Dockerfile.crates
+    stdin_open: true
+    volumes:
+      - ./:/data
+    command: ["/data/gtd.toml"]

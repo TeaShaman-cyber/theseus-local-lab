@@ -1,0 +1,11 @@
+services:
+  gtd:
+    build:
+      context: ..
+      dockerfile: gtd/Dockerfile
+      args:
+        GTD_MCP_REF: main
+    stdin_open: true
+    volumes:
+      - ./:/data
+    command: ["/data/gtd.toml"]

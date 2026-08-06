@@ -1,0 +1,13 @@
+FROM rust:1-bookworm AS build
+
+RUN cargo install gtd-mcp
+
+FROM debian:bookworm-slim
+
+RUN apt-get update \
+    && apt-get install --yes --no-install-recommends ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY --from=build /usr/local/cargo/bin/gtd-mcp /usr/local/bin/gtd-mcp
+
+ENTRYPOINT ["gtd-mcp"]
