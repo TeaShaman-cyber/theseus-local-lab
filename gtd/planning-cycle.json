@@ -1,0 +1,30 @@
+{
+  "schema": "theseus.gtd.planning-cycle.v1",
+  "description": "A bounded GTD clarification/planning cycle. This is an architectural canary, not the live GTD database schema.",
+  "entry": "inbox",
+  "terminal": "done",
+  "states": [
+    "inbox",
+    "clarified",
+    "next_action",
+    "project",
+    "waiting_for",
+    "someday",
+    "reference",
+    "done"
+  ],
+  "transitions": [
+    ["inbox", "clarified"],
+    ["clarified", "next_action"],
+    ["clarified", "project"],
+    ["clarified", "waiting_for"],
+    ["clarified", "someday"],
+    ["clarified", "reference"],
+    ["next_action", "done"],
+    ["project", "next_action"],
+    ["project", "waiting_for"],
+    ["project", "done"],
+    ["waiting_for", "next_action"],
+    ["waiting_for", "done"]
+  ]
+}
