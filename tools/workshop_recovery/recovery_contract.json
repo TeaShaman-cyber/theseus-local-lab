@@ -10,13 +10,6 @@
       "health_url": "http://127.0.0.1:8001/health"
     },
     {
-      "id": "keychain",
-      "compose_file": "secrets-lab/docker-compose.yml",
-      "startup_grace_seconds": 120,
-      "containers": ["theseus-infisical", "theseus-infisical-db", "theseus-infisical-redis"],
-      "health_url": "http://127.0.0.1:8088/"
-    },
-    {
       "id": "mempalace",
       "compose_file": "work/mempalace-pilot/docker-compose.yml",
       "startup_grace_seconds": 60,
