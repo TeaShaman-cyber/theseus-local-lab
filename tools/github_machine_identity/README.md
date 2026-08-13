@@ -1,6 +1,17 @@
-# Local GitHub launcher
+# DEPRECATED: Local GitHub launcher (historical)
 
-This is the project-local GitHub route for the Theseus local contour.
+> **Status: DEPRECATED / DISABLED since 2026-08-12.**
+>
+> Do not use this launcher for current GitHub work. It depends on the local
+> Infisical stack and WSL, but Infisical was intentionally disabled on the
+> local machine. This directory is retained for historical audit and possible
+> future reactivation only; it is not the active publication route.
+>
+> **Current route:** use the direct Windows `gh` / GitHub API route. For issue
+> publication, follow the approved issue-card guard and read-back workflow.
+
+This was the project-local GitHub route for the Theseus local contour before
+the Infisical stack was disabled.
 
 ```text
 Windows Codex project
@@ -12,7 +23,7 @@ Windows Codex project
   -> GitHub
 ```
 
-Run it from the repository root:
+Historical invocation (do not run for current work):
 
 ```text
 node tools/github_machine_identity/run.mjs gh repo list --limit 20
