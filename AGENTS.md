@@ -74,6 +74,30 @@ be omitted. If one provenance trailer is present, the `.githooks/commit-msg`
 check requires all five. Do not put API keys, access tokens, private prompts,
 or raw transcript content into commit messages.
 
+## Clean Worktree Checkpoint Rule
+
+The worktree may be dirty during an active task, but every task boundary,
+harness/persona switch, context handoff, long pause, or session end must resolve
+each changed path into exactly one disposition:
+
+```text
+commit      — coherent, important, validated change;
+wip commit  — valuable unfinished checkpoint that must survive handoff;
+discard     — failed experiment or temporary change;
+ignore      — local/generated artifact moved under an ignored path;
+stash       — short-lived pause only, with an explicit follow-up.
+```
+
+Do not leave unexplained dirty state. A `wip:` commit must state
+`Change-Status: wip`, `Task-Ref`, `Next`, and `Verification` in its body, plus
+the provenance trailers above. A clean worktree is not required during active
+work, but it is required before declaring a task complete unless the remaining
+paths and their owner are explicitly reported.
+
+Before a checkpoint, inspect `git status -sb`, `git diff --stat`, and
+`git diff --name-only`. Stage explicit paths only. Never use a blanket cleanup
+command to resolve ambiguity.
+
 ## Route First
 
 Before non-trivial work, use the smallest matching project skill:

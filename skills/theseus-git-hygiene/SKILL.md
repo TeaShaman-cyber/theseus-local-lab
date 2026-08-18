@@ -41,6 +41,40 @@ in a public commit. Human-only commits may omit provenance. Once any of the
 five trailers is present, all five must be non-empty; the repository
 `.githooks/commit-msg` validator enforces that soft rule.
 
+## Clean Worktree Checkpoint Rule
+
+The worktree may be dirty while an active task is in progress. At a task
+boundary, harness/persona switch, context handoff, long pause, or session end,
+resolve every changed path into one disposition:
+
+```text
+commit      — coherent, important, validated change;
+wip commit  — valuable unfinished checkpoint;
+discard     — failed experiment or temporary change;
+ignore      — generated/local artifact moved under an ignored path;
+stash       — short-lived pause with an explicit follow-up.
+```
+
+Do not leave unexplained dirty state. For a `wip:` commit, include:
+
+```text
+Change-Status: wip
+Task-Ref: <task>
+Next: <next concrete step>
+Verification: <checks run and pending>
+```
+
+Then include the five provenance trailers. Before the checkpoint, run:
+
+```text
+git status -sb
+git diff --stat
+git diff --name-only
+```
+
+Stage explicit paths only. Never use `git clean`, `reset --hard`, or blanket
+staging to resolve an ambiguous worktree.
+
 ## Advisor Calls
 
 Before asking Copilot, Bothub, CodeWhale, or another advisor:
