@@ -43,19 +43,32 @@ five trailers is present, all five must be non-empty; the repository
 
 ## Clean Worktree Checkpoint Rule
 
-The worktree may be dirty while an active task is in progress. At a task
-boundary, harness/persona switch, context handoff, long pause, or session end,
-resolve every changed path into one disposition:
+Do not commit every passing substep or every small edit. A commit is one
+coherent, reviewable deliverable, not a way to turn a task list into commit
+noise. Dirty state is allowed while an active task is in progress only when all
+changed paths belong to that task and the next step is explicit.
+
+At a task boundary, harness/persona switch, context handoff, long pause, or
+session end, resolve every changed path into one disposition:
 
 ```text
-commit      — coherent, important, validated change;
-wip commit  — valuable unfinished checkpoint;
+commit      — coherent, important, validated deliverable;
+wip commit  — one valuable unfinished checkpoint that must survive handoff;
 discard     — failed experiment or temporary change;
 ignore      — generated/local artifact moved under an ignored path;
 stash       — short-lived pause with an explicit follow-up.
 ```
 
-Do not leave unexplained dirty state. For a `wip:` commit, include:
+Commit decision gate:
+
+- never commit only to make `git status` clean;
+- never split one logical change into page/file/substep commits;
+- keep incomplete work dirty during the active task when it is safe to do so;
+- use one WIP checkpoint only when unfinished work must survive a handoff or
+  session boundary, and explain why a normal commit is premature;
+- never leave unrelated or ownerless dirty paths.
+
+For a `wip:` commit, include:
 
 ```text
 Change-Status: wip
@@ -64,7 +77,9 @@ Next: <next concrete step>
 Verification: <checks run and pending>
 ```
 
-Then include the five provenance trailers. Before the checkpoint, run:
+Then include the five provenance trailers. A task is complete only when the
+worktree is clean or every remaining path has an explicit owner and disposition
+reported to the user. Before the checkpoint, run:
 
 ```text
 git status -sb

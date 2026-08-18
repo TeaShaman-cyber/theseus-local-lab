@@ -100,23 +100,35 @@ or raw transcript content into commit messages.
 
 ## Clean Worktree Checkpoint Rule
 
-The worktree may be dirty during an active task, but every task boundary,
-harness/persona switch, context handoff, long pause, or session end must resolve
-each changed path into exactly one disposition:
+Do not commit every passing substep or every small edit. A commit is a bounded
+checkpoint for one coherent, reviewable deliverable, not a substitute for a task
+list. During an active task, dirty state is allowed only when every changed path
+belongs to that task and the next step is explicit.
+
+At a task boundary, harness/persona switch, context handoff, long pause, or
+session end, resolve every changed path into exactly one disposition:
 
 ```text
-commit      — coherent, important, validated change;
-wip commit  — valuable unfinished checkpoint that must survive handoff;
+commit      — coherent, important, validated deliverable;
+wip commit  — one valuable unfinished checkpoint that must survive handoff;
 discard     — failed experiment or temporary change;
-ignore      — local/generated artifact moved under an ignored path;
-stash       — short-lived pause only, with an explicit follow-up.
+ignore      — generated/local artifact moved under an ignored path;
+stash       — short-lived pause with an explicit follow-up.
 ```
 
-Do not leave unexplained dirty state. A `wip:` commit must state
-`Change-Status: wip`, `Task-Ref`, `Next`, and `Verification` in its body, plus
-the provenance trailers above. A clean worktree is not required during active
-work, but it is required before declaring a task complete unless the remaining
-paths and their owner are explicitly reported.
+Commit decision gate:
+
+- do not create a commit merely to make `git status` clean;
+- do not split one logical change into page/file/substep commits;
+- do not use a WIP commit for work that can safely remain inside the active task;
+- use one WIP checkpoint only when unfinished work must survive a handoff or
+  session boundary, and state why it cannot yet be a normal commit;
+- do not leave unrelated, unexplained, or ownerless dirty paths.
+
+A `wip:` commit must state `Change-Status: wip`, `Task-Ref`, `Next`, and
+`Verification` in its body, plus the provenance trailers above. A task is not
+complete until its worktree is clean or every remaining path has an explicit
+owner and disposition reported to the user.
 
 Before a checkpoint, inspect `git status -sb`, `git diff --stat`, and
 `git diff --name-only`. Stage explicit paths only. Never use a blanket cleanup
