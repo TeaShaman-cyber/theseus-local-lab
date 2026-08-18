@@ -15,6 +15,37 @@ secrets, logs, checks, skills, dashboards, worker profiles, and evidence
 packets so the workshop can survive model, provider, IDE, OS, or harness
 changes.
 
+## Harness Ownership Boundary
+
+This repository is the Theseus local-lab project and currently uses Codex as its
+lead harness. It is **not** the Hermes runtime directory. Keep the following
+layers separate:
+
+| Layer | Owner | Source of truth |
+|---|---|---|
+| Project skills | Theseus/Codex project | `skills/` or an existing `.agents/skills/` path in this checkout |
+| Codex runtime skills | Codex | `C:/Users/s.poklad/.codex/skills/` |
+| Hermes runtime skills/plugins | Hermes | `%HERMES_HOME%/skills/` and `%HERMES_HOME%/plugins/` |
+| OSINT harness adapters | Theseus OSINT repo | `D:/theseus-osint/harnesses/<harness>/` in this environment |
+| Harness-neutral research | Shared | `D:/theseus-osint/harnesses/shared/` and `research/` |
+
+Rules:
+
+- A runtime copy is not a project source file. Do not infer ownership from a
+  filename alone; resolve the harness and source path first.
+- `backups/codex-skills/` is historical evidence, not an active skill source.
+- If a referenced `.agents/skills/<name>/SKILL.md` path does not exist in the
+  current checkout, stop and route to the canonical source or runtime owner;
+  do not silently substitute a Hermes skill with the same name.
+- Hermes MCP names, slash commands, `$HERMES_HOME`, and Hermes plugin paths do
+  not belong in Codex-only skills. Codex-specific commands do not belong in
+  Hermes skills.
+- Put portable contracts, schemas, evidence formats, and research procedures
+  in `D:/theseus-osint/harnesses/shared/`; put the executable adapter under its
+  owning harness directory.
+- Do not copy `config.yaml`, `.env`, OAuth state, API keys, private transcripts,
+  raw memory, or MCP auth material between harnesses.
+
 ## Route First
 
 Before non-trivial work, use the smallest matching project skill:
@@ -32,8 +63,9 @@ Before non-trivial work, use the smallest matching project skill:
   multi-source check.
 - `C:/Users/s.poklad/.codex/skills/local-agent-hygiene/SKILL.md` for local
   infrastructure, VS Code tasks, Docker Desktop, and repeated checks.
-- `C:/Users/s.poklad/.codex/skills/theseus-git-hygiene/SKILL.md` for Git,
-  GitHub sync, commits, pushes, and secret-sensitive staging.
+- `skills/theseus-git-hygiene/SKILL.md` is the canonical repo source for Git,
+  GitHub sync, commits, pushes, and secret-sensitive staging; the matching
+  `.codex/skills/` copy is runtime state and may require synchronization.
 
 If two routes are plausible, prefer the one with lower user friction, stronger
 verification, and less context load.
