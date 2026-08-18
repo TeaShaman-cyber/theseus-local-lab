@@ -1,5 +1,48 @@
 format_version = 3
 
+[[inbox]]
+id = "test-automem-http-bridge"
+title = "Test parallel AutoMem HTTP bridge"
+status = "inbox"
+notes = "Bounded experiment: test a localhost-only HTTP MCP bridge for AutoMem in parallel with the existing stdio route. Success criteria: initialize works; tools/list works; store works; recall works reliably; Codex exposes the bridge as a callable MCP. Constraints: no external publication, no migration, do not start containers, alter configuration, or run the experiment until explicitly authorized."
+created_at = "2026-08-08"
+updated_at = "2026-08-08"
+
+[[next_action]]
+id = "remove-copilot-task-proxy"
+title = "Remove stale Copilot task proxy"
+status = "next_action"
+notes = "Clean terminal bridge works without proxy. The VS Code task .vscode/tasks.json still injects COPILOT_ADVISOR_PROXY=http://127.0.0.1:10808. Remove that stale task env entry, run task-level canary, and verify no proxy variables are required. Do not alter secrets or global environment."
+created_at = "2026-08-06"
+updated_at = "2026-08-06"
+
+[[next_action]]
+id = "update-sonar-readme-maturity"
+title = "Update Sonar README maturity"
+status = "next_action"
+project = "extract-sonar-community-core"
+notes = "Update README current status to reflect the implemented offline Core, deterministic operations, equivalent stdio/localhost transports, neutral MCP registry/protocol, and synthetic stdio launcher. Preserve explicit exclusions: no live adapters, Codex registration, Docker deployment, public release, or write-capable memory operations."
+created_at = "2026-08-07"
+updated_at = "2026-08-07"
+
+[[next_action]]
+id = "define-gramps-mcp-edge-auth"
+title = "Define Gramps MCP edge auth"
+status = "next_action"
+project = "secure-gramps-mcp-auth"
+notes = "Inspect the current Caddy /mcp route and Gramps MCP auth contract; choose the smallest separate credential boundary for Codex, then plan KeePass+kprun delivery. Do not recreate the existing Gramps Editor account, read secret values, or change Infisical."
+created_at = "2026-08-08"
+updated_at = "2026-08-08"
+
+[[someday]]
+id = "evaluate-copilot-advisor-mcp"
+title = "Evaluate minimal Copilot Advisor MCP"
+status = "someday"
+project = "copilot-advisor-mcp-wrapper"
+notes = "Compare the existing VS Code task/bridge with a thin MCP wrapper for repeated Copilot advisory use around private theseus-sonar. Define boundary: task remains build/diagnostic executor; MCP is convenience/advisor surface only. Check auth/proxy inheritance, prompt redaction, timeouts, read-only semantics, and whether the added layer is worth the complexity. Do not build yet."
+created_at = "2026-08-06"
+updated_at = "2026-08-07"
+
 [[done]]
 id = "docker-gtd-smoke-20260805"
 title = "Verify Docker GTD MCP lifecycle"
@@ -7,3 +50,313 @@ status = "done"
 notes = "Technical smoke test created by Codex; can be archived after review."
 created_at = "2026-08-05"
 updated_at = "2026-08-05"
+
+[[done]]
+id = "sonar-inspect-current-route"
+title = "Inspect current Sonar route"
+status = "done"
+project = "restore-codex-desktop-sonar"
+notes = "Completed read-only inspection. Source exists under tools/sonar_local; VS Code tasks exist; no current Sonar registration was found in the searched project config/manifest. Local Python unit test is blocked by missing duckdb in Windows Python. WSL status endpoint responds, but its index is stale (refreshed_at 2026-07-22), so this is not Desktop acceptance."
+created_at = "2026-08-06"
+updated_at = "2026-08-06"
+
+[[done]]
+id = "restore-sonar-dependency-route"
+title = "Restore Sonar dependency route"
+status = "done"
+project = "restore-codex-desktop-sonar"
+notes = "Docker-backed dependency route verified 2026-08-06. Image builds; container unit tests pass (3/3); named volume sonar_local_sonar-data persists DuckDB under /var/lib/sonar; refresh reaches host AutoMem and readback verifies 305 documents, 2611 memory edges, 9 federation nodes, 11 federation edges; preflight returns status OK; direct container MCP smoke passes with sonar_status, sonar_refresh, sonar_preflight. No Codex Desktop/global MCP config changed."
+created_at = "2026-08-06"
+updated_at = "2026-08-06"
+
+[[done]]
+id = "register-sonar-docker-mcp-route"
+title = "Register Sonar Docker MCP route"
+status = "done"
+project = "restore-codex-desktop-sonar"
+notes = "Docker-backed Sonar canary passed: image build, 3 unit tests, AutoMem refresh with readback (305 documents, 2611 memory edges), preflight, and direct MCP smoke. Next: inspect current project-scoped Codex MCP registration, add only the Docker-backed Sonar route, then verify native sonar_status/sonar_preflight visibility after restart. Do not change global MCP config."
+created_at = "2026-08-06"
+updated_at = "2026-08-06"
+
+[[done]]
+id = "verify-sonar-desktop-tools"
+title = "Verify Sonar Desktop MCP tools"
+status = "done"
+project = "restore-codex-desktop-sonar"
+notes = "Desktop HTTP acceptance passed 2026-08-06 after restart. Current native tool surface exposes mcp__theseus_sonar_http__sonar_status, mcp__theseus_sonar_http__sonar_refresh, and mcp__theseus_sonar_http__sonar_preflight. Live calls passed: sonar_status status OK with 305 documents, 2611 memory edges, 9 federation nodes, 11 federation edges; selective preflight query 'memory continuity after compact and model switch' returned status OK, no conflicts, no gaps, recommendation continue_with_route. HTTP route is now Desktop-callable; global Codex config was not changed."
+created_at = "2026-08-06"
+updated_at = "2026-08-06"
+
+[[done]]
+id = "sonar-boundary-audit"
+title = "Audit Sonar core boundary"
+status = "done"
+project = "extract-sonar-community-core"
+notes = "Inspect current tools/sonar_local, classify each file as Core, adapter, transport, Theseus integration, fixture, or private artifact. Produce a bounded extraction map and identify the smallest community-neutral MVP. Read-only first; no new GitHub repository or code move yet."
+created_at = "2026-08-06"
+updated_at = "2026-08-06"
+
+[[done]]
+id = "draft-sonar-community-design"
+title = "Draft Sonar community boundary design"
+status = "done"
+project = "extract-sonar-community-core"
+notes = "Based on the bounded audit, define the private theseus-sonar incubation repository boundary: Core MVP, Theseus adapters, transports, fixtures, exclusions, maturity gates, and community-ready criteria. Design only; no repository creation or code move until the design is reviewed and approved."
+created_at = "2026-08-06"
+updated_at = "2026-08-06"
+
+[[done]]
+id = "repair-copilot-advisor-proxy"
+title = "Repair Copilot Advisor proxy"
+status = "done"
+notes = "Use the documented VS Code task / tools/copilot_advisor bridge. Verify the local proxy path with a harmless canary, then retry one narrow evidence-lens review prompt. Current observed failure: network fetch failed while Copilot CLI fetched https://api.github.com/copilot_internal/user. Do not change tokens or auth state speculatively; keep secrets out of logs."
+created_at = "2026-08-06"
+updated_at = "2026-08-06"
+
+[[done]]
+id = "write-sonar-extraction-plan"
+title = "Write Sonar extraction implementation plan"
+status = "done"
+project = "extract-sonar-community-core"
+notes = "Using the reviewed community boundary design, create an executable plan for the private theseus-sonar incubation repository. Sonar is the established project identity; keep the Core community-neutral inside the repository. Include RED tests, synthetic snapshot contract, minimal Core extraction, transport parity, provenance redaction, stale-index behavior, a future public-release naming/namespace gate, and verification gates. Do not create the GitHub repository or move code until the plan is reviewed and approved."
+created_at = "2026-08-06"
+updated_at = "2026-08-07"
+
+[[done]]
+id = "review-sonar-extraction-plan"
+title = "Review Sonar extraction implementation plan"
+status = "done"
+project = "extract-sonar-community-core"
+notes = "Read docs/superpowers/plans/2026-08-07-sonar-extraction.md. Check that the private theseus-sonar boundary, synthetic offline acceptance slice, provenance/privacy rules, stale-index semantics, transport parity, and explicit public-release gate are proportionate. Do not create the repository or move code until this review is accepted."
+created_at = "2026-08-07"
+updated_at = "2026-08-07"
+
+[[done]]
+id = "create-theseus-sonar-incubation-repo"
+title = "Create private theseus-sonar incubation repository"
+status = "done"
+project = "extract-sonar-community-core"
+notes = "Create the private TeaShaman-cyber/theseus-sonar repository with only the approved skeleton and boundary README. Do not copy tools/sonar_local, move code, add real snapshots, or publish publicly. Read back repository visibility, default branch, and clean initial state."
+created_at = "2026-08-07"
+updated_at = "2026-08-07"
+
+[[done]]
+id = "write-sonar-offline-red-smoke-test"
+title = "Write Sonar offline RED smoke test"
+status = "done"
+project = "extract-sonar-community-core"
+notes = 'In private TeaShaman-cyber/theseus-sonar, add synthetic snapshot fixture and the failing subprocess test for `python -m sonar snapshot examples/snapshot.json preflight --query "runtime verification"`. Verify it fails because the CLI is not implemented. Keep all data synthetic and offline.'
+created_at = "2026-08-07"
+updated_at = "2026-08-07"
+
+[[done]]
+id = "implement-sonar-minimal-cli"
+title = "Implement Sonar minimal offline CLI"
+status = "done"
+project = "extract-sonar-community-core"
+notes = 'Make the RED acceptance test green with the smallest CLI boundary: add sonar.__main__ and a neutral snapshot loader sufficient for `python -m sonar snapshot examples/snapshot.json preflight --query "runtime verification"`. Do not add AutoMem, HTTP, stdio, Docker, or full analysis yet; keep the change synthetic and offline.'
+created_at = "2026-08-07"
+updated_at = "2026-08-07"
+
+[[done]]
+id = "write-sonar-snapshot-contract-tests"
+title = "Write Sonar snapshot contract tests"
+status = "done"
+project = "extract-sonar-community-core"
+notes = "Add RED tests for the neutral version-1 snapshot loader: valid fixture, unsupported version, missing node/edge structure, and public provenance boundary. Run them in Ubuntu-24.04; keep tests independent of AutoMem, MCP, Docker, Windows, and WSL-specific code."
+created_at = "2026-08-07"
+updated_at = "2026-08-07"
+
+[[done]]
+id = "implement-sonar-snapshot-adapter"
+title = "Implement Sonar snapshot adapter"
+status = "done"
+project = "extract-sonar-community-core"
+notes = "Make tests/test_snapshot_contract.py green in Ubuntu-24.04. Add SnapshotAdapter.load(path, provenance_mode) with a neutral version-1 model, explicit nodes/edges validation, and public provenance rejection for private path references. Keep Core independent of AutoMem, MCP, Docker, Windows, and WSL-specific modules."
+created_at = "2026-08-07"
+updated_at = "2026-08-07"
+
+[[done]]
+id = "write-sonar-analysis-tests"
+title = "Write Sonar deterministic analysis tests"
+status = "done"
+project = "extract-sonar-community-core"
+notes = "Add RED tests for bounded local ranking and explicit signal separation: retrieval_score, source_confidence, temporal_strength, contradiction_strength, plus temporal/conflict/gap reporting on a synthetic fixture. Run in Ubuntu-24.04; do not connect AutoMem or add transport logic."
+created_at = "2026-08-07"
+updated_at = "2026-08-07"
+
+[[done]]
+id = "implement-sonar-analysis-core"
+title = "Implement Sonar deterministic analysis core"
+status = "done"
+project = "extract-sonar-community-core"
+notes = "Make tests/test_analysis_contract.py green in Ubuntu-24.04. Implement neutral analysis APIs: build_probe, rank_nodes, detect_temporal_signals, detect_conflicts, collect_gaps. Keep retrieval_score, source_confidence, temporal_strength, and contradiction_strength separate; use synthetic data only and do not add transports or external adapters."
+created_at = "2026-08-07"
+updated_at = "2026-08-07"
+
+[[done]]
+id = "write-sonar-index-state-tests"
+title = "Write Sonar index state tests"
+status = "done"
+project = "extract-sonar-community-core"
+notes = "Add RED tests for explicit rebuildable index states: refreshed, reused, empty, and stale. Verify stale preflight returns a structured gap and never silently claims current data. Keep the index local and source systems read-only."
+created_at = "2026-08-07"
+updated_at = "2026-08-07"
+
+[[done]]
+id = "implement-sonar-rebuildable-index"
+title = "Implement Sonar rebuildable index state"
+status = "done"
+project = "extract-sonar-community-core"
+notes = "Make tests/test_index_state_contract.py green in Ubuntu-24.04. Implement explicit empty/refreshed/reused/stale states and a local rebuildable index boundary. Keep source systems read-only, never silently present stale data as current, and avoid adding transports or live adapters."
+created_at = "2026-08-07"
+updated_at = "2026-08-07"
+
+[[done]]
+id = "write-sonar-operation-contract-tests"
+title = "Write Sonar operation contract tests"
+status = "done"
+project = "extract-sonar-community-core"
+notes = "Add RED tests for transport-independent status, refresh, and preflight operation packets. Verify the operations expose explicit schema/state/gap fields and never mutate source adapters. Keep the existing offline CLI green and do not add MCP transports yet."
+created_at = "2026-08-07"
+updated_at = "2026-08-07"
+
+[[done]]
+id = "implement-sonar-operation-boundary"
+title = "Implement Sonar operation boundary"
+status = "done"
+project = "extract-sonar-community-core"
+notes = "Make tests/test_operations_contract.py green in Ubuntu-24.04. Implement transport-independent status, refresh, and preflight packets using the existing SnapshotAdapter, analysis core, and RebuildableIndex. Preserve source immutability and explicit state/gap fields; do not add stdio, HTTP, or MCP wiring yet."
+created_at = "2026-08-07"
+updated_at = "2026-08-07"
+
+[[done]]
+id = "write-sonar-cli-contract-tests"
+title = "Write Sonar CLI operation contract tests"
+status = "done"
+project = "extract-sonar-community-core"
+notes = "Add RED tests for CLI status, refresh, and preflight commands using the transport-independent operations. Verify invalid JSON, missing file, and empty query produce machine-readable errors without network access. Keep Ubuntu-24.04 as the test route and preserve the existing offline smoke test."
+created_at = "2026-08-07"
+updated_at = "2026-08-07"
+
+[[done]]
+id = "implement-sonar-cli-operations"
+title = "Implement Sonar CLI operations"
+status = "done"
+project = "extract-sonar-community-core"
+notes = "Make tests/test_cli_contract.py green in Ubuntu-24.04. Rewire sonar.__main__ to use SnapshotAdapter, RebuildableIndex, and core.operations for status/refresh/preflight; preserve machine-readable errors and the existing offline acceptance command. Keep the index local and do not add MCP transports."
+created_at = "2026-08-07"
+updated_at = "2026-08-07"
+
+[[done]]
+id = "write-sonar-transport-parity-tests"
+title = "Write Sonar transport parity tests"
+status = "done"
+project = "extract-sonar-community-core"
+notes = "Add RED tests for equivalent stdio and localhost HTTP transport contracts over the same operations: sonar_status, sonar_refresh, sonar_preflight, identical JSON shapes, explicit localhost default, and no business logic in transports. Keep Docker and external adapters out of this test."
+created_at = "2026-08-07"
+updated_at = "2026-08-07"
+
+[[done]]
+id = "implement-sonar-transport-parity"
+title = "Implement Sonar transport parity"
+status = "done"
+project = "extract-sonar-community-core"
+notes = "Make tests/test_transport_parity.py green in Ubuntu-24.04. Add thin stdio and localhost HTTP adapters exposing sonar_status, sonar_refresh, sonar_preflight through the existing operations layer with identical packet shapes. Keep HTTP localhost-only by default and do not add Docker or external adapters yet."
+created_at = "2026-08-07"
+updated_at = "2026-08-07"
+
+[[done]]
+id = "write-sonar-transport-runtime-tests"
+title = "Write Sonar transport runtime tests"
+status = "done"
+project = "extract-sonar-community-core"
+notes = "Add RED tests for actual stdio request/response framing and localhost HTTP lifecycle over the thin dispatch adapters. Verify the three tool names, JSON error mapping, localhost-only default, and identical packets. Do not add Docker packaging or external adapters until runtime tests pass."
+created_at = "2026-08-07"
+updated_at = "2026-08-07"
+
+[[done]]
+id = "write-sonar-transport-entrypoint-tests"
+title = "Write Sonar transport entrypoint tests"
+status = "done"
+project = "extract-sonar-community-core"
+notes = "Add RED tests for the smallest executable Sonar transport entrypoints: newline-delimited stdio loop and a bounded localhost HTTP launch helper. Reuse the existing dispatch/runtime adapters, keep packet shapes identical, and do not add Docker, MCP registration, or external adapters."
+created_at = "2026-08-07"
+updated_at = "2026-08-07"
+
+[[done]]
+id = "review-sonar-mcp-wrapper-boundary"
+title = "Review Sonar MCP wrapper boundary"
+status = "done"
+project = "extract-sonar-community-core"
+notes = "Review complete. Provisional contract: exactly sonar_status, sonar_refresh, sonar_preflight; request {tool, arguments}; response {result} or {error}; stdio is one-request/one-response NDJSON; HTTP is POST /invoke on 127.0.0.1 by default. The MCP wrapper must reuse Core operations and keep snapshot/index lifecycle host-owned. Refresh mutates only the local rebuildable index. No live source adapter or external registration exists yet, so the next step is a synthetic MCP tool-registry RED test; do not connect AutoMem, Basic Memory, Codex config, Docker, or external writes."
+created_at = "2026-08-07"
+updated_at = "2026-08-07"
+
+[[done]]
+id = "write-sonar-mcp-registry-tests"
+title = "Write Sonar MCP registry tests"
+status = "done"
+project = "extract-sonar-community-core"
+notes = "Add RED tests for a neutral MCP-facing tool registry over the three approved operations. Verify exact tool names, argument schemas, result/error packet mapping, synthetic snapshot/index ownership, and no source-system or private-path access. Do not register the server in Codex or add external adapters yet."
+created_at = "2026-08-07"
+updated_at = "2026-08-07"
+
+[[done]]
+id = "write-sonar-mcp-protocol-tests"
+title = "Write Sonar MCP protocol tests"
+status = "done"
+project = "extract-sonar-community-core"
+notes = "Add RED tests for the smallest protocol adapter over the neutral registry: initialize, tools/list, and tools/call request/response mapping. Verify protocol errors remain distinct from Sonar operation errors, preserve the three tool schemas, and keep the adapter stdio-local with no Codex registration, Docker, live memory, or external writes."
+created_at = "2026-08-07"
+updated_at = "2026-08-07"
+
+[[done]]
+id = "write-sonar-mcp-stdio-tests"
+title = "Write Sonar MCP stdio tests"
+status = "done"
+project = "extract-sonar-community-core"
+notes = "Add RED tests for newline-delimited JSON-RPC MCP framing over McpProtocol: one request per line, one response per line, EOF lifecycle, and protocol/tool error mapping. Keep it local and synthetic; no Codex registration, Docker, HTTP MCP transport, live memory, or external writes."
+created_at = "2026-08-07"
+updated_at = "2026-08-07"
+
+[[done]]
+id = "write-sonar-mcp-launcher-tests"
+title = "Write Sonar MCP launcher tests"
+status = "done"
+project = "extract-sonar-community-core"
+notes = "Add RED tests for an executable synthetic Sonar MCP stdio launcher that owns snapshot/index setup, delegates all protocol handling to McpProtocol, and exits cleanly at EOF. Verify the launcher remains offline and explicit about its synthetic snapshot path; do not edit Codex MCP config, add Docker, or connect live memory."
+created_at = "2026-08-07"
+updated_at = "2026-08-07"
+
+[[project]]
+id = "copilot-advisor-mcp-wrapper"
+title = "Copilot Advisor MCP wrapper"
+status = "project"
+notes = "Evaluate a minimal MCP wrapper for repeated Copilot advisory use while preserving VS Code tasks as the visible build/diagnostic route. Start with a read-only design and canary; no implementation, secrets, or global config changes until explicitly approved."
+created_at = "2026-08-06"
+updated_at = "2026-08-06"
+
+[[project]]
+id = "extract-sonar-community-core"
+title = "Extract Sonar community core"
+status = "project"
+notes = "Desired outcome: develop Sonar as a separate private incubation repository, extracting a community-neutral read-only provenance-aware temporal memory reconciliation core from Theseus Local Lab, with adapters documented separately and a later public-release gate. Maturity gates: Core MVP, integrations, agent operations, then community-ready audit and explicit public-release approval. Keep real memory snapshots, secrets, private paths, GTD/Notion wiring, and Theseus identity material out of the new repo."
+created_at = "2026-08-06"
+updated_at = "2026-08-06"
+
+[[project]]
+id = "restore-codex-desktop-sonar"
+title = "Restore Codex Desktop Sonar"
+status = "project"
+notes = "Desired outcome: a verified, read-only Sonar MCP route is attached to Codex Desktop and can perform bounded federation preflight when triggered. Historical implementation exists under tools/sonar_local/ with run_wsl.mjs, launch_mcp_wsl.mjs, sonar_status, sonar_refresh, and sonar_preflight, but current Desktop attachment and post-restart acceptance are unverified. Project gates: inspect current source/config; run local tests and MCP smoke; verify native Desktop tool visibility; run one selective preflight with read-back; stop on route mismatch or repeated equivalent failure."
+created_at = "2026-08-06"
+updated_at = "2026-08-06"
+
+[[project]]
+id = "secure-gramps-mcp-auth"
+title = "Secure Gramps MCP auth"
+status = "project"
+notes = "Desired outcome: protect the public Caddy /mcp route while preserving the existing Editor test account inside gramps_mcp. Then deliver only the MCP-edge credential through KeePass+kprun. Do not recreate the Gramps account, expose secrets, or alter Infisical."
+created_at = "2026-08-08"
+updated_at = "2026-08-08"
