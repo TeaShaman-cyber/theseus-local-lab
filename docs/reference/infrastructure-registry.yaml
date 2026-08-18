@@ -64,6 +64,11 @@ stacks:
       container_restart_policy: unless-stopped
       direct_recall: timeout
       hermes_memory_status: provider_available_but_recall_unverified
+      failed_operations: 150
+      failed_consolidation: 29
+      sampled_failure: APIConnectionError_during_fact_extraction
+      llm_route: host.docker.internal_8645_solar_pro4
+      docker_proxy_auth: dummy_proxy_key_rejected_403_on_models_probe
     codex_future: possible-separate-bank-or-namespace
     secrets: external-not-in-registry
     notes: Hindsight is not a universal Theseus memory dependency and is not Codex's current provider.

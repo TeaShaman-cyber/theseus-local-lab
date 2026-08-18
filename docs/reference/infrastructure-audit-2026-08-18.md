@@ -45,6 +45,17 @@ Read-only audit of the Docker/runtime ownership registry.
 - Hermes reports the provider as available, but a direct bounded Hindsight
   `/memories/recall` request timed out. Health/configuration is not treated as
   proof of a working recall path.
+- Fresh logs show successful Hindsight LLM calls can take 17–69 seconds and
+  consolidation can take 93–109 seconds; the request was logged as
+  `RECALL CANCELLED` after the client disconnected.
+- Bank stats report `failed_operations: 150` and `failed_consolidation: 29`, with
+  no pending operations. A bounded failed-operation listing returned the same
+  sampled class: `Fact extraction failed ... APIConnectionError: Connection error.`
+- Hindsight routes LLM calls through `host.docker.internal:8645/v1` using Solar
+  Pro4. The container reaches `/health`, but a `/v1/models` probe receives 403
+  with the compose `dummy-proxy-key`; Hermes proxy has `enforce_on_docker: true`.
+  The compose/proxy bearer contract is therefore a high-confidence root-cause
+  candidate and needs a focused auth check before any config change.
 - Hindsight remains Hermes-only in the current registry. A future Codex bank or
   namespace is a separate planned integration, not current capability.
 
