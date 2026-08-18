@@ -2,10 +2,15 @@
 .env.*
 !.env.example
 .codewhale-home/
-backups/
-!backups/
+backups/*
 !backups/codex-skills/
 !backups/codex-skills/**
+.worktrees/
+artifacts/
+output/
+kanban.db
+nul
+console.log*
 backup-lattice/data/
 .agents/*
 !.agents/skills/
