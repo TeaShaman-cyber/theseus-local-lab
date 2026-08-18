@@ -39,12 +39,6 @@
       "health_url": "http://127.0.0.1:8768/health"
     },
     {
-      "id": "collector",
-      "compose_file": "stateful-agent-net/docker-compose.yml",
-      "startup_grace_seconds": 60,
-      "containers": ["stateful-agent-net-collector-1"]
-    },
-    {
       "id": "backup",
       "compose_file": "D:/theseus-backup/backup-lattice/docker-compose.yml",
       "startup_grace_seconds": 60,
