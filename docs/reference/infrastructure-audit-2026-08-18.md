@@ -28,8 +28,12 @@ Read-only audit of the Docker/runtime ownership registry.
   was updated through the package's official Hermes config helper.
 - Post-repair `hermes mcp test automem` connected in 4.3 seconds and discovered
   six tools; the config keeps five selected tools and excludes deletion.
-- A fresh Hermes process/session is still required before the current agent
-  tool registry can be assumed to contain the repaired MCP tools.
+- A fresh Hermes process/session is required after this configuration change;
+  the user restarted Hermes and the current tool registry now exports the
+  repaired AutoMem tools.
+- `mcp__automem__recall_memory` returned three ranked records, and
+  `mcp__automem__check_database_health` returned healthy with FalkorDB/Qdrant
+  connected and synchronized counts.
 
 ## Hindsight
 

@@ -28,7 +28,9 @@ stacks:
     audit:
       docker_runtime: verified
       direct_http_recall: verified
-      hermes_mcp_test: connection_closed
+      hermes_mcp_test: connected_after_runtime_relocation
+      hermes_mcp_recall: verified_after_restart
+      hermes_mcp_health: healthy
     secrets: external-not-in-registry
     notes: Active containers currently use this nested working clone; do not move it without a runtime migration plan.
 
