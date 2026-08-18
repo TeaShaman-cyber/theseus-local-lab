@@ -22,6 +22,25 @@ secret-sensitive local workflow actions in `theseus-local-lab`.
    explicitly asks to sync or push this repo.
 6. General Git habits are last.
 
+## Commit Provenance
+
+When an agent authors a commit, keep the subject conventional and add these
+non-secret trailers to the body:
+
+```text
+Agent-Persona: Svarog
+Harness: Hermes Desktop
+Provider: openai-codex
+Model: gpt-5.6-luna
+Session-Ref: default/20260815_193832_6e377d
+```
+
+Use `Session-Ref` with the opaque session ID for public repositories. Do not
+put a private clickable session link, API key, token, raw prompt, or transcript
+in a public commit. Human-only commits may omit provenance. Once any of the
+five trailers is present, all five must be non-empty; the repository
+`.githooks/commit-msg` validator enforces that soft rule.
+
 ## Advisor Calls
 
 Before asking Copilot, Bothub, CodeWhale, or another advisor:

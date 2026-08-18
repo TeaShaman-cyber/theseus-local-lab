@@ -46,6 +46,34 @@ Rules:
 - Do not copy `config.yaml`, `.env`, OAuth state, API keys, private transcripts,
   raw memory, or MCP auth material between harnesses.
 
+## Commit Provenance
+
+Because several personas may work under one GitHub account, agent-authored
+commits should preserve provenance in machine-readable trailers. Keep the
+subject conventional and put provenance in the commit body:
+
+```text
+Agent-Persona: Svarog
+Harness: Hermes Desktop
+Provider: openai-codex
+Model: gpt-5.6-luna
+Session-Ref: default/20260815_193832_6e377d
+```
+
+Required agent trailer set:
+
+- `Agent-Persona`
+- `Harness`
+- `Provider`
+- `Model`
+- `Session-Ref`
+
+For a public repository, use the opaque session reference rather than a
+private clickable session link. For a manual human commit, these trailers may
+be omitted. If one provenance trailer is present, the `.githooks/commit-msg`
+check requires all five. Do not put API keys, access tokens, private prompts,
+or raw transcript content into commit messages.
+
 ## Route First
 
 Before non-trivial work, use the smallest matching project skill:
