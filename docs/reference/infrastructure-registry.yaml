@@ -1,5 +1,5 @@
 schema_version: 1
-last_verified: 2026-08-18
+last_verified: 2026-08-19
 source_of_truth: docs/reference/infrastructure-registry.yaml
 
 rules:
@@ -49,7 +49,7 @@ stacks:
     secrets: external-not-in-registry
 
   - id: hindsight
-    status: active-direct-nous-needs-cleanup
+    status: active-native-multi-llm-round-robin
     scope: hermes-only
     consumers: [hermes]
     consumers_excluded: [codex-currently]
@@ -62,7 +62,7 @@ stacks:
     audit:
       compose_labels_and_mount: verified
       container_restart_policy: unless-stopped
-      direct_recall: verified_direct_nous_65s
+      direct_recall: verified_direct_nous_65s_historical
       hermes_memory_status: provider_available
       failed_operations: 0
       failed_consolidation: 29
@@ -71,12 +71,21 @@ stacks:
       operation_cleanup: 150_terminal_failed_records_deleted
       operation_cleanup_manifest: D:/theseus-archive/hindsight/operation-cleanup-20260818.json
       memories_documents_deleted: false
-      llm_route: direct_inference_api_nous_solar_pro4
+      llm_route: native_hindsight_multi_llm_round_robin
+      llm_primary: bothub_nemotron_super_free
+      llm_member_1: openrouter_nemotron_super_free
+      llm_member_2: nous_solar_pro4_free
+      llm_weights: [3, 1, 1]
+      native_failover_preflight: verified
+      native_round_robin_preflight: verified
+      production_all_members_connection_verified: true
+      router_trace_monitor: /v1/default/banks/hermes/llm-requests
+      router_stats_monitor: /v1/default/banks/hermes/llm-requests/stats
       proxy_bypass: true
       pending_after_switch: zero
     codex_future: possible-separate-bank-or-namespace
     secrets: external-not-in-registry
-    notes: Direct Nous route is now active; historical failed operations require a separate cleanup audit.
+    notes: Native Hindsight routing is active with weighted round-robin across BotHub Nemotron, OpenRouter Nemotron, and Nous Solar; monitor route traces and historical failed-consolidation counter separately.
 
   - id: backup
     status: active-needs-review

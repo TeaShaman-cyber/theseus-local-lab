@@ -52,7 +52,7 @@ Read-only audit of the Docker/runtime ownership registry.
 - The previous proxy path had an intermittent upstream 403 probe, but this was
   not treated as a confirmed static auth failure: aiohttp with the same key
   reached `/v1/models` successfully and the Solar model was present.
-- The Hindsight compose route is now direct Nous API:
+- The initial post-cleanup route was direct Nous API:
   `https://inference-api.nousresearch.com/v1`, model `upstage/solar-pro4:free`.
   The Nous key is stored in `D:/hindsight/.env`; its value is not in Git or
   this audit.
@@ -67,6 +67,26 @@ Read-only audit of the Docker/runtime ownership registry.
 - After cleanup, the failed-operation endpoint returned zero records. The
   `failed_consolidation: 29` value remains as a historical counter, not a
   pending queue.
+- At `2026-08-18T22:10:01Z`, the Hindsight route was changed through the native
+  multi-LLM configuration, without a custom proxy:
+  `BotHub Nemotron Super → OpenRouter Nemotron Super → Nous Solar Pro4`.
+  The production strategy is weighted round-robin with weights `[3, 1, 1]`;
+  each member also remains available for automatic fallthrough on transient
+  errors. Provider keys remain in `D:/hindsight/.env` and are not recorded here.
+- Disposable native-router preflight passed. Five round-robin retains produced
+  successful traces on all three configured models. A separate failover test
+  with an intentionally unreachable primary produced an error trace for the
+  primary and a successful OpenRouter Nemotron trace; the disposable bank and
+  pg0 data were deleted afterward.
+- Production startup verified all three provider connections. A production
+  `dry-run-extract` returned HTTP 200 in 5.72 seconds and stored nothing.
+  `health/ready` returned HTTP 200 after restart. The route monitor now records
+  recent provider/model counts, status counts, and p50/p95 latency from
+  `/v1/default/banks/hermes/llm-requests`; it never prints request bodies or
+  credentials.
+- The route monitor observed a temporary `pending_consolidation: 24` backlog
+  after restart; it drained to zero with `failed_operations: 0`. The historical
+  `failed_consolidation: 29` counter remains unchanged.
 - Hindsight remains Hermes-only in the current registry. A future Codex bank or
   namespace is a separate planned integration, not current capability.
 
@@ -87,5 +107,4 @@ hindsight             — Hermes-only, excluded from workshop recovery pending v
 stateful-agent-net    — disabled, excluded from recovery
 ```
 
-No Docker stack was started, stopped, restarted, or reconfigured during this
-audit.
+During the original read-only audit, no Docker stack was started, stopped, restarted, or reconfigured. The later native-router migration is documented in the Hindsight section above.
