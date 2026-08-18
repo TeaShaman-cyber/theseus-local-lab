@@ -22,6 +22,10 @@ stacks:
     containers: [automem-flask-api-1, automem-falkordb-1, automem-qdrant-1]
     memory_role: codex-primary-candidate
     availability_check: live-recall-per-harness
+    audit:
+      docker_runtime: verified
+      direct_http_recall: verified
+      hermes_mcp_test: connection_closed
     secrets: external-not-in-registry
     notes: Active containers currently use this nested working clone; do not move it without a runtime migration plan.
 
@@ -50,6 +54,11 @@ stacks:
     containers: [hindsight-api]
     memory_role: private-hermes-provider
     recovery: excluded-from-workshop-recovery-until-verified
+    audit:
+      compose_labels_and_mount: verified
+      container_restart_policy: unless-stopped
+      direct_recall: timeout
+      hermes_memory_status: provider_available_but_recall_unverified
     codex_future: possible-separate-bank-or-namespace
     secrets: external-not-in-registry
     notes: Hindsight is not a universal Theseus memory dependency and is not Codex's current provider.
@@ -66,7 +75,7 @@ stacks:
     recovery: registry-driven-after-readonly-audit
     secrets: external-not-in-registry
 
-  - id: observatory-docker-proxy
+  - id: docker-read-proxy
     status: active
     scope: shared-infrastructure
     consumers: [codex, hermes-optional]
@@ -77,7 +86,29 @@ stacks:
     recovery: needs-registry-verification
     secrets: external-not-in-registry
 
-  - id: workshop-dashboard
+  - id: graph-viewer
+    status: active
+    scope: local-lab
+    consumers: [codex]
+    source_kind: main-repository-subproject
+    compose_source: C:/Users/s.poklad/Documents/Codex/2026-07-08/life-science-research-plugin-life-science-4/automem-graph-viewer/docker-compose.yml
+    containers: [theseus-automem-graph-viewer]
+    role: read-only-memory-graph-viewer
+    recovery: registry-verified-by-existing-contract
+    secrets: external-not-in-registry
+
+  - id: log-lattice
+    status: active
+    scope: local-lab
+    consumers: [codex]
+    source_kind: main-repository-subproject
+    compose_source: C:/Users/s.poklad/Documents/Codex/2026-07-08/life-science-research-plugin-life-science-4/log-lattice/docker-compose.yml
+    containers: [theseus-log-lattice]
+    role: session-and-event-log
+    recovery: registry-verified-by-existing-contract
+    secrets: external-not-in-registry
+
+  - id: dashboard
     status: active
     scope: local-lab
     consumers: [codex]
