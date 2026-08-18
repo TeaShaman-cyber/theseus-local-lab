@@ -22,9 +22,12 @@ import duckdb
 from rank_bm25 import BM25Okapi
 
 
-ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_DB = Path.home() / ".cache" / "theseus-sonar" / "sonar.duckdb"
-DEFAULT_OUT = ROOT / "outputs" / "sonar_local"
+PACKAGE_ROOT = Path(__file__).resolve().parent
+REPO_ROOT = PACKAGE_ROOT.parents[1] if PACKAGE_ROOT.name == "sonar_local" else PACKAGE_ROOT
+DEFAULT_DB = Path(
+    os.getenv("THESEUS_SONAR_DB", str(Path.home() / ".cache" / "theseus-sonar" / "sonar.duckdb"))
+)
+DEFAULT_OUT = Path(os.getenv("THESEUS_SONAR_OUT", str(REPO_ROOT / "outputs" / "sonar_local")))
 CONTRACT_PATH = Path(__file__).with_name("federation_contract.json")
 TERM_RE = re.compile(r"[\w\-]+", re.UNICODE)
 

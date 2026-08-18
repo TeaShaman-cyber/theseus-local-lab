@@ -44,19 +44,18 @@ Run the protocol smoke test before registering or after changing the server:
 node tools/sonar_local/run_wsl.mjs mcp-smoke --windows-launcher
 ```
 
-Codex launches the persistent server through
-`tools/sonar_local/launch_mcp_wsl.mjs`. After adding or changing its MCP entry,
-restart Codex once so the host reloads the server configuration.
+Codex launches the persistent Docker-backed server through
+`tools/sonar_local/sonar_docker.mjs mcp`. After adding or changing its MCP
+entry, restart Codex once so the host reloads the server configuration.
 
 ```toml
 [mcp_servers.theseus_sonar]
-command = "/usr/local/bin/node"
-args = [
-  '/mnt/c/Users/s.poklad/Documents/Codex/2026-07-08/life-science-research-plugin-life-science-4/tools/sonar_local/launch_mcp_wsl.mjs',
-]
-cwd = '/mnt/c/Users/s.poklad/Documents/Codex/2026-07-08/life-science-research-plugin-life-science-4'
-startup_timeout_sec = 60.0
-tool_timeout_sec = 90.0
+command = 'node'
+args = ['tools/sonar_local/sonar_docker.mjs', 'mcp']
+cwd = '.'
+enabled = true
+startup_timeout_sec = 60
+tool_timeout_sec = 90
 ```
 
 Sonar is selective. Invoke it after compact/model switch, for cross-project or
@@ -66,10 +65,29 @@ simple facts, formatting, or a task already constrained by one clear memory and
 fresh runtime evidence.
 
 The refresh reads AutoMem through its authenticated HTTP graph API and never
-opens the FalkorDB volume directly. The DuckDB index lives on WSL ext4 at
-`~/.cache/theseus-sonar/sonar.duckdb`; keeping its small writes off `/mnt/c`
-avoids the Windows-mount penalty. Generated receipts stay under
-`outputs/sonar_local/`. Both are rebuildable.
+opens the FalkorDB volume directly. The DuckDB index and generated receipts
+live in the named Docker volume `sonar_local_sonar-data` under
+`/var/lib/sonar/`. Both are rebuildable; Windows and WSL only provide the thin
+launcher path.
+
+## HTTP Canary
+
+The project also contains a parallel localhost-only Streamable HTTP canary.
+Start it with:
+
+```text
+node tools/sonar_local/sonar_docker.mjs http
+```
+
+It publishes the same read-only MCP server at
+`http://127.0.0.1:8791/mcp` and reuses the named DuckDB volume. The
+`theseus_sonar` profile remains the stdio baseline; `theseus_sonar_http` is a
+separate project-scoped HTTP profile used only for transport comparison.
+
+Configured, discovered, exposed, and callable are separate states. A direct
+HTTP protocol smoke can pass while Codex Desktop still fails to surface the
+tools; that result is evidence about the Desktop MCP injection boundary, not
+proof that Sonar or Docker is unhealthy.
 
 ## Output Contract
 

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import os
+import sys
 import threading
 from datetime import datetime, timezone
 from pathlib import Path
@@ -27,6 +28,8 @@ mcp = FastMCP(
         "evidence slice, authority bridges, conflicts, temporal drift, and explicit "
         "gaps. Sonar never overrides user intent or live operational verification."
     ),
+    host="0.0.0.0",
+    port=8000,
 )
 
 
@@ -154,7 +157,10 @@ def sonar_preflight(
 
 
 def main() -> None:
-    mcp.run(transport="stdio")
+    if "--http" in sys.argv:
+        mcp.run(transport="streamable-http")
+    else:
+        mcp.run(transport="stdio")
 
 
 if __name__ == "__main__":

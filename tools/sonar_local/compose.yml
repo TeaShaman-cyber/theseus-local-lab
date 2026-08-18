@@ -1,0 +1,35 @@
+services:
+  sonar:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      AUTOMEM_API_URL: ${THESEUS_SONAR_AUTOMEM_URL:-http://host.docker.internal:8001}
+      AUTOMEM_API_TOKEN: ${AUTOMEM_API_TOKEN:-}
+      THESEUS_SONAR_DB: /var/lib/sonar/sonar.duckdb
+      THESEUS_SONAR_OUT: /var/lib/sonar/output
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    stdin_open: true
+    volumes:
+      - sonar-data:/var/lib/sonar
+
+  sonar-http:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      AUTOMEM_API_URL: ${THESEUS_SONAR_AUTOMEM_URL:-http://host.docker.internal:8001}
+      AUTOMEM_API_TOKEN: ${AUTOMEM_API_TOKEN:-}
+      THESEUS_SONAR_DB: /var/lib/sonar/sonar.duckdb
+      THESEUS_SONAR_OUT: /var/lib/sonar/output
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "127.0.0.1:8791:8000"
+    volumes:
+      - sonar-data:/var/lib/sonar
+    command: ["python", "sonar_mcp.py", "--http"]
+
+volumes:
+  sonar-data:

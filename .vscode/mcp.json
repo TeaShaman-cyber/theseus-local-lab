@@ -9,6 +9,21 @@
       "env": {
         "THESEUS_PROJECT_ROOT": "${workspaceFolder}"
       }
+    },
+    "theseus-sonar": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "${workspaceFolder}/tools/sonar_local/sonar_docker.mjs",
+        "mcp"
+      ],
+      "env": {
+        "THESEUS_PROJECT_ROOT": "${workspaceFolder}"
+      }
+    },
+    "theseus-sonar-http": {
+      "type": "http",
+      "url": "http://127.0.0.1:8791/mcp"
     }
   }
 }

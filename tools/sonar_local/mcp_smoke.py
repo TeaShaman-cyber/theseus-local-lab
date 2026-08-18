@@ -6,6 +6,7 @@ from __future__ import annotations
 import asyncio
 import argparse
 import json
+import os
 import sys
 import time
 from pathlib import Path
@@ -35,7 +36,12 @@ def structured(result: object) -> dict:
     for item in getattr(result, "content", []):
         text = getattr(item, "text", None)
         if text:
-            parsed = json.loads(text)
+            try:
+                parsed = json.loads(text)
+            except json.JSONDecodeError as exc:
+                raise RuntimeError(
+                    f"MCP result contained non-JSON text: {text[:500]!r}"
+                ) from exc
             if isinstance(parsed, dict):
                 return parsed
     raise RuntimeError("MCP result did not contain a structured object")
@@ -43,9 +49,13 @@ def structured(result: object) -> dict:
 
 async def smoke(use_windows_launcher: bool) -> None:
     params = (
-        StdioServerParameters(command="node.exe", args=[windows_path(LAUNCHER)])
+        StdioServerParameters(
+            command="node.exe", args=[windows_path(LAUNCHER)], env=dict(os.environ)
+        )
         if use_windows_launcher
-        else StdioServerParameters(command=sys.executable, args=[str(SERVER)])
+        else StdioServerParameters(
+            command=sys.executable, args=[str(SERVER)], env=dict(os.environ)
+        )
     )
     started = time.perf_counter()
     async with stdio_client(params) as streams:
@@ -63,6 +73,8 @@ async def smoke(use_windows_launcher: bool) -> None:
             status = structured(status_result)
             if getattr(status_result, "isError", False):
                 raise RuntimeError(f"sonar_status failed: {status_result}")
+            if status.get("counts", {}).get("documents", 0) == 0:
+                raise RuntimeError(f"MCP server sees an empty index: {status}")
 
             first_started = time.perf_counter()
             first_result = await session.call_tool(
