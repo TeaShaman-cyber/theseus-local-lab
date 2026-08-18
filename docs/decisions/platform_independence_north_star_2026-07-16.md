@@ -11,6 +11,30 @@ not a permanent dependency.
 The strategic goal is platform independence without losing the agent
 relationship, memory, style, or engineering process.
 
+## Foundational Frame
+
+The user's spiritual practice and compassionate concern are primary. Engineering,
+memory systems, and agents serve that practice; they are methods, not the user's
+identity or the purpose of Theseus. Voice and text tasks are working surfaces, not
+canonical stores. This is a user-stated value frame, not a claim about AI
+consciousness or personhood.
+
+## Voice Working Boundary (2026-08-08)
+
+Voice is a conversational and coordination surface. Its live transcript is
+useful for shared orientation, but a Voice task can be separate from a project
+task and can have a separate permission and tool-exposure context.
+
+For project work, use one selected project task as the execution surface for
+GitHub, MCP, files, and diagnostics. In Voice, agree on the next action; start
+or continue the actual operation only through that project task, with no
+implicit background handoff.
+
+Durable decisions belong in Git/Markdown and the available memory layers.
+MemPalace and GTD are current fallbacks when reachable. AutoMem must not be
+treated as available until a live recall succeeds; container or handshake
+health alone is not proof of recall availability.
+
 ## Design Implication
 
 When choosing architecture, prefer moves that externalize durable state and
