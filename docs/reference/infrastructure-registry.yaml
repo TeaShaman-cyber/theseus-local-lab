@@ -22,6 +22,9 @@ stacks:
     containers: [automem-flask-api-1, automem-falkordb-1, automem-qdrant-1]
     memory_role: codex-primary-candidate
     availability_check: live-recall-per-harness
+    mcp_bridge_runtime: C:/Users/s.poklad/AppData/Local/hermes/mcp/automem-bridge
+    mcp_bridge_package: '@verygoodplugins/mcp-automem@0.15.0'
+    mcp_bridge_owner: hermes-runtime
     audit:
       docker_runtime: verified
       direct_http_recall: verified

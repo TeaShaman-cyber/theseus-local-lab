@@ -17,6 +17,20 @@ Read-only audit of the Docker/runtime ownership registry.
   AutoMem-first according to the harness boundary; provider claims must be
   verified per harness.
 
+## AutoMem MCP repair
+
+- `hermes mcp test automem` initially returned `Connection closed` because the
+  Hermes config pointed to the project `work/mcp-automem-bridge` path after that
+  scaffold had been archived.
+- The local bridge was restored under the Hermes runtime-owned path
+  `C:/Users/s.poklad/AppData/Local/hermes/mcp/automem-bridge`, the package
+  metadata was pinned to `@verygoodplugins/mcp-automem@0.15.0`, and the config
+  was updated through the package's official Hermes config helper.
+- Post-repair `hermes mcp test automem` connected in 4.3 seconds and discovered
+  six tools; the config keeps five selected tools and excludes deletion.
+- A fresh Hermes process/session is still required before the current agent
+  tool registry can be assumed to contain the repaired MCP tools.
+
 ## Hindsight
 
 - Compose source: `D:/hindsight/docker-compose.yml`.
