@@ -60,6 +60,13 @@ Read-only audit of the Docker/runtime ownership registry.
   results. Health/ready remained healthy and pending operations/consolidation
   remained zero. The remaining issue is latency and historical failures, not
   current direct API reachability.
+- A technical manifest was saved at
+  `D:/theseus-archive/hindsight/operation-cleanup-20260818.json`, then all 150
+  terminal failed operation records were deleted through the official delete
+  endpoint. No memories or documents were deleted; document count remained 20.
+- After cleanup, the failed-operation endpoint returned zero records. The
+  `failed_consolidation: 29` value remains as a historical counter, not a
+  pending queue.
 - Hindsight remains Hermes-only in the current registry. A future Codex bank or
   namespace is a separate planned integration, not current capability.
 

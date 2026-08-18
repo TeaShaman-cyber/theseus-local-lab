@@ -64,9 +64,13 @@ stacks:
       container_restart_policy: unless-stopped
       direct_recall: verified_direct_nous_65s
       hermes_memory_status: provider_available
-      failed_operations: 150
+      failed_operations: 0
       failed_consolidation: 29
+      failed_consolidation_note: historical_counter_after_terminal_operation_cleanup
       sampled_failure: historical_APIConnectionError_during_proxy_route
+      operation_cleanup: 150_terminal_failed_records_deleted
+      operation_cleanup_manifest: D:/theseus-archive/hindsight/operation-cleanup-20260818.json
+      memories_documents_deleted: false
       llm_route: direct_inference_api_nous_solar_pro4
       proxy_bypass: true
       pending_after_switch: zero
