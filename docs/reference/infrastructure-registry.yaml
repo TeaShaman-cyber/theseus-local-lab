@@ -1,0 +1,101 @@
+schema_version: 1
+last_verified: 2026-08-18
+source_of_truth: docs/reference/infrastructure-registry.yaml
+
+rules:
+  compose_source_is_iac: true
+  runtime_root_is_source: false
+  data_root_is_source: false
+  recovery_requires_stack_id: true
+  unknown_stack_action: stop_and_inventory
+  secrets_in_registry: false
+  docker_health_proves_read_path: false
+
+stacks:
+  - id: automem
+    status: active
+    scope: shared-service
+    consumers: [codex, hermes-optional]
+    source_kind: upstream-working-clone
+    compose_source: C:/Users/s.poklad/Documents/Codex/2026-07-08/life-science-research-plugin-life-science-4/work/automem
+    runtime_working_dir: C:/Users/s.poklad/Documents/Codex/2026-07-08/life-science-research-plugin-life-science-4/work/automem
+    containers: [automem-flask-api-1, automem-falkordb-1, automem-qdrant-1]
+    memory_role: codex-primary-candidate
+    availability_check: live-recall-per-harness
+    secrets: external-not-in-registry
+    notes: Active containers currently use this nested working clone; do not move it without a runtime migration plan.
+
+  - id: mempalace
+    status: active
+    scope: shared-optional-service
+    consumers: [codex, hermes-optional]
+    source_kind: pilot-runtime-tree
+    compose_source: C:/Users/s.poklad/Documents/Codex/2026-07-08/life-science-research-plugin-life-science-4/work/mempalace-pilot
+    runtime_working_dir_windows: C:/Users/s.poklad/Documents/Codex/2026-07-08/life-science-research-plugin-life-science-4/work/mempalace-pilot
+    runtime_working_dir_wsl: /home/poklad/theseus-local-lab/work/mempalace-pilot
+    containers: [theseus-mempalace]
+    memory_role: episodic-verbatim-optional
+    availability_check: live-read-per-harness
+    destructive_policy: do-not-delete-without-explicit-user-approval
+    secrets: external-not-in-registry
+
+  - id: hindsight
+    status: active-needs-readonly-inventory
+    scope: hermes-only
+    consumers: [hermes]
+    consumers_excluded: [codex-currently]
+    source_kind: legacy-runtime-root
+    compose_source: D:/hindsight/docker-compose.yml
+    runtime_root: D:/hindsight
+    containers: [hindsight-api]
+    memory_role: private-hermes-provider
+    recovery: excluded-from-workshop-recovery-until-verified
+    codex_future: possible-separate-bank-or-namespace
+    secrets: external-not-in-registry
+    notes: Hindsight is not a universal Theseus memory dependency and is not Codex's current provider.
+
+  - id: backup
+    status: active-needs-review
+    scope: shared-infrastructure
+    consumers: [codex, hermes-optional]
+    source_kind: standalone-project
+    compose_source: D:/theseus-backup/backup-lattice/docker-compose.yml
+    runtime_working_dir_wsl: /mnt/d/theseus-backup/backup-lattice
+    containers: [theseus-backup-runner]
+    role: backup-and-restore
+    recovery: registry-driven-after-readonly-audit
+    secrets: external-not-in-registry
+
+  - id: observatory-docker-proxy
+    status: active
+    scope: shared-infrastructure
+    consumers: [codex, hermes-optional]
+    source_kind: standalone-project
+    compose_source: D:/theseus-observatory/docker-proxy-lattice
+    containers: [theseus-docker-socket-proxy]
+    role: narrow-docker-observability-route
+    recovery: needs-registry-verification
+    secrets: external-not-in-registry
+
+  - id: workshop-dashboard
+    status: active
+    scope: local-lab
+    consumers: [codex]
+    source_kind: main-repository-subproject
+    compose_source: C:/Users/s.poklad/Documents/Codex/2026-07-08/life-science-research-plugin-life-science-4/tools/workshop_dashboard
+    containers: [theseus-workshop-dashboard]
+    role: local-dashboard
+    recovery: needs-registry-verification
+    secrets: external-not-in-registry
+
+  - id: stateful-agent-net
+    status: disabled
+    scope: local-lab
+    consumers: []
+    source_kind: main-repository-subproject
+    compose_source: C:/Users/s.poklad/Documents/Codex/2026-07-08/life-science-research-plugin-life-science-4/stateful-agent-net/docker-compose.yml
+    containers: [stateful-agent-net-collector-1]
+    role: retired-custom-monitoring
+    recovery: disabled-and-excluded
+    auto_start: false
+    notes: Do not revive or delete its data without explicit user direction.

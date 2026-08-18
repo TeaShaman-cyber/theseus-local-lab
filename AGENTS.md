@@ -46,6 +46,30 @@ Rules:
 - Do not copy `config.yaml`, `.env`, OAuth state, API keys, private transcripts,
   raw memory, or MCP auth material between harnesses.
 
+## Canonical Workspace And Infrastructure Registries
+
+Before opening, creating, moving, or mutating a project or Docker stack, read:
+
+- `docs/reference/workspace-registry.yaml` for canonical project paths,
+  remotes, pilots, and archives;
+- `docs/reference/infrastructure-registry.yaml` for compose sources, runtime
+  roots, consumers, recovery boundaries, and stack ownership.
+
+Rules:
+
+- A path absent from the workspace registry is not a canonical project until it
+  is classified and registered.
+- `tmp/`, `work/`, `output/`, `artifacts/`, and `D:/theseus-archive/` are not
+  default source roots.
+- A Docker health result does not prove that a memory provider or API read path
+  works; perform the relevant live read/recall check.
+- Hindsight is Hermes-specific in the current environment. Codex currently uses
+  AutoMem-first and must not assume access to a Hermes Hindsight bank.
+- Do not add a stack to recovery or create a new compose source without an
+  infrastructure-registry entry and a verified owner/runtime boundary.
+
+See `docs/reference/README.md` for the update contract.
+
 ## Commit Provenance
 
 Because several personas may work under one GitHub account, agent-authored

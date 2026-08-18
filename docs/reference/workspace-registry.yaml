@@ -1,0 +1,101 @@
+schema_version: 1
+last_verified: 2026-08-18
+source_of_truth: docs/reference/workspace-registry.yaml
+
+rules:
+  unregistered_path: stop_and_classify_before_use
+  duplicate_remote: compare_head_status_and_history
+  archive_is_source: false
+  tmp_is_source: false
+  work_is_source: false
+
+projects:
+  - id: theseus-local-lab
+    canonical_path: C:/Users/s.poklad/Documents/Codex/2026-07-08/life-science-research-plugin-life-science-4
+    remote: https://github.com/TeaShaman-cyber/theseus-local-lab.git
+    status: active
+    role: main-lab
+    lead_harness: codex
+    notes: Main Theseus local-lab repository; not the Hermes runtime directory.
+
+  - id: theseus-osint
+    canonical_path: D:/theseus-osint
+    remote: https://github.com/TeaShaman-cyber/theseus-osint.git
+    status: active
+    role: public-research-and-harness-adapters
+    harnesses: [hermes, codex]
+
+  - id: theseus-sonar
+    canonical_path: D:/theseus-sonar
+    remote: https://github.com/TeaShaman-cyber/theseus-sonar.git
+    status: active
+    role: standalone-sonar-project
+
+  - id: nakama-test
+    canonical_path: C:/Users/s.poklad/Documents/Codex/2026-08-13/nakama-test
+    remote: https://github.com/TeaShaman-cyber/nakama-test.git
+    status: active
+    role: publication-and-persona-project
+
+  - id: theseus-research
+    canonical_path: C:/Users/s.poklad/Documents/Codex/2026-07-08/theseus-research
+    remote: https://github.com/TeaShaman-cyber/theseus-research.git
+    status: active
+    role: research-project
+
+  - id: theseus-backup
+    canonical_path: D:/theseus-backup
+    remote: https://github.com/TeaShaman-cyber/theseus-backup.git
+    status: active-needs-review
+    role: backup-and-restore-infrastructure
+
+  - id: theseus-knowledge-base
+    canonical_path: D:/theseus-knowledge-base
+    remote: https://github.com/TeaShaman-cyber/theseus-knowledge-base.git
+    status: active
+    role: private-knowledge-base
+
+  - id: theseus-nii
+    canonical_path: D:/theseus-nii
+    remote: https://github.com/TeaShaman-cyber/theseus-nii.git
+    status: active-needs-review
+    role: agent-and-model-experiments
+
+  - id: theseus-observatory
+    canonical_path: D:/theseus-observatory
+    remote: https://github.com/TeaShaman-cyber/theseus-observatory.git
+    status: active
+    role: observability-and-docker-proxy
+
+  - id: theseus-public-observatory
+    canonical_path: D:/theseus-public-observatory
+    remote: https://github.com/TeaShaman-cyber/theseus-public-observatory.git
+    status: active
+    role: public-observatory
+
+  - id: graphify-theseus-pilot
+    canonical_path: C:/Users/s.poklad/Documents/Codex/2026-07-08/graphify-theseus-pilot
+    remote: null
+    status: pilot-no-git
+    role: graphify-corpus-experiment
+    notes: Separate pilot directory, not an active canonical Git project.
+
+archives:
+  - id: theseus-archive-workspaces
+    canonical_path: D:/theseus-archive/workspaces
+    remote: null
+    status: preserved-history
+    writable_for_new_projects: false
+    index: D:/theseus-archive/workspaces/INDEX.md
+
+  - id: theseus-sonar-stale-codex-clone
+    canonical_path: D:/theseus-archive/workspaces/theseus-sonar-stale-2026-07-08
+    remote: https://github.com/TeaShaman-cyber/theseus-sonar.git
+    status: archived-stale-clone
+    canonical_project: theseus-sonar
+
+  - id: nakama-test-stale-draft
+    canonical_path: D:/theseus-archive/workspaces/nakama-test-stale-draft-2026-08-05
+    remote: https://github.com/TeaShaman-cyber/nakama-test.git
+    status: archived-stale-clone
+    canonical_project: nakama-test
