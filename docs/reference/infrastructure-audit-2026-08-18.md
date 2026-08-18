@@ -42,20 +42,24 @@ Read-only audit of the Docker/runtime ownership registry.
 - Compose labels point back to `D:/hindsight`; ports are 8888 (API) and 9999
   (control plane); pg0 is mounted from `D:/hindsight/pg0`.
 - Runtime restart policy observed from Docker: `unless-stopped`.
-- Hermes reports the provider as available, but a direct bounded Hindsight
-  `/memories/recall` request timed out. Health/configuration is not treated as
-  proof of a working recall path.
-- Fresh logs show successful Hindsight LLM calls can take 17–69 seconds and
-  consolidation can take 93–109 seconds; the request was logged as
+- Before the direct-route switch, a bounded Hindsight `/memories/recall`
+  request timed out. Fresh logs showed successful LLM calls taking 17–69
+  seconds and consolidation taking 93–109 seconds; the request was logged as
   `RECALL CANCELLED` after the client disconnected.
-- Bank stats report `failed_operations: 150` and `failed_consolidation: 29`, with
-  no pending operations. A bounded failed-operation listing returned the same
-  sampled class: `Fact extraction failed ... APIConnectionError: Connection error.`
-- Hindsight routes LLM calls through `host.docker.internal:8645/v1` using Solar
-  Pro4. The container reaches `/health`, but a `/v1/models` probe receives 403
-  with the compose `dummy-proxy-key`; Hermes proxy has `enforce_on_docker: true`.
-  The compose/proxy bearer contract is therefore a high-confidence root-cause
-  candidate and needs a focused auth check before any config change.
+- Bank stats before the switch reported `failed_operations: 150` and
+  `failed_consolidation: 29`, with no pending operations. A bounded failed-
+  operation listing returned `Fact extraction failed ... APIConnectionError`.
+- The previous proxy path had an intermittent upstream 403 probe, but this was
+  not treated as a confirmed static auth failure: aiohttp with the same key
+  reached `/v1/models` successfully and the Solar model was present.
+- The Hindsight compose route is now direct Nous API:
+  `https://inference-api.nousresearch.com/v1`, model `upstage/solar-pro4:free`.
+  The Nous key is stored in `D:/hindsight/.env`; its value is not in Git or
+  this audit.
+- Post-switch bounded recall returned HTTP 200 in 65.23 seconds with four
+  results. Health/ready remained healthy and pending operations/consolidation
+  remained zero. The remaining issue is latency and historical failures, not
+  current direct API reachability.
 - Hindsight remains Hermes-only in the current registry. A future Codex bank or
   namespace is a separate planned integration, not current capability.
 

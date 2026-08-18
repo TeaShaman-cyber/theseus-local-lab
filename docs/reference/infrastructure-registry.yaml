@@ -49,7 +49,7 @@ stacks:
     secrets: external-not-in-registry
 
   - id: hindsight
-    status: active-needs-readonly-inventory
+    status: active-direct-nous-needs-cleanup
     scope: hermes-only
     consumers: [hermes]
     consumers_excluded: [codex-currently]
@@ -62,16 +62,17 @@ stacks:
     audit:
       compose_labels_and_mount: verified
       container_restart_policy: unless-stopped
-      direct_recall: timeout
-      hermes_memory_status: provider_available_but_recall_unverified
+      direct_recall: verified_direct_nous_65s
+      hermes_memory_status: provider_available
       failed_operations: 150
       failed_consolidation: 29
-      sampled_failure: APIConnectionError_during_fact_extraction
-      llm_route: host.docker.internal_8645_solar_pro4
-      docker_proxy_auth: dummy_proxy_key_rejected_403_on_models_probe
+      sampled_failure: historical_APIConnectionError_during_proxy_route
+      llm_route: direct_inference_api_nous_solar_pro4
+      proxy_bypass: true
+      pending_after_switch: zero
     codex_future: possible-separate-bank-or-namespace
     secrets: external-not-in-registry
-    notes: Hindsight is not a universal Theseus memory dependency and is not Codex's current provider.
+    notes: Direct Nous route is now active; historical failed operations require a separate cleanup audit.
 
   - id: backup
     status: active-needs-review
