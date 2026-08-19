@@ -1,5 +1,5 @@
 schema_version: 1
-last_verified: 2026-08-18
+last_verified: 2026-08-19
 source_of_truth: docs/reference/workspace-registry.yaml
 
 rules:
@@ -54,6 +54,14 @@ projects:
     remote: https://github.com/TeaShaman-cyber/theseus-knowledge-base.git
     status: active
     role: private-knowledge-base
+
+  - id: theseus-infrastructure
+    canonical_path: D:/theseus-infrastructure
+    remote: null
+    status: active-local
+    role: cloud-and-agent-infrastructure-as-code
+    harnesses: [hermes, codex]
+    notes: Dedicated Git project for Timeweb Cloud, LangGraph pilot, provider egress/VPN checks, monitoring, backup, and recovery. Secrets and runtime state stay outside Git; remote publication is not configured yet.
 
   - id: theseus-nii
     canonical_path: D:/theseus-nii
