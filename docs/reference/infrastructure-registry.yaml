@@ -1,5 +1,5 @@
-schema_version: 1
-last_verified: 2026-08-19
+schema_version: 2
+last_verified: 2026-08-25
 source_of_truth: docs/reference/infrastructure-registry.yaml
 
 rules:
@@ -10,6 +10,29 @@ rules:
   unknown_stack_action: stop_and_inventory
   secrets_in_registry: false
   docker_health_proves_read_path: false
+
+providers:
+  - id: digitalocean
+    status: active-read-only-route-verified
+    scope: cloud-provider-control-plane
+    source_kind: official-hosted-mcp
+    iac_project: D:/theseus-infrastructure
+    normal_adapter: D:/theseus-infrastructure/scripts/digitalocean_mcp.py
+    endpoints:
+      accounts: https://accounts.mcp.digitalocean.com/mcp
+      droplets: https://droplets.mcp.digitalocean.com/mcp
+    credential_owner: hermes-runtime
+    secrets: external-not-in-registry
+    mutation_policy: explicit-user-approval-plus-wrapper-allow-mutation
+    verification:
+      verified_at: 2026-08-25
+      accounts_tool_discovery: authenticated
+      droplets_tool_discovery: authenticated
+      account_read_path: verified
+      droplet_read_path: verified
+      ssh_key_read_path: verified
+      resources_created_or_changed: false
+    notes: Provider control plane only; no DigitalOcean resource is registered until it is explicitly created and read back.
 
 stacks:
   - id: automem
