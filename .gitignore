@@ -100,3 +100,4 @@ outputs/gramps_mcp_crud_direct/*
 *.key
 *.pem
 *.pfx
+outputs/memory_outbox/
