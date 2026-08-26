@@ -12,6 +12,10 @@ through the existing project hook router. Hermes remains isolated on bank
   exist, returns bounded `hookSpecificOutput.additionalContext`.
 - `Stop` reads the Codex transcript and submits an asynchronous retain request
   keyed by the Codex session ID.
+- The memory gate extracts only textual message content from JSONL transcripts;
+  tool payloads are not used as semantic or episodic candidates.
+- Accepted events are flushed to AutoMem and MemPalace through separate
+  projections, each tracked by the same stable event ID.
 - The adapter is fail-soft: network, parse, transcript, and endpoint errors are
   written to stderr and exit successfully so the Codex turn is not blocked.
 - No second Hindsight manifest is installed; the project router is the sole
@@ -27,6 +31,8 @@ through the existing project hook router. Hermes remains isolated on bank
 - `node --test hooks/hook-router.test.mjs` passed (3/3).
 - Read-only recall smoke completed against local Hindsight without creating a
   document.
+- Live bounded `Stop` smoke wrote one event, then AutoMem recall and MemPalace
+  semantic search both returned the expected event/checkpoint.
 
 ## Rollback
 
