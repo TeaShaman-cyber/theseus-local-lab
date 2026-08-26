@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import test from "node:test";
+import { mkdtemp, writeFile, rm } from "node:fs/promises";
+import { tmpdir } from "node:os";
 
 function gate(payload) {
   return JSON.parse(execFileSync(process.execPath, ["tools/memory_gate/memory_gate.mjs"], { input: JSON.stringify(payload), encoding: "utf8" }));
@@ -20,4 +22,15 @@ test("accepts durable engineering signal", () => {
 
 test("rejects secret-bearing payloads", () => {
   assert.equal(gate({ session_id: "s1", summary: "Decision: API_KEY=super-secret-value" }).accept, false);
+});
+
+test("extracts durable text from Codex transcript path", async () => {
+  const dir = await mkdtemp(`${tmpdir()}\\memory-gate-`);
+  const file = `${dir}\\rollout.jsonl`;
+  await writeFile(file, `${JSON.stringify({ payload: { role: "user", content: "Decision: retain only verified fixes in AutoMem." }})}\n`);
+  try {
+    assert.equal(gate({ session_id: "s2", transcript_path: file }).accept, true);
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
 });
