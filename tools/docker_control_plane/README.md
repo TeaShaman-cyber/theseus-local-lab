@@ -7,15 +7,15 @@ authorized in the normal `s.poklad` user session. Direct `docker.exe` MCP
 servers inherit the sandbox identity and fail on Docker Desktop state such as
 `C:\Users\s.poklad\.docker\config.json` or `npipe:////./pipe/docker_engine`.
 
-For Windows, Docker Desktop can expose its daemon on `tcp://127.0.0.1:2375`,
-and Codex can use a small allowlisted stdio MCP server with an explicit
-`DOCKER_HOST`. In WSL, leave `DOCKER_HOST` unset: the same bridge then uses the
-native Docker Unix socket.
+On Windows, the preferred route is to leave `DOCKER_HOST` unset and let the
+bridge use the active native Docker Desktop context. In WSL, the same bridge
+uses the native Docker Unix socket. This avoids coupling the agent to WSL paths
+or an unauthenticated TCP daemon.
 
-Important: treat raw `2375` as a Windows-local legacy bridge, not the durable
-agent contract. Docker's own documentation warns that unauthenticated TCP daemon
-access can become root-equivalent host access if exposed outside an isolated
-local boundary.
+Treat `tcp://127.0.0.1:2375` as a Windows-local legacy diagnostic fallback only.
+Docker's own documentation warns that unauthenticated TCP daemon access can
+become root-equivalent host access if exposed outside an isolated local
+boundary. Do not use it as the durable Codex agent contract.
 
 For WSL migration, prefer an allowlisted layer:
 
@@ -37,20 +37,22 @@ user context and connect Codex through `bridge.mjs`.
 
 ## Preferred Codex MCP config
 
-Replace or add a Docker bridge server in `C:\Users\s.poklad\.codex\config.toml`:
+If Codex needs a project-local MCP entry, use the native active context:
 
 ```toml
 [mcp_servers.theseus_docker]
 command = 'node'
-args = ['C:\Users\s.poklad\Documents\Codex\2026-07-08\life-science-research-plugin-life-science-4\tools\docker_control_plane\direct_bridge.mjs']
+args = ['<repo>\\tools\\docker_control_plane\\direct_bridge.mjs']
 enabled = true
 startup_timeout_sec = 30
 tool_timeout_sec = 90
 
 [mcp_servers.theseus_docker.env]
-DOCKER_HOST = 'tcp://127.0.0.1:2375'
-THESEUS_PROJECT_ROOT = 'C:\Users\s.poklad\Documents\Codex\2026-07-08\life-science-research-plugin-life-science-4'
+THESEUS_PROJECT_ROOT = '<repo>'
 ```
+
+Do not add `DOCKER_HOST` to this native profile. Set it only for a separately
+approved legacy-TCP diagnostic and remove it afterward.
 
 ## Fallback daemon
 

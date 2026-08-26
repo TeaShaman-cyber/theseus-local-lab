@@ -9,14 +9,6 @@ created_at = "2026-08-08"
 updated_at = "2026-08-08"
 
 [[next_action]]
-id = "remove-copilot-task-proxy"
-title = "Remove stale Copilot task proxy"
-status = "next_action"
-notes = "Clean terminal bridge works without proxy. The VS Code task .vscode/tasks.json still injects COPILOT_ADVISOR_PROXY=http://127.0.0.1:10808. Remove that stale task env entry, run task-level canary, and verify no proxy variables are required. Do not alter secrets or global environment."
-created_at = "2026-08-06"
-updated_at = "2026-08-06"
-
-[[next_action]]
 id = "update-sonar-readme-maturity"
 title = "Update Sonar README maturity"
 status = "next_action"
@@ -33,15 +25,6 @@ project = "secure-gramps-mcp-auth"
 notes = "Inspect the current Caddy /mcp route and Gramps MCP auth contract; choose the smallest separate credential boundary for Codex, then plan KeePass+kprun delivery. Do not recreate the existing Gramps Editor account, read secret values, or change Infisical."
 created_at = "2026-08-08"
 updated_at = "2026-08-08"
-
-[[someday]]
-id = "evaluate-copilot-advisor-mcp"
-title = "Evaluate minimal Copilot Advisor MCP"
-status = "someday"
-project = "copilot-advisor-mcp-wrapper"
-notes = "Compare the existing VS Code task/bridge with a thin MCP wrapper for repeated Copilot advisory use around private theseus-sonar. Define boundary: task remains build/diagnostic executor; MCP is convenience/advisor surface only. Check auth/proxy inheritance, prompt redaction, timeouts, read-only semantics, and whether the added layer is worth the complexity. Do not build yet."
-created_at = "2026-08-06"
-updated_at = "2026-08-07"
 
 [[done]]
 id = "docker-gtd-smoke-20260805"
@@ -102,14 +85,6 @@ title = "Draft Sonar community boundary design"
 status = "done"
 project = "extract-sonar-community-core"
 notes = "Based on the bounded audit, define the private theseus-sonar incubation repository boundary: Core MVP, Theseus adapters, transports, fixtures, exclusions, maturity gates, and community-ready criteria. Design only; no repository creation or code move until the design is reviewed and approved."
-created_at = "2026-08-06"
-updated_at = "2026-08-06"
-
-[[done]]
-id = "repair-copilot-advisor-proxy"
-title = "Repair Copilot Advisor proxy"
-status = "done"
-notes = "Use the documented VS Code task / tools/copilot_advisor bridge. Verify the local proxy path with a harmless canary, then retry one narrow evidence-lens review prompt. Current observed failure: network fetch failed while Copilot CLI fetched https://api.github.com/copilot_internal/user. Do not change tokens or auth state speculatively; keep secrets out of logs."
 created_at = "2026-08-06"
 updated_at = "2026-08-06"
 
@@ -328,14 +303,6 @@ project = "extract-sonar-community-core"
 notes = "Add RED tests for an executable synthetic Sonar MCP stdio launcher that owns snapshot/index setup, delegates all protocol handling to McpProtocol, and exits cleanly at EOF. Verify the launcher remains offline and explicit about its synthetic snapshot path; do not edit Codex MCP config, add Docker, or connect live memory."
 created_at = "2026-08-07"
 updated_at = "2026-08-07"
-
-[[project]]
-id = "copilot-advisor-mcp-wrapper"
-title = "Copilot Advisor MCP wrapper"
-status = "project"
-notes = "Evaluate a minimal MCP wrapper for repeated Copilot advisory use while preserving VS Code tasks as the visible build/diagnostic route. Start with a read-only design and canary; no implementation, secrets, or global config changes until explicitly approved."
-created_at = "2026-08-06"
-updated_at = "2026-08-06"
 
 [[project]]
 id = "extract-sonar-community-core"

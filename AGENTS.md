@@ -144,8 +144,6 @@ Before non-trivial work, use the smallest matching project skill:
   memory, decisions, or continuity.
 - `.agents/skills/theseus-shell-routing/SKILL.md` before shell, Docker, WSL,
   JSON/text processing, or quoting-sensitive work.
-- `.agents/skills/theseus-copilot-advisor/SKILL.md` for narrow GitHub, VS Code,
-  GitHub Actions, Wiki, Issues, Projects, or Copilot tooling advice.
 - `.agents/skills/theseus-plugin-conclave/SKILL.md` for fresh research,
   external technical second opinions, plugin selection, or a bounded
   multi-source check.
@@ -219,7 +217,6 @@ Docker and observability work should favor the existing narrow tools:
 - `tools/session_timeline`
 - `tools/harness_errors`
 - `tools/memory_hook`
-- `tools/copilot_advisor`
 - `log-lattice`
 - `backup-lattice`
 

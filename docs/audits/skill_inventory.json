@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated": "2026-08-02",
-  "status": "baseline",
+  "generated": "2026-08-26",
+  "status": "reconciled",
   "backup_baseline": {
     "repository": "TeaShaman-cyber/theseus-local-lab",
     "branch": "main",
@@ -13,10 +13,10 @@
   "runtime_policy": "one active monolithic project; global Codex skills are the runtime surface; the aligned project copy and tracked copy are review/backup surfaces",
   "privacy": "identifiers and role metadata only; no prompts, secrets, transcripts, or raw logs",
   "counts": {
-    "project": 5,
+  "project": 3,
     "global": 8,
-    "total_records": 13,
-    "unique_skill_names": 10,
+    "total_records": 11,
+    "unique_skill_names": 8,
     "tracked_runtime_name_collisions": [
       "theseus-memory-stack",
       "theseus-shell-routing",
@@ -68,15 +68,6 @@
       "trigger": "fresh research, external technical evidence, plugin choice, disputed claim",
       "handoff_or_executor": "one primary oracle and at most one corroborator",
       "stop_or_verification_note": "local evidence outranks plugins; no noisy oracle swarm"
-    },
-    {
-      "id": "theseus-copilot-advisor",
-      "scope": "project",
-      "status": "active",
-      "role": "narrow GitHub/VS Code advisor route",
-      "trigger": "Copilot, GitHub Actions, Wiki, Issues, Projects, or Copilot tooling advice",
-      "handoff_or_executor": "existing advisor task or wrapper",
-      "stop_or_verification_note": "second opinion only; local evidence and repository checks remain authoritative"
     },
     {
       "id": "execution-guard",

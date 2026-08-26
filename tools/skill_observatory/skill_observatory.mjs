@@ -82,7 +82,6 @@ export function expectedSkills(rawInput) {
   if (has(/research|search|internet|osint|найди|поищи|исслед|документац|best practice|issue|плагин/iu)) {
     skills.push("theseus-plugin-conclave");
   }
-  if (has(/copilot|github action|ci\/cd|wiki/iu)) skills.push("theseus-copilot-advisor");
   return [...new Set(skills)];
 }
 

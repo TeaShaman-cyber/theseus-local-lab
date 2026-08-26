@@ -74,9 +74,9 @@ use the same allowlisted local tools as Codex.
 
 Current workspace MCP servers:
 
-- `theseus-docker-tcp`: Docker control through
-  `tools/docker_control_plane/direct_bridge.mjs` and
-  `DOCKER_HOST=tcp://127.0.0.1:2375`.
+- `theseus-docker-context`: Docker control through
+  `tools/docker_control_plane/direct_bridge.mjs` and the active native Docker
+  Desktop context; no WSL path or TCP `2375` setting is required.
 
 Important boundary: VS Code MCP gives tools to the VS Code agent. It does not
 by itself give Codex a reliable API to press VS Code buttons or read VS Code

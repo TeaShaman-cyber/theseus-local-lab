@@ -554,16 +554,6 @@
       "problemMatcher": []
     },
     {
-      "label": "Theseus: ask Copilot advisor",
-      "type": "process",
-      "command": "node",
-      "args": [
-        "tools/copilot_advisor/copilot_advisor.mjs",
-        "${input:copilotAdvisorPrompt}"
-      ],
-      "problemMatcher": []
-    },
-    {
       "label": "Theseus: ask Bothub council advisor",
       "type": "shell",
       "command": ".\\tools\\infisical_cli\\node_modules\\@infisical\\cli\\bin\\infisical.exe run --env=local --path=/providers -- pwsh -NoProfile -ExecutionPolicy Bypass -File .\\scripts\\bothub-council.ps1 -Prompt \"${input:bothubCouncilPrompt}\" -Models gpt-4o-mini -ChairmanModel gpt-4o-mini -MaxTokens 700 -SkipPeerReview -Quiet",
@@ -942,6 +932,26 @@
       "command": "node",
       "args": [
         "tools/hook_config/apply_hooks.mjs"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus: AgentOps/GitOps contract check",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "tools/contract_checks/agentops_gitops_contract.mjs"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Theseus: Hooks and contract tests",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "--test",
+        "hooks/hook-router.test.mjs",
+        "tools/contract_checks/agentops_gitops_contract.test.mjs"
       ],
       "problemMatcher": []
     },
@@ -1654,11 +1664,6 @@
       "default": "https://138-68-66-30.sslip.io"
     },
     {
-      "id": "copilotAdvisorPrompt",
-      "type": "promptString",
-      "description": "Safe, explicit prompt for Copilot advisor"
-    },
-    {
       "id": "checkpointCommitMessage",
       "type": "promptString",
       "description": "Commit message for the current checkpoint",
@@ -1693,7 +1698,6 @@
       "options": [
         "theseus-memory-stack",
         "theseus-shell-routing",
-        "theseus-copilot-advisor",
         "theseus-plugin-conclave",
         "theseus-git-hygiene"
       ],

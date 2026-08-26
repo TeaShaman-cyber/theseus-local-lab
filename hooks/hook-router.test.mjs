@@ -1,9 +1,29 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
+import { execFileSync } from "node:child_process";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
+import { shouldQueueResearch } from "./hook-policy.mjs";
+
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
+
+test("research queue is opt-in for every event", () => {
+  assert.equal(shouldQueueResearch("UserPromptSubmit", {}), false);
+  assert.equal(shouldQueueResearch("PostToolUse", {}), false);
+  assert.equal(shouldQueueResearch("UserPromptSubmit", { THESEUS_HOOK_RESEARCH: "0" }), false);
+  assert.equal(shouldQueueResearch("UserPromptSubmit", { THESEUS_HOOK_RESEARCH: "" }), false);
+  assert.equal(shouldQueueResearch("UserPromptSubmit", { THESEUS_HOOK_RESEARCH: "1" }), true);
+  assert.equal(shouldQueueResearch("PostToolUse", { THESEUS_HOOK_RESEARCH: "1" }), true);
+});
+
+test("tracked and runtime hook manifests stay in parity", () => {
+  const output = execFileSync(process.execPath, ["tools/hook_config/check_hooks.mjs"], {
+    cwd: repoRoot,
+    encoding: "utf8",
+  });
+  assert.equal(output.trim(), "HOOKS_MATCH");
+});
 
 function runHook(args, input, environment = {}) {
   return new Promise((resolve, reject) => {

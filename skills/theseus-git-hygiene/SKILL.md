@@ -1,6 +1,6 @@
 ---
 name: theseus-git-hygiene
-description: Use for Theseus local lab Git work, GitHub sync/publish, advisor calls, secret-sensitive commits, Infisical-backed provider changes, or any task where Codex might otherwise use raw shell, PowerShell, GitHub plugin workflows, Copilot, Bothub council, CodeWhale, git hooks, or direct pushes to private main.
+description: Use for Theseus local lab Git work, GitHub sync/publish, external advisor calls, secret-sensitive commits, Infisical-backed provider changes, or any task where Codex might otherwise use raw shell, PowerShell, GitHub plugin workflows, Bothub council, CodeWhale, git hooks, or direct pushes to private main.
 ---
 
 # Theseus Git Hygiene
@@ -92,7 +92,7 @@ staging to resolve an ambiguous worktree.
 
 ## Advisor Calls
 
-Before asking Copilot, Bothub, CodeWhale, or another advisor:
+Before asking an external advisor:
 
 1. Check for an existing VS Code task or repo wrapper.
 2. Use that task/wrapper as the canonical route.
@@ -102,7 +102,6 @@ Before asking Copilot, Bothub, CodeWhale, or another advisor:
 
 Canonical routes:
 
-- Copilot: VS Code task `Theseus: ask Copilot advisor`.
 - Bothub council: VS Code task `Theseus: ask Bothub council advisor`.
 - CodeWhale: `node tools/codewhale_infisical/run.mjs --provider BOTHUB ...`.
 

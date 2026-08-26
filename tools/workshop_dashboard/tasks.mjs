@@ -13,7 +13,7 @@ const GROUPS = [
   ["docker", "Docker & services", /docker|dashboard|graph viewer|log lattice|backup runner|keychain|secrets|tcp/i],
   ["graph", "Graph lens", /graphify|graph lens|repo graph|structural repo/i],
   ["observability", "Observability", /timeline|journal|harness|learning loop|workshop|observatory|status|system watch|sysinternals|scout/i],
-  ["advisors", "Advisors", /advisor|copilot|bothub|codewhale|council/i],
+  ["advisors", "Advisors", /advisor|bothub|codewhale|council/i],
   ["vm", "VM & SSH", /vm|ssh|ubuntu|image transfer/i],
   ["research", "Research & data", /research|stra?zh|index|inventory|lint|github issue|field report/i],
 ];
@@ -26,7 +26,7 @@ const CAPABILITIES = [
   ["backup", "Backup", /backup|mirror|archive/i],
   ["graph", "Graph lens", /graphify|graph lens|repo graph|structural repo/i],
   ["observability", "Observability", /status|health|timeline|journal|log lattice|dashboard|harness|learning loop|system watch|sysinternals|scout/i],
-  ["advisor", "Advisors", /advisor|copilot|bothub|council|codewhale/i],
+  ["advisor", "Advisors", /advisor|bothub|council|codewhale/i],
   ["vm", "VM/SSH", /vm|ssh|ubuntu|image transfer/i],
   ["research", "Research", /research|stra?zh|index|inventory|observatory|github issue|field report/i],
   ["lint", "Lint/check", /lint|check|scan|verify|smoke/i],
@@ -139,7 +139,7 @@ function taskKind(task) {
   const command = taskCommand(task);
   const text = `${label} ${command}`;
   if (/status|health|ps|list|scan|lint|check|smoke|inventory|verify/i.test(text)) return "check";
-  if (/advisor|council|copilot|bothub|codewhale/i.test(text)) return "advisor";
+  if (/advisor|council|bothub|codewhale/i.test(text)) return "advisor";
   if (/commit|backup|start|up|build|sync|apply|ingest|load|generate/i.test(text)) return "action";
   return "tool";
 }

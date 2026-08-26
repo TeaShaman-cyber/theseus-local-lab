@@ -21,7 +21,7 @@ Important:
   - local `git`
   - authenticated `gh`
   - repo safety hooks
-  - Copilot/advisor prompts when useful
+  - approved external advisor prompts when explicitly needed
   - GitHub connector only when explicitly needed
 
 Copied skill folders:
@@ -30,4 +30,3 @@ Copied skill folders:
 - `yeet`: branch, commit, push, and draft PR workflow.
 - `gh-fix-ci`: GitHub Actions failure inspection and fix workflow.
 - `gh-address-comments`: PR review-thread handling workflow.
-

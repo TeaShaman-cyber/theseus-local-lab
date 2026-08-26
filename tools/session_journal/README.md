@@ -25,7 +25,7 @@ Theseus: write session journal
 ## Terminal
 
 ```powershell
-node tools/session_journal/session_journal.mjs --note "Configured Copilot advisor and started WSL pilot."
+node tools/session_journal/session_journal.mjs --note "Verified native Docker bridge and AgentOps/GitOps contract."
 ```
 
 Journal files are written to:

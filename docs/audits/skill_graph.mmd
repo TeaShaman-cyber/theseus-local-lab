@@ -8,7 +8,6 @@ flowchart TD
   ShellP["tracked skill backup\ntheseus-shell-routing"]
   ShellG["global runtime\ntheseus-shell-routing"]
   Conclave["theseus-plugin-conclave"]
-  Copilot["theseus-copilot-advisor"]
   Hygiene["local-agent-hygiene"]
   Git["theseus-git-hygiene"]
   Research["research-routing"]
@@ -42,10 +41,6 @@ flowchart TD
   RouterP -->|selects| Conclave
   Conclave -->|hands_off| Oracle
   Conclave -->|requires| Evidence
-
-  RouterP -->|selects| Copilot
-  Copilot -->|hands_off| Task
-  Copilot -->|requires| Evidence
 
   RouterP -->|selects| Git
   Git -->|hands_off| GitExec

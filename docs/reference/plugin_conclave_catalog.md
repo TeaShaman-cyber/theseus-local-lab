@@ -15,7 +15,7 @@ layers local.
 | What does this site contain? | Tavily | Extraction affects a decision: Exa fetch | a durable archive |
 | What does research support? | Consensus | Important or cross-disciplinary claim: Scholar Gateway/SciSpace | a meta-analysis |
 | How do claims relate? | Agora | Causality needs formal model: Wolfram | causal proof |
-| How should this GitHub/VS Code path work? | Copilot advisor | Existing tooling may exist: HAPI MCP Registry | local test evidence |
+| How should this GitHub/VS Code path work? | local evidence | Existing tooling may exist: HAPI MCP Registry | unverified advisor opinion |
 | Which model/dataset/eval is relevant? | Hugging Face | Local feasibility matters: AMD local-AI route | hardware proof |
 | Why did a recorded app execution fail? | local trace/log/test | Recording exists: Replay.io | a general Windows monitor |
 | Does a proposed contract hold mathematically? | Wolfram | Implementation matters: local conformance test | runtime proof |
@@ -39,8 +39,8 @@ plugin-heavy task. The local skill is
 ## Audit Outcome
 
 Keep the general-purpose conclave deliberately small: Acumen, Exa, Tavily,
-Liner, Agora, Consensus, Scholar Gateway, Hugging Face, Replay.io, Copilot,
-HAPI, Wolfram, and the local memory stack. Domain-specific plugins remain
+Liner, Agora, Consensus, Scholar Gateway, Hugging Face, Replay.io, HAPI,
+Wolfram, and the local memory stack. Domain-specific plugins remain
 available through their own triggers. Write-capable personal systems are never
 called automatically just because a tool exists.
 

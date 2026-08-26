@@ -16,10 +16,10 @@ hook event
     -> PreCompact: tools/memory_hook/memory_hook.mjs --mode compact
     -> PostCompact: tools/memory_hook/memory_hook.mjs --mode checkpoint
        + tools/context_pressure_watch/context_pressure_watch.mjs
-    -> UserPromptSubmit: tools/model_switch_guard/model_switch_guard.mjs
-       injects a preflight only after model/effort changes
-    -> PostToolUse or THESEUS_HOOK_RESEARCH=1:
-       hooks/research-queue-hook.mjs
+    -> UserPromptSubmit: memory preflight + model-switch guard
+       + skill observatory; research queue only with THESEUS_HOOK_RESEARCH=1
+    -> PostToolUse: router support exists, but the project manifest does not
+       register this event; queue only with THESEUS_HOOK_RESEARCH=1
     -> Stop: tools/usage_scout/usage_scout.mjs refreshes local usage state
        + tools/context_pressure_watch/context_pressure_watch.mjs
        + checkpoint when THESEUS_HOOK_STOP_CHECKPOINT=1
@@ -47,14 +47,26 @@ Use this command from a Codex/ChatGPT Work hook:
 node hooks/hook-router.mjs --event PreCompact
 ```
 
-Codex can load hooks from user-level or project-level config layers:
+Codex can load hooks from user-level or project-level config layers. Matching
+hooks from multiple layers are all executed; a higher-precedence layer does not
+replace lower-precedence hooks.
 
 - `~/.codex/hooks.json`
 - `~/.codex/config.toml`
 - `<repo>/.codex/hooks.json`
 
-The tracked source of truth is `hooks/codex-hooks.json`. Install or refresh the
-ignored runtime copy without embedding a machine-specific project path:
+For this project the ownership split is:
+
+- `hooks/codex-hooks.json` — tracked source of truth;
+- `<repo>/.codex/hooks.json` — ignored generated runtime copy;
+- `~/.codex/hooks.json` and `~/.codex/config.toml` — user/global layer;
+- enabled plugin manifests, including trigger-tree — independent plugin-bundled
+  observers;
+- `[hooks.state]` in `~/.codex/config.toml` — trust/hash metadata, not hook
+  definitions.
+
+Install or refresh the ignored runtime copy without embedding a machine-specific
+project path:
 
 ```bash
 node tools/hook_config/apply_hooks.mjs
@@ -78,14 +90,33 @@ statusMessage = "Routing Stop hook"
 Useful events for this project:
 
 - `UserPromptSubmit`: run the model-switch guard before the next agent turn.
-- `PostToolUse`: queue connector/browser follow-up when routed through
-  `hook-router` or when `THESEUS_HOOK_RESEARCH=1` is set.
+- `Stop`: refresh usage, pressure, and skill-observatory state.
 - `PreCompact`: write a compact state packet through `tools/memory_hook`.
 - `PostCompact`: write a recovery checkpoint and refresh context-pressure
   status after compaction.
-- `Stop`: refresh the rollout-backed usage snapshot; set
-  `THESEUS_HOOK_STOP_CHECKPOINT=1` when an additional memory checkpoint is
-  needed.
+- `PostToolUse` is supported by `hook-router`, but is intentionally not
+  registered in the project manifest.
+
+### Research queue policy
+
+Research follow-up is explicit opt-in:
+
+- an ordinary `UserPromptSubmit` does not enqueue research;
+- `PostToolUse` does not enqueue research by default;
+- `THESEUS_HOOK_RESEARCH=1` enables the queue for an event already routed by
+  `hook-router`.
+
+The topic, reason, connector list, privacy label, and tags continue to come
+from the existing `THESEUS_HOOK_*` variables.
+
+### Fail-soft semantics
+
+- Optional observability or research failures do not block the main turn.
+- `skill_observatory` exit code `2` on `Stop` is a review warning, not a hard
+  lifecycle failure.
+- Critical memory/checkpoint failures remain visible in the hook status message.
+- Trigger-tree and the project router are treated as independent observers until
+  runtime telemetry proves whether any event is duplicated.
 
 Keep lifecycle hooks fail-soft and non-blocking. Add blocking hooks only after a
 route proves useful, quiet, and safe under real Codex restarts.
@@ -93,10 +124,17 @@ route proves useful, quiet, and safe under real Codex restarts.
 ## Smoke Tests
 
 ```text
+node --check hooks/hook-policy.mjs
 node --check hooks/hook-router.mjs
-node hooks/hook-router.mjs --event Stop
-node hooks/hook-router.mjs --event PreCompact
+node --check tools/hook_config/check_hooks.mjs
+node tools/hook_config/check_hooks.mjs
+node --test hooks/hook-router.test.mjs
 ```
+
+The same checks are available in VS Code tasks:
+
+- `Theseus: AgentOps/GitOps contract check`
+- `Theseus: Hooks and contract tests`
 
 Optional environment variables:
 

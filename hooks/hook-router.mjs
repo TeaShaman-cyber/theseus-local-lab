@@ -5,6 +5,8 @@ import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { shouldQueueResearch } from "./hook-policy.mjs";
+
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "..");
 
@@ -40,11 +42,6 @@ function runNode(args, input) {
     input,
     stdio: ["pipe", "pipe", "pipe"],
   });
-}
-
-function shouldQueueResearch(event) {
-  if (process.env.THESEUS_HOOK_RESEARCH === "1") return true;
-  return event === "UserPromptSubmit" || event === "PostToolUse";
 }
 
 function shouldCheckpointStop() {

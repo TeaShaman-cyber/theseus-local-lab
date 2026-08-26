@@ -11,14 +11,18 @@ canonical, and which path is only a runtime/archive/snapshot?**
   archives.
 - `infrastructure-registry.yaml` — Docker/runtime stacks, compose roots,
   consumers, and recovery boundaries.
+- `agentops-gitops-contract-v1.md` — executable ownership, evidence,
+  promotion, rollback, memory, hook, and recovery invariants for the agent
+  workshop.
 
 ## Read order
 
 1. Read the root `AGENTS.md`.
-2. Read `workspace-registry.yaml` before opening or creating a project copy.
-3. Read `infrastructure-registry.yaml` before inspecting or mutating Docker.
-4. Read the target project's own `AGENTS.md`/README.
-5. Verify the live Git/Docker state; registry entries are a routing contract,
+2. Read `agentops-gitops-contract-v1.md` for cross-layer invariants.
+3. Read `workspace-registry.yaml` before opening or creating a project copy.
+4. Read `infrastructure-registry.yaml` before inspecting or mutating Docker.
+5. Read the target project's own `AGENTS.md`/README.
+6. Verify the live Git/Docker state; registry entries are a routing contract,
    not proof that a service is currently healthy.
 
 ## Canonicality rules

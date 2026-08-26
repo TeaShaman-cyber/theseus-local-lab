@@ -11,7 +11,6 @@ export const ACTIVE_SKILLS = new Set([
   "imported-memory-gate",
   "local-agent-hygiene",
   "research-routing",
-  "theseus-copilot-advisor",
   "theseus-git-hygiene",
   "theseus-memory-stack",
   "theseus-plugin-conclave",

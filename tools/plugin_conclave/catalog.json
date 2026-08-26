@@ -63,13 +63,6 @@
       "primary": "wolfram",
       "corroborator": "local-evidence",
       "output": "clearly scoped formal result and an explicit implementation-conformance check"
-    },
-    {
-      "id": "github-vscode",
-      "keywords": ["github", "copilot", "vscode", "ci", "workflow", "pull request"],
-      "primary": "copilot-advisor",
-      "corroborator": "hapi-mcp-registry",
-      "output": "non-secret, bounded implementation recommendation"
     }
   ],
   "capabilities": [
@@ -168,14 +161,6 @@
       "tool_prefix": "replay_io_",
       "use_for": "time-travel browser/runtime debugging when a recording exists",
       "limits": "requires a recording; local logs remain the primary evidence"
-    },
-    {
-      "id": "copilot-advisor",
-      "role": "oracle",
-      "plugin": "local Theseus bridge",
-      "tool_prefix": "tools/copilot_advisor",
-      "use_for": "bounded GitHub, VS Code, GitHub Actions, and Copilot-specific advice",
-      "limits": "non-secret prompt only; never let advice bypass local checks"
     },
     {
       "id": "hapi-mcp-registry",

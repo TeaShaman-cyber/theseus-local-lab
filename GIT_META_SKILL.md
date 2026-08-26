@@ -27,7 +27,7 @@ Codex skill draft/source: `skills/theseus-git-hygiene/SKILL.md`.
 
 Advisor calls are part of the workflow, not an excuse to drop into raw shell.
 
-Before asking Copilot, Bothub, CodeWhale, or another advisor:
+Before asking an external advisor:
 
 1. Check for an existing VS Code task or repo wrapper.
 2. Use the task/wrapper as the canonical route.
@@ -38,7 +38,6 @@ Before asking Copilot, Bothub, CodeWhale, or another advisor:
 
 Canonical advisor routes:
 
-- Copilot: VS Code task `Theseus: ask Copilot advisor`.
 - Bothub council: VS Code task `Theseus: ask Bothub council advisor`.
 - CodeWhale: `node tools/codewhale_infisical/run.mjs --provider BOTHUB ...`.
 

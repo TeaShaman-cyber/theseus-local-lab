@@ -61,8 +61,7 @@ Write one audit report under `docs/audits/` with:
 - an inventory table;
 - a proposed documentation map;
 - a GitHub Wiki suitability note for stable reader-facing pages;
-- a GitHub surface note for Wiki, Issues, Projects, Actions, and repo docs,
-  including where Copilot advisor consultation is useful;
+- a GitHub surface note for Wiki, Issues, Projects, Actions, and repo docs;
 - a harness map showing which skills choose routes, which tasks/scripts/MCP
   tools execute them, which memory layer stores rationale, and which log layer
   proves the outcome;
@@ -82,8 +81,8 @@ Write one audit report under `docs/audits/` with:
 - Any proposed rewrite is split into reviewable steps.
 - GitHub Wiki, if recommended, is treated as a mirror/publication layer rather
   than the only editable copy.
-- Copilot advice is routed through `.agents/skills/theseus-copilot-advisor`
-  and treated as a second opinion, not a replacement for local evidence.
+- External advisor output is treated as a second opinion, not a replacement
+  for local evidence.
 - The audit preserves the distinction between cognitive route selection
   (skills), motor execution (tasks/scripts/MCP), durable rationale
   (AutoMem/MemPalace), and observable evidence (`session_timeline` /
@@ -109,6 +108,6 @@ Use this rough grouping as a starting hypothesis:
   `VMWARE_UBUNTU_LAB.md`, `agent-shell/README.md`,
   `tools/vscode_bridge/README.md`, `tools/docker_control_plane/README.md`;
 - advisors and harnesses: `codewhale/README.md`,
-  `tools/copilot_advisor/README.md`, `tools/junior_context/README.md`;
+  `tools/junior_context/README.md`;
 - research and constraints: `HOOKS_PIPELINE.md`, `MODEL_LIMITATIONS.md`,
   `stateful-agent-net/README.md`.
