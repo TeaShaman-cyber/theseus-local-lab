@@ -1,5 +1,5 @@
 schema_version: 2
-last_verified: 2026-08-25
+last_verified: 2026-08-27
 source_of_truth: docs/reference/infrastructure-registry.yaml
 
 rules:
@@ -73,14 +73,14 @@ stacks:
 
   - id: hindsight
     status: active-native-multi-llm-round-robin
-    scope: hermes-only
-    consumers: [hermes]
-    consumers_excluded: [codex-currently]
+    scope: shared-memory-service-with-isolated-banks
+    consumers: [hermes, codex]
+    consumers_excluded: []
     source_kind: legacy-runtime-root
     compose_source: D:/hindsight/docker-compose.yml
     runtime_root: D:/hindsight
     containers: [hindsight-api]
-    memory_role: private-hermes-provider
+    memory_role: private-hermes-provider-plus-isolated-codex-operational-bank
     recovery: excluded-from-workshop-recovery-until-verified
     audit:
       compose_labels_and_mount: verified
@@ -106,7 +106,9 @@ stacks:
       router_stats_monitor: /v1/default/banks/hermes/llm-requests/stats
       proxy_bypass: true
       pending_after_switch: zero
-    codex_future: possible-separate-bank-or-namespace
+    codex_bank: codex
+    codex_integration: project-hook-router-with-fail-soft-retain-and-recall
+    codex_isolation: bank-level-isolated-from-hermes
     secrets: external-not-in-registry
     notes: Native Hindsight routing is active with weighted round-robin across BotHub Nemotron, OpenRouter Nemotron, and Nous Solar; monitor route traces and historical failed-consolidation counter separately.
 
