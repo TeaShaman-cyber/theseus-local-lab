@@ -219,6 +219,10 @@ if (shouldQueueResearch(event)) {
 }
 
 if (event === "Stop") {
+  const memoryGateResult = runNode(["tools/memory_gate/memory_gate.mjs"], hookInput);
+  const memoryOutboxResult = memoryGateResult.status === 0
+    ? runNode(["tools/memory_outbox/append.mjs"], memoryGateResult.stdout)
+    : null;
   const hindsightResult = runNode(["hooks/hindsight-memory-hook.mjs", event], hookInput);
   const usageResult = runNode(["tools/usage_scout/usage_scout.mjs"], hookInput);
   const pressureResult = runNode(["tools/context_pressure_watch/context_pressure_watch.mjs", "--checkpoint"], hookInput);
@@ -245,7 +249,7 @@ if (event === "Stop") {
   const observatoryOk = skillObservatoryResult.status === 0 || skillObservatoryResult.status === 2;
   const ok = pressureResult.status === 0 && observatoryOk && hindsightResult.status === 0 && (!checkpointResult || checkpointResult.status === 0);
   const result = {
-    stdout: [usageResult.stdout, pressureResult.stdout, skillObservatoryResult.stdout, hindsightResult.stdout, checkpointResult?.stdout].filter(Boolean).join("\n"),
+    stdout: [usageResult.stdout, pressureResult.stdout, skillObservatoryResult.stdout, memoryOutboxResult?.stdout, hindsightResult.stdout, checkpointResult?.stdout].filter(Boolean).join("\n"),
     stderr: [usageResult.stderr, pressureResult.stderr, skillObservatoryResult.stderr, hindsightResult.stderr, checkpointResult?.stderr].filter(Boolean).join("\n"),
   };
   response({

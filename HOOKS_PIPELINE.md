@@ -21,7 +21,8 @@ hook event
        THESEUS_HOOK_RESEARCH=1
     -> PostToolUse: router support exists, but the project manifest does not
        register this event; queue only with THESEUS_HOOK_RESEARCH=1
-    -> Stop: Hindsight retain (bank=codex, async) + tools/usage_scout/usage_scout.mjs refreshes local usage state
+    -> Stop: memory gate -> local outbox (semantic/episodic candidates)
+       + Hindsight retain (bank=codex, async) + tools/usage_scout/usage_scout.mjs refreshes local usage state
        + tools/context_pressure_watch/context_pressure_watch.mjs
        + checkpoint when THESEUS_HOOK_STOP_CHECKPOINT=1
   -> local outputs first
@@ -132,6 +133,11 @@ with an idempotent session/document identifier and async retain. Failures are
 reported to stderr and do not block the Codex turn. AutoMem remains the primary
 Theseus durable-memory layer; Hindsight is the operational recall/retain layer.
 Do not install a second upstream Hindsight hook source over this router.
+
+The `Stop` route also runs `tools/memory_gate/memory_gate.mjs` and appends only
+accepted, redacted, idempotent candidates to `outputs/memory_outbox/events.jsonl`.
+That outbox is the handoff boundary for future AutoMem and MemPalace writers;
+the hook never sends raw transcript data directly to either provider.
 
 ## Smoke Tests
 
