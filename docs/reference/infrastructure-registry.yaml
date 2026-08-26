@@ -66,10 +66,13 @@ stacks:
     runtime_working_dir_windows: C:/Users/s.poklad/Documents/Codex/2026-07-08/life-science-research-plugin-life-science-4/work/mempalace-pilot
     runtime_working_dir_wsl: /home/poklad/theseus-local-lab/work/mempalace-pilot
     containers: [theseus-mempalace]
-    memory_role: episodic-verbatim-optional
+    memory_role: episodic-verbatim-automatic-checkpoint-layer
     availability_check: live-read-per-harness
     destructive_policy: do-not-delete-without-explicit-user-approval
     secrets: external-not-in-registry
+    codex_writer: tools/memory_outbox/flush-mempalace.mjs
+    codex_writer_route: mcporter@0.13.7 -> http://127.0.0.1:18765/mcp
+    hook_settings_verified: silent_save=true, desktop_toast=false
 
   - id: hindsight
     status: active-native-multi-llm-round-robin
