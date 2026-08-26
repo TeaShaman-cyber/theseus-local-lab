@@ -76,7 +76,7 @@ function stopStatusMessage({ ok, usageOk, pressure }) {
   return "Stop observability hook failed softly.";
 }
 
-function response({ ok, route, statusMessage, result, suppressOutput = true, systemMessage = "" }) {
+function response({ ok, route, statusMessage, result, suppressOutput = true, systemMessage = "", additionalContext = "" }) {
   const stderr = result?.stderr ? String(result.stderr).slice(0, 1000) : "";
   const stdout = result?.stdout ? String(result.stdout).slice(0, 1000) : "";
   if (!ok) {
@@ -84,13 +84,13 @@ function response({ ok, route, statusMessage, result, suppressOutput = true, sys
     if (stdout) process.stderr.write(stdout);
   }
 
-  process.stdout.write(
-    `${JSON.stringify({
+  const payload = {
       continue: true,
       suppressOutput,
       systemMessage: [systemMessage, `${statusMessage} (${route}, ok=${ok})`].filter(Boolean).join(" "),
-    })}\n`,
-  );
+  };
+  if (additionalContext) payload.hookSpecificOutput = { hookEventName: event, additionalContext };
+  process.stdout.write(`${JSON.stringify(payload)}\n`);
 }
 
 const args = parseArgs(process.argv.slice(2));
@@ -182,15 +182,19 @@ if (event === "UserPromptSubmit") {
   const memoryReflexMessage = parseJsonOutput(memoryReflexResult)?.systemMessage;
   const modelSwitchResult = runNode(["tools/model_switch_guard/model_switch_guard.mjs"], hookInput);
   const skillObservatoryResult = runNode(["tools/skill_observatory/skill_observatory.mjs", "expect", "--source", "UserPromptSubmit", "--quiet"], hookInput);
+  const hindsightResult = runNode(["hooks/hindsight-memory-hook.mjs", event], hookInput);
+  const hindsightPayload = parseJsonOutput(hindsightResult);
+  const additionalContext = hindsightPayload?.hookSpecificOutput?.additionalContext || "";
   const researchResult = shouldQueueResearch(event) ? runNode(["hooks/research-queue-hook.mjs"], hookInput) : null;
   const ok =
     memoryReflexResult.status === 0 &&
     modelSwitchResult.status === 0 &&
     skillObservatoryResult.status === 0 &&
+    hindsightResult.status === 0 &&
     (!researchResult || researchResult.status === 0);
   const result = {
-    stdout: [memoryReflexResult.stdout, modelSwitchResult.stdout, skillObservatoryResult.stdout, researchResult?.stdout].filter(Boolean).join("\n"),
-    stderr: [memoryReflexResult.stderr, modelSwitchResult.stderr, skillObservatoryResult.stderr, researchResult?.stderr].filter(Boolean).join("\n"),
+    stdout: [memoryReflexResult.stdout, modelSwitchResult.stdout, skillObservatoryResult.stdout, hindsightResult.stdout, researchResult?.stdout].filter(Boolean).join("\n"),
+    stderr: [memoryReflexResult.stderr, modelSwitchResult.stderr, skillObservatoryResult.stderr, hindsightResult.stderr, researchResult?.stderr].filter(Boolean).join("\n"),
   };
   response({
     ok,
@@ -198,6 +202,7 @@ if (event === "UserPromptSubmit") {
     statusMessage: ok ? "Memory preflight refreshed." : "UserPromptSubmit hook failed softly.",
     result,
     systemMessage: typeof memoryReflexMessage === "string" ? memoryReflexMessage : "",
+    additionalContext,
   });
   process.exit(0);
 }
@@ -214,6 +219,7 @@ if (shouldQueueResearch(event)) {
 }
 
 if (event === "Stop") {
+  const hindsightResult = runNode(["hooks/hindsight-memory-hook.mjs", event], hookInput);
   const usageResult = runNode(["tools/usage_scout/usage_scout.mjs"], hookInput);
   const pressureResult = runNode(["tools/context_pressure_watch/context_pressure_watch.mjs", "--checkpoint"], hookInput);
   const skillObservatoryResult = runNode(["tools/skill_observatory/skill_observatory.mjs", "audit", "--write", "--quiet"], hookInput);
@@ -237,10 +243,10 @@ if (event === "Stop") {
   const pressure = parseJsonOutput(pressureResult);
   // An observatory WARN (exit 2) requests review but must not block the Stop lifecycle.
   const observatoryOk = skillObservatoryResult.status === 0 || skillObservatoryResult.status === 2;
-  const ok = pressureResult.status === 0 && observatoryOk && (!checkpointResult || checkpointResult.status === 0);
+  const ok = pressureResult.status === 0 && observatoryOk && hindsightResult.status === 0 && (!checkpointResult || checkpointResult.status === 0);
   const result = {
-    stdout: [usageResult.stdout, pressureResult.stdout, skillObservatoryResult.stdout, checkpointResult?.stdout].filter(Boolean).join("\n"),
-    stderr: [usageResult.stderr, pressureResult.stderr, skillObservatoryResult.stderr, checkpointResult?.stderr].filter(Boolean).join("\n"),
+    stdout: [usageResult.stdout, pressureResult.stdout, skillObservatoryResult.stdout, hindsightResult.stdout, checkpointResult?.stdout].filter(Boolean).join("\n"),
+    stderr: [usageResult.stderr, pressureResult.stderr, skillObservatoryResult.stderr, hindsightResult.stderr, checkpointResult?.stderr].filter(Boolean).join("\n"),
   };
   response({
     ok,

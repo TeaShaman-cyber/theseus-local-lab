@@ -16,11 +16,12 @@ hook event
     -> PreCompact: tools/memory_hook/memory_hook.mjs --mode compact
     -> PostCompact: tools/memory_hook/memory_hook.mjs --mode checkpoint
        + tools/context_pressure_watch/context_pressure_watch.mjs
-    -> UserPromptSubmit: memory preflight + model-switch guard
-       + skill observatory; research queue only with THESEUS_HOOK_RESEARCH=1
+    -> UserPromptSubmit: Hindsight recall (bank=codex) + memory preflight
+       + model-switch guard + skill observatory; research queue only with
+       THESEUS_HOOK_RESEARCH=1
     -> PostToolUse: router support exists, but the project manifest does not
        register this event; queue only with THESEUS_HOOK_RESEARCH=1
-    -> Stop: tools/usage_scout/usage_scout.mjs refreshes local usage state
+    -> Stop: Hindsight retain (bank=codex, async) + tools/usage_scout/usage_scout.mjs refreshes local usage state
        + tools/context_pressure_watch/context_pressure_watch.mjs
        + checkpoint when THESEUS_HOOK_STOP_CHECKPOINT=1
   -> local outputs first
@@ -120,6 +121,17 @@ from the existing `THESEUS_HOOK_*` variables.
 
 Keep lifecycle hooks fail-soft and non-blocking. Add blocking hooks only after a
 route proves useful, quiet, and safe under real Codex restarts.
+
+### Hindsight Codex memory
+
+The project router is the single owner of Codex Hindsight integration. It uses
+the separately provisioned `codex` bank; Hermes continues to use its `hermes`
+bank. `UserPromptSubmit` recalls bounded context through
+`hookSpecificOutput.additionalContext`; `Stop` submits the session transcript
+with an idempotent session/document identifier and async retain. Failures are
+reported to stderr and do not block the Codex turn. AutoMem remains the primary
+Theseus durable-memory layer; Hindsight is the operational recall/retain layer.
+Do not install a second upstream Hindsight hook source over this router.
 
 ## Smoke Tests
 
