@@ -58,9 +58,8 @@ the prior Hindsight-free wording in `HOOKS_PIPELINE.md`.
 ## Follow-up
 
 The focused fake-Hindsight retain tests now cover payload projection, bounded
-content, credential rejection, and redaction. Router child execution now has a
-bounded 5000 ms default timeout, and router-level provider error aggregation
-considers both child exit status and provider JSON `pending`. Provider network
-and `mcporter`-level timeouts remain separate follow-up work. Focused tests use
-isolated fake processes and do not call the real Hindsight or MemPalace
-endpoints.
+content, credential rejection, and redaction. Router child execution and
+provider AutoMem/MemPalace calls now have bounded 5000 ms default timeouts, and
+router-level provider error aggregation considers both child exit status and
+provider JSON `pending`. Focused tests use isolated fake processes and do not
+call the real Hindsight or MemPalace endpoints.

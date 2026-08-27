@@ -3,6 +3,8 @@ import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { fetchWithTimeout } from "./provider-timeout.mjs";
+
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const queue = process.env.MEMORY_OUTBOX_QUEUE_PATH || resolve(root, "outputs/memory_outbox/events.jsonl");
 const statePath = process.env.MEMORY_OUTBOX_PROCESSED_PATH || resolve(root, "outputs/memory_outbox/processed.json");
@@ -20,7 +22,7 @@ async function verifyStoredMemory(response, event) {
   const receipt = await response.json().catch(() => null);
   const memoryId = receipt?.memory_id || receipt?.id || receipt?.response?.memory_id;
   if (!memoryId) return false;
-  const readBack = await fetch(`${apiBase}/memory/${encodeURIComponent(memoryId)}`, {
+  const readBack = await fetchWithTimeout(`${apiBase}/memory/${encodeURIComponent(memoryId)}`, {
     headers: { authorization: `Bearer ${token}` },
   }).catch(() => null);
   if (!readBack?.ok) return false;
@@ -37,7 +39,19 @@ for (const line of lines) {
   if (processed.has(event.event_id) || !event.accept || !event.semantic) continue;
   pending += 1;
   if (!token) continue;
-  const response = await fetch(`${apiBase}/memory`, { method: "POST", headers: { "content-type": "application/json", authorization: `Bearer ${token}` }, body: JSON.stringify({ content: event.content, tags: ["codex-hook", "auto-retain", "memory-gate"], importance: 0.7, metadata: { event_id: event.event_id, source: "codex-hook" } }) }).catch(() => null);
+  const response = await fetchWithTimeout(
+    `${apiBase}/memory`,
+    {
+      method: "POST",
+      headers: { "content-type": "application/json", authorization: "Bearer " + token },
+      body: JSON.stringify({
+        content: event.content,
+        tags: ["codex-hook", "auto-retain", "memory-gate"],
+        importance: 0.7,
+        metadata: { event_id: event.event_id, source: "codex-hook" },
+      }),
+    },
+  );
   if (!(await verifyStoredMemory(response, event))) continue;
   pending -= 1;
   processed.add(event.event_id); stored += 1;

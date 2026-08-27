@@ -48,3 +48,6 @@ separate read-back plan. A non-empty queue can produce durable external writes.
 The AutoMem and MemPalace writers are not allowed to treat transport success
 alone as durable storage. A missing receipt or failed/mismatched read-back
 leaves the event pending for retry.
+Provider fetches and MemPalace `mcporter` calls use a shared 5000 ms timeout
+from `provider-timeout.mjs`; `MEMORY_OUTBOX_PROVIDER_TIMEOUT_MS` can override
+it for a bounded test environment.

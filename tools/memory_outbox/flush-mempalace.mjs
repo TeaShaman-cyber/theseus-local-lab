@@ -2,7 +2,8 @@
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { spawn } from "node:child_process";
+
+import { providerTimeoutMs, spawnWithTimeout } from "./provider-timeout.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const queue = process.env.MEMORY_OUTBOX_QUEUE_PATH || resolve(root, "outputs/memory_outbox/events.jsonl");
@@ -24,6 +25,7 @@ const testBinary = process.env.MEMORY_OUTBOX_TEST_MC_PORTER_BIN;
 const testPrefix = process.env.MEMORY_OUTBOX_TEST_MC_PORTER_PREFIX_ARGS;
 const mcporterBinary = testBinary || "npx.cmd";
 const mcporterPrefix = testPrefix ? JSON.parse(testPrefix) : ["--yes", "mcporter@0.13.7"];
+const providerTimeout = providerTimeoutMs(process.env.MEMORY_OUTBOX_PROVIDER_TIMEOUT_MS);
 
 function parseToolOutput(stdout) {
   const text = stdout.trim();
@@ -51,24 +53,15 @@ function unwrapToolOutput(value) {
 }
 
 function callMcporter(toolName, toolArgs) {
-  return new Promise((resolveCall) => {
-    const child = spawn(mcporterBinary, [
-      ...mcporterPrefix,
-      "call",
-      `${endpoint}.${toolName}`,
-      "--args",
-      "-",
-      "--output",
-      "json",
-    ], { stdio: ["pipe", "pipe", "pipe"], windowsHide: true });
-    let stdout = "";
-    let stderr = "";
-    child.stdout.on("data", (chunk) => { stdout += chunk; });
-    child.stderr.on("data", (chunk) => { stderr += chunk; });
-    child.on("error", (error) => resolveCall({ code: null, stdout: "", stderr: error.message }));
-    child.on("close", (code) => resolveCall({ code, stdout, stderr }));
-    child.stdin.end(JSON.stringify(toolArgs));
-  });
+  return spawnWithTimeout(mcporterBinary, [
+    ...mcporterPrefix,
+    "call",
+    `${endpoint}.${toolName}`,
+    "--args",
+    "-",
+    "--output",
+    "json",
+  ], { windowsHide: true, input: JSON.stringify(toolArgs) }, providerTimeout);
 }
 
 function drawerId(value) {

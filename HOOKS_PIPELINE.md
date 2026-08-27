@@ -122,7 +122,8 @@ from the existing `THESEUS_HOOK_*` variables.
   remaining non-blocking for the lifecycle.
 - Router child processes have a bounded default timeout of 5000 ms, configurable
   with `THESEUS_HOOK_CHILD_TIMEOUT_MS`; a timeout is reported as a failed branch.
-  Provider network and `mcporter` timeouts remain separate hardening work.
+  Provider network and `mcporter` calls also use the shared 5000 ms timeout;
+  `MEMORY_OUTBOX_PROVIDER_TIMEOUT_MS` overrides it for bounded environments.
 - Trigger-tree and the project router are treated as independent observers until
   runtime telemetry proves whether any event is duplicated.
 
