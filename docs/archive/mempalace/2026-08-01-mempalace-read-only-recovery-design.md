@@ -1,5 +1,10 @@
 # MemPalace Read-Only Recovery Design
 
+> **Historical archive — superseded 2026-08-27.** MemPalace is already an
+> active, routinely used service. This document is retained for provenance only
+> and is not an active instruction. Do not execute its recovery or read-only
+> migration design.
+
 **Date:** 2026-08-01  
 **Status:** Design approved in conversation; implementation has not started.  
 **Owner:** Lad — current Windows-native Codex agent

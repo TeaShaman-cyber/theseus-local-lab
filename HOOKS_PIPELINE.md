@@ -117,6 +117,12 @@ from the existing `THESEUS_HOOK_*` variables.
 - `skill_observatory` exit code `2` on `Stop` is a review warning, not a hard
   lifecycle failure.
 - Critical memory/checkpoint failures remain visible in the hook status message.
+- AutoMem and MemPalace flush results are also checked for `pending` events;
+  transport success with unprocessed events is reported as `ok=false` while
+  remaining non-blocking for the lifecycle.
+- Router child processes have a bounded default timeout of 5000 ms, configurable
+  with `THESEUS_HOOK_CHILD_TIMEOUT_MS`; a timeout is reported as a failed branch.
+  Provider network and `mcporter` timeouts remain separate hardening work.
 - Trigger-tree and the project router are treated as independent observers until
   runtime telemetry proves whether any event is duplicated.
 
@@ -169,7 +175,10 @@ Optional environment variables:
 - Do not send `.env`, API keys, raw memory dumps, backup archives, or private
   transcripts to search connectors.
 - Queue files are local working data and ignored by Git.
-- The hook script redacts common token/key patterns and truncates raw hook input.
+- `tools/memory_gate/text_safety.mjs` projects JSONL transcripts to text-only
+  content, rejects credential-bearing material, redacts supported private values,
+  and bounds retained content; it is not a guarantee against every form of
+  sensitive information.
 - Browser fallback is for visual/logged-in UI state, not for bypassing connector
   authorization.
 

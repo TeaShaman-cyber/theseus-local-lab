@@ -2,17 +2,29 @@
 
 import { readFile } from "node:fs/promises";
 
+import {
+  containsCredentialMaterial,
+  extractTranscriptContent,
+  redactSensitiveText,
+} from "../tools/memory_gate/text_safety.mjs";
+
 const event = process.argv[2] || "";
-const input = JSON.parse(await readFile(0, "utf8").catch(() => "{}"));
+
+async function readHookInput() {
+  let raw = "";
+  process.stdin.setEncoding("utf8");
+  for await (const chunk of process.stdin) raw += chunk;
+  try {
+    return JSON.parse(raw || "{}");
+  } catch {
+    return {};
+  }
+}
+
+const input = await readHookInput();
 const baseUrl = (process.env.HINDSIGHT_API_URL || "http://127.0.0.1:8888").replace(/\/$/, "");
 const bankId = process.env.HINDSIGHT_BANK_ID || "codex";
 const timeoutMs = Number(process.env.HINDSIGHT_HOOK_TIMEOUT_MS || 5000);
-
-function redactTranscript(rawContent) {
-  return String(rawContent)
-    .replace(/(sk|rk|pk|ghp|github_pat|xox[baprs]-)[A-Za-z0-9_\-]{12,}/gi, "$1[REDACTED]")
-    .replace(/([A-Z0-9_]*(?:TOKEN|API[_-]?KEY|SECRET|PASSWORD))\s*[:=]\s*([^\s,"}]+)/gi, "$1=[REDACTED]");
-}
 
 async function request(path, options = {}) {
   const controller = new AbortController();
@@ -48,7 +60,9 @@ async function retain() {
   const transcriptPath = input.transcript_path;
   if (!transcriptPath) return;
   const rawContent = await readFile(transcriptPath, "utf8").catch(() => "");
-  const content = redactTranscript(rawContent);
+  const transcriptContent = extractTranscriptContent(rawContent);
+  if (containsCredentialMaterial(transcriptContent)) return;
+  const content = redactSensitiveText(transcriptContent).trim().slice(-4000);
   if (!content.trim()) return;
   const documentId = String(input.session_id || input.turn_id || `codex-${Date.now()}`);
   await request(`/v1/default/banks/${encodeURIComponent(bankId)}/memories`, {

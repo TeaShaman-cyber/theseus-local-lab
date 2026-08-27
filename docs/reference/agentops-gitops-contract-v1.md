@@ -113,8 +113,10 @@ GitHub tooling path; no Copilot-specific advisor task or oracle is assumed.
 ### Recovery
 
 The current recovery-managed stack set is the seven IDs in
-`tools/workshop_recovery/recovery_contract.json`. `hindsight` remains
-Hermes-only and `stateful-agent-net` remains disabled/excluded until a reviewed
+`tools/workshop_recovery/recovery_contract.json`. `hindsight` remains excluded
+from generic workshop recovery until separately verified; it serves Hermes'
+`hermes` bank and Codex's explicitly isolated `codex` bank through the project
+hook route. `stateful-agent-net` remains disabled/excluded until a reviewed
 consumer migration changes that boundary.
 
 ## 4. Change protocol
@@ -166,7 +168,8 @@ node tools/hook_config/check_hooks.mjs
 
 - automatic runtime reconciliation or unattended Docker writes;
 - moving Codex or its state into WSL;
-- treating Hindsight as a Codex memory provider;
+- treating Hindsight as an unbounded shared Codex/Hermes memory provider; the
+  explicitly provisioned, bank-isolated Codex hook route is in scope;
 - installing unreviewed third-party Docker MCP servers or skills;
 - using memory or plugin output as permission to change runtime state;
 - making GitHub Wiki or any external documentation surface the source of truth.

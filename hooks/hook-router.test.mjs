@@ -4,6 +4,7 @@ import { execFileSync } from "node:child_process";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
+import { stopHookOk } from "./hook-status.mjs";
 import { shouldQueueResearch } from "./hook-policy.mjs";
 
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
@@ -23,6 +24,45 @@ test("tracked and runtime hook manifests stay in parity", () => {
     encoding: "utf8",
   });
   assert.equal(output.trim(), "HOOKS_MATCH");
+});
+
+test("Stop status is false when a provider branch fails", () => {
+  const success = { status: 0 };
+  const base = {
+    memoryGateResult: success,
+    memoryOutboxResult: success,
+    memoryFlushResult: success,
+    mempalaceFlushResult: success,
+    memoryFlushPayload: { stored: 1, pending: 0 },
+    mempalaceFlushPayload: { stored: 1, pending: 0 },
+    hindsightResult: success,
+    usageResult: success,
+    pressureResult: success,
+    skillObservatoryResult: success,
+    checkpointResult: null,
+  };
+  assert.equal(stopHookOk(base), true);
+  assert.equal(stopHookOk({ ...base, memoryFlushResult: { status: 1 } }), false);
+  assert.equal(stopHookOk({ ...base, memoryFlushPayload: { stored: 0, pending: 1 } }), false);
+});
+
+test("Stop status accepts observatory WARN but not other failures", () => {
+  const success = { status: 0 };
+  const base = {
+    memoryGateResult: success,
+    memoryOutboxResult: success,
+    memoryFlushResult: success,
+    mempalaceFlushResult: success,
+    memoryFlushPayload: { stored: 1, pending: 0 },
+    mempalaceFlushPayload: { stored: 1, pending: 0 },
+    hindsightResult: success,
+    usageResult: success,
+    pressureResult: success,
+    skillObservatoryResult: { status: 2 },
+    checkpointResult: { status: 0 },
+  };
+  assert.equal(stopHookOk(base), true);
+  assert.equal(stopHookOk({ ...base, checkpointResult: { status: 1 } }), false);
 });
 
 function runHook(args, input, environment = {}) {

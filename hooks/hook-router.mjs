@@ -1,14 +1,10 @@
 #!/usr/bin/env node
 
-import { spawnSync } from "node:child_process";
 import { readFileSync } from "node:fs";
-import { dirname, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
 
+import { runNode } from "./hook-exec.mjs";
 import { shouldQueueResearch } from "./hook-policy.mjs";
-
-const here = dirname(fileURLToPath(import.meta.url));
-const root = resolve(here, "..");
+import { stopHookOk } from "./hook-status.mjs";
 
 function parseArgs(argv) {
   const args = {
@@ -33,15 +29,6 @@ function readHookInput() {
   } catch {
     return "";
   }
-}
-
-function runNode(args, input) {
-  return spawnSync(process.execPath, args, {
-    cwd: root,
-    encoding: "utf8",
-    input,
-    stdio: ["pipe", "pipe", "pipe"],
-  });
 }
 
 function shouldCheckpointStop() {
@@ -247,12 +234,25 @@ if (event === "Stop") {
   )
     : null;
   const pressure = parseJsonOutput(pressureResult);
+  const memoryFlushPayload = parseJsonOutput(memoryFlushResult);
+  const mempalaceFlushPayload = parseJsonOutput(mempalaceFlushResult);
   // An observatory WARN (exit 2) requests review but must not block the Stop lifecycle.
-  const observatoryOk = skillObservatoryResult.status === 0 || skillObservatoryResult.status === 2;
-  const ok = pressureResult.status === 0 && observatoryOk && hindsightResult.status === 0 && (!checkpointResult || checkpointResult.status === 0);
+  const ok = stopHookOk({
+    memoryGateResult,
+    memoryOutboxResult,
+    memoryFlushResult,
+    mempalaceFlushResult,
+    memoryFlushPayload,
+    mempalaceFlushPayload,
+    hindsightResult,
+    usageResult,
+    pressureResult,
+    skillObservatoryResult,
+    checkpointResult,
+  });
   const result = {
     stdout: [usageResult.stdout, pressureResult.stdout, skillObservatoryResult.stdout, memoryOutboxResult?.stdout, memoryFlushResult.stdout, mempalaceFlushResult.stdout, hindsightResult.stdout, checkpointResult?.stdout].filter(Boolean).join("\n"),
-    stderr: [usageResult.stderr, pressureResult.stderr, skillObservatoryResult.stderr, hindsightResult.stderr, checkpointResult?.stderr].filter(Boolean).join("\n"),
+    stderr: [usageResult.stderr, pressureResult.stderr, skillObservatoryResult.stderr, memoryOutboxResult?.stderr, memoryFlushResult.stderr, mempalaceFlushResult.stderr, hindsightResult.stderr, checkpointResult?.stderr].filter(Boolean).join("\n"),
   };
   response({
     ok,

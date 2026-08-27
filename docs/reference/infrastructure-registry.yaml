@@ -61,7 +61,7 @@ stacks:
     status: active
     scope: shared-optional-service
     consumers: [codex, hermes-optional]
-    source_kind: pilot-runtime-tree
+    source_kind: active-runtime-tree
     compose_source: C:/Users/s.poklad/Documents/Codex/2026-07-08/life-science-research-plugin-life-science-4/work/mempalace-pilot
     runtime_working_dir_windows: C:/Users/s.poklad/Documents/Codex/2026-07-08/life-science-research-plugin-life-science-4/work/mempalace-pilot
     runtime_working_dir_wsl: /home/poklad/theseus-local-lab/work/mempalace-pilot

@@ -1,5 +1,10 @@
 # MemPalace Read-Only Recovery Implementation Plan
 
+> **Historical archive — superseded 2026-08-27.** MemPalace is already an
+> active, routinely used service. This document is retained for provenance only
+> and is not an active instruction. Do not execute its Docker, volume, profile,
+> or configuration steps.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use `superpowers:executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Restore MemPalace to Windows-native Codex through a verified read-only MCP profile without risking the original `theseus-mempalace-clean` volume or changing AutoMem, hooks, or Lad identity.

@@ -63,8 +63,10 @@ Rules:
   default source roots.
 - A Docker health result does not prove that a memory provider or API read path
   works; perform the relevant live read/recall check.
-- Hindsight is Hermes-specific in the current environment. Codex currently uses
-  AutoMem-first and must not assume access to a Hermes Hindsight bank.
+- Hindsight remains a Hermes-owned provider/runtime, but Codex has an explicitly
+  provisioned isolated `codex` bank through the project hook route. Codex must
+  not access the Hermes `hermes` bank or treat Hindsight as an unbounded
+  cross-harness dependency.
 - Do not add a stack to recovery or create a new compose source without an
   infrastructure-registry entry and a verified owner/runtime boundary.
 
