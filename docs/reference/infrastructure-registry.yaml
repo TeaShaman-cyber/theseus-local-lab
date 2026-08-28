@@ -1,5 +1,5 @@
 schema_version: 2
-last_verified: 2026-08-27
+last_verified: 2026-08-28
 source_of_truth: docs/reference/infrastructure-registry.yaml
 
 rules:
@@ -182,3 +182,28 @@ stacks:
     recovery: disabled-and-excluded
     auto_start: false
     notes: Do not revive or delete its data without explicit user direction.
+
+runtime_integrations:
+  - id: hermes-codex-google-workspace
+    status: configured-transport-verified
+    scope: local-runtime
+    consumers: [hermes]
+    owner: hermes-runtime
+    source_kind: user-local-runtime-configuration
+    hermes_config: C:/Users/s.poklad/AppData/Local/hermes/config.yaml
+    route: hermes -> codex_app_server -> native Codex applications
+    services: [gmail, google-drive]
+    deferred_services: [google-calendar]
+    secret_policy: external-not-in-registry
+    recovery: manual-runtime-config-rollback
+    rollback: Restore model.openai_runtime to auto through the Hermes runtime switcher.
+    audit:
+      configured_at: 2026-08-28
+      hermes_runtime: codex_app_server
+      codex_launcher: C:/Users/s.poklad/AppData/Roaming/npm/codex.cmd
+      codex_initialize: verified
+      codex_thread_start: verified
+      gmail_drive_discovery: not_verified_plugin_list_timeout
+      oauth_client_and_token: absent_after_cleanup
+      docker_or_cloud_resources_changed: false
+    notes: Gmail and Google Drive are active by user confirmation; this entry records the local Hermes/Codex runtime route only and is not a Docker recovery stack.

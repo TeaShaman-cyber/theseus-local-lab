@@ -19,8 +19,12 @@ Codex skill draft/source: `skills/theseus-git-hygiene/SKILL.md`.
 4. GitHub plugin skills:
    - `github` for repository, issue, PR, and triage context.
    - `yeet` for branch/PR publish workflows.
-5. Theseus private-lab convention: direct push to private `main` is allowed
-   only when the user explicitly asks to sync or push this repo.
+5. Theseus private-lab convention: classify each Git action by downstream
+   effect. A local checkpoint commit is not publication; a known bounded
+   backup/sync push may be part of an approved workflow after CI/CD and other
+   external effects are checked. Unknown or high-impact push effects require
+   explicit user approval; merge, release, deploy, force-push, and history
+   rewrite remain separate gates.
 6. General model/git habits are last. They must not override the layers above.
 
 ## Advisor Calls
@@ -63,8 +67,11 @@ For normal private-lab sync to `origin/main`:
    - Node changes: `node --check`.
    - VS Code task changes: JSON parse.
 6. Commit intentionally.
-7. Push only after the user asks to sync/push, or after the current turn clearly
-   includes that publish request.
+7. Inspect remote workflows and downstream effects before pushing. Push as part
+   of an approved bounded backup/sync workflow when the effect is known; ask
+   before unknown, high-impact, destructive, or out-of-scope pushes. Merge,
+   release, deploy, force-push, and history rewrite require their own explicit
+   gate.
 
 For branch/PR work, route to the GitHub plugin publish flow instead of direct
 main push.

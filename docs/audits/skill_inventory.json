@@ -112,7 +112,7 @@
       "role": "Git/GitHub safety and publication route",
       "trigger": "Git status, commit, push, GitHub sync, advisor or secret-sensitive staging",
       "handoff_or_executor": "Git safety scanner, VS Code task, or approved GitHub route",
-      "stop_or_verification_note": "inspect scope, scan staged files, and require explicit push authority"
+      "stop_or_verification_note": "inspect scope, scan staged files, and classify push by verified downstream effect; require explicit approval for unknown or high-impact effects"
     },
     {
       "id": "theseus-memory-stack",

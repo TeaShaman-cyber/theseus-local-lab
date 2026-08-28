@@ -65,9 +65,12 @@ or Hermes-only stacks are not resurrected by a generic recovery pass.
 research failures do not block a Codex turn; critical memory/checkpoint failures
 remain visible in the returned status and evidence.
 
-**C10 — Delivery is bounded.** A commit is one coherent, reviewable checkpoint.
-Agent-authored commits include provenance trailers; push and merge require an
-explicit user decision.
+**C10 — Delivery is bounded.** A commit is one coherent, reviewable checkpoint
+and is not treated as publication or deployment. Agent-authored commits include
+provenance trailers. Push safety is decided from verified downstream effects:
+known bounded backup/sync pushes may be part of an approved workflow, while
+unknown, high-impact, or out-of-scope effects require an explicit user decision.
+Merge, release, deploy, force-push, and history rewrite remain separate gates.
 
 ## 3. Current runtime contract
 
@@ -130,10 +133,15 @@ For a behavior or infrastructure change:
 5. Run the scoped checks and the available repository suite.
 6. Inspect `git status -sb`, `git diff --stat`, and `git diff --name-only`.
 7. Stage explicit paths only and run `node tools/git_safety/scan_staged.mjs`.
-8. Create one normal checkpoint commit when the deliverable is complete. Use a
-   `wip:` checkpoint only when unfinished work must survive a handoff, and
+8. Create one normal checkpoint commit when the deliverable is complete. A
+   local commit may be part of the approved workflow even when push is withheld.
+   Use a `wip:` checkpoint only when unfinished work must survive a handoff, and
    include `Change-Status`, `Task-Ref`, `Next`, and `Verification`.
-9. Merge or push only after the user chooses the integration action.
+9. Before pushing, inspect the remote workflows and downstream effects. Include
+   push in an approved bounded backup/sync workflow when those effects are known;
+   require an explicit user decision for unknown, high-impact, destructive, or
+   out-of-scope effects. Merge, release, deploy, force-push, and history rewrite
+   are always separate gates.
 
 ## 5. Required evidence
 

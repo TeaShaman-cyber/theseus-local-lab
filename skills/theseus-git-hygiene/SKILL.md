@@ -18,8 +18,12 @@ secret-sensitive local workflow actions in `theseus-local-lab`.
 4. GitHub plugin skills:
    - `github` for repo, issue, PR, and triage context.
    - `yeet` for branch/PR publish workflows.
-5. Private-lab convention: direct push to private `main` only when the user
-   explicitly asks to sync or push this repo.
+5. Private-lab convention: classify commit, push, merge, release, and deploy by
+   downstream effect. A local checkpoint commit is not publication; a bounded
+   backup/sync push may be part of an approved workflow after CI/CD and other
+   external effects are checked. Unknown or high-impact push effects require
+   explicit user approval; merge, release, deploy, force-push, and history
+   rewrite remain separate gates.
 6. General Git habits are last.
 
 ## Commit Provenance
@@ -67,6 +71,13 @@ Commit decision gate:
 - use one WIP checkpoint only when unfinished work must survive a handoff or
   session boundary, and explain why a normal commit is premature;
 - never leave unrelated or ownerless dirty paths.
+
+Do not treat commit and push as one undifferentiated approval gate.
+Commit is a local checkpoint and may be created automatically inside an
+approved, bounded task to prevent uncommitted-change archaeology. Push is a
+remote write: inspect workflows and downstream effects first, then treat a
+known bounded backup/sync push differently from an unknown or deployment-like
+push.
 
 For a `wip:` commit, include:
 
@@ -126,8 +137,11 @@ For normal private-lab sync to `origin/main`:
    - Node changes: `node --check`.
    - VS Code task changes: JSON parse.
 6. Commit intentionally.
-7. Push only after the user asks to sync/push or the current request clearly
-   includes publishing.
+7. Inspect remote workflows and downstream effects before pushing. Push as part
+   of an approved bounded backup/sync workflow when the effect is known; ask
+   before unknown, high-impact, destructive, or out-of-scope pushes. Merge,
+   release, deploy, force-push, and history rewrite require their own explicit
+   gate.
 
 For branch/PR work, route to GitHub plugin publish flow instead of direct main
 push.
