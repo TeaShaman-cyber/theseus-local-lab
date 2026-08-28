@@ -185,7 +185,7 @@ stacks:
 
 runtime_integrations:
   - id: hermes-codex-google-workspace
-    status: configured-transport-verified
+    status: configured-connector-unverified
     scope: local-runtime
     consumers: [hermes]
     owner: hermes-runtime
@@ -206,4 +206,41 @@ runtime_integrations:
       gmail_drive_discovery: not_verified_plugin_list_timeout
       oauth_client_and_token: absent_after_cleanup
       docker_or_cloud_resources_changed: false
-    notes: Gmail and Google Drive are active by user confirmation; this entry records the local Hermes/Codex runtime route only and is not a Docker recovery stack.
+    notes: Gmail and Google Drive are active by user confirmation in Codex Desktop, but connector operation through Hermes remains unverified and requires bounded follow-up work; this entry records the local Hermes/Codex runtime route only and is not a Docker recovery stack.
+
+  - id: hermes-gog-google-workspace
+    status: deployed-oauth-gmail-read-verified-mcporter-wrapper
+    scope: local-runtime
+    consumers: [hermes]
+    owner: hermes-runtime
+    source_kind: pinned-upstream-release-in-local-image
+    image: theseus-gog:0.38.1-auto-keyring
+    image_build_context: tools/google_workspace_gog
+    upstream_release: https://github.com/openclaw/gogcli/releases/tag/v0.38.1
+    upstream_sha256: 6576828ed6852949ba424b967c3ff4268b3d9c90e201f90fe3d539fe3a151ebb
+    container_mode: ephemeral-stdio-mcp
+    state_volume: theseus-gog-state:/home/gog/.config/gogcli
+    keyring_bootstrap: machine-generated-secret-persisted-in-state-volume
+    route: hermes -> docker stdio MCP -> gog -> Google Workspace APIs
+    services: full-gog-supported-workspace-surface
+    deferred_services: []
+    secret_policy: external-not-in-registry
+    recovery: excluded-from-workshop-recovery
+    rollback: Remove the Hermes MCP entry and the named state volume only as a separately approved cleanup.
+    audit:
+      planned_at: 2026-08-28
+      image_build: verified
+      upstream_release_checksum: verified
+      local_image_id: sha256:07c263197c9b09349d4b37238824ae5447d0afb991eb8ff658b1c0a0128810d7
+      volume_creation: verified
+      keyring_bootstrap: verified
+      credentials_import: verified
+      mcp_read_tools_list: verified
+      mcp_write_tools_list: verified_docs_sheets_only
+      oauth: verified_external_testing
+      gmail_read_path: verified_newer_than_2d_max_10
+      hermes_mcp_registration: intentionally_not_registered
+      mcporter_wrapper_route: verified_tools_list_and_gmail_read
+      container_lifecycle: ephemeral_not_running
+      docker_or_cloud_resources_changed: local_image_and_named_volume_only
+    notes: Portable replacement for the unverified Codex app-server route; local image is built from the pinned upstream release and uses persistent container state, without creating a custom API bridge. OAuth for the primary Google account is verified and bounded Gmail reads succeed through both gog CLI and mcporter; Hermes native MCP registration is intentionally avoided in favor of the user-local google-workspace skill. The current MCP surface exposes Gmail/Drive/Docs/Sheets/Calendar reads and Docs/Sheets writes; Gmail send/draft tools are not exposed by gog mcp v0.38.1.
