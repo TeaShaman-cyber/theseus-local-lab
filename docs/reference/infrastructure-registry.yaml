@@ -1,5 +1,5 @@
 schema_version: 2
-last_verified: 2026-08-28
+last_verified: 2026-08-30
 source_of_truth: docs/reference/infrastructure-registry.yaml
 
 rules:
@@ -184,6 +184,34 @@ stacks:
     notes: Do not revive or delete its data without explicit user direction.
 
 runtime_integrations:
+  - id: hermes-hugging-face-hub
+    status: active-authenticated-read-route-verified
+    scope: local-runtime-reference-source
+    consumers: [hermes]
+    owner: hermes-runtime
+    source_kind: official-hosted-mcp
+    endpoint: https://huggingface.co/mcp
+    route: hermes-native-mcp -> official-hugging-face-mcp -> hub
+    capabilities: [model-search, dataset-search, space-search, repository-metadata, repository-files, skill-resources]
+    knowledge_role: bounded-model-dataset-space-reference-adapter
+    source_of_truth_role: none
+    publication_role: none
+    portable_cli: official-hf-cli-installed-independent-auth-not-configured
+    mcporter_wrapper: not-created-not-required
+    secret_policy: bearer-token-external-not-in-registry
+    mutation_policy: explicit-user-approval-for-write-capable-calls
+    recovery: restore-user-local-Hermes-MCP-entry-and-verify-hf-whoami
+    audit:
+      verified_at: 2026-08-30
+      transport_and_tool_discovery: verified
+      authenticated_identity: verified
+      bounded_hub_read: verified
+      core_tools_registered: 6
+      skill_resources_available: true
+      custom_space_tools: not_exposed
+      resources_created_or_changed: false
+    notes: Native Hermes adapter for bounded Hugging Face Hub evidence. Use repository cards/files as references only; do not treat Hub metadata as canonical Theseus documentation or grant it Wiki write ownership. The official hf CLI is the preferred future cross-harness motor, but its shell credential store is intentionally separate from Hermes and is not currently authenticated.
+
   - id: hermes-codex-google-workspace
     status: configured-connector-unverified
     scope: local-runtime

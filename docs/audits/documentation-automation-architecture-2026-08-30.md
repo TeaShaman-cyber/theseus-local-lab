@@ -38,7 +38,7 @@ External evidence is limited to public official documentation and public reposit
 | Portable shared workflow | None found | Canonical repositories | Missing |
 | CI documentation checks | No `.github/workflows/` directories found in the three inspected canonical repositories | File inventory | Missing |
 | Markdown/link automation | Schema requires checks, but no checked-in runner was found | Content search | Contract exists; motor is missing |
-| External repo references | DeepWiki, Context7, Microsoft Learn are enabled in Hermes; GitMCP works ad hoc through mcporter | Live discovery | Useful read-only adapters, not writers |
+| External repo references | DeepWiki, Context7, Microsoft Learn and Hugging Face Hub are enabled in Hermes; GitMCP works ad hoc through mcporter | Live discovery | Useful bounded reference adapters, not writers |
 
 ## Why the current cron does not maintain documentation
 
@@ -115,6 +115,7 @@ Give agents current repository and library documentation. DeepWiki, GitMCP, Cont
 | Context7 | Version-specific library/API documentation | Official Streamable HTTP; mcporter discovery verified | No | Reference during project doc synthesis; not a project Wiki |
 | Microsoft Learn MCP | Official Microsoft/Azure documentation and samples | Official HTTP; mcporter discovery verified | No | Domain-specific authoritative evidence only |
 | GitMCP | Read public GitHub docs/code as MCP | Repo-scoped HTTP; mcporter discovery verified | No | Portable public-repo fallback shared by Hermes/Codex/other agents |
+| Hugging Face Hub | Model, dataset and Space discovery plus repository cards/files and skill resources | Official hosted MCP is verified in Hermes; official `hf` CLI is installed but its independent shell auth is not configured | Mixed: search/details are read-only; `hf_fs` and the CLI can write | Bounded evidence/reference source for model, dataset, evaluation and Space candidates; not a Wiki writer or canonical documentation store |
 | `knowledge-base-publication` | Curated publication, provenance, validation, Git/read-back gates | Skill is Hermes runtime today; contract can be projected to other harnesses | Yes, after approval | Final writer/publisher, not scout |
 | `llm-wiki` | Generic interlinked Markdown KB workflow | Skill/runtime dependent | Local Markdown writes | Reference principles only; its default structure does not replace Theseus `SCHEMA.md` |
 | Google Code Wiki | Continuously generated hosted wiki, diagrams and repo-aware chat | Google-hosted public preview | Maintains its own hosted knowledge layer | Strong product reference; public repos only today; private Gemini CLI extension still coming soon |
@@ -171,6 +172,19 @@ Source:
 
 - https://context7.com/docs/overview
 - https://learn.microsoft.com/api/mcp
+
+### Hugging Face Hub
+
+FACT: the official hosted MCP is authenticated in Hermes through the runtime secret scope and exposes six core tools/resources for identity, repository search/details, repository file access and skill resources. A bounded Hub read completed after restart. The official `hf` CLI is installed locally, but its independent shell credential store is not configured; Hermes does not export its MCP bearer token into arbitrary terminal processes.
+
+FACT: no persistent mcporter wrapper or generated CLI was created. The only temporary MCP client used during authentication diagnosis was deleted after its postcondition check.
+
+INFERENCE: Hugging Face is a useful bounded reference source when a documentation proposal depends on model cards, dataset cards, evaluation corpora, Spaces or repository files. It must not become the source of truth for Theseus documentation, and write-capable `hf_fs`/CLI operations require explicit approval. The official `hf` CLI is the preferred future cross-harness motor if independently authenticated; a custom mcporter wrapper is not justified today.
+
+Sources:
+
+- https://huggingface.co/docs/hub/agents-mcp
+- https://huggingface.co/docs/huggingface_hub/guides/cli
 
 ### Self-hosted AI Wiki generators
 
@@ -286,7 +300,7 @@ flowchart LR
     C --> A
     G --> A
 
-    X[Optional reference adapters: Context7 / MS Learn / DeepWiki / GitMCP] --> A
+    X[Optional reference adapters: Context7 / MS Learn / DeepWiki / GitMCP / Hugging Face Hub] --> A
     A --> Q[Bounded read-only proposal]
     Q --> U{Semyon review}
     U -->|approve project-doc batch| D[Update owning repo docs]
