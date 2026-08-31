@@ -192,4 +192,3 @@ Success criterion:
 - The agent reports AutoMem health/recall IDs or explicitly says why memory is unavailable.
 - The agent does not silently skip MemPalace; it either uses it or names the fallback.
 - The agent keeps writes gated by explicit permission until policy changes.
-

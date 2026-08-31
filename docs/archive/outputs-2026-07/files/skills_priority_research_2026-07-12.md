@@ -245,4 +245,3 @@ Update `theseus-git-hygiene` so its description front-loads the exact failure cl
 > Use for Theseus GitHub sync, commit, push, and secret-safe Git work; before raw git/PowerShell, prefer VS Code tasks, repo helper scripts, hooks, GitHub connector/plugin, and advisor routes.
 
 Then add a repo `.agents/skills/theseus-git-hygiene` copy or link strategy if current Codex desktop recognizes `.agents/skills` more reliably than `skills/`.
-

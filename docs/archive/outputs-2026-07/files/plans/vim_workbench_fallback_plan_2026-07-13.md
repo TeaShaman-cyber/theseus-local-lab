@@ -116,4 +116,3 @@ checkpoint work without VS Code.
 
 Inventory available editors in Windows, WSL, Docker containers, and the Ubuntu
 VM. Then decide whether `vim` or `neovim` is the first baseline.
-

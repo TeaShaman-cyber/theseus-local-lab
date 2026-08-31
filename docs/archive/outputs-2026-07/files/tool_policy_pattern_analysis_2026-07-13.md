@@ -65,4 +65,3 @@ When enough events accumulate in `outputs/tool_policy/*.jsonl`, summarize:
 - top repeated safe wrappers;
 - ratio of `reward` to `friction`;
 - whether the same blocked route repeats after a memory/policy update.
-

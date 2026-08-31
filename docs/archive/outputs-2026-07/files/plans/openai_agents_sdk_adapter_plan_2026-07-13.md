@@ -110,4 +110,3 @@ secrets.
 Write `docs/theseus_operator_contract.md` or similar with the concrete contract:
 tools, state, approvals, smoke command, and eval cases. Do not implement SDK code
 until that contract is reviewed.
-
