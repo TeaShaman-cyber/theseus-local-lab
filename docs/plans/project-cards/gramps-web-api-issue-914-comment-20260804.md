@@ -14,7 +14,7 @@ operation: "comment"
 
 purpose: "Respond respectfully to the maintainer, clarify human responsibility and agent provenance, and suggest a small public issue-form improvement."
 duplicate_check: "read-back showed no matching follow-up comment"
-body_file: "docs/plans/github-issue-body-914-followup.md"
+body_file: "docs/archive/issue-drafts/github-issue-body-914-followup.md"
 
 human_review:
   approved_at: "2026-08-04"

@@ -14,7 +14,7 @@ operation: "comment"
 
 purpose: "Add verified runtime evidence that Desktop plugin disablement does not gate gateway dispatch and that normal gateway shutdown leaves orphaned workers capable of continued tool execution."
 duplicate_check: "Read-back on 2026-08-16 found zero existing comments on issue #87283."
-body_file: "docs/plans/github-issue-body-87283-runtime-followup.md"
+body_file: "docs/archive/issue-drafts/github-issue-body-87283-runtime-followup.md"
 
 evidence:
   - "Hermes Agent v0.20.1 (2026.8.13), Windows 11"
