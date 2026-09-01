@@ -1,0 +1,90 @@
+name: hindsight-cloud
+
+# Hindsight self-host, cloud LLM via native multi-provider routing — NO local llama.cpp.
+# This file is the canonical desired configuration for the Theseus lab.
+# Runtime secrets/data stay outside Git; see README.md and .env.example.
+
+services:
+  hindsight:
+    # Pin the last stable image before the pg0-embedded >=0.15.0 bump in v0.9.0.
+    # v0.9.1/latest currently crash-loops on the existing pg0 store during boot.
+    image: ghcr.io/vectorize-io/hindsight:0.8.6
+    container_name: hindsight-api
+    restart: unless-stopped
+    depends_on:
+      hermes-proxy:
+        condition: service_healthy
+    ports:
+      - "8888:8888"   # API (Hermes would connect here)
+      - "9999:9999"   # Control Plane (optional web UI)
+    env_file:
+      - ${HINDSIGHT_RUNTIME_ENV_FILE:-D:/hindsight/.env}
+    environment:
+      # Native weighted round-robin: BotHub primary, OpenRouter Nemotron, and
+      # Nous Solar Pro 4 as independent routes with automatic fallthrough.
+      # Solar is reached through the sibling hermes-proxy service below.
+      HINDSIGHT_API_LLM_PROVIDER: openai
+      HINDSIGHT_API_LLM_BASE_URL: https://openai.bothub.chat/v1
+      HINDSIGHT_API_LLM_API_KEY: ${HINDSIGHT_BOTHUB_KEY}
+      HINDSIGHT_API_LLM_MODEL: nemotron-3-super-120b-a12b:free
+      HINDSIGHT_API_LLM_1_PROVIDER: openai
+      HINDSIGHT_API_LLM_1_BASE_URL: https://openrouter.ai/api/v1
+      HINDSIGHT_API_LLM_1_API_KEY: ${HINDSIGHT_OPENROUTER_KEY}
+      HINDSIGHT_API_LLM_1_MODEL: nvidia/nemotron-3-super-120b-a12b:free
+      HINDSIGHT_API_LLM_2_PROVIDER: openai
+      HINDSIGHT_API_LLM_2_BASE_URL: http://hermes-proxy:8645/v1
+      HINDSIGHT_API_LLM_2_API_KEY: hermes-proxy-local
+      HINDSIGHT_API_LLM_2_MODEL: upstage/solar-pro4:free
+      HINDSIGHT_API_LLM_STRATEGY: '{"mode":"round-robin","weights":[3,1,1]}'
+      # Embedded pg0 DB: set the magic value explicitly (newer images no
+      # longer default to embedded when the var is absent -> "Database URL
+      # is required for migrations").
+      HINDSIGHT_API_DATABASE_URL: pg0
+      # Upstream pg0 startup-migration regression (vectorize-io/hindsight#2602):
+      # the embedded URL is resolved after the migration guard runs. Keep
+      # startup available and run migrations explicitly when the image/schema
+      # actually changes.
+      HINDSIGHT_API_RUN_MIGRATIONS_ON_STARTUP: "false"
+      HINDSIGHT_API_PORT: "8888"
+      # Stable worker identity prevents processing rows from being orphaned
+      # when Docker recreates the container.
+      HINDSIGHT_API_WORKER_ID: hindsight-worker-1
+      HINDSIGHT_CP_PORT: "9999"
+      # Cloud LLM is fast; keep modest timeouts, allow a little concurrency.
+      HINDSIGHT_API_LLM_TIMEOUT: "120"
+      HINDSIGHT_API_LLM_MAX_CONCURRENT: "2"
+      HINDSIGHT_API_LLM_REASONING_EFFORT: "none"
+      # Reflect-only route: paid BotHub Mistral passed JSON and the full
+      # Hindsight tool contract in 2/2 independent disposable-station runs.
+      HINDSIGHT_API_REFLECT_LLM_PROVIDER: openai
+      HINDSIGHT_API_REFLECT_LLM_BASE_URL: https://openai.bothub.chat/v1
+      HINDSIGHT_API_REFLECT_LLM_API_KEY: ${HINDSIGHT_BOTHUB_KEY}
+      HINDSIGHT_API_REFLECT_LLM_MODEL: mistral-small-3.2-24b-instruct
+      HINDSIGHT_API_REFLECT_LLM_REASONING_EFFORT: "none"
+      # Real-bank reflect runs took 80–139s; 120s can abort a valid run.
+      HINDSIGHT_API_REFLECT_LLM_TIMEOUT: "300"
+      HINDSIGHT_API_REFLECT_LLM_MAX_CONCURRENT: "1"
+    volumes:
+      # Embedded pg0 is a runtime data root, never a Git source.
+      - ${HINDSIGHT_PG0_ROOT:-D:/hindsight/pg0}:/home/hindsight/.pg0
+
+  hermes-proxy:
+    image: nousresearch/hermes-agent@sha256:340eb6095b79360597b7046ef0c695c874b6a62d0d170f0354df5120c944c724
+    container_name: hermes-proxy
+    restart: unless-stopped
+    command: ["proxy", "start", "--provider", "nous", "--host", "0.0.0.0", "--port", "8645"]
+    expose:
+      - "8645"
+    volumes:
+      # Dedicated Docker-managed OAuth state; never bind the Desktop auth.json.
+      - hermes-proxy-data:/opt/data
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import socket; s=socket.create_connection(('127.0.0.1', 8645), 5); s.close()"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 20s
+
+volumes:
+  hermes-proxy-data:
+    name: theseus-hermes-proxy-data

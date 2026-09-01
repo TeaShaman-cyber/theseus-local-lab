@@ -17,6 +17,7 @@ documentation, tooling, and local infrastructure experiments.
 | `docs/research/` | research data and chronologies (model-helper-chronology etc.) |
 | `docs/audits/`, `docs/plans/` | audits and live plans |
 | `docs/archive/` | historical material (issue drafts, July-era outputs) |
+| `deploy/hindsight/` | canonical Git-owned Hindsight Compose source; runtime state stays external |
 | `tools/` | 40+ small tool projects — see `tools/INDEX.md` before touching |
 | `gtd/` | Docker stack for the GTD pilot |
 | `hooks/`, `.githooks/`, `.agents/`, `skills/` | operating harness |

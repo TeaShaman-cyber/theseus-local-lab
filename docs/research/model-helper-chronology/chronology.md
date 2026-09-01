@@ -109,3 +109,26 @@ Entry format:
   active-runtime-verified-with-cold-boot-pending. Existing Nemotron backlog
   was preserved; the optional bank LLM-health endpoint stayed disabled; the
   no-persistence dry-run timeout was not retried.
+
+## 2026-09-01 22:37 (+02:00) — Hindsight Compose source consolidated into Git
+- class: CONFIG
+- role: infrastructure_source_boundary
+- detail: The canonical Hindsight Compose source moved into
+  `theseus-local-lab/deploy/hindsight/docker-compose.yml`. The existing
+  `hindsight-cloud` project was force-recreated from that file; Docker labels
+  now point to the Git-owned source. Runtime env and pg0 remain at
+  `D:/hindsight`, and the dedicated `theseus-hermes-proxy-data` volume retains
+  OAuth state outside Git. The former D: Compose file was moved to the
+  registered archive as a rollback copy, eliminating a second active source.
+  A read-only Hindsight recall returned 4 results after migration. The current
+  Nous `/v1/models` and Solar completion probes returned Cloudflare error 1010;
+  this is recorded separately from the successful source migration and prior
+  historical Solar route verification.
+- evidence: issue #3 and progress comment;
+  `deploy/hindsight/README.md`;
+  `docs/reference/infrastructure-registry.yaml`;
+  Docker Compose provenance labels and read-only recall read-back
+- disposition: Hindsight source ownership promoted from
+  `legacy-runtime-root` to repository-owned deploy source. Runtime data,
+  credentials, OAuth state, logs, generated artifacts, and model files remain
+  outside Git; cold-boot reliability remains pending.

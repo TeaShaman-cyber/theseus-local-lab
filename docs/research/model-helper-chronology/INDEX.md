@@ -15,7 +15,7 @@
 | Delegation pin | glm-5.3-flash @ opencode-go | LIVE (was hy3:free, died) |
 | MoA aggregator | meituan/longcat-2.0:free @ nous | ALIVE (re-verified 2026-09-01) |
 | Compression helper | **inherits main model** (config `auxiliary.compression: auto/''`) | root cause of incidents |
-| Hindsight general LLM | round-robin [3,1,1]: BotHub Nemotron + OpenRouter Nemotron + Nous Solar via Docker hermes-proxy | Solar route LIVE; Nemotron family intermittently degraded (502 Nvidia overload) |
+| Hindsight general LLM | round-robin [3,1,1]: BotHub Nemotron + OpenRouter Nemotron + Nous Solar via Docker hermes-proxy | Solar route historically verified; current internal probe blocked by Cloudflare 1010; Nemotron family intermittently degraded (502 Nvidia overload) |
 | Hindsight reflect LLM | mistral-small-3.2-24b-instruct @ bothub | LIVE (timeout 300s) |
 
 ### Free-helper rotation pool (verified 2026-09-01, three independent routes)

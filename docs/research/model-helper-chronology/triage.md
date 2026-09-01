@@ -29,7 +29,9 @@ to different helpers — never assume "all helpers are down" from one failure.
 - Hindsight note: general LLM is round-robin [3,1,1] across BotHub Nemotron,
   OpenRouter Nemotron, and Nous Solar via the Docker-owned `hermes-proxy`.
   A Nemotron outage affects two routes; Solar is an independently verified
-  fallback, not an equivalent-quality claim.
+  fallback, not an equivalent-quality claim. The 2026-09-01 source-consolidation
+  probe preserved Hindsight read access but received Cloudflare error 1010 from
+  the Nous data plane; this is a route observation, not a Git source failure.
 
 ## Step 3 — wait vs switch
 

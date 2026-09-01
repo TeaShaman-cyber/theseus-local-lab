@@ -1,6 +1,14 @@
 .env
 .env.*
 !.env.example
+# Hindsight runtime/state stays outside the repository even if copied locally.
+deploy/hindsight/.env
+deploy/hindsight/env_file
+deploy/hindsight/pg0/
+deploy/hindsight/pg0-*/
+deploy/hindsight/pg0_bsod_backup_*/
+deploy/hindsight/llama_models/
+deploy/hindsight/*.generated.json
 .codewhale-home/
 backups/*
 !backups/codex-skills/

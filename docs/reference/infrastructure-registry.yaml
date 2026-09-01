@@ -79,14 +79,17 @@ stacks:
     scope: shared-memory-service-with-isolated-banks
     consumers: [hermes, codex]
     consumers_excluded: []
-    source_kind: legacy-runtime-root
-    compose_source: D:/hindsight/docker-compose.yml
+    source_kind: repository-owned-deploy-source
+    compose_source: C:/Users/s.poklad/Documents/Codex/2026-07-08/life-science-research-plugin-life-science-4/deploy/hindsight/docker-compose.yml
     runtime_root: D:/hindsight
+    runtime_env_file: D:/hindsight/.env
+    data_root: D:/hindsight/pg0
     containers: [hindsight-api]
     memory_role: private-hermes-provider-plus-isolated-codex-operational-bank
     recovery: excluded-from-workshop-recovery-until-verified
     audit:
       compose_labels_and_mount: verified
+      compose_source_ownership: verified_git_owned_after_force_recreate
       container_restart_policy: unless-stopped
       direct_recall: verified_direct_nous_65s_historical
       hermes_memory_status: provider_available
@@ -104,7 +107,8 @@ stacks:
       llm_weights: [3, 1, 1]
       native_failover_preflight: verified
       native_round_robin_preflight: verified
-      production_all_members_connection_verified: true
+      production_all_members_connection_verified: historical_true
+      current_solar_data_plane: blocked_cloudflare_1010_20260901
       router_trace_monitor: /v1/default/banks/hermes/llm-requests
       router_stats_monitor: /v1/default/banks/hermes/llm-requests/stats
       proxy_bypass: false
@@ -114,15 +118,17 @@ stacks:
     codex_integration: project-hook-router-with-fail-soft-retain-and-recall
     codex_isolation: bank-level-isolated-from-hermes
     secrets: external-not-in-registry
-    notes: Active Hindsight runtime is verified on weighted round-robin [3,1,1] across BotHub Nemotron, OpenRouter Nemotron, and Nous Solar through the Docker-owned Hermes Subscription Proxy. Existing pending retain work was preserved; do not interpret its Nemotron 502s as Solar proxy failure.
+    tracking_issue: https://github.com/TeaShaman-cyber/theseus-local-lab/issues/3
+    notes: Hindsight Compose source is now owned by this repository; runtime env, pg0 data, generated artifacts, and Docker named volumes remain external. Historical weighted round-robin [3,1,1] verification is preserved, while the current Solar probe is blocked by Cloudflare error 1010 at inference-api.nousresearch.com. Existing pending retain work was preserved.
 
   - id: hermes-subscription-proxy
-    status: active-runtime-verified-with-cold-boot-pending
+    status: active-runtime-source-verified-solar-route-blocked
     scope: shared-service
     consumers: [hindsight]
-    source_kind: compose-sibling-service
-    compose_source: D:/hindsight/docker-compose.yml
+    source_kind: repository-owned-compose-sibling-service
+    compose_source: C:/Users/s.poklad/Documents/Codex/2026-07-08/life-science-research-plugin-life-science-4/deploy/hindsight/docker-compose.yml
     runtime_root: D:/hindsight
+    runtime_env_file: D:/hindsight/.env
     image: nousresearch/hermes-agent@sha256:340eb6095b79360597b7046ef0c695c874b6a62d0d170f0354df5120c944c724
     auth_volume: theseus-hermes-proxy-data
     service_name: hermes-proxy
@@ -143,14 +149,14 @@ stacks:
       dedicated_auth_profile: verified_named_volume_mode600
       oauth_login: verified_manual
       proxy_health: verified
-      solar_data_plane: verified_after_proxy_recovery
-      hindsight_internal_route: verified_llm_trace_and_recall
+      solar_data_plane: blocked_cloudflare_1010_current_probe
+      hindsight_internal_route: historical_verified_llm_trace_and_recall
       auto_restart_readback: proxy_fault_restart_count_incremented; engine_cold_boot_not_tested
       optional_bank_llm_health: disabled_not_modified
       dry_run_extract: timeout_due_existing_Nemotron_backlog_not_retried
       old_backlog: preserved_no_memory_or_operation_deletion
     secrets: external-not-in-registry
-    notes: Runtime POC is active and verified within the current Docker Engine session. Next distinguishing probe is a controlled Docker Engine restart or host reboot when operationally convenient; do not perform it merely for this issue.
+    notes: Compose source and container provenance are now repository-owned; OAuth remains in the dedicated named volume and runtime env remains at D:/hindsight/.env. Current Nous Solar data-plane probing is blocked by Cloudflare error 1010; this is separate from source ownership and must not be reported as a healthy completion route. Cold-boot verification remains pending.
 
   - id: backup
     status: active-needs-review
