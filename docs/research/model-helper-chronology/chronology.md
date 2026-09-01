@@ -73,3 +73,39 @@ Entry format:
   with max_tokens<200 — probes need max_tokens>=200.
 - evidence: sources/free-helper-pool-2026-08-31.md (this repo)
 - disposition: free-first helper policy confirmed viable; rotation candidates identified
+
+## 2026-09-01 ~00:10 — VPN endpoint change → CF 403 mystery solved, free pool tripled
+- class: PROBE
+- role: candidate
+- detail: User switched VPN endpoint; Groq and Nous "recovered". Experiment
+  showed the 08-31 403s were Cloudflare bot-mitigation (error code 1010,
+  TLS fingerprinting): same egress IP passes via curl/schannel, fails via
+  python urllib. Nous: solar-pro4, longcat-2.0, step-3.7-flash,
+  ling-3.0-flash-fin all :free ALIVE (agent_key from credential_pool, not
+  static .env key). Groq: catalog 14 models, gpt-oss-120b/compound-mini/
+  qwen3.8-27b ALIVE. hy3:free re-confirmed DEAD (404, permanent).
+  OpenRouter lesson: nemotron-ultra probe returned HTTP 200 with embedded
+  {"error":{code:502}} — body must be parsed, not just status.
+- evidence: sources/vpn-endpoint-change-2026-09-01.md (full experiment)
+- disposition: triage.md gains CF-1010 row + 200-wrapped-error rule;
+  free pool now spans 3 independent routes (nous/groq/openrouter)
+
+## 2026-09-01 21:34 (+02:00) — Docker-owned Hermes Subscription Proxy runtime verified
+- class: CONFIG
+- role: hindsight_llm
+- detail: Official `nousresearch/hermes-agent` image runs as a Docker Compose
+  sibling with a dedicated persistent OAuth volume and no host-published proxy
+  port. Manual OAuth succeeded in the isolated volume. From `hindsight-api`,
+  `/v1/models` returned HTTP 200 with `upstage/solar-pro4:free`; a Solar
+  completion returned HTTP 200 before and after proxy fault recovery. Hindsight
+  was recreated with internal `hermes-proxy:8645` and weights [3,1,1]. Its
+  LLM trace contains successful Solar `retain_extract_facts` calls; API health
+  and read-only recall returned HTTP 200.
+- evidence: issue #2 and progress comment;
+  docs/reference/infrastructure-registry.yaml;
+  D:/hindsight/docker-compose.yml;
+  Hindsight `/v1/default/banks/hermes/llm-requests` read-back
+- disposition: proxy ownership promoted from planned-poc to
+  active-runtime-verified-with-cold-boot-pending. Existing Nemotron backlog
+  was preserved; the optional bank LLM-health endpoint stayed disabled; the
+  no-persistence dry-run timeout was not retried.

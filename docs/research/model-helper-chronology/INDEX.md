@@ -6,17 +6,25 @@
 > `theseus-local-lab`, NOT a separate repository. Durable lessons go to
 > AutoMem/MemPalace; DATA and evidence live here.
 
-## Current state (2026-08-31)
+## Current state (2026-09-01)
 
 | Role | Provider/Model | Status |
 |---|---|---|
 | Main chat | glm-5.3-flash @ opencode-go | LIVE |
-| Fallback | nous / tencent/hy3 | **DEAD** (hy3:free 404 "free period ended" 2026-08-31) |
+| Fallback | nous / tencent/hy3 | **DEAD** (hy3:free 404 "free period ended" 2026-08-31) — replacement pending user decision |
 | Delegation pin | glm-5.3-flash @ opencode-go | LIVE (was hy3:free, died) |
-| MoA aggregator | meituan/longcat-2.0:free @ nous | unverified today |
-| Compression helper | **inherits main model** (config has no dedicated key) | root cause of incidents |
-| Hindsight general LLM | round-robin [3,1]: bothub nemotron-3-super:free + openrouter nemotron-3-super:free | degraded 2026-08-31 (502 Nvidia overload, transient) |
+| MoA aggregator | meituan/longcat-2.0:free @ nous | ALIVE (re-verified 2026-09-01) |
+| Compression helper | **inherits main model** (config `auxiliary.compression: auto/''`) | root cause of incidents |
+| Hindsight general LLM | round-robin [3,1,1]: BotHub Nemotron + OpenRouter Nemotron + Nous Solar via Docker hermes-proxy | Solar route LIVE; Nemotron family intermittently degraded (502 Nvidia overload) |
 | Hindsight reflect LLM | mistral-small-3.2-24b-instruct @ bothub | LIVE (timeout 300s) |
+
+### Free-helper rotation pool (verified 2026-09-01, three independent routes)
+
+| Route | Verified ALIVE :free | Notes |
+|---|---|---|
+| nous | solar-pro4:free, longcat-2.0:free, step-3.7-flash:free, ling-3.0-flash-fin:free | agent_key (auto-refresh) |
+| groq | gpt-oss-120b, compound-mini, qwen3.8-27b (+11 more in catalog) | restored after CF-1010 mystery |
+| openrouter | minimax-m3:free (+~9 more from 08-31 scan) | nemotron-ultra currently 502 Nvidia |
 
 ## Reading order for newcomers
 
