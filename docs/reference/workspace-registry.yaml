@@ -18,6 +18,14 @@ projects:
     lead_harness: codex
     notes: Main Theseus local-lab repository; not the Hermes runtime directory.
 
+  - id: theseus-model-usage-lab
+    canonical_path: D:/theseus-model-usage-lab
+    remote: https://github.com/TeaShaman-cyber/theseus-model-usage-lab.git
+    status: active
+    role: public-research-and-model-helper-experiments
+    lead_harness: hermes
+    notes: Public research repository for observable model usage, helper/council experiments, and budget-aware routing. Runtime state, credentials, raw transcripts, and production infrastructure remain outside this project.
+
   - id: theseus-osint
     canonical_path: D:/theseus-osint
     remote: https://github.com/TeaShaman-cyber/theseus-osint.git

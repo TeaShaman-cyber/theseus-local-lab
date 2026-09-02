@@ -226,6 +226,28 @@ stacks:
     auto_start: false
     notes: Do not revive or delete its data without explicit user direction.
 
+  - id: nous-route-council-sandbox
+    status: verified-research-only-ephemeral
+    scope: research-test-harness
+    consumers: [hermes-subagents]
+    source_kind: separate-research-repository
+    compose_source: D:/theseus-model-usage-lab/research/sandboxes/nous-route-diagnostic/docker-compose.yml
+    runtime_working_dir: D:/theseus-model-usage-lab/research/sandboxes/nous-route-diagnostic
+    containers: [nous-stub, proxy-stub, test-runner]
+    role: deterministic-failure-fixtures-for-nous-diagnostic
+    network: compose-internal-only
+    host_port_publication: false
+    host_mounts: false
+    docker_socket: forbidden
+    secrets: none
+    recovery: excluded-from-startup-and-workshop-recovery
+    production_access: forbidden
+    audit:
+      compose_config: pending
+      fixture_smoke: pending
+      no_prod_state: asserted_by_compose_and_readback
+    notes: Ephemeral fake Nous/proxy test stand for isolated implementation children. It is not a memory, OAuth, Hindsight, or production route and must not be pointed at real credentials or host volumes.
+
 runtime_integrations:
   - id: hermes-hugging-face-hub
     status: active-authenticated-read-route-verified
