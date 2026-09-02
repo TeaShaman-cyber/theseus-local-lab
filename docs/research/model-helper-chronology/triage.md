@@ -13,6 +13,7 @@ failure class appears; never delete entries.
 | HTTP 502 "upstream overloaded" | TRANSIENT overload | wait 15–60 min; check provider status |
 | HTTP 429 rate limited | TRANSIENT quota | wait or rotate to sibling free model |
 | HTTP 401 unauthorized | ROUTE/KEY | check key/scope; not a model fault |
+| HTTP 402 with x402/required body | PAYMENT_GATE (provider-side, not Cloudflare) | treat as a provider reply, not a block; the route is reachable |
 | HTTP 403 "error code: 1010" on SOME clients only | CF bot-mitigation (TLS fingerprint), NOT provider death | re-probe with different TLS stack (curl/schannel vs python) and/or browser before any verdict |
 | timeout / empty content | AMBIGUOUS | re-probe with max_tokens>=200 before judging |
 
@@ -28,10 +29,17 @@ to different helpers — never assume "all helpers are down" from one failure.
   compression problem.
 - Hindsight note: general LLM is round-robin [3,1,1] across BotHub Nemotron,
   OpenRouter Nemotron, and Nous Solar via the Docker-owned `hermes-proxy`.
-  A Nemotron outage affects two routes; Solar is an independently verified
-  fallback, not an equivalent-quality claim. The 2026-09-01 source-consolidation
-  probe preserved Hindsight read access but received Cloudflare error 1010 from
-  the Nous data plane; this is a route observation, not a Git source failure.
+  A Nemotron outage affects two routes; Solar is an independently
+  verified fallback, not an equivalent-quality claim. The 2026-09-02
+  source-consolidation probe (via `tools/nous_route_diagnostic/`) showed:
+  direct `curl.exe` reached Nous and got a real HTTP 402/x402
+  payment-gate response; proxy-internal (`docker compose exec
+  hermes-proxy`) returned a real `SUCCESS` completion (`route-ok`,
+  `finish_reason=stop`) and `{"status":"ok","upstream":"Nous Portal",
+  "authenticated":true}`. The earlier Python-only Cloudflare 1010 was
+  a client/TLS fingerprint artifact, not a provider outage; the proxy
+  target must run from the compose network, not host-inaccessible
+  `http://hermes-proxy:8645`. |
 
 ## Step 3 — wait vs switch
 
