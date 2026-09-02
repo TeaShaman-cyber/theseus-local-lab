@@ -1,0 +1,1806 @@
+{
+ "generated": "2026-09-02",
+ "count": 180,
+ "novel_candidates": [
+  {
+   "name": "dynamo-recipe-runner",
+   "identifier": "NVIDIA/skills/skills/dynamo-recipe-runner",
+   "source": "github",
+   "trust_level": "trusted",
+   "description": "Select, validate, patch, and deploy existing NVIDIA Dynamo Kubernetes recipes. Use for model/backend/GPU/deployment-mode recipe bring-up; use router-starter for router-only mode work and troubleshoot for broken deployments.",
+   "hits": [
+    "q08"
+   ]
+  },
+  {
+   "name": "tao-run-on-kubernetes",
+   "identifier": "NVIDIA/skills/skills/tao-run-on-kubernetes",
+   "source": "github",
+   "trust_level": "trusted",
+   "description": "Kubernetes execution platform — submits TAO container jobs as single-pod k8s Jobs with NVIDIA GPU scheduling. Use when running on EKS / GKE / AKS / on-prem clusters with the NVIDIA GPU Operator installed, or when integrating TAO into an existing k8s-native ML platform.",
+   "hits": [
+    "q08"
+   ]
+  },
+  {
+   "name": "Release Notes Generator",
+   "identifier": "afrexai-release-notes",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Generate clear, formatted release notes from git commits, PR titles, or change descriptions, grouped by change type and suitable for different audiences and...",
+   "hits": [
+    "q11"
+   ]
+  },
+  {
+   "name": "Failure Registry",
+   "identifier": "agent-failure-registry",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Search the community-driven Agent Failure Registry for known agent errors, solutions, and lessons to debug issues or submit new failure post-mortems.",
+   "hits": [
+    "q23"
+   ]
+  },
+  {
+   "name": "Agent News Api",
+   "identifier": "agent-news-api",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "A set of free and premium AI enriched global news streams for agents, provided by agentnewsapi.com. Powered by $ANA on Solana.",
+   "hits": [
+    "q15"
+   ]
+  },
+  {
+   "name": "Agent News API Free Tier",
+   "identifier": "agent-news-free",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "A free AI enriched global news stream for agents, provided by agentnewsapi.com. Powered by $ANA on Solana.",
+   "hits": [
+    "q15"
+   ]
+  },
+  {
+   "name": "kubernetes-expert",
+   "identifier": "ah-kubernetes-expert",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "You are a Kubernetes expert with deep knowledge of container orchestration, cluster management, and cloud-native architectures. Use when: kubernetes cluster...",
+   "hits": [
+    "q08"
+   ]
+  },
+  {
+   "name": "kubernetes-specialist",
+   "identifier": "ah-kubernetes-specialist",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Expert Kubernetes specialist mastering container orchestration, cluster management, and cloud-native architectures. Specializes in production-grade deploymen...",
+   "hits": [
+    "q08"
+   ]
+  },
+  {
+   "name": "terraform-engineer",
+   "identifier": "ah-terraform-engineer",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Expert Terraform engineer specializing in infrastructure as code, multi-cloud provisioning, and modular architecture. Masters Terraform best practices, state...",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "Ai Devops Toolkit",
+   "identifier": "ai-devops-toolkit",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Operational tooling for teams running local LLM infrastructure. Request tracing with full scoring breakdowns, per-application usage analytics via request tag...",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "Alibabacloud Ack Cli",
+   "identifier": "alibabacloud-ack-cli",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Use when the user operates Alibaba Cloud Container Service for Kubernetes (ACK). Covers cluster lifecycle (create / modify / delete / upgrade), node pools &...",
+   "hits": [
+    "q08"
+   ]
+  },
+  {
+   "name": "Alibabacloud Terraform Code Generation",
+   "identifier": "alibabacloud-terraform-code-generation",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Use when the user wants Terraform HCL for Alibaba Cloud (Alicloud) infrastructure — new project or extending an existing one. Covers VPC, ECS, ApsaraDB RDS,...",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "Alibabacloud Terraform Import",
+   "identifier": "alibabacloud-terraform-import",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "This skill should be used when the user asks to \"导入阿里云资源到 Terraform\", \"terraform import 阿里云\", \"将现有云资源纳入 Terraform 管理\", \"阿里云资源迁移 Terraform\", \"生成 terraform sta...",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "Ansible",
+   "identifier": "ansible",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Avoid common Ansible mistakes — YAML syntax traps, variable precedence, idempotence failures, and handler gotchas.",
+   "hits": [
+    "q10"
+   ]
+  },
+  {
+   "name": "Ansible Generator",
+   "identifier": "ansible-generator",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Generate, create, or scaffold Ansible playbooks, roles, tasks, handlers, inventory, vars.",
+   "hits": [
+    "q10"
+   ]
+  },
+  {
+   "name": "Ansible",
+   "identifier": "ansible-skill",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Infrastructure automation with Ansible. Use for server provisioning, configuration management, application deployment, and multi-host orchestration. Includes playbooks for OpenClaw VPS setup, security hardening, and common server configurations.",
+   "hits": [
+    "q10"
+   ]
+  },
+  {
+   "name": "Kubernetes RBAC Audit",
+   "identifier": "auditing-k8s-rbac",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Auditing Kubernetes cluster RBAC configurations to identify overly permissive roles, wildcard permissions, dangerous ClusterRoleBindings, service account abu...",
+   "hits": [
+    "q08"
+   ]
+  },
+  {
+   "name": "Terraform Security Audit",
+   "identifier": "auditing-terraform-security",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Auditing Terraform infrastructure-as-code for security misconfigurations using Checkov, tfsec, Terrascan, and OPA/Rego policies to detect overly permissive I...",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "search-skills-plugins-subagents",
+   "identifier": "browse-sh/agentpowers.ai/search-skills-plugins-subagents-1at6ii",
+   "source": "browse-sh",
+   "trust_level": "community",
+   "description": "Search the AgentPowers marketplace for skills, agents (subagents), and plugins by keyword, type, and category — returning slug, title, description, type, price, security status, install/download counts, rating, author, and source (native vs. external like ClawHub).",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "find-viral-articles",
+   "identifier": "browse-sh/health.com/find-viral-articles-owlkuu",
+   "source": "browse-sh",
+   "trust_level": "community",
+   "description": "Surface health.com's freshest articles and the topics it is editorially betting on right now — the pool of likely-viral content — by reading the Google News sitemap and the homepage 'Trending' and 'The Latest' modules, then ranking by recency, topic-cluster frequency, and viral-headline pattern. Read-only.",
+   "hits": [
+    "q01"
+   ]
+  },
+  {
+   "name": "fetch-all-product-details",
+   "identifier": "browse-sh/temu.com/fetch-all-product-details-xj2sb6",
+   "source": "browse-sh",
+   "trust_level": "community",
+   "description": "Extract all product details (title, price, discount, rating, reviews, sold count, variants, images, shipping, store, specifications) from a Temu product page. Read-only. Currently blocked by a deterministic Security Verification image-grid CAPTCHA on every page.",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "lookup-trust-posture",
+   "identifier": "browse-sh/trust.scoutos.com/lookup-scout-trust-kuepc9",
+   "source": "browse-sh",
+   "trust_level": "community",
+   "description": "Look up Scout's security, compliance, and privacy posture from trust.scoutos.com (Vanta-hosted Trust Center) for a given topic. Returns structured JSON with compliance badges, audit reports, policy documents, controls by category, subprocessors with regions, gated-access flags, and the canonical access-request workflow URL. Read-only — never submits access or NDA forms.",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "check-wait-time",
+   "identifier": "browse-sh/tsa.gov/check-wait-time-90hawj",
+   "source": "browse-sh",
+   "trust_level": "community",
+   "description": "Return current and historical TSA security-line wait times for a US airport. TSA's public web wait-time tool has been deprecated since 2023; this skill documents the dead-end and routes callers to the MyTSA mobile app or third-party trackers.",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "Bytesagain Wallet Tracker",
+   "identifier": "bytesagain-wallet-tracker",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Crypto wallet analytics reference — address formats, on-chain analytics, transaction tracing, hardware wallets, and approval revocation",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "云运维编排器",
+   "identifier": "cloud-ops-orchestrator",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "云运维编排器为 AI Agent 提供以基础设施即代码（IaC）为核心的多云运维能力。它明确划分 Terraform（资源生命周期）与 Ansible（系统配置）的职责边界，覆盖 AWS、GCP、Azure 三大云，并内置状态漂移检测、变更预演（plan）、安全销毁（带保护期）、凭证隔离与回滚机制。 核心能力：多...",
+   "hits": [
+    "q10"
+   ]
+  },
+  {
+   "name": "CodeGraph",
+   "identifier": "codegraph",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Build and query AST summaries + call graphs for codebases. Use when exploring a project's structure, finding function definitions, tracing call chains, under...",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "ia-terraform",
+   "identifier": "compound-eng-terraform",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Terraform and OpenTofu configuration, modules, testing, state management, and HCL review. Use when working with Terraform, OpenTofu, HCL, tfvars, tftest, sta...",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "Music Research (Crate)",
+   "identifier": "crate-music-research",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "AI-powered music research with 92+ tools across 17 sources — MusicBrainz, Bandcamp, Discogs, Genius, Last.fm, Wikipedia, and more. Influence tracing, track v...",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "Aurora Borealis Solar Storm — Lake Superior Hunt | AI Experience",
+   "identifier": "experience-superior-aurora-hunt",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Feel awe and isolation as vivid auroras dance over the frozen Lake Superior shoreline, merging cosmic wonder with scientific discovery. Set up spectrometers...",
+   "hits": [
+    "q14"
+   ]
+  },
+  {
+   "name": "Fastapi Studio Template",
+   "identifier": "fastapi-studio-template",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Bootstrap a dark-themed FastAPI+HTMX studio app with SSE real-time progress, blind test mode, SQLite ratings, and Langfuse tracing. Based on the image-gen-st...",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "Financial Admin",
+   "identifier": "financial-admin-tool",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Perform fund administration tasks including GL reconciliation, break tracing, accrual scheduling, roll-forwards, variance commentary, and NAV tie-out to ensu...",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "Financial Admin",
+   "identifier": "financial-fund-ops",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Fund administration skills including GL reconciliation, break tracing, accrual schedules, roll-forwards, variance commentary, and NAV statement tie-out tasks.",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "Git Blame",
+   "identifier": "git-blame",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Production code audit via git blame. Natural language risk analysis — overtime commits, scattered changes, no-PR-review merges, and impact domain tracing for...",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "huawei-cloud-terraform-generator",
+   "identifier": "huawei-cloud-terraform-generator",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Generate Huawei Cloud Terraform configurations and execute deployment with user-guided approval. Use this skill when users want to create Huawei Cloud infras...",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "huawei-cloud-terraform-installer",
+   "identifier": "huawei-cloud-terraform-installer",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Installs Terraform CLI cross-platform with Huawei Cloud mirror support. Use this skill whenever the user mentions installing Terraform, setting up Terraform...",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "K3s Kubernetes Deploy",
+   "identifier": "k3s-deploy",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "自动化部署 K3s Kubernetes 集群到多台 Linux 服务器。支持自动镜像拉取、网络配置检测、CNI 插件安装。使用场景：(1) 从零部署 K3s 集群，(2) 修复 NotReady 节点，(3) 批量部署多节点集群。触发条件：用户提到 K3s、Kubernetes 部署、集群安装、节点加入等。",
+   "hits": [
+    "q08"
+   ]
+  },
+  {
+   "name": "Kubernetes Skills",
+   "identifier": "k8-autoscaling",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Configure Kubernetes autoscaling with HPA, VPA, and KEDA. Use for horizontal/vertical pod autoscaling, event-driven scaling, and capacity management.",
+   "hits": [
+    "q08"
+   ]
+  },
+  {
+   "name": "Kubernetes Skills",
+   "identifier": "k8-multicluster",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Manage multiple Kubernetes clusters, switch contexts, and perform cross-cluster operations. Use when working with multiple clusters, comparing environments, or managing cluster lifecycle.",
+   "hits": [
+    "q08"
+   ]
+  },
+  {
+   "name": "Kubernetes Skills",
+   "identifier": "k8s-capi",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Cluster API lifecycle management for provisioning, scaling, and upgrading Kubernetes clusters. Use when managing cluster infrastructure or multi-cluster operations.",
+   "hits": [
+    "q08"
+   ]
+  },
+  {
+   "name": "EZ Ansible Skill",
+   "identifier": "klimatex911",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Generate, review, and optimize Ansible automation artifacts. Use this skill whenever the user mentions Ansible, playbooks, roles, inventory, tasks, handlers,...",
+   "hits": [
+    "q10"
+   ]
+  },
+  {
+   "name": "Kubernetes Agent Swarm",
+   "identifier": "kubernetes",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Kubernetes & OpenShift Platform Agent Swarm — A coordinated multi-agent system for cluster operations. Includes Orchestrator (Jarvis), Cluster Ops (Atlas), G...",
+   "hits": [
+    "q08"
+   ]
+  },
+  {
+   "name": "Kubernetes 301363",
+   "identifier": "kubernetes-301363",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "从抖音视频学习: Kubernetes — 【2026最新】这绝对是B站讲的最好的Kubernetes系统精讲教程，全程干货无废话！",
+   "hits": [
+    "q08"
+   ]
+  },
+  {
+   "name": "Kubernetes Encyclopedia",
+   "identifier": "kubernetes-encyclopedia",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Kubernetes documentation-first workflow for Kubernetes-specific questions, troubleshooting, command planning, cluster operations, workload/resource behavior,...",
+   "hits": [
+    "q08"
+   ]
+  },
+  {
+   "name": "Kubernetes故障手册服务",
+   "identifier": "kubernetes-runbooks",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "一个基于模型上下文协议(MCP)的服务器，提供对Kubernetes故障排除手册的访问，支持搜索、内容获取和AI集成。",
+   "hits": [
+    "q08"
+   ]
+  },
+  {
+   "name": "Kubernetes Triage Expert",
+   "identifier": "kubernetes-triage-expert",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Analyze Kubernetes faults using only user-provided evidence. Classify the fault, rank likely hypotheses, request the next highest-value checks, and keep fact...",
+   "hits": [
+    "q08"
+   ]
+  },
+  {
+   "name": "Learn Ansible",
+   "identifier": "learn-ansible",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Learn Ansible on LabEx with infrastructure-as-code courses and playbook or inventory labs. Ansible courses and lab lists via LabEx MCP; public labex.io pages...",
+   "hits": [
+    "q10"
+   ]
+  },
+  {
+   "name": "Linux Firewall Hardening",
+   "identifier": "linux-firewall-hardening",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Safe Linux firewall hardening with backend detection, idempotent atomic rules, rollback protection, and AI-executable state-machine workflows. Covers ufw, fi...",
+   "hits": [
+    "q26"
+   ]
+  },
+  {
+   "name": "Maybeai Sheet Skill",
+   "identifier": "maybeai-sheet-skill",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Manages MaybeAI spreadsheets across upload, workbook profiling, read/write, worksheet operations, formulas, formula lineage tracing, formatting, and SQL resu...",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "MCP Security Auditor Lite",
+   "identifier": "mcp-security-auditor-lite",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Free version — scan your MCP configuration for the top 3 security risks. Tool description injection, permission sprawl, and supply chain trust.",
+   "hits": [
+    "q26"
+   ]
+  },
+  {
+   "name": "Microservices Starter",
+   "identifier": "microservices-starter",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Set up and deploy production-ready microservices with API gateway, service templates, service mesh support, distributed tracing, and container orchestration.",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "MistTrack Skills",
+   "identifier": "misttrack-aml-skills",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Cryptocurrency address risk analysis, AML compliance checks, and on-chain transaction tracing using the MistTrack OpenAPI. MistTrack is an anti-money launder...",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "Molecular 3D Renderer",
+   "identifier": "mol-render",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Generate high-quality 3D ball-and-stick molecular renderings from SMILES strings or PDB structures using POV-Ray ray tracing.",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "Nansen Wallet Clustering",
+   "identifier": "nansen-wallet-clustering",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Cluster and attribute related wallets — funding chains, shared signers, CEX deposit patterns. Use when tracing wallet ownership, comparing two wallets, findi...",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "Nella",
+   "identifier": "nella",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Provides codebase-aware search and indexing for non-trivial repos, enabling symbol location, call tracing, dependency checks, and persistent session context.",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "Novyx Memory",
+   "identifier": "novyx-memory",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Enterprise-grade persistent memory for AI agents — rollback, audit trails, knowledge graph, governed actions, time-travel debugging, and 60+ commands coverin...",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "evm",
+   "identifier": "official/blockchain/evm",
+   "source": "official",
+   "trust_level": "builtin",
+   "description": "Read-only EVM client: wallets, tokens, gas across 8 chains.",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "impeccable",
+   "identifier": "official/creative/impeccable",
+   "source": "official",
+   "trust_level": "builtin",
+   "description": "Frontend design guidance, upstream-maintained (impeccable).",
+   "hits": [
+    "q20"
+   ]
+  },
+  {
+   "name": "simple-english",
+   "identifier": "official/creative/simple-english",
+   "source": "official",
+   "trust_level": "builtin",
+   "description": "Rewrite text to ASD-STE100 Simplified Technical English.",
+   "hits": [
+    "q20"
+   ]
+  },
+  {
+   "name": "watchers",
+   "identifier": "official/devops/watchers",
+   "source": "official",
+   "trust_level": "builtin",
+   "description": "Poll RSS, JSON APIs, and GitHub with watermark dedup.",
+   "hits": [
+    "q01"
+   ]
+  },
+  {
+   "name": "neuroskill-bci",
+   "identifier": "official/health/neuroskill-bci",
+   "source": "official",
+   "trust_level": "builtin",
+   "description": "Use live BCI cognitive and mood state from NeuroSkill.",
+   "hits": [
+    "q17"
+   ]
+  },
+  {
+   "name": "sherlock",
+   "identifier": "official/security/sherlock",
+   "source": "official",
+   "trust_level": "builtin",
+   "description": "Find accounts for a username across 400+ platforms.",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "unbroker",
+   "identifier": "official/security/unbroker",
+   "source": "official",
+   "trust_level": "builtin",
+   "description": "Autonomously remove your info from data-broker sites.",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "Terraform",
+   "identifier": "oo-terraform",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Terraform (hashicorp.com). Use this skill for ANY Terraform request — searching and reading data. Whenever a task involves Terraform, use this skill instead...",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "OpenAI Agent SDK",
+   "identifier": "openai-agent-sdk",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Build multi-agent AI systems with OpenAI Agents SDK. Create, orchestrate, and manage AI agents with tools, handoffs, guardrails, and tracing. Supports 100+ L...",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "Openclaw Skill Ansible",
+   "identifier": "openclaw-skill-ansible",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Operate and secure mesh workflows across gateways, including plugin bootstrap, invite/join auth handshake, resilient routing, capability contract lifecycle,...",
+   "hits": [
+    "q10"
+   ]
+  },
+  {
+   "name": "Releaseguard",
+   "identifier": "releaseguard",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Scan, harden, sign, and verify release artifacts with ReleaseGuard — the artifact policy engine for dist/ and release/ outputs.",
+   "hits": [
+    "q26"
+   ]
+  },
+  {
+   "name": "Security",
+   "identifier": "security-2",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Runs a backend-backed live safety check for instructions that may trigger tool execution, external calls, file edits, permission changes, destructive or irre...",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "Security",
+   "identifier": "security-modeio",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Runs a backend-backed live safety check for instructions that may trigger tool execution, external calls, file edits, permission changes, destructive or irre...",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "Self Updater",
+   "identifier": "self-updater",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "⭐ OPEN SOURCE! GitHub: github.com/GhostDragon124/openclaw-self-updater ⭐ ONLY skill with Cron-aware + Idle detection! Auto-updates OpenClaw core & skills, an...",
+   "hits": [
+    "q04"
+   ]
+  },
+  {
+   "name": "Session Manager - 会话管理",
+   "identifier": "session-manager-zx",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "自动清理和管理 OpenClaw 不活跃会话，支持白名单保护和定时任务，保持系统会话整洁有序。",
+   "hits": [
+    "q32"
+   ]
+  },
+  {
+   "name": "security-and-hardening",
+   "identifier": "skills-sh/addyosmani/agent-skills/security-and-hardening",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from addyosmani/agent-skills",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "kubernetes-patterns",
+   "identifier": "skills-sh/affaan-m/ecc/kubernetes-patterns",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from affaan-m/ecc",
+   "hits": [
+    "q08"
+   ]
+  },
+  {
+   "name": "security-bounty-hunter",
+   "identifier": "skills-sh/affaan-m/ecc/security-bounty-hunter",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from affaan-m/ecc",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "kubernetes-patterns",
+   "identifier": "skills-sh/affaan-m/everything-claude-code/kubernetes-patterns",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from affaan-m/everything-claude-code",
+   "hits": [
+    "q08"
+   ]
+  },
+  {
+   "name": "security-bounty-hunter",
+   "identifier": "skills-sh/affaan-m/everything-claude-code/security-bounty-hunter",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from affaan-m/everything-claude-code",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "ansible-automation",
+   "identifier": "skills-sh/aj-geddes/useful-ai-prompts/ansible-automation",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from aj-geddes/useful-ai-prompts",
+   "hits": [
+    "q10"
+   ]
+  },
+  {
+   "name": "correlation-tracing",
+   "identifier": "skills-sh/aj-geddes/useful-ai-prompts/correlation-tracing",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from aj-geddes/useful-ai-prompts",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "distributed-tracing",
+   "identifier": "skills-sh/aj-geddes/useful-ai-prompts/distributed-tracing",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from aj-geddes/useful-ai-prompts",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "kubernetes-deployment",
+   "identifier": "skills-sh/aj-geddes/useful-ai-prompts/kubernetes-deployment",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from aj-geddes/useful-ai-prompts",
+   "hits": [
+    "q08"
+   ]
+  },
+  {
+   "name": "security-compliance-audit",
+   "identifier": "skills-sh/aj-geddes/useful-ai-prompts/security-compliance-audit",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from aj-geddes/useful-ai-prompts",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "security-documentation",
+   "identifier": "skills-sh/aj-geddes/useful-ai-prompts/security-documentation",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from aj-geddes/useful-ai-prompts",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "security-headers-configuration",
+   "identifier": "skills-sh/aj-geddes/useful-ai-prompts/security-headers-configuration",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from aj-geddes/useful-ai-prompts",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "terraform-infrastructure",
+   "identifier": "skills-sh/aj-geddes/useful-ai-prompts/terraform-infrastructure",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from aj-geddes/useful-ai-prompts",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "ansible-generator",
+   "identifier": "skills-sh/akin-ozer/cc-devops-skills/ansible-generator",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from akin-ozer/cc-devops-skills",
+   "hits": [
+    "q10"
+   ]
+  },
+  {
+   "name": "ansible-validator",
+   "identifier": "skills-sh/akin-ozer/cc-devops-skills/ansible-validator",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from akin-ozer/cc-devops-skills",
+   "hits": [
+    "q10"
+   ]
+  },
+  {
+   "name": "terraform-generator",
+   "identifier": "skills-sh/akin-ozer/cc-devops-skills/terraform-generator",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from akin-ozer/cc-devops-skills",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "terraform-validator",
+   "identifier": "skills-sh/akin-ozer/cc-devops-skills/terraform-validator",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from akin-ozer/cc-devops-skills",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "security",
+   "identifier": "skills-sh/alinaqi/claude-bootstrap/security",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from alinaqi/claude-bootstrap",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "kubernetes-operator",
+   "identifier": "skills-sh/alirezarezvani/claude-skills/kubernetes-operator",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from alirezarezvani/claude-skills",
+   "hits": [
+    "q08"
+   ]
+  },
+  {
+   "name": "security-guidance",
+   "identifier": "skills-sh/alirezarezvani/claude-skills/security-guidance",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from alirezarezvani/claude-skills",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "terraform-patterns",
+   "identifier": "skills-sh/alirezarezvani/claude-skills/terraform-patterns",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from alirezarezvani/claude-skills",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "terraform-skill",
+   "identifier": "skills-sh/antonbabenko/terraform-skill/terraform-skill",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from antonbabenko/terraform-skill",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "iac-data-engineering-terraform",
+   "identifier": "skills-sh/aradotso/data-skills/iac-data-engineering-terraform",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from aradotso/data-skills",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "iac-terraform-data-engineering",
+   "identifier": "skills-sh/aradotso/data-skills/iac-terraform-data-engineering",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from aradotso/data-skills",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "terraform-data-engineering-iac",
+   "identifier": "skills-sh/aradotso/data-skills/terraform-data-engineering-iac",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from aradotso/data-skills",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "terraform-data-engineering-infrastructure",
+   "identifier": "skills-sh/aradotso/data-skills/terraform-data-engineering-infrastructure",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from aradotso/data-skills",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "terraform-iac-data-engineering",
+   "identifier": "skills-sh/aradotso/data-skills/terraform-iac-data-engineering",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from aradotso/data-skills",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "security-awareness-malicious-repository-detection",
+   "identifier": "skills-sh/aradotso/security-skills/security-awareness-malicious-repository-detection",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from aradotso/security-skills",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "security-compliance-skills-suite-claude",
+   "identifier": "skills-sh/aradotso/security-skills/security-compliance-skills-suite-claude",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from aradotso/security-skills",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "security-detections-mcp",
+   "identifier": "skills-sh/aradotso/security-skills/security-detections-mcp",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from aradotso/security-skills",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "phoenix-tracing",
+   "identifier": "skills-sh/arize-ai/phoenix/phoenix-tracing",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from arize-ai/phoenix",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "tracing-downstream-lineage",
+   "identifier": "skills-sh/astronomer/agents/tracing-downstream-lineage",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from astronomer/agents",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "tracing-upstream-lineage",
+   "identifier": "skills-sh/astronomer/agents/tracing-upstream-lineage",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from astronomer/agents",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "kubernetes",
+   "identifier": "skills-sh/bobmatnyc/claude-mpm-skills/kubernetes",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from bobmatnyc/claude-mpm-skills",
+   "hits": [
+    "q08"
+   ]
+  },
+  {
+   "name": "security",
+   "identifier": "skills-sh/boshu2/agentops/security",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from boshu2/agentops",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "security-auditor",
+   "identifier": "skills-sh/charon-fan/agent-playbook/security-auditor",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from charon-fan/agent-playbook",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "security-audit",
+   "identifier": "skills-sh/cloudflare/security-audit-skill/security-audit",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from cloudflare/security-audit-skill",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "security",
+   "identifier": "skills-sh/cognitedata/builder-skills/security",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from cognitedata/builder-skills",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "security",
+   "identifier": "skills-sh/cognitedata/dune-skills/security",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from cognitedata/dune-skills",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "security-compliance",
+   "identifier": "skills-sh/davila7/claude-code-templates/security-compliance",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from davila7/claude-code-templates",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "terraform-skill",
+   "identifier": "skills-sh/daymade/claude-code-skills/terraform-skill",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from daymade/claude-code-skills",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "security-case-management",
+   "identifier": "skills-sh/elastic/agent-skills/security-case-management",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from elastic/agent-skills",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "security-detection-rule-management",
+   "identifier": "skills-sh/elastic/agent-skills/security-detection-rule-management",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from elastic/agent-skills",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "security-generate-security-sample-data",
+   "identifier": "skills-sh/elastic/agent-skills/security-generate-security-sample-data",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from elastic/agent-skills",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "terraform-diagrams",
+   "identifier": "skills-sh/eraserlabs/eraser-io/terraform-diagrams",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from eraserlabs/eraser-io",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "platform-tracing-agentforce-configure",
+   "identifier": "skills-sh/forcedotcom/sf-skills/platform-tracing-agentforce-configure",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from forcedotcom/sf-skills",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "platform-tracing-configure",
+   "identifier": "skills-sh/forcedotcom/sf-skills/platform-tracing-configure",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from forcedotcom/sf-skills",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "phoenix-tracing",
+   "identifier": "skills-sh/github/awesome-copilot/phoenix-tracing",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from github/awesome-copilot",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "terraform-azurerm-set-diff-analyzer",
+   "identifier": "skills-sh/github/awesome-copilot/terraform-azurerm-set-diff-analyzer",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from github/awesome-copilot",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "new-terraform-provider",
+   "identifier": "skills-sh/hashicorp/agent-skills/new-terraform-provider",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from hashicorp/agent-skills",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "terraform-search-import",
+   "identifier": "skills-sh/hashicorp/agent-skills/terraform-search-import",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from hashicorp/agent-skills",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "terraform-stacks",
+   "identifier": "skills-sh/hashicorp/agent-skills/terraform-stacks",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from hashicorp/agent-skills",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "terraform-style-guide",
+   "identifier": "skills-sh/hashicorp/agent-skills/terraform-style-guide",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from hashicorp/agent-skills",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "terraform-test",
+   "identifier": "skills-sh/hashicorp/agent-skills/terraform-test",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from hashicorp/agent-skills",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "kubernetes-specialist",
+   "identifier": "skills-sh/jeffallan/claude-skills/kubernetes-specialist",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from jeffallan/claude-skills",
+   "hits": [
+    "q08"
+   ]
+  },
+  {
+   "name": "terraform-engineer",
+   "identifier": "skills-sh/jeffallan/claude-skills/terraform-engineer",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from jeffallan/claude-skills",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "kubernetes-skill",
+   "identifier": "skills-sh/lukasniessen/kubernetes-skill/kubernetes-skill",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from lukasniessen/kubernetes-skill",
+   "hits": [
+    "q08"
+   ]
+  },
+  {
+   "name": "kubernetes-orchestration",
+   "identifier": "skills-sh/manutej/luxor-claude-marketplace/kubernetes-orchestration",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from manutej/luxor-claude-marketplace",
+   "hits": [
+    "q08"
+   ]
+  },
+  {
+   "name": "terraform-infrastructure",
+   "identifier": "skills-sh/manutej/luxor-claude-marketplace/terraform-infrastructure",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from manutej/luxor-claude-marketplace",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "terraform-infrastructure-as-code",
+   "identifier": "skills-sh/manutej/luxor-claude-marketplace/terraform-infrastructure-as-code",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from manutej/luxor-claude-marketplace",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "security",
+   "identifier": "skills-sh/markdown-viewer/skills/security",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from markdown-viewer/skills",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "devsecops-expert",
+   "identifier": "skills-sh/martinholovsky/claude-skills-generator/devsecops-expert",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from martinholovsky/claude-skills-generator",
+   "hits": [
+    "q26"
+   ]
+  },
+  {
+   "name": "azure-kubernetes",
+   "identifier": "skills-sh/microsoft/azure-skills/azure-kubernetes",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from microsoft/azure-skills",
+   "hits": [
+    "q08"
+   ]
+  },
+  {
+   "name": "kubernetes",
+   "identifier": "skills-sh/mindrally/skills/kubernetes",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from mindrally/skills",
+   "hits": [
+    "q08"
+   ]
+  },
+  {
+   "name": "security-best-practices",
+   "identifier": "skills-sh/mindrally/skills/security-best-practices",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from mindrally/skills",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "terraform",
+   "identifier": "skills-sh/mindrally/skills/terraform",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from mindrally/skills",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "instrumenting-with-mlflow-tracing",
+   "identifier": "skills-sh/mlflow/skills/instrumenting-with-mlflow-tracing",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from mlflow/skills",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "root-cause-tracing",
+   "identifier": "skills-sh/neolabhq/context-engineering-kit/root-cause-tracing",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from neolabhq/context-engineering-kit",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "security-audit",
+   "identifier": "skills-sh/netresearch/security-audit-skill/security-audit",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from netresearch/security-audit-skill",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "tao-run-on-kubernetes",
+   "identifier": "skills-sh/nvidia/skills/tao-run-on-kubernetes",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from nvidia/skills",
+   "hits": [
+    "q08"
+   ]
+  },
+  {
+   "name": "root-cause-tracing",
+   "identifier": "skills-sh/obra/superpowers-skills/root-cause-tracing",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from obra/superpowers-skills",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "tracing-knowledge-lineages",
+   "identifier": "skills-sh/obra/superpowers-skills/tracing-knowledge-lineages",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from obra/superpowers-skills",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "security-best-practices",
+   "identifier": "skills-sh/openai/skills/security-best-practices",
+   "source": "skills.sh",
+   "trust_level": "trusted",
+   "description": "Indexed by skills.sh from openai/skills",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "security-ownership-map",
+   "identifier": "skills-sh/openai/skills/security-ownership-map",
+   "source": "skills.sh",
+   "trust_level": "trusted",
+   "description": "Indexed by skills.sh from openai/skills",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "security-auditor",
+   "identifier": "skills-sh/ovachiever/droid-tings/security-auditor",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from ovachiever/droid-tings",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "braintrust-tracing",
+   "identifier": "skills-sh/parcadei/continuous-claude-v3/braintrust-tracing",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from parcadei/continuous-claude-v3",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "security",
+   "identifier": "skills-sh/parcadei/continuous-claude-v3/security",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from parcadei/continuous-claude-v3",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "ansible-expert",
+   "identifier": "skills-sh/personamanagmentlayer/pcl/ansible-expert",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from personamanagmentlayer/pcl",
+   "hits": [
+    "q10"
+   ]
+  },
+  {
+   "name": "pulumi-terraform-to-pulumi",
+   "identifier": "skills-sh/pulumi/agent-skills/pulumi-terraform-to-pulumi",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from pulumi/agent-skills",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "security",
+   "identifier": "skills-sh/rshankras/claude-code-apple-skills/security",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from rshankras/claude-code-apple-skills",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "security-audit",
+   "identifier": "skills-sh/ruvnet/ruflo/security-audit",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from ruvnet/ruflo",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "root-cause-tracing",
+   "identifier": "skills-sh/secondsky/claude-skills/root-cause-tracing",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from secondsky/claude-skills",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "security-headers-configuration",
+   "identifier": "skills-sh/secondsky/claude-skills/security-headers-configuration",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from secondsky/claude-skills",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "kubernetes-architect",
+   "identifier": "skills-sh/sickn33/antigravity-awesome-skills/kubernetes-architect",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from sickn33/antigravity-awesome-skills",
+   "hits": [
+    "q08"
+   ]
+  },
+  {
+   "name": "security-audit",
+   "identifier": "skills-sh/sickn33/antigravity-awesome-skills/security-audit",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from sickn33/antigravity-awesome-skills",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "security-auditor",
+   "identifier": "skills-sh/sickn33/antigravity-awesome-skills/security-auditor",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from sickn33/antigravity-awesome-skills",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "security-compliance-compliance-check",
+   "identifier": "skills-sh/sickn33/antigravity-awesome-skills/security-compliance-compliance-check",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from sickn33/antigravity-awesome-skills",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "terraform-skill",
+   "identifier": "skills-sh/sickn33/antigravity-awesome-skills/terraform-skill",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from sickn33/antigravity-awesome-skills",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "terraform-specialist",
+   "identifier": "skills-sh/sickn33/antigravity-awesome-skills/terraform-specialist",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from sickn33/antigravity-awesome-skills",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "security",
+   "identifier": "skills-sh/tartinerlabs/skills/security",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from tartinerlabs/skills",
+   "hits": [
+    "q24"
+   ]
+  },
+  {
+   "name": "terraform-best-practices",
+   "identifier": "skills-sh/terramate-io/agent-skills/terraform-best-practices",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from terramate-io/agent-skills",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "distributed-tracing",
+   "identifier": "skills-sh/wshobson/agents/distributed-tracing",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from wshobson/agents",
+   "hits": [
+    "q18"
+   ]
+  },
+  {
+   "name": "terraform-module-library",
+   "identifier": "skills-sh/wshobson/agents/terraform-module-library",
+   "source": "skills.sh",
+   "trust_level": "community",
+   "description": "Indexed by skills.sh from wshobson/agents",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "Slv Grpc Geyser",
+   "identifier": "slv-grpc-geyser",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Ansible playbooks and templates for deploying and managing Solana gRPC Geyser streaming nodes with Yellowstone or Richat plugins.",
+   "hits": [
+    "q10"
+   ]
+  },
+  {
+   "name": "Slv Rpc",
+   "identifier": "slv-rpc",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Ansible playbooks and templates to deploy, manage, and update Solana RPC nodes on mainnet, testnet, and devnet with support for RPC, indexing, and gRPC.",
+   "hits": [
+    "q10"
+   ]
+  },
+  {
+   "name": "Slv Validator",
+   "identifier": "slv-validator",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Deploys and manages Solana validators on mainnet and testnet using Ansible playbooks and Jinja2 templates for multiple validator types including jito, agave,...",
+   "hits": [
+    "q10"
+   ]
+  },
+  {
+   "name": "tao-run-on-kubernetes",
+   "identifier": "tao-run-on-kubernetes",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Kubernetes execution platform — submits TAO container jobs as single-pod k8s Jobs with NVIDIA GPU scheduling. Use when running on EKS / GKE / AKS / on-prem clusters with the NVIDIA GPU Operator installed, or when integrating TAO into an existing k8s-native ML platform.",
+   "hits": [
+    "q08"
+   ]
+  },
+  {
+   "name": "Terraform",
+   "identifier": "terraform",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Avoid common Terraform mistakes — state corruption, count vs for_each, lifecycle traps, and dependency ordering.",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "Terraform Config Builder / Terraform 配置生成",
+   "identifier": "terraform-builder",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "按你的架构描述，生成对应的 Terraform 配置方案。 / Generate Terraform config from your architecture description.",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "Terraform Drift Detector / Terraform 配置漂移检测",
+   "identifier": "terraform-drift-detector",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Real-time detection and reporting of infrastructure drift between Terraform state and live cloud. / 实时检测 Terraform 状态与云环境之间的基础设施漂移并生成报告。",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "Terraform Helper",
+   "identifier": "terraform-helper",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Reference tool for devtools — covers intro, quickstart, patterns and more. Quick lookup for Terraform Helper concepts, best practices, and implementation pat...",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "Terraform Module Linter",
+   "identifier": "terraform-module-linter",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Lint Terraform modules and configurations (.tf files) for structure, naming, security, and best practices. 24 rules across structure, naming, security, and b...",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "Terraform Plan Reviewer",
+   "identifier": "terraform-plan-reviewer",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Review terraform plan output for risk before apply. Detects destructive changes (force replace and destroy on stateful resources), drift from real state, mis...",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "Terraform Reviewer",
+   "identifier": "terraform-reviewer",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Review Terraform plans and HCL files for AWS security misconfigurations before deployment",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "Terraform State Doctor / Terraform状态诊断师",
+   "identifier": "terraform-state-doctor",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Detect and fix state drift, lock issues, and orphaned resources in Terraform projects. / 检测并修复Terraform项目中的状态漂移、锁定问题和孤立资源。",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "Terraform State Inventory / Terraform 资源盘点器",
+   "identifier": "terraform-state-inventory",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Parse terraform.tfstate to list all managed resources, detect drift, and generate migration reports. / 解析 terraform.tfstate，列出所有托管资源，检测漂移并生成迁移报告。",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "Terraform State Migrator / Terraform状态迁移器",
+   "identifier": "terraform-state-migrator",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Migrate Terraform state between backends, rename resources, and fix drift without manual editing. / 在多个后端间迁移Terraform状态，重命名资源并自动修复漂移。",
+   "hits": [
+    "q09"
+   ]
+  },
+  {
+   "name": "Amazon EKS Hardening",
+   "identifier": "toolweb-amazon-eks-hardening",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Professional Amazon EKS security configuration generator based on CIS Benchmarks for automated Kubernetes cluster hardening.",
+   "hits": [
+    "q08"
+   ]
+  },
+  {
+   "name": "DevSecOps Roadmap",
+   "identifier": "toolweb-devsecops-roadmap",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Generates customized DevSecOps implementation roadmaps based on organizational assessment data and maturity level analysis.",
+   "hits": [
+    "q26"
+   ]
+  },
+  {
+   "name": "Kubernetes Hardening",
+   "identifier": "toolweb-kubernetes-hardening",
+   "source": "clawhub",
+   "trust_level": "community",
+   "description": "Generates security hardening recommendations and configurations for Kubernetes clusters based on specified hardening options.",
+   "hits": [
+    "q08"
+   ]
+  }
+ ]
+}

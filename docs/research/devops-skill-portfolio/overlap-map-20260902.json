@@ -1,0 +1,8935 @@
+{
+ "generated": "2026-09-02",
+ "method": "name-exact / name-normalized / keyword-zone match against 171 installed skills + local tools inventory",
+ "zone_counts": {
+  "observability": 296,
+  "monitoring": 288,
+  "security": 42,
+  "sre": 189,
+  "backup-dr": 131,
+  "finops": 67,
+  "network": 186,
+  "docker": 72,
+  "github-ci": 59,
+  "i-notation": 3
+ },
+ "name_collisions": [
+  {
+   "identifier": "official/devops/docker-management",
+   "match_type": "name-exact",
+   "matched": "docker-management"
+  },
+  {
+   "identifier": "official/devops/docker-management",
+   "match_type": "name-normalized",
+   "matched": "dockermanagement"
+  },
+  {
+   "identifier": "official/devops/pinggy-tunnel",
+   "match_type": "name-exact",
+   "matched": "pinggy-tunnel"
+  },
+  {
+   "identifier": "official/devops/pinggy-tunnel",
+   "match_type": "name-normalized",
+   "matched": "pinggytunnel"
+  },
+  {
+   "identifier": "official/research/blogwatcher",
+   "match_type": "name-exact",
+   "matched": "blogwatcher"
+  },
+  {
+   "identifier": "official/research/blogwatcher",
+   "match_type": "name-normalized",
+   "matched": "blogwatcher"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/architecture-diagram",
+   "match_type": "name-exact",
+   "matched": "architecture-diagram"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/architecture-diagram",
+   "match_type": "name-normalized",
+   "matched": "architecturediagram"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/arxiv",
+   "match_type": "name-exact",
+   "matched": "arxiv"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/arxiv",
+   "match_type": "name-normalized",
+   "matched": "arxiv"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/ascii-art",
+   "match_type": "name-exact",
+   "matched": "ascii-art"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/ascii-art",
+   "match_type": "name-normalized",
+   "matched": "asciiart"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/ascii-video",
+   "match_type": "name-exact",
+   "matched": "ascii-video"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/ascii-video",
+   "match_type": "name-normalized",
+   "matched": "asciivideo"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/baoyu-infographic",
+   "match_type": "name-exact",
+   "matched": "baoyu-infographic"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/baoyu-infographic",
+   "match_type": "name-normalized",
+   "matched": "baoyuinfographic"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/claude-code",
+   "match_type": "name-exact",
+   "matched": "claude-code"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/claude-code",
+   "match_type": "name-normalized",
+   "matched": "claudecode"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/claude-design",
+   "match_type": "name-exact",
+   "matched": "claude-design"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/claude-design",
+   "match_type": "name-normalized",
+   "matched": "claudedesign"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/codex",
+   "match_type": "name-exact",
+   "matched": "codex"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/codex",
+   "match_type": "name-normalized",
+   "matched": "codex"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/comfyui",
+   "match_type": "name-exact",
+   "matched": "comfyui"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/comfyui",
+   "match_type": "name-normalized",
+   "matched": "comfyui"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/design-md",
+   "match_type": "name-exact",
+   "matched": "design-md"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/design-md",
+   "match_type": "name-normalized",
+   "matched": "designmd"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/dogfood",
+   "match_type": "name-exact",
+   "matched": "dogfood"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/dogfood",
+   "match_type": "name-normalized",
+   "matched": "dogfood"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/excalidraw",
+   "match_type": "name-exact",
+   "matched": "excalidraw"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/excalidraw",
+   "match_type": "name-normalized",
+   "matched": "excalidraw"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/google-workspace",
+   "match_type": "name-exact",
+   "matched": "google-workspace"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/google-workspace",
+   "match_type": "name-normalized",
+   "matched": "googleworkspace"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/hermes-agent",
+   "match_type": "name-exact",
+   "matched": "hermes-agent"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/hermes-agent",
+   "match_type": "name-normalized",
+   "matched": "hermesagent"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/humanizer",
+   "match_type": "name-exact",
+   "matched": "humanizer"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/humanizer",
+   "match_type": "name-normalized",
+   "matched": "humanizer"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/imessage",
+   "match_type": "name-exact",
+   "matched": "imessage"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/imessage",
+   "match_type": "name-normalized",
+   "matched": "imessage"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/jupyter-live-kernel",
+   "match_type": "name-exact",
+   "matched": "jupyter-live-kernel"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/jupyter-live-kernel",
+   "match_type": "name-normalized",
+   "matched": "jupyterlivekernel"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/llm-wiki",
+   "match_type": "name-exact",
+   "matched": "llm-wiki"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/llm-wiki",
+   "match_type": "name-normalized",
+   "matched": "llmwiki"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/manim-video",
+   "match_type": "name-exact",
+   "matched": "manim-video"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/manim-video",
+   "match_type": "name-normalized",
+   "matched": "manimvideo"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/ocr-and-documents",
+   "match_type": "name-exact",
+   "matched": "ocr-and-documents"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/ocr-and-documents",
+   "match_type": "name-normalized",
+   "matched": "ocranddocuments"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/opencode",
+   "match_type": "name-exact",
+   "matched": "opencode"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/opencode",
+   "match_type": "name-normalized",
+   "matched": "opencode"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/p5js",
+   "match_type": "name-exact",
+   "matched": "p5js"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/p5js",
+   "match_type": "name-normalized",
+   "matched": "p5js"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/plan",
+   "match_type": "name-exact",
+   "matched": "plan"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/plan",
+   "match_type": "name-normalized",
+   "matched": "plan"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/popular-web-designs",
+   "match_type": "name-exact",
+   "matched": "popular-web-designs"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/popular-web-designs",
+   "match_type": "name-normalized",
+   "matched": "popularwebdesigns"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/powerpoint",
+   "match_type": "name-exact",
+   "matched": "powerpoint"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/powerpoint",
+   "match_type": "name-normalized",
+   "matched": "powerpoint"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/research-paper-writing",
+   "match_type": "name-exact",
+   "matched": "research-paper-writing"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/research-paper-writing",
+   "match_type": "name-normalized",
+   "matched": "researchpaperwriting"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/sketch",
+   "match_type": "name-exact",
+   "matched": "sketch"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/sketch",
+   "match_type": "name-normalized",
+   "matched": "sketch"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/songwriting-and-ai-music",
+   "match_type": "name-exact",
+   "matched": "songwriting-and-ai-music"
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/songwriting-and-ai-music",
+   "match_type": "name-normalized",
+   "matched": "songwritingandaimusic"
+  }
+ ],
+ "overlapping_candidates": [
+  {
+   "identifier": "logging-observability",
+   "source": "clawhub",
+   "name": "Logging Observability",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring",
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "greenhelix-agent-observability-stack",
+   "source": "clawhub",
+   "name": "Agent Observability Stack: Distributed Tracing, Metrics, and Alerting for Multi-Agent Systems",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "afrexai-sre-platform",
+   "source": "clawhub",
+   "name": "SRE & Incident Management Platform",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "latitude-observability",
+   "source": "clawhub",
+   "name": "Latitude Observability",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "afrexai-observability-engine",
+   "source": "clawhub",
+   "name": "Observability & Reliability Engineering",
+   "signals": [
+    "zone:observability",
+    "zone:sre",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "agent-observability-spec",
+   "source": "clawhub",
+   "name": "Agent Observability Spec",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "backup-and-restore",
+   "source": "clawhub",
+   "name": "Backup & Restore",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "beddel",
+   "source": "clawhub",
+   "name": "Beddel",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "darkhunt-observability",
+   "source": "clawhub",
+   "name": "Darkhunt Observability",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring",
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "golang-observability",
+   "source": "clawhub",
+   "name": "Golang Observability",
+   "signals": [
+    "zone:observability",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "openclaw-logfire",
+   "source": "clawhub",
+   "name": "OpenClaw Logfire",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "slo-calculator",
+   "source": "clawhub",
+   "name": "Slo Calculator",
+   "signals": [
+    "zone:observability",
+    "zone:sre",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "sre-practices",
+   "source": "clawhub",
+   "name": "Sre Practices",
+   "signals": [
+    "zone:sre",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "NVIDIA/skills/skills/doca-telemetry",
+   "source": "github",
+   "name": "doca-telemetry",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "NVIDIA/skills/skills/doca-telemetry-exporter",
+   "source": "github",
+   "name": "doca-telemetry-exporter",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "afrexai-cloud-cost-audit",
+   "source": "clawhub",
+   "name": "Cloud Cost Audit",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "afrexai-postmortem",
+   "source": "clawhub",
+   "name": "Incident Postmortem Framework",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "agent-incident-postmortem",
+   "source": "clawhub",
+   "name": "Agent Incident Postmortem",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "agent-memory-backup-ensoul",
+   "source": "clawhub",
+   "name": "Agent Memory Backup (Ensoul)",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "agent-observability",
+   "source": "clawhub",
+   "name": "Agent Observability - Open the Black Box",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "agent-state-backup",
+   "source": "clawhub",
+   "name": "Agent State Backup",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "ah-incident-responder",
+   "source": "clawhub",
+   "name": "incident-responder",
+   "signals": [
+    "zone:observability",
+    "zone:sre",
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "alibabacloud-ddoscoo-domain-configuration-backup",
+   "source": "clawhub",
+   "name": "Alibabacloud Ddoscoo Domain Configuration Backup",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "alibabacloud-elasticsearch-log-config-generator",
+   "source": "clawhub",
+   "name": "Alibabacloud Elasticsearch Log Config Generator",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "alibabacloud-nginx-ingress-to-api-gateway",
+   "source": "clawhub",
+   "name": "Alibabacloud Nginx Ingress To Api Gateway",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "alicloud-backup-bdrc",
+   "source": "clawhub",
+   "name": "Alicloud Backup Bdrc",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "aliyun-bdrc-backup",
+   "source": "clawhub",
+   "name": "Aliyun Bdrc Backup",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "auto-backup-manager",
+   "source": "clawhub",
+   "name": "Auto Backup Manager",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "backup-restore",
+   "source": "clawhub",
+   "name": "Backup Restore",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "browse-sh/abc7news.com/cali-highway-traffic-tdjcyt",
+   "source": "browse-sh",
+   "name": "cali-highway-traffic",
+   "signals": [
+    "zone:sre",
+    "zone:monitoring",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "bytesagain-ci-cd-pipeline",
+   "source": "clawhub",
+   "name": "Bytesagain Ci Cd Pipeline",
+   "signals": [
+    "zone:docker",
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "clearml-metrics-logging-pattern",
+   "source": "clawhub",
+   "name": "Clearml Metrics Logging Pattern",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "cm-incident-postmortem",
+   "source": "clawhub",
+   "name": "Incident Postmortem",
+   "signals": [
+    "zone:observability",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "devops-ops-bot",
+   "source": "clawhub",
+   "name": "DevOps Ops Bot",
+   "signals": [
+    "zone:monitoring",
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "docker-diag",
+   "source": "clawhub",
+   "name": "Docker Diag",
+   "signals": [
+    "zone:docker",
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "docker-healthcheck-gen",
+   "source": "clawhub",
+   "name": "Docker Healthcheck Gen",
+   "signals": [
+    "zone:docker",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "finops",
+   "source": "clawhub",
+   "name": "Finops",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "finopsy-cloud-finops",
+   "source": "clawhub",
+   "name": "Finopsy Cloud Finops",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "geo-metrics-tracker",
+   "source": "clawhub",
+   "name": "Geo Metrics Tracker",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "geo-metrics-tracker-2",
+   "source": "clawhub",
+   "name": "Geo Metrics Tracker",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "github-actions-incident-timeline-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Incident Timeline Audit",
+   "signals": [
+    "zone:github-ci",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "greenhelix-agent-cost-optimization",
+   "source": "clawhub",
+   "name": "AI Agent Cost Optimization Cookbook: Cut Your Agent Bills by 60% Without Sacrificing Quality",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "incident-postmortem",
+   "source": "clawhub",
+   "name": "Incident Postmortem",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "incident-postmortem-assistant",
+   "source": "clawhub",
+   "name": "Incident Postmortem Assistant",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "incident-postmortem-generator",
+   "source": "clawhub",
+   "name": "Incident Postmortem Generator",
+   "signals": [
+    "zone:observability",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "infra-monitoring",
+   "source": "clawhub",
+   "name": "Infra Monitoring",
+   "signals": [
+    "zone:sre",
+    "zone:monitoring",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "k8s",
+   "source": "clawhub",
+   "name": "Kubernetes",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "k8s-backup",
+   "source": "clawhub",
+   "name": "Kubernetes Skills",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "kubernetes-devops",
+   "source": "clawhub",
+   "name": "Kubernetes",
+   "signals": [
+    "zone:monitoring",
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "linux-service-triage",
+   "source": "clawhub",
+   "name": "Linux & service basics",
+   "signals": [
+    "zone:observability",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "memory-health-probe",
+   "source": "clawhub",
+   "name": "Memory Health Probe",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "mlops-observability-cn",
+   "source": "clawhub",
+   "name": "MLOps Observability",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "monitoring-plus",
+   "source": "clawhub",
+   "name": "Monitoring Plus",
+   "signals": [
+    "zone:observability",
+    "zone:sre",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "network-log-analysis",
+   "source": "clawhub",
+   "name": "Network Log Analysis",
+   "signals": [
+    "zone:observability",
+    "zone:sre",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "nex-healthcheck",
+   "source": "clawhub",
+   "name": "Nex Healthcheck",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "nginx",
+   "source": "clawhub",
+   "name": "Nginx",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "nginx-config",
+   "source": "clawhub",
+   "name": "Nginx Config",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "nginx-config-creator",
+   "source": "clawhub",
+   "name": "Nginx Config Creator",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "nginx-proxy-manager",
+   "source": "clawhub",
+   "name": "Nginx Proxy Manager",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "nginx-reverse-proxy",
+   "source": "clawhub",
+   "name": "Nginx Reverse Proxy",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "nginxwebui-manager",
+   "source": "clawhub",
+   "name": "NginxWebUI Manager",
+   "signals": [
+    "zone:docker",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "observability-slos",
+   "source": "clawhub",
+   "name": "Observability Slos",
+   "signals": [
+    "zone:observability",
+    "zone:sre",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "official/devops/docker-management",
+   "source": "official",
+   "name": "docker-management",
+   "signals": [
+    "name-exact:docker-management",
+    "name-normalized:dockermanagement",
+    "zone:docker",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "openclaw-aws-sre-report",
+   "source": "clawhub",
+   "name": "Sre Publish",
+   "signals": [
+    "zone:sre",
+    "zone:monitoring",
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "openclaw-backup-mother-skill",
+   "source": "clawhub",
+   "name": "OpenClaw Complete Backup & Restore Cycle",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "openclaw-https-setup",
+   "source": "clawhub",
+   "name": "OpenClaw HTTPS Setup",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "ops-incident-postmortem",
+   "source": "clawhub",
+   "name": "incident-postmortem",
+   "signals": [
+    "zone:observability",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "phy-otel-audit",
+   "source": "clawhub",
+   "name": "Phy Otel Audit",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "pilot-cloud-cost-optimizer-setup",
+   "source": "clawhub",
+   "name": "Pilot Cloud Cost Optimizer Setup",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "self-host-deployer",
+   "source": "clawhub",
+   "name": "Self-Host Deployer",
+   "signals": [
+    "zone:docker",
+    "zone:observability",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skills-sh/aaronontheweb/dotnet-skills/opentelemetry-net-instrumentation",
+   "source": "skills.sh",
+   "name": "opentelemetry-net-instrumentation",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/absolutelyskilled/absolutelyskilled/docker-kubernetes",
+   "source": "skills.sh",
+   "name": "docker-kubernetes",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "skills-sh/aj-geddes/useful-ai-prompts/security-audit-logging",
+   "source": "skills.sh",
+   "name": "security-audit-logging",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/bobmatnyc/claude-mpm-skills/golang-observability-opentelemetry",
+   "source": "skills.sh",
+   "name": "golang-observability-opentelemetry",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/bobmatnyc/claude-mpm-skills/opentelemetry",
+   "source": "skills.sh",
+   "name": "opentelemetry",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/dotnet/skills/configuring-opentelemetry-dotnet",
+   "source": "skills.sh",
+   "name": "configuring-opentelemetry-dotnet",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/grafana/skills/opentelemetry",
+   "source": "skills.sh",
+   "name": "opentelemetry",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "sona-security-audit",
+   "source": "clawhub",
+   "name": "Security Audit (Sona)",
+   "signals": [
+    "zone:security",
+    "zone:i-notation"
+   ]
+  },
+  {
+   "identifier": "ssl-setup",
+   "source": "clawhub",
+   "name": "SSL + Nginx Setup",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "terraform-cost-estimator",
+   "source": "clawhub",
+   "name": "Terraform Cost Estimator",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "vps-deploy",
+   "source": "clawhub",
+   "name": "VPS Deploy",
+   "signals": [
+    "zone:docker",
+    "zone:network",
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "yuyonghao-observability",
+   "source": "clawhub",
+   "name": "Observability",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "12306-backup",
+   "source": "clawhub",
+   "name": "12306 Backup",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "3d-molecule-ray-tracer",
+   "source": "clawhub",
+   "name": "3d Molecule Ray Tracer",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "3x-ui-vps",
+   "source": "clawhub",
+   "name": "Deploy Xray VLESS using 3X UI on your VPS",
+   "signals": [
+    "zone:docker",
+    "zone:network",
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "NVIDIA/skills/skills/doca-argus",
+   "source": "github",
+   "name": "doca-argus",
+   "signals": [
+    "zone:observability",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "NVIDIA/skills/skills/doca-bench",
+   "source": "github",
+   "name": "doca-bench",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "NVIDIA/skills/skills/doca-caps",
+   "source": "github",
+   "name": "doca-caps",
+   "signals": [
+    "zone:observability",
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "NVIDIA/skills/skills/doca-collectx-deployment",
+   "source": "github",
+   "name": "doca-collectx-deployment",
+   "signals": [
+    "zone:observability",
+    "zone:i-notation"
+   ]
+  },
+  {
+   "identifier": "NVIDIA/skills/skills/doca-container-deployment",
+   "source": "github",
+   "name": "doca-container-deployment",
+   "signals": [
+    "zone:observability",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "NVIDIA/skills/skills/doca-dms",
+   "source": "github",
+   "name": "doca-dms",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "NVIDIA/skills/skills/doca-dpa-hl-tracer",
+   "source": "github",
+   "name": "doca-dpa-hl-tracer",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "NVIDIA/skills/skills/doca-dpdk-bridge",
+   "source": "github",
+   "name": "doca-dpdk-bridge",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "NVIDIA/skills/skills/doca-flow-tune",
+   "source": "github",
+   "name": "doca-flow-tune",
+   "signals": [
+    "zone:observability",
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "NVIDIA/skills/skills/doca-mgmt",
+   "source": "github",
+   "name": "doca-mgmt",
+   "signals": [
+    "zone:observability",
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "NVIDIA/skills/skills/doca-pcc-ztr-rttcc-algo",
+   "source": "github",
+   "name": "doca-pcc-ztr-rttcc-algo",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "NVIDIA/skills/skills/doca-telemetry-utils",
+   "source": "github",
+   "name": "doca-telemetry-utils",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "NVIDIA/skills/skills/launch-nemo-rl",
+   "source": "github",
+   "name": "launch-nemo-rl",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "NVIDIA/skills/skills/mcore-create-issue",
+   "source": "github",
+   "name": "mcore-create-issue",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "NVIDIA/skills/skills/nemo-relay-plugin-adaptive-tuning",
+   "source": "github",
+   "name": "nemo-relay-plugin-adaptive-tuning",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "NVIDIA/skills/skills/physical-ai-infrastructure-setup-and-resilient-scaling",
+   "source": "github",
+   "name": "physical-ai-infrastructure-setup-and-resilient-scaling",
+   "signals": [
+    "zone:observability",
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "NVIDIA/skills/skills/tao-run-automl",
+   "source": "github",
+   "name": "tao-run-automl",
+   "signals": [
+    "zone:docker",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "NVIDIA/skills/skills/tao-run-platform",
+   "source": "github",
+   "name": "tao-run-platform",
+   "signals": [
+    "zone:docker",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "NVIDIA/skills/skills/tao-setup-nvidia-gpu-host",
+   "source": "github",
+   "name": "tao-setup-nvidia-gpu-host",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "a-share-metrics-card",
+   "source": "clawhub",
+   "name": "A Share Metrics Card",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "acme-ssl-automation-for-alibaba-cloud-esa-dns",
+   "source": "clawhub",
+   "name": "ACME SSL automation for Alibaba Cloud ESA DNS",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "acp-fallback",
+   "source": "clawhub",
+   "name": "Acp Fallback",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "active-maintenance",
+   "source": "clawhub",
+   "name": "Active Maintenance",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "activecampaign-claw",
+   "source": "clawhub",
+   "name": "ActiveCampaign (50+ Capabilities)",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "adblock-dns",
+   "source": "clawhub",
+   "name": "Adblock Dns",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "adguard",
+   "source": "clawhub",
+   "name": "Adguard",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "adguard-home",
+   "source": "clawhub",
+   "name": "Adguard Home",
+   "signals": [
+    "zone:observability",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "adguard-home-manager",
+   "source": "clawhub",
+   "name": "AdGuard Home Manager",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "adguard-test",
+   "source": "clawhub",
+   "name": "Adguard Test",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "afrexai-agent-observability",
+   "source": "clawhub",
+   "name": "AI Agent Observability",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "afrexai-business-continuity",
+   "source": "clawhub",
+   "name": "Business Continuity Planner",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "afrexai-debt-collection",
+   "source": "clawhub",
+   "name": "Debt Collection Recovery",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "afrexai-disaster-recovery",
+   "source": "clawhub",
+   "name": "IT Disaster Recovery Plan Generator",
+   "signals": [
+    "zone:backup-dr",
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "afrexai-incident-response",
+   "source": "clawhub",
+   "name": "Incident Response Playbook",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "afrexai-incident-response-plan",
+   "source": "clawhub",
+   "name": "Incident Response Plan",
+   "signals": [
+    "zone:sre",
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "afrexai-incident-response-skip",
+   "source": "clawhub",
+   "name": "Afrexai Incident Response.Skip",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "afrexai-post-mortem",
+   "source": "clawhub",
+   "name": "Post-Mortem & Incident Review",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "afrexai-profit-margin",
+   "source": "clawhub",
+   "name": "Profit Margin Analyzer",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "afrexai-saas-metrics",
+   "source": "clawhub",
+   "name": "SaaS Metrics Dashboard",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "afrexai-sla-monitor",
+   "source": "clawhub",
+   "name": "Sla Monitor",
+   "signals": [
+    "zone:sre",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "afrexai-spend-intelligence",
+   "source": "clawhub",
+   "name": "Spend Intelligence",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "afrexai-startup-metrics-engine",
+   "source": "clawhub",
+   "name": "Startup Metrics Command Center",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "afrexai-terraform-production",
+   "source": "clawhub",
+   "name": "Terraform Production Engineering",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "agent-audit-log",
+   "source": "clawhub",
+   "name": "Agent Audit Log",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "agent-auditor",
+   "source": "clawhub",
+   "name": "Agent Auditor",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "agent-autonomy",
+   "source": "clawhub",
+   "name": "Agent Autonomy",
+   "signals": [
+    "zone:observability",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "agent-browser-backup",
+   "source": "clawhub",
+   "name": "Agent Browser Backup",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "agent-browser-backup-20260407",
+   "source": "clawhub",
+   "name": "Agent Browser Backup 20260407",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "agent-budget-governance",
+   "source": "clawhub",
+   "name": "Agent Budget Governance",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "agent-changelog",
+   "source": "clawhub",
+   "name": "Agent Changelog",
+   "signals": [
+    "zone:observability",
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "agent-comm-protocol",
+   "source": "clawhub",
+   "name": "Agent Comm Protocol",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "agent-config-manager",
+   "source": "clawhub",
+   "name": "Agent Config Manager",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "agent-cost-strategy",
+   "source": "clawhub",
+   "name": "Agent Cost Strategy",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "agent-cron-service",
+   "source": "clawhub",
+   "name": "Agent Cron Service",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "agent-gateway",
+   "source": "clawhub",
+   "name": "Agent Gateway",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "agent-hq",
+   "source": "clawhub",
+   "name": "Agent HQ",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "agent-ledger",
+   "source": "clawhub",
+   "name": "Agent Ledger",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "agent-life",
+   "source": "clawhub",
+   "name": "Agent Life",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "agent-logger",
+   "source": "clawhub",
+   "name": "Agent Logger",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "agent-metrics-osiris",
+   "source": "clawhub",
+   "name": "Agent Metrics",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "agent-ops-kit",
+   "source": "clawhub",
+   "name": "Agent Ops Kit",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "agent-payment-protocol",
+   "source": "clawhub",
+   "name": "Agent Payment Protocol",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "agent-pipeline",
+   "source": "clawhub",
+   "name": "Agent Pipeline",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "agent-security-monitor",
+   "source": "clawhub",
+   "name": "Agent Security Monitor",
+   "signals": [
+    "zone:monitoring",
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "agent-swarm-network",
+   "source": "clawhub",
+   "name": "Agent Swarm Network",
+   "signals": [
+    "zone:network",
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "agent-team-orchestration-local-backup",
+   "source": "clawhub",
+   "name": "Agent Team Orchestration Local Backup",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "agent-voice",
+   "source": "clawhub",
+   "name": "Agent Voice – CLI Blogging for AI",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "agentdevx-skill",
+   "source": "clawhub",
+   "name": "Agentdevx Skill",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "agentic-devops",
+   "source": "clawhub",
+   "name": "agentic-devops",
+   "signals": [
+    "zone:docker",
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "agentmanager",
+   "source": "clawhub",
+   "name": "Agent-manager-for-AI-planner",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "agentmm-skills",
+   "source": "clawhub",
+   "name": "Agentmm Skills",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "agentos-sdk",
+   "source": "clawhub",
+   "name": "AgentOS SDK",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "agents-optimize",
+   "source": "clawhub",
+   "name": "agents-optimize",
+   "signals": [
+    "zone:github-ci",
+    "zone:observability",
+    "zone:sre",
+    "zone:monitoring",
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "agentx-news",
+   "source": "clawhub",
+   "name": "Agentx News",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "agentyield",
+   "source": "clawhub",
+   "name": "AgentYield.co",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "agieth",
+   "source": "clawhub",
+   "name": "Agieth",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "ah-database-administrator",
+   "source": "clawhub",
+   "name": "database-administrator",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "ah-incident-manager",
+   "source": "clawhub",
+   "name": "incident-manager",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "ah-monitoring-specialist",
+   "source": "clawhub",
+   "name": "monitoring-specialist",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "ah-security-engineer",
+   "source": "clawhub",
+   "name": "security-engineer",
+   "signals": [
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "ah-sre-engineer",
+   "source": "clawhub",
+   "name": "sre-engineer",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "ai-company-cfo-2-0-0",
+   "source": "clawhub",
+   "name": "Ai Company Cfo 2.0.0",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "ai-company-hq",
+   "source": "clawhub",
+   "name": "AI Company HQ",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "ai-humanizer-backup",
+   "source": "clawhub",
+   "name": "Ai Humanizer Backup",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "ai-intelligent-agriculture-monitoring",
+   "source": "clawhub",
+   "name": "Ai Intelligent Agriculture Monitoring",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "ai-intelligent-alerting-system",
+   "source": "clawhub",
+   "name": "Ai Intelligent Alerting System",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "ai-intelligent-audit-logging",
+   "source": "clawhub",
+   "name": "Ai Intelligent Audit Logging",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "ai-intelligent-backup-automation",
+   "source": "clawhub",
+   "name": "Ai Intelligent Backup Automation",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "ai-revenue-tracker",
+   "source": "clawhub",
+   "name": "AI Revenue Tracker",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "aicoo-inbox-monitoring",
+   "source": "clawhub",
+   "name": "Aicoo Inbox Monitoring",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "aicoo-snapshots",
+   "source": "clawhub",
+   "name": "Aicoo Snapshots",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "aiding-shifu",
+   "source": "clawhub",
+   "name": "Aiding Shifu",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "ainative-auth-guide",
+   "source": "clawhub",
+   "name": "Ainative Auth Guide",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "alerting",
+   "source": "clawhub",
+   "name": "Alerting",
+   "signals": [
+    "zone:sre",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "alerts",
+   "source": "clawhub",
+   "name": "Alerts",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "alibabacloud-cadt-probe",
+   "source": "clawhub",
+   "name": "Alibabacloud Cadt Probe",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "alibabacloud-cloudbackup-ecs-file-backup-essential-edition",
+   "source": "clawhub",
+   "name": "Alibabacloud Cloudbackup Ecs File Backup Essential Edition",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "alibabacloud-dns-resolve-diagnose",
+   "source": "clawhub",
+   "name": "Alibabacloud Dns Resolve Diagnose",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "alibabacloud-ecs-disaster-recovery-image",
+   "source": "clawhub",
+   "name": "Alibabacloud Ecs Disaster Recovery Image",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "alibabacloud-ecs-disaster-recovery-snapshot",
+   "source": "clawhub",
+   "name": "Alibabacloud Ecs Disaster Recovery Snapshot",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "alibabacloud-finops-inspect",
+   "source": "clawhub",
+   "name": "Alibabacloud Finops Inspect",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "alibabacloud-httpdns",
+   "source": "clawhub",
+   "name": "Alibabacloud Httpdns",
+   "signals": [
+    "zone:network",
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "alibabacloud-oss-manage-network-probe",
+   "source": "clawhub",
+   "name": "Alibabacloud Oss Manage Network Probe",
+   "signals": [
+    "zone:monitoring",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "alibabacloud-pai-feature-store-featuredb-usage-query",
+   "source": "clawhub",
+   "name": "Alibabacloud Pai Feature Store Featuredb Usage Query",
+   "signals": [
+    "zone:backup-dr",
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "alibabacloud-sas-incident-manage",
+   "source": "clawhub",
+   "name": "Alibabacloud Sas Incident Manage",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "alibabacloud-waf-config-backup",
+   "source": "clawhub",
+   "name": "Alibabacloud Waf Config Backup",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "alibabacloud-waf-protectionconfig-backup",
+   "source": "clawhub",
+   "name": "Alibabacloud Waf Protectionconfig Backup",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "alicloud-backup-hbr",
+   "source": "clawhub",
+   "name": "Alicloud Backup Hbr",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "alicloud-network-dns-cli",
+   "source": "clawhub",
+   "name": "Alicloud Network Dns Cli",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "alicloud-observability-sls-log-query",
+   "source": "clawhub",
+   "name": "Alicloud Observability Sls Log Query",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "aliyun-dns-cli",
+   "source": "clawhub",
+   "name": "Aliyun Dns Cli",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "aliyun-hbr-backup",
+   "source": "clawhub",
+   "name": "Aliyun Hbr Backup",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "ansible-ui",
+   "source": "clawhub",
+   "name": "Ansible Ui",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "anti-centralization-probe",
+   "source": "clawhub",
+   "name": "Anti Centralization Probe",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "anyway-traces",
+   "source": "clawhub",
+   "name": "Anyway Traces",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "aoi-demo-clip-maker",
+   "source": "clawhub",
+   "name": "AOI Demo Clip Maker",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "aperture",
+   "source": "clawhub",
+   "name": "aperture: the L402 aware reverse proxy",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "api-error-handling",
+   "source": "clawhub",
+   "name": "API Error Handling",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "api-integration-redhat",
+   "source": "clawhub",
+   "name": "API Integration for RedHat MCP",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "api-monitor-dashboard",
+   "source": "clawhub",
+   "name": "Api Monitor Dashboard",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "api-usage-metrics",
+   "source": "clawhub",
+   "name": "Api Usage Metrics",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "apify-runner",
+   "source": "clawhub",
+   "name": "Apify Runner",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "apimon",
+   "source": "clawhub",
+   "name": "Apimon",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "apm-monitor",
+   "source": "clawhub",
+   "name": "Apm Monitor",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "arbeitsrecht-buergergeld-umschulung",
+   "source": "clawhub",
+   "name": "Arbeitsrecht & Bürgergeld",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "archon-vault",
+   "source": "clawhub",
+   "name": "Archon Vault",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "arxiv-research-secure",
+   "source": "clawhub",
+   "name": "Arxiv Research Secure",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "assistant-reliability-watchtower",
+   "source": "clawhub",
+   "name": "Assistant Reliability Watchtower",
+   "signals": [
+    "zone:sre",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "attack-surface-mapper",
+   "source": "clawhub",
+   "name": "Attack Surface Mapper",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "audio-video",
+   "source": "clawhub",
+   "name": "Audio Video",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "auditclaw-gcp",
+   "source": "clawhub",
+   "name": "AuditClaw Gcp",
+   "signals": [
+    "zone:observability",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "auth-preflight-checklist",
+   "source": "clawhub",
+   "name": "Auth Preflight Checklist",
+   "signals": [
+    "zone:monitoring",
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "auto-backup-pro",
+   "source": "clawhub",
+   "name": "Auto Backup Pro",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "auto-log",
+   "source": "clawhub",
+   "name": "Auto Log",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "auto-monitor",
+   "source": "clawhub",
+   "name": "Auto Monitor - System Monitoring",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "auto-retex-backup",
+   "source": "clawhub",
+   "name": "Auto Retex Backup",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "auto-revolution",
+   "source": "clawhub",
+   "name": "Auto Revolution",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "auto-updater-backup",
+   "source": "clawhub",
+   "name": "Auto Updater Backup",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "avenger-initiative",
+   "source": "clawhub",
+   "name": "Avenger Initiative",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "aviation-healthcheck",
+   "source": "clawhub",
+   "name": "Aviation Healthcheck",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "aws-cdk-analyzer",
+   "source": "clawhub",
+   "name": "AWS Cdk Analyzer",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "aws-ecs-monitor",
+   "source": "clawhub",
+   "name": "aws-ecs-monitor",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "aws-observability",
+   "source": "clawhub",
+   "name": "aws-observability",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring",
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "backup",
+   "source": "clawhub",
+   "name": "Backup",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "backup-2-github",
+   "source": "clawhub",
+   "name": "Backup 2 Github",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "backup-douyin-chat",
+   "source": "clawhub",
+   "name": "Backup Douyin Chat",
+   "signals": [
+    "zone:observability",
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "backup-full-system-jaskies",
+   "source": "clawhub",
+   "name": "Backup Full System",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "backup-gog-20260213-121122",
+   "source": "clawhub",
+   "name": "Backup Gog 20260213 121122",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "backup-manager",
+   "source": "clawhub",
+   "name": "Backup Manager",
+   "signals": [
+    "zone:monitoring",
+    "zone:network",
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "backup-manager-pro",
+   "source": "clawhub",
+   "name": "Backup Manager Pro",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "backup-openclaw-config",
+   "source": "clawhub",
+   "name": "Backup OpenClaw Config",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "backup-optimizer",
+   "source": "clawhub",
+   "name": "backup-optimizer",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "backup-recovery",
+   "source": "clawhub",
+   "name": "Api",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "backup-recovery-toolkit",
+   "source": "clawhub",
+   "name": "Backup Recovery Toolkit",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "backup-rotator",
+   "source": "clawhub",
+   "name": "Backup Rotator",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "backup-strategy",
+   "source": "clawhub",
+   "name": "Backup Strategy",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "backup-tool",
+   "source": "clawhub",
+   "name": "Backup Tool",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "backup-verifier",
+   "source": "clawhub",
+   "name": "Backup Verifier",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "backupclaw",
+   "source": "clawhub",
+   "name": "backup claw",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "backups",
+   "source": "clawhub",
+   "name": "Backup",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "backuptool",
+   "source": "clawhub",
+   "name": "Backuptool",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "blogging",
+   "source": "clawhub",
+   "name": "Blogging",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "bluebubbles",
+   "source": "clawhub",
+   "name": "Bluebubbles",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "bluebubbles-hardened",
+   "source": "clawhub",
+   "name": "Bluebubbles Hardened",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "bluebubbles-healthcheck",
+   "source": "clawhub",
+   "name": "Bluebubbles Healthcheck",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "boilerplates",
+   "source": "clawhub",
+   "name": "Boilerplates",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "bookers-openclaw-backup",
+   "source": "clawhub",
+   "name": "Booker's OpenClaw Backup",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "botlearn-doctor",
+   "source": "clawhub",
+   "name": "botlearn-healthcheck",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "botlearn-healthcheck",
+   "source": "clawhub",
+   "name": "botlearn-healthcheck",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "broedkrumme-kalibr",
+   "source": "clawhub",
+   "name": "Broedkrumme Kalibr",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "browse-sh/baseball-reference.com/get-player-stats-c3483e",
+   "source": "browse-sh",
+   "name": "get-player-stats",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "browse-sh/browserbase.com/browser-to-api",
+   "source": "browse-sh",
+   "name": "browser-to-api",
+   "signals": [
+    "zone:observability",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "browse-sh/browserbase.com/browser-trace",
+   "source": "browse-sh",
+   "name": "browser-trace",
+   "signals": [
+    "zone:observability",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "browse-sh/classpass.com/find-class-uoiq0m",
+   "source": "browse-sh",
+   "name": "find-class",
+   "signals": [
+    "zone:sre",
+    "zone:backup-dr",
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "browse-sh/cleardarksky.com/stargazing-seeing-condition-5hqn4a",
+   "source": "browse-sh",
+   "name": "stargazing-seeing-condition",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "browse-sh/coinmarketcap.com/fetch-crypto-data-1bggc3",
+   "source": "browse-sh",
+   "name": "fetch-crypto-data",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "browse-sh/data.sfgov.org/sf-business-registry-lookup-xzbldj",
+   "source": "browse-sh",
+   "name": "sf-business-registry-lookup",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "browse-sh/fangraphs.com/read-player-stats-27lcib",
+   "source": "browse-sh",
+   "name": "read-player-stats",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "browse-sh/findadoc.healthplan.org/provider-search-ykncm6",
+   "source": "browse-sh",
+   "name": "provider-search",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "browse-sh/mercadolibre.com.ar/search-compare-monitor-n9hgxe",
+   "source": "browse-sh",
+   "name": "search-compare-monitor",
+   "signals": [
+    "zone:monitoring",
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "browse-sh/mvg.de/plan-route-tn9m0v",
+   "source": "browse-sh",
+   "name": "plan-route",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "browse-sh/openrouter.ai/compare-and-build-llm-model-xr4e8t",
+   "source": "browse-sh",
+   "name": "compare-and-build-llm-model",
+   "signals": [
+    "zone:monitoring",
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "browse-sh/opentable.com/check-availability-f2fwrm",
+   "source": "browse-sh",
+   "name": "check-availability",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "browse-sh/parallel.ai/monitor-x48ngh",
+   "source": "browse-sh",
+   "name": "create-monitor",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "browse-sh/plugshare.com/find-charger-x2ul2f",
+   "source": "browse-sh",
+   "name": "find-charger",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "browse-sh/prazocerto.me/pzct-blog-i8yyot",
+   "source": "browse-sh",
+   "name": "check-latest-blog-post",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "browse-sh/rec.us/sf-court-booking-c8l5z9",
+   "source": "browse-sh",
+   "name": "sf-court-booking",
+   "signals": [
+    "zone:observability",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "browse-sh/resy.com/check-availability-v27zl8",
+   "source": "browse-sh",
+   "name": "check-availability",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "browse-sh/sponsorcal.com/book-newsletter-sponsorship-pefssb",
+   "source": "browse-sh",
+   "name": "book-newsletter-sponsorship",
+   "signals": [
+    "zone:observability",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "browse-sh/therealreal.com/obsessions-jg1v3v",
+   "source": "browse-sh",
+   "name": "obsessions",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "browse-sh/tradingview.com/optimize-strategy-backtest-i3avfe",
+   "source": "browse-sh",
+   "name": "optimize-strategy-backtest",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "browse-sh/trustmrr.com/search-analytics-metrics-ooeinc",
+   "source": "browse-sh",
+   "name": "search-analytics-metrics",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "browse-sh/vaccines.gov/find-appointment-55bu87",
+   "source": "browse-sh",
+   "name": "find-appointment",
+   "signals": [
+    "zone:sre",
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "browse-sh/xrpl.to/search-metrics-tokens-nfts-270kqa",
+   "source": "browse-sh",
+   "name": "search-metrics-tokens-nfts",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "browse-sh/zocdoc.com/find-appointment-ekztri",
+   "source": "browse-sh",
+   "name": "find-appointment",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "browser-healthcheck",
+   "source": "clawhub",
+   "name": "Browser Healthcheck",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "bud-backup-tool",
+   "source": "clawhub",
+   "name": "Bud Backup Tool",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "buy-handshake-domain",
+   "source": "clawhub",
+   "name": "Buy Sovereign Domain (Handshake DNS)",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "byted-mediakit-audio",
+   "source": "clawhub",
+   "name": "Byted Mediakit Audio",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "caddy",
+   "source": "clawhub",
+   "name": "Caddy",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "caddy-reverse-proxy",
+   "source": "clawhub",
+   "name": "Caddy Reverse Proxy",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "cc3po-system-healthcheck",
+   "source": "clawhub",
+   "name": "CC3PO System Healthcheck",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "cdnsoft-wallet",
+   "source": "clawhub",
+   "name": "cdnsoft-wallet",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "chatting-with-aws-devops-agent",
+   "source": "clawhub",
+   "name": "chatting-with-aws-devops-agent",
+   "signals": [
+    "zone:observability",
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "ci-cd-compliance",
+   "source": "clawhub",
+   "name": "Ci Cd Compliance",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "ci-monitor",
+   "source": "clawhub",
+   "name": "CI Monitor",
+   "signals": [
+    "zone:github-ci",
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "ci-pipeline-debugger",
+   "source": "clawhub",
+   "name": "CI Pipeline Debugger / CI 流水线智能排错",
+   "signals": [
+    "zone:github-ci",
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "ci-pipeline-optimizer",
+   "source": "clawhub",
+   "name": "CI Pipeline Optimizer",
+   "signals": [
+    "zone:docker",
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "clank-uptime",
+   "source": "clawhub",
+   "name": "Clank Uptime",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "claw-backup",
+   "source": "clawhub",
+   "name": "Claw Backup",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "claw-home-dir-backup-restore",
+   "source": "clawhub",
+   "name": "openclaw-backup-restore",
+   "signals": [
+    "zone:security",
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "claw-observability",
+   "source": "clawhub",
+   "name": "CLAW Observability",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "claw-sync",
+   "source": "clawhub",
+   "name": "Claw Sync",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "clawclone",
+   "source": "clawhub",
+   "name": "OpenClaw backup and synchronization tool - Pack, upload, download, and restore. Save the Soul of your OpenClaw.",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "clawdoctor",
+   "source": "clawhub",
+   "name": "ClawDoctor",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "clawprobe",
+   "source": "clawhub",
+   "name": "Clawprobe",
+   "signals": [
+    "zone:monitoring",
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "clawswarm-heartbeat",
+   "source": "clawhub",
+   "name": "ClawSwarm Heartbeat Monitor",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "clean-log-toolkit",
+   "source": "clawhub",
+   "name": "Clean Log Toolkit",
+   "signals": [
+    "zone:observability",
+    "zone:sre",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "cloud-architect",
+   "source": "clawhub",
+   "name": "Cloud Architect",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "cloudflare-dns",
+   "source": "clawhub",
+   "name": "Cloudflare Dns",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "cloudflare-dns-updater",
+   "source": "clawhub",
+   "name": "Cloudflare Dns Updater",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "cm-incident-commander",
+   "source": "clawhub",
+   "name": "Incident Commander",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "code-metrics",
+   "source": "clawhub",
+   "name": "Code Metrics",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "collect-session",
+   "source": "clawhub",
+   "name": "Collect Session",
+   "signals": [
+    "zone:observability",
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "competitor-monitoring",
+   "source": "clawhub",
+   "name": "Competitor Monitoring",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "context-restore",
+   "source": "clawhub",
+   "name": "Context Restore",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "context-slim",
+   "source": "clawhub",
+   "name": "Context Slim",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "coral-precise-coverage-ai",
+   "source": "clawhub",
+   "name": "Precision Coral Metrics API",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "cost-optimizer",
+   "source": "clawhub",
+   "name": "Cost Optimizer",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "cue-post-loan-monitoring",
+   "source": "clawhub",
+   "name": "Cue Post Loan Monitoring",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "customs-analysis-hscode-search",
+   "source": "clawhub",
+   "name": "Search HS codes for analysis reports — find matching HS (Harmonized System) codes by product name and HS code keywords from customs trade data. Returns a list of relevant HS codes that can be used in other analysis report skills for deeper trade data queries. Designed for trade analysts, exporters and import-export professionals who need to locate the correct customs classification codes for specific products before conducting trade data analysis, market research or competitor monitoring across global customs data.",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "cve-tracker",
+   "source": "clawhub",
+   "name": "Cve Tracker",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "daily-health-report",
+   "source": "clawhub",
+   "name": "Daily Health Report",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "daily-news-report",
+   "source": "clawhub",
+   "name": "Dailynewsreport",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "datadog-dashboard-builder",
+   "source": "clawhub",
+   "name": "Datadog Dashboard Builder",
+   "signals": [
+    "zone:observability",
+    "zone:sre",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "ddns-updator",
+   "source": "clawhub",
+   "name": "Ddns Updator",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "debug-probe",
+   "source": "clawhub",
+   "name": "Debug Probe",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "deep-validator",
+   "source": "clawhub",
+   "name": "Deep Validator",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "deploy-helper",
+   "source": "clawhub",
+   "name": "Deploy Helper",
+   "signals": [
+    "zone:docker",
+    "zone:github-ci",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "device-heartbeat",
+   "source": "clawhub",
+   "name": "Device Heartbeat Monitor",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "dexter-fitness-coach",
+   "source": "clawhub",
+   "name": "AI健身教练",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "disaster-recovery-plan",
+   "source": "clawhub",
+   "name": "Disaster Recovery Plan",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "discord-output-metrics-footer",
+   "source": "clawhub",
+   "name": "Discord Output Metrics Footer",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "disk-usage-watcher",
+   "source": "clawhub",
+   "name": "Disk Usage Watcher",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "dns",
+   "source": "clawhub",
+   "name": "DNS",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "dns-agent-skills",
+   "source": "clawhub",
+   "name": "Dns Agent Skills",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "dns-lookup",
+   "source": "clawhub",
+   "name": "Dns Lookup",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "dns-networking",
+   "source": "clawhub",
+   "name": "DNS & Networking",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "dns-records",
+   "source": "clawhub",
+   "name": "Dns Records",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "dnscheck",
+   "source": "clawhub",
+   "name": "Dnscheck",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "dnsrobot",
+   "source": "clawhub",
+   "name": "DNS Robot",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "doca-telemetry",
+   "source": "clawhub",
+   "name": "doca-telemetry",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "doca-telemetry-exporter",
+   "source": "clawhub",
+   "name": "doca-telemetry-exporter",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "doca-telemetry-utils",
+   "source": "clawhub",
+   "name": "doca-telemetry-utils",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "docker",
+   "source": "clawhub",
+   "name": "Docker",
+   "signals": [
+    "zone:docker",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "docker-analyzer",
+   "source": "clawhub",
+   "name": "Docker Analyzer",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "docker-claude-code-setup",
+   "source": "clawhub",
+   "name": "Docker Claude Code Setup",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "docker-cleanup",
+   "source": "clawhub",
+   "name": "Docker Cleanup",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "docker-cli",
+   "source": "clawhub",
+   "name": "Docker Cli",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "docker-compose",
+   "source": "clawhub",
+   "name": "Docker Compose",
+   "signals": [
+    "zone:docker",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "docker-compose-debugger",
+   "source": "clawhub",
+   "name": "Docker Compose Debugger / Docker Compose 调试助手",
+   "signals": [
+    "zone:docker",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "docker-compose-deploy",
+   "source": "clawhub",
+   "name": "Docker Compose Deploy",
+   "signals": [
+    "zone:docker",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "docker-compose-generator",
+   "source": "clawhub",
+   "name": "Docker Compose Generator",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "docker-compose-helper",
+   "source": "clawhub",
+   "name": "Docker Compose Helper",
+   "signals": [
+    "zone:docker",
+    "zone:observability",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "docker-compose-linter",
+   "source": "clawhub",
+   "name": "Docker Compose Linter",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "docker-compose-optimizer",
+   "source": "clawhub",
+   "name": "Docker Compose Optimizer",
+   "signals": [
+    "zone:docker",
+    "zone:monitoring",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "docker-container-cleaner",
+   "source": "clawhub",
+   "name": "Docker Container Cleaner",
+   "signals": [
+    "zone:docker",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "docker-container-rerun",
+   "source": "clawhub",
+   "name": "Docker Container Rerun",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "docker-ctl",
+   "source": "clawhub",
+   "name": "Docker Ctl",
+   "signals": [
+    "zone:docker",
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "docker-ctl-hardened",
+   "source": "clawhub",
+   "name": "Docker Ctl Hardened",
+   "signals": [
+    "zone:docker",
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "docker-encyclopedia",
+   "source": "clawhub",
+   "name": "Docker Encyclopedia",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "docker-eng",
+   "source": "clawhub",
+   "name": "Docker Eng",
+   "signals": [
+    "zone:docker",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "docker-essentials",
+   "source": "clawhub",
+   "name": "Docker Essentials",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "docker-essentials-1-0-0",
+   "source": "clawhub",
+   "name": "Docker Essentials 1.0.0",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "docker-image-puller",
+   "source": "clawhub",
+   "name": "Docker Image Puller",
+   "signals": [
+    "zone:docker",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "docker-ops-toolkit",
+   "source": "clawhub",
+   "name": "Docker Ops",
+   "signals": [
+    "zone:docker",
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "docker-volume-backup-or-restore",
+   "source": "clawhub",
+   "name": "Docker Volume Backup Or Restore",
+   "signals": [
+    "zone:docker",
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "dockerfile-hardening-audit",
+   "source": "clawhub",
+   "name": "Dockerfile Hardening Audit",
+   "signals": [
+    "zone:docker",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "domain-dns-ops",
+   "source": "clawhub",
+   "name": "Domain Dns Ops",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "doro-git-secrets-scanner",
+   "source": "clawhub",
+   "name": "Doro Git Secrets Scanner",
+   "signals": [
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "drip-openclaw-billing",
+   "source": "clawhub",
+   "name": "Drip OpenClaw Billing",
+   "signals": [
+    "zone:observability",
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "earthquake-monitor",
+   "source": "clawhub",
+   "name": "Earthquake Monitor",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "ecommerce-brand-monitoring",
+   "source": "clawhub",
+   "name": "Brand Monitoring",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "edithai-clawhub-skill",
+   "source": "clawhub",
+   "name": "Edithai",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "email-url-validator",
+   "source": "clawhub",
+   "name": "Email Url Validator",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "empyrical-risk-metrics",
+   "source": "clawhub",
+   "name": "Empyrical Risk Metrics",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "encryptedenergy-uptime",
+   "source": "clawhub",
+   "name": "Uptime Monitoring with Encrypted Energy - Know the second your OpenClaw agent goes silent",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "energy-market-pricing-economic-dispatch",
+   "source": "clawhub",
+   "name": "economic-dispatch",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "error-budget-tracker",
+   "source": "clawhub",
+   "name": "Error Budget Tracker",
+   "signals": [
+    "zone:observability",
+    "zone:sre",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "event-monitor",
+   "source": "clawhub",
+   "name": "Monitoring Skill",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "faa-wsl",
+   "source": "clawhub",
+   "name": "FastapiAdmin WSL 自动部署",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "feishu-cache-guardian",
+   "source": "clawhub",
+   "name": "Feishu Cache Guardian",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "finops-report",
+   "source": "clawhub",
+   "name": "Finops Report",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "firestore",
+   "source": "clawhub",
+   "name": "Firestore",
+   "signals": [
+    "zone:network",
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "firm-observability-pack",
+   "source": "clawhub",
+   "name": "Firm Observability Pack",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "flow-state-monitoring",
+   "source": "clawhub",
+   "name": "Flow State Monitoring",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "fn-knock-mcp",
+   "source": "clawhub",
+   "name": "fn-knock MCP Server",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "founder-market-fit",
+   "source": "clawhub",
+   "name": "Founder Market Fit",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "fresh-feeds",
+   "source": "clawhub",
+   "name": "Fresh Feeds",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "frost-sentinel-lite",
+   "source": "clawhub",
+   "name": "Frost Sentinel Lite",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "funasr-punctuation-restore",
+   "source": "clawhub",
+   "name": "funasr-punctuation-restore",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "gandi-skill",
+   "source": "clawhub",
+   "name": "Gandi - Registrar & DNS",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "garrytan/gstack/context-restore",
+   "source": "github",
+   "name": "context-restore",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "gateway-auto-fix",
+   "source": "clawhub",
+   "name": "Gateway Auto-Fix",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "gateway-resilience-guard",
+   "source": "clawhub",
+   "name": "OpenClaw Gateway Resilience Guard",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "gateway-restore",
+   "source": "clawhub",
+   "name": "Gateway Restore",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "gateway-watchdog-lite",
+   "source": "clawhub",
+   "name": "Gateway Watchdog Lite",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "git-secrets-scanner",
+   "source": "clawhub",
+   "name": "Git Secrets Scanner",
+   "signals": [
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "github-actions",
+   "source": "clawhub",
+   "name": "GitHub Actions",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "github-actions-actor-reliability-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Actor Reliability Audit",
+   "signals": [
+    "zone:github-ci",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "github-actions-artifact-budget-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Artifact Budget Audit",
+   "signals": [
+    "zone:github-ci",
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "github-actions-branch-drift-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Branch Drift Audit",
+   "signals": [
+    "zone:github-ci",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "github-actions-cache-hardening-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Cache Hardening Audit",
+   "signals": [
+    "zone:github-ci",
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "github-actions-cancel-waste-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Cancel Waste Audit",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "github-actions-commit-health-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Commit Health Audit",
+   "signals": [
+    "zone:github-ci",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "github-actions-conclusion-volatility-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Conclusion Volatility Audit",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "github-actions-deploy-risk-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Deploy Risk Audit",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "github-actions-duplicate-run-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Duplicate Run Audit",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "github-actions-failure-hour-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Failure Hour Audit",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "github-actions-failure-matrix",
+   "source": "clawhub",
+   "name": "GitHub Actions Failure Matrix",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "github-actions-failure-owner-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Failure Owner Audit",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "github-actions-failure-phase-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Failure Phase Audit",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "github-actions-failure-spike-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Failure Spike Audit",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "github-actions-failure-streak-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Failure Streak Audit",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "github-actions-gen",
+   "source": "clawhub",
+   "name": "Github Actions Gen",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "github-actions-generator",
+   "source": "clawhub",
+   "name": "GitHub Actions Generator",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "github-actions-linter",
+   "source": "clawhub",
+   "name": "Github Actions Linter",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "github-actions-mainline-health-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Mainline Health Audit",
+   "signals": [
+    "zone:github-ci",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "github-actions-manual-trigger-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Manual Trigger Audit",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "github-actions-merge-queue-health-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Merge Queue Health Audit",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "github-actions-oidc-hardening-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions OIDC Hardening Audit",
+   "signals": [
+    "zone:github-ci",
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "github-actions-optimizer",
+   "source": "clawhub",
+   "name": "Github Actions Optimizer",
+   "signals": [
+    "zone:github-ci",
+    "zone:sre",
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "github-actions-permission-scope-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Permission Scope Audit",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "github-actions-pr-gate-health-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions PR Gate Health Audit",
+   "signals": [
+    "zone:github-ci",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "github-actions-queue-latency-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Queue Latency Audit",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "github-actions-recovery-latency-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Recovery Latency Audit",
+   "signals": [
+    "zone:github-ci",
+    "zone:sre",
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "github-actions-rerun-effectiveness-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Rerun Effectiveness Audit",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "github-actions-rerun-waste-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Rerun Waste Audit",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "github-actions-retry-recovery-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Retry Recovery Audit",
+   "signals": [
+    "zone:github-ci",
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "github-actions-run-gap-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Run Gap Audit",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "github-actions-runtime-regression-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Runtime Regression Audit",
+   "signals": [
+    "zone:github-ci",
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "github-actions-secret-exposure-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Secret Exposure Audit",
+   "signals": [
+    "zone:github-ci",
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "github-actions-self-hosted-risk-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Self-Hosted Risk Audit",
+   "signals": [
+    "zone:github-ci",
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "github-actions-sha-rerun-debt-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions SHA Rerun Debt Audit",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "github-actions-step-flake-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Step Flake Audit",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "github-actions-stuck-run-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Stuck Run Audit",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "github-actions-timeout-risk-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Timeout Risk Audit",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "github-actions-trigger-health-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Trigger Health Audit",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "github-actions-troubleshooting",
+   "source": "clawhub",
+   "name": "GitHub Actions Troubleshooting",
+   "signals": [
+    "zone:github-ci",
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "github-actions-workflow-hardening-audit",
+   "source": "clawhub",
+   "name": "GitHub Actions Workflow Hardening Audit",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "github-dns-helper",
+   "source": "clawhub",
+   "name": "github-dns-helper",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "github-webhook-architect",
+   "source": "clawhub",
+   "name": "Github Webhook Architect",
+   "signals": [
+    "zone:github-ci",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "google-search-unlimited-v2",
+   "source": "clawhub",
+   "name": "Google Search Unlimited V2",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "grafana",
+   "source": "clawhub",
+   "name": "Grafana",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "grafana-lens",
+   "source": "clawhub",
+   "name": "Grafana Lens",
+   "signals": [
+    "zone:observability",
+    "zone:sre",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "greenclaw",
+   "source": "clawhub",
+   "name": "GreenClaw",
+   "signals": [
+    "zone:monitoring",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "greenhelix-agent-finops-playbook",
+   "source": "clawhub",
+   "name": "The AI Agent FinOps Playbook: Budget Enforcement, Cost Allocation & Spend Analytics for Multi-Agent Systems",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "greenhelix-agent-fleet-ops",
+   "source": "clawhub",
+   "name": "AgentOps: Managing AI Agent Fleets in Production",
+   "signals": [
+    "zone:observability",
+    "zone:sre",
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "greenhelix-agent-testing-observability",
+   "source": "clawhub",
+   "name": "The Agent Testing & Observability Cookbook: Ship Reliable Agent Commerce Systems",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "greenhelix-trading-bot-risk-service",
+   "source": "clawhub",
+   "name": "Trading Bot Risk-as-a-Service: Real-Time Portfolio Risk Monitoring for Multi-Exchange Operations",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "grep-tool",
+   "source": "clawhub",
+   "name": "Grep Tool",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "grid-dispatch-operator-economic-dispatch",
+   "source": "clawhub",
+   "name": "economic-dispatch",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "halaoluan-openclaw-restore",
+   "source": "clawhub",
+   "name": "Openclaw Restore",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "healthcheck",
+   "source": "clawhub",
+   "name": "healthcheck",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "healthcheck-audit",
+   "source": "clawhub",
+   "name": "Healthcheck",
+   "signals": [
+    "zone:monitoring",
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "healthcheck-litiao",
+   "source": "clawhub",
+   "name": "Healthcheck Litiao",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "healthcheck-local",
+   "source": "clawhub",
+   "name": "Healthcheck Local",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "healthcheck-ready",
+   "source": "clawhub",
+   "name": "Healthcheck Ready",
+   "signals": [
+    "zone:monitoring",
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "healthcheck-rose",
+   "source": "clawhub",
+   "name": "Healthcheck Rose",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "healthprobe",
+   "source": "clawhub",
+   "name": "Healthprobe",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "heartbeat-pro",
+   "source": "clawhub",
+   "name": "Heartbeat Pro",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "hitoshura25-android-playstore-deploy",
+   "source": "clawhub",
+   "name": "Android应用商店部署工具",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "hologres-slow-query-analysis",
+   "source": "clawhub",
+   "name": "Hologres Slow Query Analysis",
+   "signals": [
+    "zone:observability",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "htpasswd",
+   "source": "clawhub",
+   "name": "Htpasswd",
+   "signals": [
+    "zone:network",
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "huawei-cloud-cce-cost-optimization-advisor",
+   "source": "clawhub",
+   "name": "Huawei Cloud Cce Cost Optimization Advisor",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "huawei-cloud-cce-kubernetes-event-analyzer",
+   "source": "clawhub",
+   "name": "Huawei Cloud Cce Kubernetes Event Analyzer",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "huawei-cloud-cce-observability-context-builder",
+   "source": "clawhub",
+   "name": "Huawei Cloud Cce Observability Context Builder",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "huawei-cloud-cce-ops-report-generator",
+   "source": "clawhub",
+   "name": "Huawei Cloud Cce Ops Report Generator",
+   "signals": [
+    "zone:sre",
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "huawei-cloud-eip-cost-optimizer",
+   "source": "clawhub",
+   "name": "huawei-cloud-eip-cost-optimizer",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "huggingface/skills/skills/huggingface-trackio",
+   "source": "github",
+   "name": "huggingface-trackio",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "iaiops-energy",
+   "source": "clawhub",
+   "name": "Iaiops Energy",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "inbox-monitoring",
+   "source": "clawhub",
+   "name": "Inbox Monitoring",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "incident",
+   "source": "clawhub",
+   "name": "Incident",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "incident-communication-playbook",
+   "source": "clawhub",
+   "name": "Status page & incident communication by openstatus",
+   "signals": [
+    "zone:sre",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "incident-dossier",
+   "source": "clawhub",
+   "name": "Incident Dossier",
+   "signals": [
+    "zone:observability",
+    "zone:sre",
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "incident-fupan",
+   "source": "clawhub",
+   "name": "Incident Fupan (事故复盘) — Structured Root Cause Analysis",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "incident-hotfix",
+   "source": "clawhub",
+   "name": "Incident Hotfix",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "incident-pcn-evidence-appeal-corrective-actions-uk",
+   "source": "clawhub",
+   "name": "Incident & PCN Handling Pack (UK)",
+   "signals": [
+    "zone:sre",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "incident-replay",
+   "source": "clawhub",
+   "name": "Incident Replay",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "incident-report-cn",
+   "source": "clawhub",
+   "name": "Incident Report Generator",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "incident-responder",
+   "source": "clawhub",
+   "name": "Incident Responder",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "incident-response",
+   "source": "clawhub",
+   "name": "Incident Response",
+   "signals": [
+    "zone:sre",
+    "zone:monitoring",
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "incident-response-lifecycle",
+   "source": "clawhub",
+   "name": "Incident Response Lifecycle",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "incident-response-network",
+   "source": "clawhub",
+   "name": "Incident Response Network",
+   "signals": [
+    "zone:sre",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "incident-response-plan",
+   "source": "clawhub",
+   "name": "Incident Response Plan",
+   "signals": [
+    "zone:sre",
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "incident-response-runbook",
+   "source": "clawhub",
+   "name": "Incident Response Runbook",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "incident-runbook-templates",
+   "source": "clawhub",
+   "name": "Incident Runbook Templates",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "incident-ticket-manager",
+   "source": "clawhub",
+   "name": "Ads Incident Tickets",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "incident-triage",
+   "source": "clawhub",
+   "name": "Incident Triage",
+   "signals": [
+    "zone:sre",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "incident-triage-helper",
+   "source": "clawhub",
+   "name": "Incident Triage Helper",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "incidentio",
+   "source": "clawhub",
+   "name": "Incident.io",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "infra-watchdog",
+   "source": "clawhub",
+   "name": "Clawhub Skill Infra Watchdog",
+   "signals": [
+    "zone:docker",
+    "zone:monitoring",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "initial-traefik",
+   "source": "clawhub",
+   "name": "initial-traefik",
+   "signals": [
+    "zone:docker",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "intodns",
+   "source": "clawhub",
+   "name": "IntoDNS.ai",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "intodns-skill",
+   "source": "clawhub",
+   "name": "IntoDNS.ai",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "ipam-dns-audit",
+   "source": "clawhub",
+   "name": "Ipam Dns Audit",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "ipwebcam",
+   "source": "clawhub",
+   "name": "Android IP Webcam monitoring and alert",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "jarvis-incident-timeline-writer-01",
+   "source": "clawhub",
+   "name": "Jarvis Incident Timeline Writer 01",
+   "signals": [
+    "zone:observability",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "jira-metrics",
+   "source": "clawhub",
+   "name": "Jira Metrics",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "job-execution-monitor",
+   "source": "clawhub",
+   "name": "Job Execution Monitor",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "jpeng-api-tester",
+   "source": "clawhub",
+   "name": "API Tester",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "justoneapi-douyin-xingtu-get-kol-link-info",
+   "source": "clawhub",
+   "name": "Douyin Creator Marketplace (Xingtu) Creator Link Metrics API",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "justoneapi-douyin-xingtu-get-kol-marketing-info",
+   "source": "clawhub",
+   "name": "Douyin Creator Marketplace (Xingtu) Marketing Metrics API",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "justoneapi-douyin-xingtu-get-kol-spread-info",
+   "source": "clawhub",
+   "name": "Douyin Creator Marketplace (Xingtu) Spread Metrics API",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "justoneapi-douyin-xingtu-gw-api-author-get-author-marketing-info",
+   "source": "clawhub",
+   "name": "Douyin Creator Marketplace (Xingtu) Marketing Metrics API",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "justoneapi-douyin-xingtu-gw-api-author-get-author-platform-channel-info-v2",
+   "source": "clawhub",
+   "name": "Douyin Creator Marketplace (Xingtu) Creator Channel Metrics API",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "justoneapi-douyin-xingtu-gw-api-data-sp-get-author-link-info",
+   "source": "clawhub",
+   "name": "Douyin Creator Marketplace (Xingtu) Creator Link Metrics API",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "justoneapi-douyin-xingtu-gw-api-data-sp-get-author-spread-info",
+   "source": "clawhub",
+   "name": "Douyin Creator Marketplace (Xingtu) Spread Metrics API",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "justoneapi-weixin-get-article-feedback",
+   "source": "clawhub",
+   "name": "WeChat Official Accounts Article Engagement Metrics API",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "justoneapi-xiaohongshu-pgy-api-pgy-kol-data-core-data",
+   "source": "clawhub",
+   "name": "Xiaohongshu Creator Marketplace (Pugongying) Creator Core Metrics API",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "justoneapi-xiaohongshu-pgy-get-kol-core-data",
+   "source": "clawhub",
+   "name": "Xiaohongshu Creator Marketplace (Pugongying) Creator Core Metrics API",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "justoneapi-xiaohongshu-pgy-get-kol-note-rate",
+   "source": "clawhub",
+   "name": "Xiaohongshu Creator Marketplace (Pugongying) Note Performance Metrics API",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "k8s-browser",
+   "source": "clawhub",
+   "name": "Kubernetes Skills",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "k8s-certs",
+   "source": "clawhub",
+   "name": "Kubernetes Skills",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "k8s-incident-response-playbook",
+   "source": "clawhub",
+   "name": "K8s Incident Response Playbook Generator",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "k8s-network-policy-generator",
+   "source": "clawhub",
+   "name": "Kubernetes Network Policy Generator",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "k8s-security-posture-scorecard",
+   "source": "clawhub",
+   "name": "Kubernetes Security Posture Scorecard",
+   "signals": [
+    "zone:monitoring",
+    "zone:network",
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "kibana-observability",
+   "source": "clawhub",
+   "name": "Kibana",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "kubernetes-devops-toolkit",
+   "source": "clawhub",
+   "name": "Kubernetes DevOps Toolkit",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "laolaoqi-docker-health",
+   "source": "clawhub",
+   "name": "Docker Health Monitor",
+   "signals": [
+    "zone:docker",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "li-itil-manager",
+   "source": "clawhub",
+   "name": "ITIL 5 Manager",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "life-logging-analyzer",
+   "source": "clawhub",
+   "name": "Life Logging Analyzer",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "lingxi-agent-monitor",
+   "source": "clawhub",
+   "name": "Lingxi · Agent Health Monitor",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "linux-sysadmin",
+   "source": "clawhub",
+   "name": "linux-sysadmin",
+   "signals": [
+    "zone:network",
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "little7-bcdr",
+   "source": "clawhub",
+   "name": "Little7 Bcdr",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "llm-cost-optimizer",
+   "source": "clawhub",
+   "name": "Llm Cost Optimizer",
+   "signals": [
+    "zone:observability",
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "lobehub/cybersecurity-copilot",
+   "source": "lobehub",
+   "name": "cybersecurity-copilot",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "lobsterai-security",
+   "source": "clawhub",
+   "name": "Security",
+   "signals": [
+    "zone:observability",
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "local-healthcheck",
+   "source": "clawhub",
+   "name": "Local Healthcheck",
+   "signals": [
+    "zone:monitoring",
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "log-parser-to-metrics",
+   "source": "clawhub",
+   "name": "Log Parser to Metrics / 日志转指标工具",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "logic-hunter",
+   "source": "clawhub",
+   "name": "Logic Hunter",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "logvance",
+   "source": "clawhub",
+   "name": "Logvance",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "lookup-dns",
+   "source": "clawhub",
+   "name": "DNS Lookup",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "lookupmark-system-monitor",
+   "source": "clawhub",
+   "name": "System Monitor",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "lucky-healthcheck",
+   "source": "clawhub",
+   "name": "Lucky Healthcheck",
+   "signals": [
+    "zone:monitoring",
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "lynkr",
+   "source": "clawhub",
+   "name": "Lynkr AI Routing Proxy",
+   "signals": [
+    "zone:observability",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "mac-health-check",
+   "source": "clawhub",
+   "name": "Mac Health Check",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "macos-connectivity-restore",
+   "source": "clawhub",
+   "name": "Macos Connectivity Restore",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "mediaio-ai-photo-restorer",
+   "source": "clawhub",
+   "name": "AI Photo Restorer & Colorizer",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "memotrader",
+   "source": "clawhub",
+   "name": "MemoTrader",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "meshmonitor-api",
+   "source": "clawhub",
+   "name": "MeshMonitor API",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "meta-ads-healthcheck",
+   "source": "clawhub",
+   "name": "Meta Ads Healthcheck",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "metrics",
+   "source": "clawhub",
+   "name": "Metrics",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "mh-healthcheck",
+   "source": "clawhub",
+   "name": "MH healthcheck",
+   "signals": [
+    "zone:monitoring",
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "mini-hids",
+   "source": "clawhub",
+   "name": "Lightweight Host Intrusion Detection and Log Analysis System (Mini-HIDS)",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "mmx-cost-optimizer",
+   "source": "clawhub",
+   "name": "MMX Cost Optimizer",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "mobula-alerts",
+   "source": "clawhub",
+   "name": "Mobula - Smart Alerts & Monitoring",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "model-benchmarks",
+   "source": "clawhub",
+   "name": "AI Intelligence Hub - Real-time Model Capability Tracking",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "model-healthcheck",
+   "source": "clawhub",
+   "name": "Model Healthcheck",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "model-router",
+   "source": "clawhub",
+   "name": "Model Router",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "moments-aieo-monitoring",
+   "source": "clawhub",
+   "name": "AIEO monitoring",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "monitoring",
+   "source": "clawhub",
+   "name": "Monitoring",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "monitoring-aiops",
+   "source": "clawhub",
+   "name": "Monitoring Aiops",
+   "signals": [
+    "zone:monitoring",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "monitoring-dashboard-audit",
+   "source": "clawhub",
+   "name": "Monitoring Dashboard Audit",
+   "signals": [
+    "zone:observability",
+    "zone:sre",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "morestore",
+   "source": "clawhub",
+   "name": "Morestore",
+   "signals": [
+    "zone:observability",
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "multi-site-health-monitor",
+   "source": "clawhub",
+   "name": "Multi Site Health Monitor",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "multi-skill-automation-suite",
+   "source": "clawhub",
+   "name": "Multi-Skill Automation Suite",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "myopenclaw-backup-restore",
+   "source": "clawhub",
+   "name": "MyOpenClaw Backup Restore",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "n8n-monitoring",
+   "source": "clawhub",
+   "name": "Monitor n8n Automations with OpenClaw",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "nai-status-page-gen",
+   "source": "clawhub",
+   "name": "Status Page Gen",
+   "signals": [
+    "zone:monitoring",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "namecheap-dns",
+   "source": "clawhub",
+   "name": "Namecheap DNS",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "ndis-incident-reporting-specialist",
+   "source": "clawhub",
+   "name": "NDIS Incident Reporting Specialist",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "neomano-vps-monitoring",
+   "source": "clawhub",
+   "name": "Neomano VPS Monitoring (DigitalOcean)",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "neomano-web-snapshot",
+   "source": "clawhub",
+   "name": "Neomano Web Snapshot (Headless)",
+   "signals": [
+    "zone:monitoring",
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "network",
+   "source": "clawhub",
+   "name": "Network",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "network-ai",
+   "source": "clawhub",
+   "name": "Network-AI",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "network-aiops",
+   "source": "clawhub",
+   "name": "Network Aiops",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "network-config",
+   "source": "clawhub",
+   "name": "Network Config",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "network-device-monitor",
+   "source": "clawhub",
+   "name": "Network Device Monitor",
+   "signals": [
+    "zone:monitoring",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "network-effects",
+   "source": "clawhub",
+   "name": "Network Effects",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "network-engineer",
+   "source": "clawhub",
+   "name": "Network Engineer",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "network-monitor",
+   "source": "clawhub",
+   "name": "Network Monitor",
+   "signals": [
+    "zone:monitoring",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "network-pharmacology",
+   "source": "clawhub",
+   "name": "Network Pharmacology",
+   "signals": [
+    "zone:observability",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "network-scan",
+   "source": "clawhub",
+   "name": "Network Scan",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "network-scanner",
+   "source": "clawhub",
+   "name": "Network Scanner",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "network-speed-test",
+   "source": "clawhub",
+   "name": "Network Speed Test",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "network-tool",
+   "source": "clawhub",
+   "name": "Network Tool",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "network-toolbox",
+   "source": "clawhub",
+   "name": "Network Toolbox",
+   "signals": [
+    "zone:observability",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "network-tools",
+   "source": "clawhub",
+   "name": "Network Tools",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "network-tools-newest",
+   "source": "clawhub",
+   "name": "Network Tools",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "network-topology-discovery",
+   "source": "clawhub",
+   "name": "Network Topology Discovery",
+   "signals": [
+    "zone:observability",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "network-tox-docking-research-planner",
+   "source": "clawhub",
+   "name": "Network Tox Docking Research Planner",
+   "signals": [
+    "zone:observability",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "network-tox-docking-research-planner-1",
+   "source": "clawhub",
+   "name": "Network Tox Docking Research Planner",
+   "signals": [
+    "zone:observability",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "networking-email-drafter",
+   "source": "clawhub",
+   "name": "Networking Email Drafter",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "new-relic-observability",
+   "source": "clawhub",
+   "name": "New Relic",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "nex-skillmon",
+   "source": "clawhub",
+   "name": "Nex Skillmon",
+   "signals": [
+    "zone:monitoring",
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "nextdns",
+   "source": "clawhub",
+   "name": "NextDNS",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "nginx-config-hardener",
+   "source": "clawhub",
+   "name": "Nginx Config Hardener / Nginx配置加固器",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "nginx-config-linter",
+   "source": "clawhub",
+   "name": "Nginx Config Linter",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "nginx-explorer",
+   "source": "clawhub",
+   "name": "nginx-explorer",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "nginx-hosting",
+   "source": "clawhub",
+   "name": "Nginx Hosting",
+   "signals": [
+    "zone:observability",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "nm-leyline-usage-logging",
+   "source": "clawhub",
+   "name": "Nm Leyline Usage Logging",
+   "signals": [
+    "zone:observability",
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "nm-minister-dora-metrics",
+   "source": "clawhub",
+   "name": "Nm Minister Dora Metrics",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "normieclaw-security-team",
+   "source": "clawhub",
+   "name": "Security Team",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "npm-proxy",
+   "source": "clawhub",
+   "name": "Nginx Proxy Manager",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "nuggetz-network",
+   "source": "clawhub",
+   "name": "The knowledge feed and usage telemetry layer for your AI agent team. Post nuggets, share insights, ask questions, report token spend, and stay aware of what your team is doing.",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "observability",
+   "source": "clawhub",
+   "name": "Observability",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "observability-aiops",
+   "source": "clawhub",
+   "name": "Observability Aiops",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "observability-lgtm",
+   "source": "clawhub",
+   "name": "Observability Lgtm",
+   "signals": [
+    "zone:docker",
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "observer-effect-probe",
+   "source": "clawhub",
+   "name": "Observer Effect Probe",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "obsidian-conversation-backup",
+   "source": "clawhub",
+   "name": "Backup of conversations to Obsidian",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "oc-sre-on-demand-service",
+   "source": "clawhub",
+   "name": "OC SRE On-Demand Service",
+   "signals": [
+    "zone:sre",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "octodns-skill",
+   "source": "clawhub",
+   "name": "Octodns",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "oda-monitor",
+   "source": "clawhub",
+   "name": "Oda Monitor",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "official/devops/hermes-s6-container-supervision",
+   "source": "official",
+   "name": "hermes-s6-container-supervision",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "official/devops/pinggy-tunnel",
+   "source": "official",
+   "name": "pinggy-tunnel",
+   "signals": [
+    "name-exact:pinggy-tunnel",
+    "name-normalized:pinggytunnel",
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "official/health/fitness-nutrition",
+   "source": "official",
+   "name": "fitness-nutrition",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "official/mlops/training/unsloth",
+   "source": "official",
+   "name": "unsloth",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "official/research/blogwatcher",
+   "source": "official",
+   "name": "blogwatcher",
+   "signals": [
+    "name-exact:blogwatcher",
+    "name-normalized:blogwatcher",
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "official/research/domain-intel",
+   "source": "official",
+   "name": "domain-intel",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "official/security/1password",
+   "source": "official",
+   "name": "1password",
+   "signals": [
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "official/security/oss-forensics",
+   "source": "official",
+   "name": "oss-forensics",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "official/security/web-pentest",
+   "source": "official",
+   "name": "web-pentest",
+   "signals": [
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "oo-cloudflare-dns",
+   "source": "clawhub",
+   "name": "Cloudflare DNS",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "oo-dns-filter",
+   "source": "clawhub",
+   "name": "DNSFilter",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "oo-healthchecks-io",
+   "source": "clawhub",
+   "name": "Healthchecks.io",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "oo-incident-io",
+   "source": "clawhub",
+   "name": "incident.io",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "oo-next-dns",
+   "source": "clawhub",
+   "name": "NextDNS",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "oo-uptimerobot",
+   "source": "clawhub",
+   "name": "UptimeRobot",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "open-optimise",
+   "source": "clawhub",
+   "name": "Cost Optimizer",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "openai/skills/skills/.curated/gh-fix-ci",
+   "source": "github",
+   "name": "gh-fix-ci",
+   "signals": [
+    "zone:github-ci",
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "openclaw-backup-restore",
+   "source": "clawhub",
+   "name": "OpenClaw Backup & Restore",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "openclaw-checkpoint",
+   "source": "clawhub",
+   "name": "OpenClaw Checkpoint - Personal AI Assistant Backup & Recovery (Github)",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "openclaw-cnc-quick-probe",
+   "source": "clawhub",
+   "name": "Cnc Quick Probe",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "openclaw-complete-backup-delete-fresh-install-restore-cycle",
+   "source": "clawhub",
+   "name": "Openclaw Complete Backup Delete Fresh Install Restore Cycle",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "openclaw-cost-guard",
+   "source": "clawhub",
+   "name": "OpenClaw Cost Guard (Budgets + Token-Saving Playbook)",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring",
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "openclaw-cost-optimization",
+   "source": "clawhub",
+   "name": "Openclaw Cost Optimization",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "openclaw-docker",
+   "source": "clawhub",
+   "name": "Docker",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "openclaw-feishu-quota-guard",
+   "source": "clawhub",
+   "name": "OpenClaw Feishu Quota Guard",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "openclaw-gateway-fd-fix",
+   "source": "clawhub",
+   "name": "Openclaw Gateway Fd Fix",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "openclaw-hardener",
+   "source": "clawhub",
+   "name": "OpenClaw Hardener",
+   "signals": [
+    "zone:security",
+    "zone:i-notation"
+   ]
+  },
+  {
+   "identifier": "openclaw-healthcheck",
+   "source": "clawhub",
+   "name": "OpenClaw Healthcheck",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "openclaw-healthcheck-cron",
+   "source": "clawhub",
+   "name": "OpenClaw Healthcheck Cron",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "openclaw-local-embedding",
+   "source": "clawhub",
+   "name": "Openclaw Local Embedding",
+   "signals": [
+    "zone:monitoring",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "openclaw-log-analyzer",
+   "source": "clawhub",
+   "name": "Log Analyzer",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "openclaw-ops-skills",
+   "source": "clawhub",
+   "name": "Ops Skills Pack",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "openclaw-output-metrics-footer",
+   "source": "clawhub",
+   "name": "OpenClaw Output Metrics Footer",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "openclaw-poc-validator",
+   "source": "clawhub",
+   "name": "Poc Validator",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring",
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "openclaw-push-doctor",
+   "source": "clawhub",
+   "name": "Openclaw Push Doctor",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "openclaw-security-guard",
+   "source": "clawhub",
+   "name": "Openclaw Security Guard",
+   "signals": [
+    "zone:observability",
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "openclaw-skill-backup-manager",
+   "source": "clawhub",
+   "name": "Backup Manager",
+   "signals": [
+    "zone:monitoring",
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "openclaw-skill-observability",
+   "source": "clawhub",
+   "name": "Openclaw Skill Observability",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring",
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "openclaw-super-healthcheck",
+   "source": "clawhub",
+   "name": "Advanced OpenClaw System Health Check & Repair",
+   "signals": [
+    "zone:monitoring",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "openclaw-workspace-backup-restore",
+   "source": "clawhub",
+   "name": "OpenClaw Backup & Restore",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "openclaws-status",
+   "source": "clawhub",
+   "name": "OpenClaw Status API",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "opensearch-vector-search",
+   "source": "clawhub",
+   "name": "Opensearch Vector Search",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "ops-cert-check",
+   "source": "clawhub",
+   "name": "Ops Cert Check",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "ops-journal",
+   "source": "clawhub",
+   "name": "ops-journal",
+   "signals": [
+    "zone:observability",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "optimoclaw-skill",
+   "source": "clawhub",
+   "name": "OptimoClaw",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "oz-platform",
+   "source": "clawhub",
+   "name": "Network on Oz",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "pagerduty-agent",
+   "source": "clawhub",
+   "name": "PagerDuty Agent",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "passive-income-tracker",
+   "source": "clawhub",
+   "name": "Clawhub Skill Passive Income Tracker",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "payment-incident-responder",
+   "source": "clawhub",
+   "name": "Payment Incident Responder",
+   "signals": [
+    "zone:sre",
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "pc-assistant",
+   "source": "clawhub",
+   "name": "pc-assistant",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "pc-assistant-fixed",
+   "source": "clawhub",
+   "name": "Pc Assistant Fixed",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "performance-monitoring",
+   "source": "clawhub",
+   "name": "Performance Monitoring",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "phy-cors-audit",
+   "source": "clawhub",
+   "name": "Phy Cors Audit",
+   "signals": [
+    "zone:monitoring",
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "pilot-alert",
+   "source": "clawhub",
+   "name": "Pilot Alert",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "pilot-backup-disaster-recovery-setup",
+   "source": "clawhub",
+   "name": "Pilot Backup Disaster Recovery Setup",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "pilot-ci-cd-pipeline-setup",
+   "source": "clawhub",
+   "name": "Pilot Ci Cd Pipeline Setup",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "pilot-competitor-intelligence-setup",
+   "source": "clawhub",
+   "name": "Pilot Competitor Intelligence Setup",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "pilot-dns",
+   "source": "clawhub",
+   "name": "Pilot Dns",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "pilot-incident-response-setup",
+   "source": "clawhub",
+   "name": "Pilot Incident Response Setup",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "pilot-log-analytics-setup",
+   "source": "clawhub",
+   "name": "Pilot Log Analytics Setup",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "pilot-media-monitoring-setup",
+   "source": "clawhub",
+   "name": "Pilot Media Monitoring Setup",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "pilot-metrics",
+   "source": "clawhub",
+   "name": "Pilot Metrics",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "pilot-real-estate-analyzer-setup",
+   "source": "clawhub",
+   "name": "Pilot Real Estate Analyzer Setup",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "pingharbor",
+   "source": "clawhub",
+   "name": "PingHarbor",
+   "signals": [
+    "zone:sre",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "pipeworx-crossref",
+   "source": "clawhub",
+   "name": "Pipeworx crossref",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "pipeworx-dns",
+   "source": "clawhub",
+   "name": "Pipeworx dns",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "platform-healthcheck",
+   "source": "clawhub",
+   "name": "Platform Healthcheck",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "plsreadme",
+   "source": "clawhub",
+   "name": "plsreadme",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "polymarket-arbitrage",
+   "source": "clawhub",
+   "name": "Polymarket Arbitrage",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "porkbun-domains",
+   "source": "clawhub",
+   "name": "Porkbun Domains & DNS",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "postmortems",
+   "source": "clawhub",
+   "name": "Postmortems",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "power-automate-monitoring",
+   "source": "clawhub",
+   "name": "Power Automate Monitoring",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "probe-first-research",
+   "source": "clawhub",
+   "name": "Probe First Research",
+   "signals": [
+    "zone:monitoring",
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "process-guard",
+   "source": "clawhub",
+   "name": "ProcessGuard — Critical Process Monitor & Auto-Restart",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "procmon",
+   "source": "clawhub",
+   "name": "Procmon",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "project-trident-plugin",
+   "source": "clawhub",
+   "name": "Trident Plugin",
+   "signals": [
+    "zone:network",
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "prom",
+   "source": "clawhub",
+   "name": "Prometheus",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "prometheus-alert-designer",
+   "source": "clawhub",
+   "name": "Prometheus Alert Designer",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "promql-validator",
+   "source": "clawhub",
+   "name": "Promql Validator",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "provider-probe",
+   "source": "clawhub",
+   "name": "Provider Probe",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "proxy-aiops",
+   "source": "clawhub",
+   "name": "Proxy Aiops",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "proxy-manager",
+   "source": "clawhub",
+   "name": "Proxy Manager",
+   "signals": [
+    "zone:docker",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "publish-website-traefik",
+   "source": "clawhub",
+   "name": "Publish Website Traefik",
+   "signals": [
+    "zone:docker",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "qa-ci-cd-testing",
+   "source": "clawhub",
+   "name": "Qa Ci Cd Testing",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "qa-quality-metrics",
+   "source": "clawhub",
+   "name": "Qa Quality Metrics",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "querying-aws-cloudwatch",
+   "source": "clawhub",
+   "name": "querying-aws-cloudwatch",
+   "signals": [
+    "zone:observability",
+    "zone:sre",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "raai-price-probe-dogovornaya-20260421",
+   "source": "clawhub",
+   "name": "raai-price-probe-dogovornaya-20260421",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "raai-price-probe-noprice-20260421",
+   "source": "clawhub",
+   "name": "raai-price-probe-noprice-20260421",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "raai-price-probe-zero-20260421",
+   "source": "clawhub",
+   "name": "raai-price-probe-zero-20260421",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "rapiddns",
+   "source": "clawhub",
+   "name": "RapidDNS",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "reefgram",
+   "source": "clawhub",
+   "name": "ReefGram",
+   "signals": [
+    "zone:observability",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "relayplane",
+   "source": "clawhub",
+   "name": "RelayPlane",
+   "signals": [
+    "zone:observability",
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "restore",
+   "source": "clawhub",
+   "name": "Restore",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "restore-and-upscale",
+   "source": "clawhub",
+   "name": "Restore And Upscale",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "restore-workbuddy-hints",
+   "source": "clawhub",
+   "name": "Restore WorkBuddy Hints",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "retro",
+   "source": "clawhub",
+   "name": "Retro",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "reverse-proxy-local",
+   "source": "clawhub",
+   "name": "Reverse proxy from internet to open claw",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "rhandus-alerting-system",
+   "source": "clawhub",
+   "name": "Alerting & Notification System",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "rhandus-backup-recovery",
+   "source": "clawhub",
+   "name": "Backup & Recovery Automation",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "risk-management-playbook",
+   "source": "clawhub",
+   "name": "Risk Management Playbook",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "risk-metrics-calculation",
+   "source": "clawhub",
+   "name": "Risk Metrics Calculation",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "rivian-ls",
+   "source": "clawhub",
+   "name": "Rivian Ls",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "rtqpcr-primer-design",
+   "source": "clawhub",
+   "name": "Bio-chat: Hardcore Primer Designer",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "rundev-local-dev",
+   "source": "clawhub",
+   "name": "run.dev — Local Dev Environment Manager",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "runtime-attestation-probe",
+   "source": "clawhub",
+   "name": "Runtime Attestation Probe",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "rydberg-agent-node",
+   "source": "clawhub",
+   "name": "Rydberg Agent Node",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "saas-metrics-dashboard",
+   "source": "clawhub",
+   "name": "SaaS Metrics Dashboard",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "safe-fuzzer-deprecated",
+   "source": "clawhub",
+   "name": "SAFE-Fuzzer",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "safe-fuzzer-skill",
+   "source": "clawhub",
+   "name": "SAFE-Fuzzer",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "scholargraph-cancer-fusiongenes-research-flow",
+   "source": "clawhub",
+   "name": "ScholarGraph-CancerFusionGenesResearch",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "scrapfly-alerting",
+   "source": "clawhub",
+   "name": "Scrapfly Alerting",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "secrets-scanner",
+   "source": "clawhub",
+   "name": "Secrets Scanner",
+   "signals": [
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "secrets-scanner-remediator",
+   "source": "clawhub",
+   "name": "Secrets Scanner & Remediator / 密钥扫描与修复器",
+   "signals": [
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "sed-probe-delete-me-0707",
+   "source": "clawhub",
+   "name": "probe",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "seeweb-uptime",
+   "source": "clawhub",
+   "name": "SeeWeb Uptime",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "self-hosted-ai-2",
+   "source": "clawhub",
+   "name": "Self Hosted Ai",
+   "signals": [
+    "zone:docker",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "self-preserve",
+   "source": "clawhub",
+   "name": "Self Preserve",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "sentio-platform",
+   "source": "clawhub",
+   "name": "Sentio Platform",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "sentry-observability",
+   "source": "clawhub",
+   "name": "Sentry Observability",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "server-log-analyzer",
+   "source": "clawhub",
+   "name": "server-log-analyzer",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "server-mate",
+   "source": "clawhub",
+   "name": "Server Mate",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "server-monitor",
+   "source": "clawhub",
+   "name": "Server Monitor",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "service-health-checker",
+   "source": "clawhub",
+   "name": "Uptime Monitor",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "session-archive-backup",
+   "source": "clawhub",
+   "name": "backup",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "sf-ai-agentforce-observability",
+   "source": "clawhub",
+   "name": "Salesforce AI Agentforce Observability",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "shadows-deploy-guardian",
+   "source": "clawhub",
+   "name": "Shadows Deploy Guardian",
+   "signals": [
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "shopify-gmc-misrepresentation-auditor",
+   "source": "clawhub",
+   "name": "Shopify GMC Misrepresentation Auditor",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "shrimp-watchdog",
+   "source": "clawhub",
+   "name": "OpenClaw Watchdog",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "signl4",
+   "source": "clawhub",
+   "name": "SIGNL4 Alerting",
+   "signals": [
+    "zone:monitoring",
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "site-health-monitor",
+   "source": "clawhub",
+   "name": "Site Health Monitor",
+   "signals": [
+    "zone:monitoring",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "siteaudit",
+   "source": "clawhub",
+   "name": "Siteaudit",
+   "signals": [
+    "zone:monitoring",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skill-4",
+   "source": "clawhub",
+   "name": "Skill 4",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "skill-docker",
+   "source": "clawhub",
+   "name": "Docker",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "skill-doctorbot-healthcheck-free",
+   "source": "clawhub",
+   "name": "Doctorbot Healthcheck Free",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "skill-ios-setup",
+   "source": "clawhub",
+   "name": "iOS Setup",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skill-traction-notifier",
+   "source": "clawhub",
+   "name": "Find trending skills",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "skill-trust-guard",
+   "source": "clawhub",
+   "name": "Skill Trust Guard",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "skillprobe",
+   "source": "clawhub",
+   "name": "SkillProbe",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "skills-sh/404kidwiz/claude-supercode-skills/network-engineer",
+   "source": "skills.sh",
+   "name": "network-engineer",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skills-sh/aaronontheweb/dotnet-skills/dotnet-slopwatch",
+   "source": "skills.sh",
+   "name": "dotnet-slopwatch",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/acedergren/oci-agent-skills/monitoring-operations",
+   "source": "skills.sh",
+   "name": "monitoring-operations",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "skills-sh/addyosmani/agent-skills/observability-and-instrumentation",
+   "source": "skills.sh",
+   "name": "observability-and-instrumentation",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/affaan-m/ecc/docker-patterns",
+   "source": "skills.sh",
+   "name": "docker-patterns",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "skills-sh/affaan-m/ecc/homelab-pihole-dns",
+   "source": "skills.sh",
+   "name": "homelab-pihole-dns",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skills-sh/affaan-m/ecc/network-bgp-diagnostics",
+   "source": "skills.sh",
+   "name": "network-bgp-diagnostics",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skills-sh/affaan-m/ecc/network-config-validation",
+   "source": "skills.sh",
+   "name": "network-config-validation",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skills-sh/affaan-m/ecc/network-interface-health",
+   "source": "skills.sh",
+   "name": "network-interface-health",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skills-sh/affaan-m/everything-claude-code/docker-patterns",
+   "source": "skills.sh",
+   "name": "docker-patterns",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "skills-sh/affaan-m/everything-claude-code/homelab-pihole-dns",
+   "source": "skills.sh",
+   "name": "homelab-pihole-dns",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skills-sh/affaan-m/everything-claude-code/network-bgp-diagnostics",
+   "source": "skills.sh",
+   "name": "network-bgp-diagnostics",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skills-sh/affaan-m/everything-claude-code/network-config-validation",
+   "source": "skills.sh",
+   "name": "network-config-validation",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skills-sh/affaan-m/everything-claude-code/network-interface-health",
+   "source": "skills.sh",
+   "name": "network-interface-health",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skills-sh/ahmedasmar/devops-claude-skills/monitoring-observability",
+   "source": "skills.sh",
+   "name": "monitoring-observability",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "skills-sh/ailabs-393/ai-labs-claude-skills/docker-containerization",
+   "source": "skills.sh",
+   "name": "docker-containerization",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "skills-sh/aj-geddes/useful-ai-prompts/application-logging",
+   "source": "skills.sh",
+   "name": "application-logging",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/aj-geddes/useful-ai-prompts/backup-disaster-recovery",
+   "source": "skills.sh",
+   "name": "backup-disaster-recovery",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "skills-sh/aj-geddes/useful-ai-prompts/database-backup-restore",
+   "source": "skills.sh",
+   "name": "database-backup-restore",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "skills-sh/aj-geddes/useful-ai-prompts/dns-management",
+   "source": "skills.sh",
+   "name": "dns-management",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skills-sh/aj-geddes/useful-ai-prompts/docker-containerization",
+   "source": "skills.sh",
+   "name": "docker-containerization",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "skills-sh/aj-geddes/useful-ai-prompts/incident-response-plan",
+   "source": "skills.sh",
+   "name": "incident-response-plan",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/aj-geddes/useful-ai-prompts/logging-best-practices",
+   "source": "skills.sh",
+   "name": "logging-best-practices",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/aj-geddes/useful-ai-prompts/network-analysis",
+   "source": "skills.sh",
+   "name": "network-analysis",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skills-sh/aj-geddes/useful-ai-prompts/network-debugging",
+   "source": "skills.sh",
+   "name": "network-debugging",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skills-sh/aj-geddes/useful-ai-prompts/network-security-groups",
+   "source": "skills.sh",
+   "name": "network-security-groups",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skills-sh/aj-geddes/useful-ai-prompts/nginx-configuration",
+   "source": "skills.sh",
+   "name": "nginx-configuration",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skills-sh/aj-geddes/useful-ai-prompts/uptime-monitoring",
+   "source": "skills.sh",
+   "name": "uptime-monitoring",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "skills-sh/akin-ozer/cc-devops-skills/dockerfile-generator",
+   "source": "skills.sh",
+   "name": "dockerfile-generator",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "skills-sh/akin-ozer/cc-devops-skills/dockerfile-validator",
+   "source": "skills.sh",
+   "name": "dockerfile-validator",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "skills-sh/alfredoperez/angular-best-practices/angular-best-practices-transloco",
+   "source": "skills.sh",
+   "name": "angular-best-practices-transloco",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/alirezarezvani/claude-skills/docker-development",
+   "source": "skills.sh",
+   "name": "docker-development",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "skills-sh/alirezarezvani/claude-skills/incident-commander",
+   "source": "skills.sh",
+   "name": "incident-commander",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/alirezarezvani/claude-skills/incident-response",
+   "source": "skills.sh",
+   "name": "incident-response",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/alirezarezvani/claude-skills/observability-designer",
+   "source": "skills.sh",
+   "name": "observability-designer",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/alirezarezvani/claude-skills/postmortem",
+   "source": "skills.sh",
+   "name": "postmortem",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/alirezarezvani/claude-skills/slo-architect",
+   "source": "skills.sh",
+   "name": "slo-architect",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/andrelandgraf/fullstackrecipes/observability-monitoring",
+   "source": "skills.sh",
+   "name": "observability-monitoring",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "skills-sh/anthropics/knowledge-work-plugins/incident-response",
+   "source": "skills.sh",
+   "name": "incident-response",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/anthropics/knowledge-work-plugins/metrics-review",
+   "source": "skills.sh",
+   "name": "metrics-review",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/anthropics/knowledge-work-plugins/metrics-tracking",
+   "source": "skills.sh",
+   "name": "metrics-tracking",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/anthropics/knowledge-work-plugins/probe-sdk",
+   "source": "skills.sh",
+   "name": "probe-sdk",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "skills-sh/aradotso/marketing-skills/r01-hesreallyhim-awesome-claude-code-seo-content-marketing",
+   "source": "skills.sh",
+   "name": "r01-hesreallyhim-awesome-claude-code-seo-content-marketing",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/aradotso/security-skills/slowmist-agent-security-framework",
+   "source": "skills.sh",
+   "name": "slowmist-agent-security-framework",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/assistant-ui/skills/observability",
+   "source": "skills.sh",
+   "name": "observability",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/aws/agent-toolkit-for-aws/aws-observability",
+   "source": "skills.sh",
+   "name": "aws-observability",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/aws/agent-toolkit-for-aws/networkfirewall",
+   "source": "skills.sh",
+   "name": "networkfirewall",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skills-sh/axiomhq/skills/axiom-alerting",
+   "source": "skills.sh",
+   "name": "axiom-alerting",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "skills-sh/axiomhq/skills/axiom-sre",
+   "source": "skills.sh",
+   "name": "axiom-sre",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/bobmatnyc/claude-mpm-skills/docker",
+   "source": "skills.sh",
+   "name": "docker",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "skills-sh/boristane/agent-skills/logging-best-practices",
+   "source": "skills.sh",
+   "name": "logging-best-practices",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/brianlovin/agent-config/deslop",
+   "source": "skills.sh",
+   "name": "deslop",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/brianlovin/claude-config/deslop",
+   "source": "skills.sh",
+   "name": "deslop",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/chrisbanes/skills/compose-slot-api-pattern",
+   "source": "skills.sh",
+   "name": "compose-slot-api-pattern",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/cinience/alicloud-skills/alicloud-network-dns-cli",
+   "source": "skills.sh",
+   "name": "alicloud-network-dns-cli",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skills-sh/cinience/alicloud-skills/alicloud-network-dns-cli-test",
+   "source": "skills.sh",
+   "name": "alicloud-network-dns-cli-test",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skills-sh/cinience/alicloud-skills/alicloud-observability-sls-log-query",
+   "source": "skills.sh",
+   "name": "alicloud-observability-sls-log-query",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/cinience/alicloud-skills/alicloud-observability-sls-log-query-test",
+   "source": "skills.sh",
+   "name": "alicloud-observability-sls-log-query-test",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/claude-office-skills/skills/security-monitoring",
+   "source": "skills.sh",
+   "name": "security-monitoring",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "skills-sh/coralogix/cx-cli/cx-slos",
+   "source": "skills.sh",
+   "name": "cx-slos",
+   "signals": [
+    "zone:observability",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/coralogix/cx-cli/cx-telemetry-querying",
+   "source": "skills.sh",
+   "name": "cx-telemetry-querying",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/cursor/plugins/deslop",
+   "source": "skills.sh",
+   "name": "deslop",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/cxuu/golang-skills/go-logging",
+   "source": "skills.sh",
+   "name": "go-logging",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/davila7/claude-code-templates/deslop",
+   "source": "skills.sh",
+   "name": "deslop",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/davila7/claude-code-templates/docker-expert",
+   "source": "skills.sh",
+   "name": "docker-expert",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "skills-sh/davila7/claude-code-templates/networkx",
+   "source": "skills.sh",
+   "name": "networkx",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skills-sh/deanpeters/product-manager-skills/pol-probe",
+   "source": "skills.sh",
+   "name": "pol-probe",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "skills-sh/deanpeters/product-manager-skills/pol-probe-advisor",
+   "source": "skills.sh",
+   "name": "pol-probe-advisor",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "skills-sh/dontbesilent2025/dbskill/dbs-restore",
+   "source": "skills.sh",
+   "name": "dbs-restore",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "skills-sh/dontbesilent2025/dbskill/dbs-slowisfast",
+   "source": "skills.sh",
+   "name": "dbs-slowisfast",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/dylantarre/animation-principles/slow-800-1200ms",
+   "source": "skills.sh",
+   "name": "slow-800-1200ms",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/dylantarre/animation-principles/slow-in-out-mastery",
+   "source": "skills.sh",
+   "name": "slow-in-out-mastery",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/dynatrace/dynatrace-for-ai/dt-alerting",
+   "source": "skills.sh",
+   "name": "dt-alerting",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "skills-sh/dynatrace/dynatrace-for-ai/dt-obs-kubernetes",
+   "source": "skills.sh",
+   "name": "dt-obs-kubernetes",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/dynatrace/dynatrace-for-ai/dt-obs-tracing",
+   "source": "skills.sh",
+   "name": "dt-obs-tracing",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/elastic/agent-skills/kibana-alerting-rules",
+   "source": "skills.sh",
+   "name": "kibana-alerting-rules",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "skills-sh/elastic/agent-skills/observability-edot-dotnet-instrument",
+   "source": "skills.sh",
+   "name": "observability-edot-dotnet-instrument",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/elastic/agent-skills/observability-edot-dotnet-migrate",
+   "source": "skills.sh",
+   "name": "observability-edot-dotnet-migrate",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/elastic/agent-skills/observability-edot-java-instrument",
+   "source": "skills.sh",
+   "name": "observability-edot-java-instrument",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/elastic/agent-skills/observability-edot-java-migrate",
+   "source": "skills.sh",
+   "name": "observability-edot-java-migrate",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/elastic/agent-skills/observability-edot-python-instrument",
+   "source": "skills.sh",
+   "name": "observability-edot-python-instrument",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/elastic/agent-skills/observability-edot-python-migrate",
+   "source": "skills.sh",
+   "name": "observability-edot-python-migrate",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/elastic/agent-skills/observability-k8s-investigation",
+   "source": "skills.sh",
+   "name": "observability-k8s-investigation",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/elastic/agent-skills/observability-llm-obs",
+   "source": "skills.sh",
+   "name": "observability-llm-obs",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/elastic/agent-skills/observability-logs-search",
+   "source": "skills.sh",
+   "name": "observability-logs-search",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/elastic/agent-skills/observability-manage-slos",
+   "source": "skills.sh",
+   "name": "observability-manage-slos",
+   "signals": [
+    "zone:observability",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/elastic/agent-skills/observability-service-health",
+   "source": "skills.sh",
+   "name": "observability-service-health",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/elastic/agent-skills/security-alert-triage",
+   "source": "skills.sh",
+   "name": "security-alert-triage",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "skills-sh/firebase/agent-skills/firebase-firestore",
+   "source": "skills.sh",
+   "name": "firebase-firestore",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "skills-sh/firebase/agent-skills/firebase-firestore-basics",
+   "source": "skills.sh",
+   "name": "firebase-firestore-basics",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "skills-sh/firebase/agent-skills/firebase-firestore-enterprise-native-mode",
+   "source": "skills.sh",
+   "name": "firebase-firestore-enterprise-native-mode",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "skills-sh/firebase/agent-skills/firebase-firestore-standard",
+   "source": "skills.sh",
+   "name": "firebase-firestore-standard",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "skills-sh/firebase/agent-skills/firestore-security-rules-auditor",
+   "source": "skills.sh",
+   "name": "firestore-security-rules-auditor",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "skills-sh/firebase/skills/firebase-firestore",
+   "source": "skills.sh",
+   "name": "firebase-firestore",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "skills-sh/firebase/skills/firebase-firestore-basics",
+   "source": "skills.sh",
+   "name": "firebase-firestore-basics",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "skills-sh/firebase/skills/firebase-firestore-enterprise-native-mode",
+   "source": "skills.sh",
+   "name": "firebase-firestore-enterprise-native-mode",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "skills-sh/firebase/skills/firebase-firestore-standard",
+   "source": "skills.sh",
+   "name": "firebase-firestore-standard",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "skills-sh/getsentry/sentry-agent-skills/sentry-setup-logging",
+   "source": "skills.sh",
+   "name": "sentry-setup-logging",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/getsentry/skills/sred-project-organizer",
+   "source": "skills.sh",
+   "name": "sred-project-organizer",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/getsentry/skills/sred-work-summary",
+   "source": "skills.sh",
+   "name": "sred-work-summary",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/google/adk-docs/adk-observability-guide",
+   "source": "skills.sh",
+   "name": "adk-observability-guide",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/grafana/skills/alerting-irm",
+   "source": "skills.sh",
+   "name": "alerting-irm",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "skills-sh/grafana/skills/app-observability",
+   "source": "skills.sh",
+   "name": "app-observability",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/hugorcd/evlog/review-logging-patterns",
+   "source": "skills.sh",
+   "name": "review-logging-patterns",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/jeffallan/claude-skills/monitoring-expert",
+   "source": "skills.sh",
+   "name": "monitoring-expert",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "skills-sh/jeffallan/claude-skills/sre-engineer",
+   "source": "skills.sh",
+   "name": "sre-engineer",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/jezweb/claude-skills/firebase-firestore",
+   "source": "skills.sh",
+   "name": "firebase-firestore",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "skills-sh/josiahsiegel/claude-plugin-marketplace/docker-best-practices",
+   "source": "skills.sh",
+   "name": "docker-best-practices",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "skills-sh/josiahsiegel/claude-plugin-marketplace/docker-security-guide",
+   "source": "skills.sh",
+   "name": "docker-security-guide",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "skills-sh/juliusbrussee/skills/fuck-slop",
+   "source": "skills.sh",
+   "name": "fuck-slop",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/k-dense-ai/scientific-agent-skills/networkx",
+   "source": "skills.sh",
+   "name": "networkx",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skills-sh/levnikolaevich/claude-code-skills/ln-771-logging-configurator",
+   "source": "skills.sh",
+   "name": "ln-771-logging-configurator",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/levnikolaevich/claude-code-skills/ln-774-healthcheck-setup",
+   "source": "skills.sh",
+   "name": "ln-774-healthcheck-setup",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "skills-sh/likaia/nginxpulse/ui-ux-pro-max",
+   "source": "skills.sh",
+   "name": "ui-ux-pro-max",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skills-sh/longbridge/skills/longbridge-insresearch",
+   "source": "skills.sh",
+   "name": "longbridge-insresearch",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/majesticlabs-dev/majestic-marketplace/slogan-generator",
+   "source": "skills.sh",
+   "name": "slogan-generator",
+   "signals": [
+    "zone:observability",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/manutej/luxor-claude-marketplace/docker-compose-orchestration",
+   "source": "skills.sh",
+   "name": "docker-compose-orchestration",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "skills-sh/manutej/luxor-claude-marketplace/observability-monitoring",
+   "source": "skills.sh",
+   "name": "observability-monitoring",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "skills-sh/markdown-viewer/skills/network",
+   "source": "skills.sh",
+   "name": "network",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skills-sh/microsoft/azure-skills/azure-observability",
+   "source": "skills.sh",
+   "name": "azure-observability",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/mindrally/skills/docker",
+   "source": "skills.sh",
+   "name": "docker",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "skills-sh/mindrally/skills/logging-best-practices",
+   "source": "skills.sh",
+   "name": "logging-best-practices",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/mindrally/skills/monitoring-guidelines",
+   "source": "skills.sh",
+   "name": "monitoring-guidelines",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "skills-sh/mindrally/skills/observability-guidelines",
+   "source": "skills.sh",
+   "name": "observability-guidelines",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/mukul975/anthropic-cybersecurity-skills/analyzing-dns-logs-for-exfiltration",
+   "source": "skills.sh",
+   "name": "analyzing-dns-logs-for-exfiltration",
+   "signals": [
+    "zone:observability",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skills-sh/mukul975/anthropic-cybersecurity-skills/analyzing-kubernetes-audit-logs",
+   "source": "skills.sh",
+   "name": "analyzing-kubernetes-audit-logs",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/nexu-io/open-design/fal-restore",
+   "source": "skills.sh",
+   "name": "fal-restore",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/architecture-diagram",
+   "source": "skills.sh",
+   "name": "architecture-diagram",
+   "signals": [
+    "name-exact:architecture-diagram",
+    "name-normalized:architecturediagram",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/arxiv",
+   "source": "skills.sh",
+   "name": "arxiv",
+   "signals": [
+    "name-exact:arxiv",
+    "name-normalized:arxiv",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/ascii-art",
+   "source": "skills.sh",
+   "name": "ascii-art",
+   "signals": [
+    "name-exact:ascii-art",
+    "name-normalized:asciiart",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/ascii-video",
+   "source": "skills.sh",
+   "name": "ascii-video",
+   "signals": [
+    "name-exact:ascii-video",
+    "name-normalized:asciivideo",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/baoyu-infographic",
+   "source": "skills.sh",
+   "name": "baoyu-infographic",
+   "signals": [
+    "name-exact:baoyu-infographic",
+    "name-normalized:baoyuinfographic",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/claude-code",
+   "source": "skills.sh",
+   "name": "claude-code",
+   "signals": [
+    "name-exact:claude-code",
+    "name-normalized:claudecode",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/claude-design",
+   "source": "skills.sh",
+   "name": "claude-design",
+   "signals": [
+    "name-exact:claude-design",
+    "name-normalized:claudedesign",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/codex",
+   "source": "skills.sh",
+   "name": "codex",
+   "signals": [
+    "name-exact:codex",
+    "name-normalized:codex",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/comfyui",
+   "source": "skills.sh",
+   "name": "comfyui",
+   "signals": [
+    "name-exact:comfyui",
+    "name-normalized:comfyui",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/design-md",
+   "source": "skills.sh",
+   "name": "design-md",
+   "signals": [
+    "name-exact:design-md",
+    "name-normalized:designmd",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/dogfood",
+   "source": "skills.sh",
+   "name": "dogfood",
+   "signals": [
+    "name-exact:dogfood",
+    "name-normalized:dogfood",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/excalidraw",
+   "source": "skills.sh",
+   "name": "excalidraw",
+   "signals": [
+    "name-exact:excalidraw",
+    "name-normalized:excalidraw",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/google-workspace",
+   "source": "skills.sh",
+   "name": "google-workspace",
+   "signals": [
+    "name-exact:google-workspace",
+    "name-normalized:googleworkspace",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/hermes-agent",
+   "source": "skills.sh",
+   "name": "hermes-agent",
+   "signals": [
+    "name-exact:hermes-agent",
+    "name-normalized:hermesagent",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/humanizer",
+   "source": "skills.sh",
+   "name": "humanizer",
+   "signals": [
+    "name-exact:humanizer",
+    "name-normalized:humanizer",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/imessage",
+   "source": "skills.sh",
+   "name": "imessage",
+   "signals": [
+    "name-exact:imessage",
+    "name-normalized:imessage",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/jupyter-live-kernel",
+   "source": "skills.sh",
+   "name": "jupyter-live-kernel",
+   "signals": [
+    "name-exact:jupyter-live-kernel",
+    "name-normalized:jupyterlivekernel",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/llm-wiki",
+   "source": "skills.sh",
+   "name": "llm-wiki",
+   "signals": [
+    "name-exact:llm-wiki",
+    "name-normalized:llmwiki",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/manim-video",
+   "source": "skills.sh",
+   "name": "manim-video",
+   "signals": [
+    "name-exact:manim-video",
+    "name-normalized:manimvideo",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/ocr-and-documents",
+   "source": "skills.sh",
+   "name": "ocr-and-documents",
+   "signals": [
+    "name-exact:ocr-and-documents",
+    "name-normalized:ocranddocuments",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/opencode",
+   "source": "skills.sh",
+   "name": "opencode",
+   "signals": [
+    "name-exact:opencode",
+    "name-normalized:opencode",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/p5js",
+   "source": "skills.sh",
+   "name": "p5js",
+   "signals": [
+    "name-exact:p5js",
+    "name-normalized:p5js",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/plan",
+   "source": "skills.sh",
+   "name": "plan",
+   "signals": [
+    "name-exact:plan",
+    "name-normalized:plan",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/popular-web-designs",
+   "source": "skills.sh",
+   "name": "popular-web-designs",
+   "signals": [
+    "name-exact:popular-web-designs",
+    "name-normalized:popularwebdesigns",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/powerpoint",
+   "source": "skills.sh",
+   "name": "powerpoint",
+   "signals": [
+    "name-exact:powerpoint",
+    "name-normalized:powerpoint",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/research-paper-writing",
+   "source": "skills.sh",
+   "name": "research-paper-writing",
+   "signals": [
+    "name-exact:research-paper-writing",
+    "name-normalized:researchpaperwriting",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/sketch",
+   "source": "skills.sh",
+   "name": "sketch",
+   "signals": [
+    "name-exact:sketch",
+    "name-normalized:sketch",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/nousresearch/hermes-agent/songwriting-and-ai-music",
+   "source": "skills.sh",
+   "name": "songwriting-and-ai-music",
+   "signals": [
+    "name-exact:songwriting-and-ai-music",
+    "name-normalized:songwritingandaimusic",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/owl-listener/designer-skills/metrics-definition",
+   "source": "skills.sh",
+   "name": "metrics-definition",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/patricio0312rev/skills/dockerfile-optimizer",
+   "source": "skills.sh",
+   "name": "dockerfile-optimizer",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "skills-sh/patricio0312rev/skills/nginx-config-optimizer",
+   "source": "skills.sh",
+   "name": "nginx-config-optimizer",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skills-sh/personamanagmentlayer/pcl/docker-expert",
+   "source": "skills.sh",
+   "name": "docker-expert",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "skills-sh/personamanagmentlayer/pcl/nginx-expert",
+   "source": "skills.sh",
+   "name": "nginx-expert",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skills-sh/phuryn/pm-skills/metrics-dashboard",
+   "source": "skills.sh",
+   "name": "metrics-dashboard",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/pluginagentmarketplace/custom-plugin-nodejs/docker-deployment",
+   "source": "skills.sh",
+   "name": "docker-deployment",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "skills-sh/pproenca/dot-skills/dockerfile-optimise",
+   "source": "skills.sh",
+   "name": "dockerfile-optimise",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "skills-sh/railwayapp/railway-skills/metrics",
+   "source": "skills.sh",
+   "name": "metrics",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/rand/cc-polymath/anti-slop",
+   "source": "skills.sh",
+   "name": "anti-slop",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/rknall/claude-skills/docker-configuration-validator",
+   "source": "skills.sh",
+   "name": "docker-configuration-validator",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "skills-sh/samber/cc-skills-golang/golang-samber-slog",
+   "source": "skills.sh",
+   "name": "golang-samber-slog",
+   "signals": [
+    "zone:observability",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/samber/cc-skills/frontend-design-deslop",
+   "source": "skills.sh",
+   "name": "frontend-design-deslop",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/secondsky/claude-skills/logging-best-practices",
+   "source": "skills.sh",
+   "name": "logging-best-practices",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/secondsky/sap-skills/sap-btp-cloud-logging",
+   "source": "skills.sh",
+   "name": "sap-btp-cloud-logging",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/serpgames/skills/slope-2-game-online-unblocked",
+   "source": "skills.sh",
+   "name": "slope-2-game-online-unblocked",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/serpgames/skills/slope-game-online-unblocked",
+   "source": "skills.sh",
+   "name": "slope-game-online-unblocked",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/sickn33/antigravity-awesome-skills/api-testing-observability-api-mock",
+   "source": "skills.sh",
+   "name": "api-testing-observability-api-mock",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/sickn33/antigravity-awesome-skills/code-refactoring-context-restore",
+   "source": "skills.sh",
+   "name": "code-refactoring-context-restore",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "skills-sh/sickn33/antigravity-awesome-skills/context-management-context-restore",
+   "source": "skills.sh",
+   "name": "context-management-context-restore",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "skills-sh/sickn33/antigravity-awesome-skills/docker-expert",
+   "source": "skills.sh",
+   "name": "docker-expert",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "skills-sh/sickn33/antigravity-awesome-skills/network-engineer",
+   "source": "skills.sh",
+   "name": "network-engineer",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skills-sh/sickn33/antigravity-awesome-skills/observability-engineer",
+   "source": "skills.sh",
+   "name": "observability-engineer",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/sickn33/antigravity-awesome-skills/observability-monitoring-monitor-setup",
+   "source": "skills.sh",
+   "name": "observability-monitoring-monitor-setup",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "skills-sh/steipete/clawdis/healthcheck",
+   "source": "skills.sh",
+   "name": "healthcheck",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "skills-sh/terrylica/cc-skills/python-logging-best-practices",
+   "source": "skills.sh",
+   "name": "python-logging-best-practices",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/thebushidocollective/han/docker-compose-production",
+   "source": "skills.sh",
+   "name": "docker-compose-production",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "skills-sh/tradermonty/claude-trading-skills/signal-postmortem",
+   "source": "skills.sh",
+   "name": "signal-postmortem",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/useai-pro/openclaw-skills-security/incident-responder",
+   "source": "skills.sh",
+   "name": "incident-responder",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/useai-pro/openclaw-skills-security/network-watcher",
+   "source": "skills.sh",
+   "name": "network-watcher",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skills-sh/wshaddix/dotnet-skills/logging-observability",
+   "source": "skills.sh",
+   "name": "logging-observability",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "skills-sh/wshobson/agents/incident-runbook-templates",
+   "source": "skills.sh",
+   "name": "incident-runbook-templates",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/wshobson/agents/postmortem-writing",
+   "source": "skills.sh",
+   "name": "postmortem-writing",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/wshobson/agents/slo-implementation",
+   "source": "skills.sh",
+   "name": "slo-implementation",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/wu529778790/shenzjd-skills/docker-build-deploy",
+   "source": "skills.sh",
+   "name": "docker-build-deploy",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "skills-sh/yaklang/hack-skills/dns-rebinding-attacks",
+   "source": "skills.sh",
+   "name": "dns-rebinding-attacks",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skills-sh/yaklang/hack-skills/kubernetes-pentesting",
+   "source": "skills.sh",
+   "name": "kubernetes-pentesting",
+   "signals": [
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "skills-sh/yaklang/hack-skills/network-protocol-attacks",
+   "source": "skills.sh",
+   "name": "network-protocol-attacks",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "skills-sh/yeachan-heo/oh-my-claudecode/ai-slop-cleaner",
+   "source": "skills.sh",
+   "name": "ai-slop-cleaner",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "skills-sh/zhinkgit/embeddedskills/probe-rs",
+   "source": "skills.sh",
+   "name": "probe-rs",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "sla-monitor",
+   "source": "clawhub",
+   "name": "SLA Monitor",
+   "signals": [
+    "zone:sre",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "slogan-maker",
+   "source": "clawhub",
+   "name": "Slogan Maker",
+   "signals": [
+    "zone:observability",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "slonaide",
+   "source": "clawhub",
+   "name": "SlonAide",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "slop-check",
+   "source": "clawhub",
+   "name": "slop-check",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "slop-cop",
+   "source": "clawhub",
+   "name": "Slop Cop",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "slopbuster",
+   "source": "clawhub",
+   "name": "Slopbuster",
+   "signals": [
+    "zone:sre",
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "slopcheck",
+   "source": "clawhub",
+   "name": "slopcheck",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "slopism",
+   "source": "clawhub",
+   "name": "Slopism",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "slopwork-marketplace",
+   "source": "clawhub",
+   "name": "Slopwork Marketplace",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "slot",
+   "source": "clawhub",
+   "name": "Slot",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "sloth-d2c-skills",
+   "source": "clawhub",
+   "name": "Sloth D2C Skills",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "slovak",
+   "source": "clawhub",
+   "name": "Slovak",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "slovenian",
+   "source": "clawhub",
+   "name": "Slovenian",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "slow-down",
+   "source": "clawhub",
+   "name": "slow-down",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "slowmist-agent-security",
+   "source": "clawhub",
+   "name": "SlowMist Agent Security",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "slowmist-security-cc",
+   "source": "clawhub",
+   "name": "Slowmist Security Cc",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "smart-router",
+   "source": "clawhub",
+   "name": "A.I. Smart Router",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "smartclaws-device-novapm-sds011",
+   "source": "clawhub",
+   "name": "Novapm Sds011",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "smyx-child-outdoor-activity-monitor-analysis",
+   "source": "clawhub",
+   "name": "Child Outdoor Activity Duration Monitoring | 儿童户外活动时长监测",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "smyx-contactless-vital-signs-monitoring-analysis",
+   "source": "clawhub",
+   "name": "Passive Vital Signs Monitoring Tool | 无感生命体征监测分析工具",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "smyx-egg-incubation-monitoring-analysis",
+   "source": "clawhub",
+   "name": "Egg Incubation Monitoring (Turtle/Snake) | 孵化箱内龟蛋/蛇蛋发育监测",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "smyx-elderly-long-term-immobility-analysis",
+   "source": "clawhub",
+   "name": "Elderly Long-Term Immobility Monitoring (>12h) | 老年人长期静止（超12小时）监测",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "smyx-facial-hrv-trend-monitoring-analysis",
+   "source": "clawhub",
+   "name": "Adult Facial HRV Trend Monitoring (rPPG) | 成人心率变异性（HRV）趋势监测（面部）",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "smyx-farrowing-hatching-monitoring-analysis",
+   "source": "clawhub",
+   "name": "Farrowing/Hatching Monitoring",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "smyx-feed-drink-behavior-monitor-analysis",
+   "source": "clawhub",
+   "name": "Feeding/Drinking Behavior Monitoring | 畜禽采食/饮水行为监测",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "smyx-infant-blanket-kick-monitoring-analysis",
+   "source": "clawhub",
+   "name": "Baby Blanket Kick Monitoring Skill | 婴儿蹬被监测技能",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "smyx-infant-sleep-monitoring-analysis",
+   "source": "clawhub",
+   "name": "Baby Sleep State Monitoring Skill | 婴儿睡眠状态监测技能",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "smyx-outdoor-monitoring-analysis",
+   "source": "clawhub",
+   "name": "Intelligent Outdoor Care Monitoring & Analysis Tool | 户外看护智能监测分析工具",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "smyx-pet-health-monitoring-analysis",
+   "source": "clawhub",
+   "name": "Pet Daily Health Monitoring & Analysis Tool | 宠物日常健康监测分析工具",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "smyx-plant-wilting-monitoring-analysis",
+   "source": "clawhub",
+   "name": "Plant Wilting Monitoring Skill | 植物枯萎监测技能",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "smyx-staff-absence-detection-analysis",
+   "source": "clawhub",
+   "name": "Real-time Employee Absence Monitoring Skill | 人员离岗实时监测技能",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "smyx-unaccompanied-monitoring-analysis",
+   "source": "clawhub",
+   "name": "Unattended Monitoring Skill | 无人陪伴监测技能",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "snapshot",
+   "source": "clawhub",
+   "name": "OpenClaw Backup & Restore — Encrypted OpenClaw Snapshots",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "social-media-metrics",
+   "source": "clawhub",
+   "name": "Social Media Metrics",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "solo-metrics-track",
+   "source": "clawhub",
+   "name": "Metrics Track",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "sort",
+   "source": "clawhub",
+   "name": "Sort",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "sre-log-analytics",
+   "source": "clawhub",
+   "name": "SRE Log Analytics",
+   "signals": [
+    "zone:observability",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "sre-news-digest",
+   "source": "clawhub",
+   "name": "Daily SRE News Digest",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "sre-operator",
+   "source": "clawhub",
+   "name": "sre-operator",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "stardots-backup",
+   "source": "clawhub",
+   "name": "Backup image to StarDots",
+   "signals": [
+    "zone:security",
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "stardots-backup-skill",
+   "source": "clawhub",
+   "name": "Backup image to StarDots",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "startup-metrics",
+   "source": "clawhub",
+   "name": "Startup Metrics",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "static-webhost",
+   "source": "clawhub",
+   "name": "Static Webhost",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "status-page-gen",
+   "source": "clawhub",
+   "name": "Status Page Gen",
+   "signals": [
+    "zone:monitoring",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "stoe",
+   "source": "clawhub",
+   "name": "zmg-srew",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "strd-uptime-monitor",
+   "source": "clawhub",
+   "name": "Uptime Monitor",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "sys-guard-linux-remediator",
+   "source": "clawhub",
+   "name": "Linux Incident Remediator",
+   "signals": [
+    "zone:sre",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "syscheck",
+   "source": "clawhub",
+   "name": "Syscheck",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "sysinfo-demo",
+   "source": "clawhub",
+   "name": "Sysinfo Demo",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "sysspeek",
+   "source": "clawhub",
+   "name": "Sys Speek",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "system-healthcheck",
+   "source": "clawhub",
+   "name": "System Healthcheck",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "system-info",
+   "source": "clawhub",
+   "name": "System Info",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "system-uptime",
+   "source": "clawhub",
+   "name": "System Uptime",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "tagging-auditor",
+   "source": "clawhub",
+   "name": "Tagging Auditor",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "tardis",
+   "source": "clawhub",
+   "name": "TARDIS",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "technitium-dns",
+   "source": "clawhub",
+   "name": "Technitium DNS",
+   "signals": [
+    "zone:monitoring",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "telnyx-storage-backup",
+   "source": "clawhub",
+   "name": "Backup To Telnyx Storage",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  },
+  {
+   "identifier": "tencentcloud-cos-storage",
+   "source": "clawhub",
+   "name": "TencentCloud COS Storage",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "terraform-ai-skills",
+   "source": "clawhub",
+   "name": "Terraform Ai Skills",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "terraform-iac",
+   "source": "clawhub",
+   "name": "Terraform Iac",
+   "signals": [
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "terraform-skill",
+   "source": "clawhub",
+   "name": "Terraform Skill",
+   "signals": [
+    "zone:github-ci"
+   ]
+  },
+  {
+   "identifier": "tianapi-network-hot",
+   "source": "clawhub",
+   "name": "Network Hot - 全网热搜榜",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "tianji",
+   "source": "clawhub",
+   "name": "Tianji",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "timestamp-tool",
+   "source": "clawhub",
+   "name": "Timestamp Tool",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "token-cost-monitor",
+   "source": "clawhub",
+   "name": "Token Cost Monitor",
+   "signals": [
+    "zone:monitoring",
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "token-cost-optimization",
+   "source": "clawhub",
+   "name": "Token Cost Optimization",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "token-counter",
+   "source": "clawhub",
+   "name": "Token Counter",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "token-optimizer-pro",
+   "source": "clawhub",
+   "name": "Token Optimizer Pro",
+   "signals": [
+    "zone:observability",
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "token-saver-skill",
+   "source": "clawhub",
+   "name": "Token Saver Skill",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "tommy-monitoring-dashboard",
+   "source": "clawhub",
+   "name": "Live Monitoring Dashboard",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "toolweb-ai-incident-response",
+   "source": "clawhub",
+   "name": "AI Incident Response",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "toolweb-docker-hardening",
+   "source": "clawhub",
+   "name": "Docker Hardening",
+   "signals": [
+    "zone:docker"
+   ]
+  },
+  {
+   "identifier": "toolweb-network-security-audit",
+   "source": "clawhub",
+   "name": "Network Security Audit",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "toolweb-network-security-skills",
+   "source": "clawhub",
+   "name": "Network Security Skills",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "toolweb-sre-roadmap",
+   "source": "clawhub",
+   "name": "SRE Roadmap",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "tracing",
+   "source": "clawhub",
+   "name": "Tracing",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "upkuajing-email-tool",
+   "source": "clawhub",
+   "name": "Run enterprise bulk cold email marketing campaigns with full lifecycle email tracking covering sent, delivered, opened, read and replied statuses. Accessverified domain business emails to help exporters, sourcing agents and sales teams connect with purchasing decision-makers worldwide. Launch streamlined massemail campaigns and analyze open rate and click-through rate performance metrics for B2B lead generation. Powerful bulk mailing tools streamline overseas leadgeneration, global business expansion and export client acquisition workflows. Built exclusively for B2B cold outreach, cross-border e-commerce email marketingand global sales prospecting.",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "upkuajing-sms-tool",
+   "source": "clawhub",
+   "name": "Global bulk business SMS and commercial marketing text messaging built for cross-border B2B outreach. Access full two-way reply features, one-click massdispatch, live task tracking and detailed delivery reports to monitor real-time SMS delivery status. Marketing, sales, operations and customer support teamsengage global audiences with seamless cross-border communication. Track full SMS campaign performance metrics to lift conversion rates and reactivate lapsedoverseas clients. Fully applicable for promotional blasts, logistics order notifications, B2B cold outreach and customer re-engagement. Perfectly matched forcross-border e-commerce operations, export business expansion and global overseas user management workflows.",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "uptime-checker",
+   "source": "clawhub",
+   "name": "Uptime Checker",
+   "signals": [
+    "zone:monitoring",
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "uptime-kuma",
+   "source": "clawhub",
+   "name": "Uptime Kuma",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "uptime-monitor-agent",
+   "source": "clawhub",
+   "name": "Uptime Monitor Agent",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "uptime-tool",
+   "source": "clawhub",
+   "name": "Uptime Tool",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "uptimecheck",
+   "source": "clawhub",
+   "name": "Uptimecheck",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "upward-reporting",
+   "source": "clawhub",
+   "name": "Upward Reporting",
+   "signals": [
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "vcf-loginsight-health",
+   "source": "clawhub",
+   "name": "VCF Log Insight Health Check",
+   "signals": [
+    "zone:observability",
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "volcengine-network-dns",
+   "source": "clawhub",
+   "name": "Volcengine Network Dns",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "volcengine-observability-cls",
+   "source": "clawhub",
+   "name": "Volcengine Observability Cls",
+   "signals": [
+    "zone:observability",
+    "zone:sre"
+   ]
+  },
+  {
+   "identifier": "webchat-https-proxy",
+   "source": "clawhub",
+   "name": "WebChat HTTPS Proxy",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "webchat-voice-proxy",
+   "source": "clawhub",
+   "name": "WebChat Voice Proxy",
+   "signals": [
+    "zone:network"
+   ]
+  },
+  {
+   "identifier": "weibo",
+   "source": "clawhub",
+   "name": "Weibo Microblogging CLI",
+   "signals": [
+    "zone:observability"
+   ]
+  },
+  {
+   "identifier": "workstation",
+   "source": "clawhub",
+   "name": "WORKSTATION.md - Your Agent's Own Linux Server",
+   "signals": [
+    "zone:network",
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "wsl-service-deploy",
+   "source": "clawhub",
+   "name": "Wsl Service Deploy",
+   "signals": [
+    "zone:network",
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "x-uptime",
+   "source": "clawhub",
+   "name": "x-uptime",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "xerg",
+   "source": "clawhub",
+   "name": "Xerg",
+   "signals": [
+    "zone:finops"
+   ]
+  },
+  {
+   "identifier": "xfire-security-review",
+   "source": "clawhub",
+   "name": "xfire Security PR Review",
+   "signals": [
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "xiaoding-botlearn-healthcheck",
+   "source": "clawhub",
+   "name": "BotLearn Healthcheck",
+   "signals": [
+    "zone:monitoring"
+   ]
+  },
+  {
+   "identifier": "yihui-healthcheck",
+   "source": "clawhub",
+   "name": "YiHui Healthcheck",
+   "signals": [
+    "zone:monitoring",
+    "zone:security"
+   ]
+  },
+  {
+   "identifier": "yuebao-self-backup",
+   "source": "clawhub",
+   "name": "OpenClaw Self Backup & Restore",
+   "signals": [
+    "zone:backup-dr"
+   ]
+  }
+ ]
+}
