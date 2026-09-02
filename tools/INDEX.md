@@ -23,6 +23,7 @@ a same-commit AGENTS.md/hook edit): `tools/git_safety/`, `tools/tool_policy/`,
 | github_machine_identity | 3 | active | machine identity for gh operations |
 | workshop_dashboard | 11 | active | local dashboard |
 | docker_control_plane | 7 | active | docker control helpers ⚠ |
+| nous_route_diagnostic | 5 | active | redaction-safe Nous `/chat/completions` route probes ⚠ |
 | memory_outbox | 11 | active | memory outbox pattern |
 | graphify_harness | 10 | frozen | graphify pilot harness |
 | unix_runtime | 24 | frozen | unix runtime experiments (incl. infisical_cli: untracked node_modules, do NOT commit) |

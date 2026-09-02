@@ -64,3 +64,13 @@ model is in any config pin/fallback, propose the config edit to the user
 7. Nous credentials: use the short-lived agent_key from
    auth.json credential_pool.nous[0] (auto-refreshed); a static key from
    .env does not exist and 401s on the direct route
+
+## Canonical route diagnostic
+
+Use `tools/nous_route_diagnostic/README.md` and the versioned CLI before
+switching or quarantining a helper. The primary control is explicit Windows
+`curl.exe`/Schannel; `direct-python` is only a labelled negative control, and
+`proxy` runs from the Hindsight Compose network against `hermes-proxy:8645`.
+The tool parses `/chat/completions` bodies and distinguishes client/TLS,
+authentication, model, provider, proxy, timeout, and malformed-response
+classes without printing credentials or raw responses.
