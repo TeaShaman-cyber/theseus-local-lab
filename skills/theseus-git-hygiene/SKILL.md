@@ -103,6 +103,11 @@ staging to resolve an ambiguous worktree.
 
 ## Advisor Calls
 
+Council routes are never implicit. Complexity, architecture, security, or a
+request for a second opinion does not authorize model fan-out. A Bothub/model
+council requires explicit user opt-in, a bounded packet, and the applicable
+capability contract; otherwise use one advisor or local evidence.
+
 Before asking an external advisor:
 
 1. Check for an existing VS Code task or repo wrapper.

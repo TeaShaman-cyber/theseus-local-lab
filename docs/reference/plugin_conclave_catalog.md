@@ -7,6 +7,11 @@ This is not a vote machine. The purpose is to route the right outside lens into
 an already evidence-led workflow while keeping the memory and verification
 layers local.
 
+Conclave is an external-oracle route, not a model council. Multiple oracle
+results are not permission to fan out subagents or manufacture a vote; a
+multi-model council requires explicit user opt-in and the separate
+`subagent-orchestration` capability contract.
+
 ## Default Conclave
 
 | Question | Primary oracle | Use a second view when | Do not confuse it with |

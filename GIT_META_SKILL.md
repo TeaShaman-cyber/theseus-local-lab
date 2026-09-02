@@ -31,6 +31,11 @@ Codex skill draft/source: `skills/theseus-git-hygiene/SKILL.md`.
 
 Advisor calls are part of the workflow, not an excuse to drop into raw shell.
 
+Council routes are never implicit. Complexity, architecture, security, or a
+request for a second opinion does not authorize model fan-out. Bothub/model
+council use requires explicit user opt-in, a bounded packet, and its capability
+contract; otherwise use one advisor or local evidence.
+
 Before asking an external advisor:
 
 1. Check for an existing VS Code task or repo wrapper.

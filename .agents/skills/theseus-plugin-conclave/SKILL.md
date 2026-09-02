@@ -1,12 +1,17 @@
 ---
 name: theseus-plugin-conclave
-description: Use for fresh research, scientific evidence, external technical second opinions, connected-plugin choice, or bounded multi-source checks in Theseus. Routes one primary oracle and, when justified, one independent corroborator without creating a noisy plugin swarm.
+description: Use for fresh external evidence/oracle checks. Keep model councils explicit and separate.
 ---
 
 # Theseus Plugin Conclave
 
 Use plugins as bounded external lenses, never as a replacement for local
 evidence, memory, or verification.
+
+This is an **oracle route**, not a model council. A second oracle or a request
+for a second opinion does not authorize `delegate_task`, mask fan-out, or a
+multi-model vote. A model council requires explicit user opt-in and the separate
+`subagent-orchestration` contract with a hard advisory runtime boundary.
 
 ## Before Calling An Oracle
 

@@ -7,6 +7,12 @@ description: Use at the start of non-trivial Theseus local-lab work to choose th
 
 Use this as a thin dispatcher. Do not turn it into a knowledge base.
 
+## Council opt-in firewall
+
+Never infer permission for a model council, mask board, or multi-model fan-out
+from complexity, architecture, security, a second-opinion request, or a loaded
+skill. Without explicit user opt-in, use one model or one bounded worker.
+
 ## Execution Cycle
 
 For every non-trivial route, keep these states distinct and observable:
@@ -41,7 +47,8 @@ Pick the smallest set of skills and tools that covers the current request:
 | Git status, commit, push, GitHub sync | `theseus-git-hygiene` | Git safety wrapper or VS Code task |
 | Creating or changing skills | `skill-creator` | Validate skill shape before adding content |
 | Broad research or search pipelines | research queue/hook docs | Store distilled findings, not raw dumps |
-| Fresh facts, scientific evidence, external technical second opinion, plugin choice | `theseus-plugin-conclave` | Choose one primary oracle and a bounded corroborator |
+| Fresh facts, scientific evidence, external technical oracle, plugin choice | `theseus-plugin-conclave` | Choose one primary oracle and a bounded corroborator; this is not a model council |
+| Explicit multi-model council or mask board | `subagent-orchestration` | Require `council_opt_in` and a locked-down advisory runtime |
 | Learning-loop review, reward drift, repeated route patterns | `tools/learning_loop` | Generate proposal, then store accepted decisions |
 | Visual maps or diagrams | `visualize` or Mermaid | Keep diagram source in project files when durable |
 
