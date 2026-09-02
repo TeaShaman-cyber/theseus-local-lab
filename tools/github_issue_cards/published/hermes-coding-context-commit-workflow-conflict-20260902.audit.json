@@ -1,0 +1,27 @@
+{
+  "audit_version": 1,
+  "status": "REVIEW",
+  "checks": {
+    "target_confirmed": true,
+    "operation_matches_scope": true,
+    "exact_duplicate_found": false,
+    "complementary_issues_classified": true,
+    "current_upstream_source_verified": true,
+    "source_claims_cited": true,
+    "expected_and_actual_paths_present": true,
+    "commit_push_distinction_present": true,
+    "regression_test_proposal_present": true,
+    "mermaid_route_complete": true,
+    "debug_bundle_not_uploaded_without_consent": true,
+    "secrets_or_private_logs_in_body": false,
+    "readback_required": true,
+    "issue_create_readback_pass": true,
+    "label_parity": false
+  },
+  "notes": [
+    "GitHub API and git fetch were rate-limited with HTTP 429; current upstream source and template were verified via raw.githubusercontent.com instead.",
+    "The local Hermes checkout carries project commits and was not updated in place; the issue does not rely on that checkout being current.",
+    "Historical Hindsight supersession is deliberately excluded from this issue to keep the coding-context contract narrow.",
+    "The issue create/read-back passed for number, title, body, state, and author. The requested bug label was not applied because the reporter lacks upstream push/triage permission; no retry was attempted."
+  ]
+}

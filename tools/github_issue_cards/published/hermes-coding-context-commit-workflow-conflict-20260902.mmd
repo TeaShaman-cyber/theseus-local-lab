@@ -1,0 +1,9 @@
+flowchart TD
+  A[Hermes coding posture] --> B[AGENTS.md wins over defaults]
+  A --> C[No commit or push unless separately asked]
+  D[Project bounded workflow] --> E[Verified local checkpoint commit]
+  B --> F{Effective instruction}
+  C --> F
+  E --> F
+  F -->|conservative resolution| G[Leave completed worktree dirty]
+  F -->|extra user message| H[Commit proceeds]

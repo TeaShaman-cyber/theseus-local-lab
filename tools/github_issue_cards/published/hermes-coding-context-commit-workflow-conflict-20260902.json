@@ -1,0 +1,97 @@
+{
+  "operation": "create",
+  "repository": "NousResearch/hermes-agent",
+  "target": {
+    "issue_number": 100973,
+    "issue_url": "https://github.com/NousResearch/hermes-agent/issues/100973",
+    "confirmation": "user_confirmed"
+  },
+  "scope": {
+    "allowed": [
+      "create one bug issue",
+      "apply existing bug label",
+      "read back issue title, body, state, author, and labels"
+    ],
+    "forbidden": [
+      "create or modify a pull request",
+      "upload debug bundles or private logs",
+      "change upstream code",
+      "create additional labels",
+      "publish memory or local paths"
+    ]
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "text": "Current upstream CODING_AGENT_GUIDANCE says project instruction files win over defaults.",
+      "status": "FACT",
+      "sources": [
+        "https://raw.githubusercontent.com/NousResearch/hermes-agent/main/agent/coding_context.py"
+      ]
+    },
+    {
+      "id": "C2",
+      "text": "The same guidance later prohibits commit and push unless separately asked.",
+      "status": "FACT",
+      "sources": [
+        "https://raw.githubusercontent.com/NousResearch/hermes-agent/main/agent/coding_context.py"
+      ]
+    },
+    {
+      "id": "C3",
+      "text": "The combined wording creates an instruction-precedence ambiguity for project-authorized local checkpoints and conflates commit with push.",
+      "status": "INFERENCE",
+      "sources": [
+        "C1",
+        "C2",
+        "local repeated runtime observation"
+      ]
+    }
+  ],
+  "invariants": {
+    "preview_is_side_effect_free": true,
+    "readback_required": true,
+    "commit_and_push_are_distinct": true,
+    "project_workflow_may_authorize_local_commit": true
+  },
+  "evidence": [
+    {
+      "id": "E1",
+      "kind": "upstream-source",
+      "status": "verified",
+      "source": "raw GitHub current main"
+    },
+    {
+      "id": "E2",
+      "kind": "duplicate-search",
+      "status": "verified",
+      "result": "no exact duplicate; issues 29652, 25833, and 91419 are complementary"
+    },
+    {
+      "id": "E3",
+      "kind": "runtime",
+      "status": "verified",
+      "result": "Hermes 0.21.0, Python 3.11.15, Windows 11 build 26200"
+    },
+    {
+      "id": "E4",
+      "kind": "external-readback",
+      "status": "verified-with-limitation",
+      "result": "Issue #100973 is OPEN; author/title/body match; requested bug label is absent because the reporter lacks upstream triage permission"
+    }
+  ],
+  "privacy": {
+    "raw_logs_public": false,
+    "debug_upload_consent": "not_granted",
+    "private_paths_public": false,
+    "secrets_public": false
+  },
+  "lifecycle": {
+    "status": "READ_BACK_VERIFIED",
+    "approval_scope": "one upstream bug issue plus read-back"
+  },
+  "diagram": {
+    "kind": "flowchart",
+    "source": "hermes-coding-context-commit-workflow-conflict-20260902.mmd"
+  }
+}
