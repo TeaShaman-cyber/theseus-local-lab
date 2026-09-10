@@ -171,8 +171,21 @@ node hooks/hook-router.mjs --event ...
 ```
 
 The command is relative to session `cwd`; current OpenAI guidance explicitly
-recommends Git-root-resolved repository hook paths. This needs a small
-subdirectory-cwd regression probe before any fix.
+recommends Git-root-resolved repository hook paths. A bounded offline regression
+probe against a clean `origin/main` archive now reproduces the failure without
+executing the hook or touching providers:
+
+```text
+repo root: node --check hooks/hook-router.mjs  -> PASS
+docs/:    node --check hooks/hook-router.mjs  -> MODULE_NOT_FOUND
+```
+
+This confirms the portability defect for a supported subdirectory-`cwd` shape.
+It still does not prove that the installed host has already encountered that
+shape in a live session.
+
+Disposition: **FIX CANDIDATE / SOURCE-LEVEL REPRODUCED.** No hook rewrite is
+authorized by this note.
 
 ## Upstream change 3: compact restoration is stronger than the July assumption
 
@@ -289,7 +302,7 @@ behavior from ordinary text behavior.
 | PreCompact state packet | **KEEP UNTIL PROBE** | Still gives a local recovery receipt |
 | PostCompact checkpoint | **RE-EVALUATE** | Native `SessionStart(source=compact)` can now deliver immediate context |
 | `suppressOutput` behavior | **DO NOT RELY ON** | Current upstream docs say parsed, not implemented |
-| Relative hook command path | **FIX CANDIDATE** | Current docs recommend Git-root resolution because hook cwd may be a subdirectory |
+| Relative hook command path | **FIX CANDIDATE / SOURCE-LEVEL REPRODUCED** | Root invocation passes; the same tracked relative path fails from `docs/` with `MODULE_NOT_FOUND`; current docs recommend Git-root resolution |
 | Transcript JSONL parser | **KEEP / VERSIONED ADAPTER RISK** | OpenAI explicitly says transcript format is not a stable hook interface |
 | Sequential provider writes inside 10s Stop hook | **RE-EVALUATE** | Self-imposed deadline + many children; naive background-hook conversion can lose unfinished work |
 | Native Codex memories | **CONTROLLED PILOT** | Strong local recall/consolidation, but generated/opportunistic and not Theseus authority |
@@ -336,8 +349,9 @@ No conversation text is required in the receipt. This directly answers the
 highest-value unknown in Issue #10 and tells us whether the AutoMem delivery
 field should be fixed before any larger memory migration.
 
-After that probe, run one subdirectory-cwd hook invocation to confirm or reject
-the relative-path risk. Only then design a bounded patch.
+The subdirectory-cwd path risk is already reproduced offline without executing a
+hook. After the live delivery probe, design only the smallest bounded patch(es)
+supported by the now-separated findings.
 
 ## Plugin trial: interim evidence
 
