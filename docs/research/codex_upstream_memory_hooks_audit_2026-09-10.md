@@ -81,7 +81,11 @@ before marking an event processed.
 Current Codex documentation describes an opt-in local memory store separate
 from ChatGPT web memory. Eligible prior chats are extracted and consolidated in
 the background; memories live under `CODEX_HOME` (normally `~/.codex`) and can
-be controlled with `/memories` and the `memories.*` configuration keys.
+be controlled with `/memories` and the `memories.*` configuration keys. The
+feature is off by default. Read and generation are independently controllable
+through `memories.use_memories` and `memories.generate_memories`; generation
+can exclude chats that used external context such as MCP/web/tool search and can
+be skipped near the configured remaining-rate-limit threshold.
 
 OpenAI explicitly says required team rules should remain in `AGENTS.md` or
 checked-in documentation rather than relying on memories alone. Generation can
@@ -146,7 +150,21 @@ Because the installed host version is still unknown, this is a **source-level
 FIX CANDIDATE**, not yet a proven current-host root cause. The next runtime probe
 should correlate one text turn and one voice turn before changing code.
 
-A second concrete portability risk is the tracked manifest command:
+A second concrete upstream boundary is the transcript itself. Current OpenAI
+documentation explicitly says `transcript_path` is provided for convenience but
+the transcript format is **not a stable hook interface** and may change. Theseus
+`text_safety.mjs` currently projects newline-delimited JSON by reading
+`item.payload.content` (or top-level `content`), and both `memory_gate` and the
+Hindsight `Stop` retain path depend on that projection. Existing tests cover the
+currently expected JSONL shape, which is useful, but they do not make the
+upstream transcript schema stable.
+
+Disposition: **KEEP THE SAFETY GATE, TREAT TRANSCRIPT PARSING AS A VERSIONED
+ADAPTER / SCHEMA-DRIFT BOUNDARY.** A future Codex update must be able to fail
+closed or visibly produce no candidate rather than silently retain the wrong
+projection. This is a research finding; no parser rewrite is authorized here.
+
+A third concrete portability risk is the tracked manifest command:
 
 ```text
 node hooks/hook-router.mjs --event ...
@@ -189,9 +207,13 @@ This makes the current Theseus `Stop` path worth simplifying: many sequential
 children run inside an explicitly configured ten-second outer hook timeout,
 while current Codex supports background hooks.
 
-However current docs also say unfinished background hooks are cancelled when a
-session ends. Therefore moving durable provider writes to `async: true` merely
-to avoid timeout would weaken the persistence contract.
+However current docs also say background hooks are informational only: they
+cannot block or rewrite the operation that triggered them, their output is
+delivered only at the next safe model boundary, up to eight may run concurrently
+per session, completion order may differ from start order, and unfinished
+background hooks are cancelled when a session ends. Therefore moving durable
+provider writes to `async: true` merely to avoid timeout would weaken the
+persistence contract and complicate ordering evidence.
 
 Disposition: **DO NOT MOVE VERIFIED WRITES TO ASYNC BLINDLY.** A safer later
 candidate is to keep gate/outbox append synchronous and let a separately owned
@@ -202,9 +224,10 @@ implementation decision.
 
 Current Codex releases enable subagent workflows by default. They are available
 in the desktop app, CLI, and IDE; custom agents can define model, reasoning,
-sandbox, MCP servers, and skills. OpenAI also warns that subagents consume more
-tokens and recommends starting with read-heavy parallel work such as
-exploration, testing, triage, and summarization.
+sandbox, MCP servers, and skills. Subagents inherit the parent permission/sandbox
+policy unless explicitly configured otherwise. OpenAI also warns that subagents
+consume more tokens and recommends starting with read-heavy parallel work such
+as exploration, testing, triage, and summarization.
 
 This creates overlap with parts of the older Theseus council/helper machinery,
 but that is outside Issue #10's memory-lifecycle acceptance path.
@@ -216,7 +239,10 @@ verification worker, not as memory authority.
 ## Upstream change 6: Windows/WSL is now first-class, but state sharing is not magic
 
 Current Windows documentation says the desktop app defaults to a native Windows
-Codex agent and can switch the agent environment to WSL2. WSL1 is unsupported
+Codex agent and can switch the agent environment to WSL2. The native Windows
+sandbox is now a first-class supported path with `elevated` and `unelevated`
+modes; OpenAI recommends native Windows by default and WSL2 when Linux-native
+tooling or an already-WSL-native workflow justifies it. WSL1 is unsupported
 from Codex `0.115` onward because the Linux sandbox uses `bubblewrap`.
 
 The Windows app/native Windows Codex use `%USERPROFILE%\\.codex`. Codex CLI in
@@ -226,11 +252,15 @@ documents either synchronizing the homes or explicitly setting `CODEX_HOME` to
 the Windows location from WSL.
 
 Theseus also has one explicit Windows-only launch assumption:
-`tools/memory_outbox/flush-mempalace.mjs` defaults to `npx.cmd`.
+`tools/memory_outbox/flush-mempalace.mjs` defaults to `npx.cmd`. That is not a
+defect while the active runtime is native Windows; it becomes a portability
+constraint only if the agent/runtime moves into WSL.
 
-Disposition: **WSL2 is viable upstream, but migration remains a separate state
-transition.** Issue #10 should only produce a compatibility disposition; it
-must not switch the active environment.
+Disposition: **DO NOT MIGRATE TO WSL MERELY BECAUSE IT EXISTS.** Native Windows
+is now a legitimate default upstream. WSL2 remains viable when Linux-native
+tooling materially helps, but migration is a separate state transition with an
+explicit `CODEX_HOME`/launcher/config compatibility check. Issue #10 should only
+produce that disposition; it must not switch the active environment.
 
 ## Voice boundary
 
@@ -260,11 +290,29 @@ behavior from ordinary text behavior.
 | PostCompact checkpoint | **RE-EVALUATE** | Native `SessionStart(source=compact)` can now deliver immediate context |
 | `suppressOutput` behavior | **DO NOT RELY ON** | Current upstream docs say parsed, not implemented |
 | Relative hook command path | **FIX CANDIDATE** | Current docs recommend Git-root resolution because hook cwd may be a subdirectory |
+| Transcript JSONL parser | **KEEP / VERSIONED ADAPTER RISK** | OpenAI explicitly says transcript format is not a stable hook interface |
 | Sequential provider writes inside 10s Stop hook | **RE-EVALUATE** | Self-imposed deadline + many children; naive background-hook conversion can lose unfinished work |
 | Native Codex memories | **CONTROLLED PILOT** | Strong local recall/consolidation, but generated/opportunistic and not Theseus authority |
 | Native subagents | **DEFER** | Useful overlap with helper/council layer, not a blocker for memory issue #10 |
-| WSL2 migration | **DEFER SWITCH / AUDIT COMPATIBILITY ONLY** | First-class upstream, but `CODEX_HOME` and Windows launchers need explicit migration state |
+| Windows-native runtime | **DEFAULT CANDIDATE** | Native sandbox is now first-class upstream; no WSL requirement for ordinary Windows workflows |
+| WSL2 migration | **DEFER SWITCH / AUDIT COMPATIBILITY ONLY** | Use only when Linux-native tooling justifies it; `CODEX_HOME` and Windows launchers need explicit migration state |
 | Voice hook equivalence | **UNKNOWN / PROBE** | Voice-Codex integration is documented; hook-event equivalence is not |
+
+## Quota-gated boundary
+
+The remaining highest-value question is no longer source-level. It is runtime
+delivery: whether the installed Codex build actually sends the AutoMem recall
+marker into model context for typed and voice turns. That end-to-end step cannot
+be established while Codex quota is unavailable.
+
+```text
+source contract evidence = AVAILABLE
+installed host version    = UNKNOWN
+text/voice delivery proof = BLOCKED_BY_QUOTA
+```
+
+Do not replace this missing observation with another model review or a larger
+architecture exercise. Resume it when one bounded live Codex turn is available.
 
 ## Smallest next runtime experiment
 
