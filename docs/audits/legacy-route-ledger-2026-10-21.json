@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "ledger": "theseus-local-lab-legacy-routes",
+  "observed_at": "2026-10-21",
+  "issue": {
+    "parent": 14,
+    "child": 17,
+    "scope": "read-only paths, tasks, wrappers and bridge audit"
+  },
+  "baseline": {
+    "repository": "TeaShaman-cyber/theseus-local-lab",
+    "branch": "main",
+    "head": "d51fde1",
+    "worktree": "clean_before_ledger",
+    "deletion_performed": false,
+    "runtime_mutation_performed": false,
+    "installation_performed": false
+  },
+  "route_families": [
+    {
+      "id": "wsl-migration-preflight",
+      "path": "tools/wsl_migration_preflight",
+      "observed_files": 2,
+      "consumers": [
+        ".vscode/tasks.json",
+        "tools/tool_policy/tool_policy.mjs",
+        "tools/service_status/service_status.mjs",
+        "tools/workshop_dashboard/dashboard.mjs"
+      ],
+      "disposition": "KEEP",
+      "reason": "Bounded diagnostic route with active consumers; legacy markers are part of its detection contract.",
+      "next_issue": 18
+    },
+    {
+      "id": "unix-runtime",
+      "path": "tools/unix_runtime",
+      "observed_files": 24,
+      "consumers": [".vscode/tasks.json", "tools/unix_runtime/tasks_contract.test.mjs"],
+      "disposition": "KEEP",
+      "reason": "Active read/probe route with task contract coverage; no retirement evidence.",
+      "next_issue": 18
+    },
+    {
+      "id": "vscode-bridge",
+      "path": "tools/vscode_bridge",
+      "observed_files": 2,
+      "consumers": [".vscode/tasks.json", "tools/git_safety/commit_checkpoint.mjs"],
+      "disposition": "KEEP",
+      "reason": "Active queue/worker route used by checkpoint tasks; not a dead legacy path.",
+      "next_issue": 18
+    },
+    {
+      "id": "docker-control-plane",
+      "path": "tools/docker_control_plane",
+      "observed_files": 7,
+      "consumers": [".vscode/tasks.json", "tools/workshop_dashboard", "tools/recurrence_audit"],
+      "disposition": "KEEP",
+      "reason": "Active-context route is preferred; --legacy-tcp is an explicit diagnostic fallback only.",
+      "next_issue": 18
+    },
+    {
+      "id": "stateful-agent-net",
+      "path": "stateful-agent-net",
+      "consumers": [
+        "docs/reference/infrastructure-registry.yaml",
+        "tools/backup_lattice",
+        "tools/service_status",
+        "tools/workshop_dashboard",
+        ".vscode/settings.json"
+      ],
+      "registry_state": "disabled-and-excluded-from-recovery",
+      "disposition": "KEEP",
+      "reason": "Disabled is not absent; references and recovery boundary must be reconciled before retirement.",
+      "next_issue": 18
+    },
+    {
+      "id": "workshop-dashboard",
+      "path": "tools/workshop_dashboard",
+      "observed_files": 11,
+      "consumers": [".vscode/tasks.json", "stateful-agent-net", "wsl_migration_preflight"],
+      "disposition": "KEEP",
+      "reason": "Operational dashboard still exposes route diagnostics; legacy markers are observable signals, not proof of dead code.",
+      "next_issue": 18
+    },
+    {
+      "id": "wsl-ssh-agent-bootstrap",
+      "path": "tools/wsl_ssh_agent_bootstrap",
+      "observed_files": 1,
+      "consumers": ["tools/tool_policy/tool_policy.mjs", "tools/tool_policy/tool_policy.test.mjs"],
+      "disposition": "UNKNOWN",
+      "reason": "Tool-policy and regression references exist, but current runtime usage and replacement boundary require a separate read-only probe.",
+      "next_issue": 18
+    }
+  ],
+  "task_route_observations": {
+    "active_task_groups": [
+      "GTD Windows/WSL/Docker preflights",
+      "VS Code bridge and AHP probes",
+      "Docker context/control and service dashboards",
+      "Sonar WSL/Docker probes",
+      "Unix runtime and Gramps HTTP probes",
+      "MemPalace pilot tasks"
+    ],
+    "legacy_markers": [
+      "raw-docker-2375",
+      "legacy-monolith-path",
+      "stateful-agent-net"
+    ],
+    "interpretation": "Markers are currently diagnostic or disabled-boundary signals; they are not deletion proof."
+  },
+  "reference_scan": {
+    "agentops_gitops_contract": "OK",
+    "task_json_parse": "PASS",
+    "routes_with_active_consumers": 6,
+    "unknown_routes": 1,
+    "retirement_candidates_ready": 0
+  },
+  "disposition_rules": {
+    "allowed": ["KEEP", "MIGRATE", "ARCHIVE", "DELETE", "UNKNOWN"],
+    "delete_gate": "No DELETE until consumers, replacement, rollback and focused QA are verified.",
+    "authority": "This ledger is evidence for Issue #17; Wave 2 retirement remains a separate approved scope."
+  }
+}
