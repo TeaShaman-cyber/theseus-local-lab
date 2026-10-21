@@ -152,6 +152,48 @@ Before a checkpoint, inspect `git status -sb`, `git diff --stat`, and
 `git diff --name-only`. Stage explicit paths only. Never use a blanket cleanup
 command to resolve ambiguity.
 
+## Project Change Control (MarcoPolo project-settings v9)
+
+The project contract revision is `2026-10-skill-router-v9`; its canonical
+source is `TeaShaman-cyber/marcopolo-cookbook/project/project-contract.wl`.
+ChatGPT Project Settings are a projection, not the source of truth. A runtime
+projection is current only after the probe `PROJECT_CONTRACT_PROBE` returns
+`PC_OK_V9`. A merge proves the accepted Git source, not that projection.
+
+For project-owned repositories, use this bounded DevOps loop:
+
+```text
+Issue -> scope/evidence -> atomic change -> focused QA
+      -> review/read-back -> local checkpoint
+      -> routine promotion only when protected boundaries stay unchanged
+```
+
+Rules:
+
+- Create or reuse one narrow Issue before a new research line, persistent
+  architecture decision, durable automation, cross-cutting repo/infra change,
+  or project-level change to routing, authority, permission, persistence,
+  canonical sources, verification, or acceptance.
+- Keep each implementation slice reversible, reviewable, and bounded to one
+  obvious next action. An Issue is a coordination/evidence container, not
+  authority for unrelated repositories, releases, publication, or protected
+  boundary changes.
+- Record motivation, intended invariant, exact files/scope, QA commands and
+  results, currentness/read-back evidence, rollback path, and final disposition
+  in the Issue/PR/checkpoint. Use risk-proportional review; issue-first does not
+  require a model review for every wording-only or mechanical edit.
+- Treat `CONFIGURED`, `EXPOSED`, `AVAILABLE`, `INVOKED`, `COMPLETED`, and
+  `VERIFIED` as different capability states. Documentation, cached state,
+  visibility, authentication, or executor self-report does not prove live
+  capability; claim success only after the appropriate observable postcondition.
+- For prior-chat, branch, or decision reconstruction, prefer MarcoPolo
+  historical evidence and Session Search. Use built-in retrieval only when the
+  preferred route is unavailable or insufficient, and disclose that fallback.
+- Keep project source, runtime projection, historical evidence, semantic or
+  episodic memory, and operational state separate. Persist only when user
+  intent, continuity, canonical record, or verified operational need requires
+  it; important writes require read-back.
+
 ## Route First
 
 Before non-trivial work, use the smallest matching project skill:
