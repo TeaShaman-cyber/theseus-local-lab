@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "ledger": "theseus-local-lab-skill-ownership",
+  "observed_at": "2026-10-21",
+  "issue": {
+    "parent": 14,
+    "child": 16,
+    "scope": "read-only skill ownership, duplicate and runtime-copy audit"
+  },
+  "baseline": {
+    "repository": "TeaShaman-cyber/theseus-local-lab",
+    "branch": "main",
+    "head": "e9fc1a3",
+    "worktree": "clean_before_ledger",
+    "project_skill_directories": 5,
+    "codex_runtime_skill_directories": 21,
+    "hermes_skill_directories": 50,
+    "historical_backup_skill_directories": 8,
+    "deletion_performed": false,
+    "installation_performed": false,
+    "runtime_mutation_performed": false
+  },
+  "ownership_boundaries": [
+    {
+      "root": ".agents/skills",
+      "owner": "Theseus project",
+      "authority": "project source"
+    },
+    {
+      "root": "C:/Users/s.poklad/.codex/skills",
+      "owner": "Codex runtime",
+      "authority": "runtime projection; not project source"
+    },
+    {
+      "root": "C:/Users/s.poklad/AppData/Local/hermes/skills",
+      "owner": "Hermes",
+      "authority": "Hermes runtime; do not silently substitute for Codex skills"
+    },
+    {
+      "root": "backups/codex-skills/global",
+      "owner": "historical evidence",
+      "authority": "backup only; not active source"
+    }
+  ],
+  "skill_parity": [
+    {
+      "name": "theseus-memory-stack",
+      "project_hash": "D3698B5115FBE2EE3695E68B0D825D8F8AFB0CCAEB29CA73EDBD57DEA3C5B19B",
+      "runtime_hash": "D3698B5115FBE2EE3695E68B0D825D8F8AFB0CCAEB29CA73EDBD57DEA3C5B19B",
+      "backup_hash": "D3698B5115FBE2EE3695E68B0D825D8F8AFB0CCAEB29CA73EDBD57DEA3C5B19B",
+      "runtime_copy": "MATCH",
+      "disposition": "KEEP"
+    },
+    {
+      "name": "theseus-shell-routing",
+      "project_hash": "B99B89B47CBDBECD365592B654501A08BB5EC7DE70594B1E0C8F6F75784081D7",
+      "runtime_hash": "B99B89B47CBDBECD365592B654501A08BB5EC7DE70594B1E0C8F6F75784081D7",
+      "backup_hash": "B99B89B47CBDBECD365592B654501A08BB5EC7DE70594B1E0C8F6F75784081D7",
+      "runtime_copy": "MATCH",
+      "disposition": "KEEP"
+    },
+    {
+      "name": "theseus-skill-router",
+      "project_hash": "FAF2D5B063CCAE161E8F5F5E3CC59F48DA11700DB66E8DD36113EB5AF6E93D18",
+      "runtime_hash": "91A5C4DF851F60E3A2DDCEEEA36B2229B523E888644651FCC4C78D47A931A271",
+      "backup_hash": "91A5C4DF851F60E3A2DDCEEEA36B2229B523E888651FCC4C78D47A931A271",
+      "runtime_copy": "DRIFT",
+      "difference": "project source contains the current thin-router contract; runtime and backup retain an older council-firewall/routing variant",
+      "disposition": "MIGRATE",
+      "next_action": "separate approved runtime synchronization slice; do not overwrite runtime copy during inventory"
+    },
+    {
+      "name": "theseus-plugin-conclave",
+      "project_hash": "56875E8196079BD24107F7D9B28F9E5787F90BE152905DC27085CC497679DAAF",
+      "runtime_copy": "NO_RUNTIME_COPY",
+      "disposition": "KEEP",
+      "next_action": "verify project-only invocation boundary before any runtime installation"
+    },
+    {
+      "name": "theseus-copilot-advisor",
+      "project_hash": "NO_SKILL_MD",
+      "runtime_copy": "NO_RUNTIME_COPY",
+      "observed_metadata": ".agents/skills/theseus-copilot-advisor/agents/openai.yaml",
+      "disposition": "UNKNOWN",
+      "next_action": "confirm orphan metadata ownership; do not restore or delete from filename alone"
+    }
+  ],
+  "reference_surface": {
+    "active_project_references": [
+      "AGENTS.md -> project skills",
+      ".vscode/tasks.json -> memory-stack, shell-routing, plugin-conclave",
+      "tools/skill_observatory -> expected skill routing",
+      "tools/skill_router -> representative cases and route receipts",
+      "docs/audits/skill_inventory.json and skill_graph.mmd -> prior inventory evidence"
+    ],
+    "retired_surface_check": "AgentOps/GitOps contract OK; Copilot advisor and codex_thread_relink required paths absent",
+    "runtime_manifests": "No project-local .agents/plugins or .codex/plugins manifest present"
+  },
+  "context_pressure_implication": {
+    "rule": "Do not load or synchronize all skills by default; keep thin router plus one matching skill.",
+    "risk": "runtime skill-router drift can reintroduce obsolete council or routing behavior after restart/model switch",
+    "measurement_needed": "compare selected/executed/verified skill receipts after any runtime synchronization"
+  },
+  "disposition_rules": {
+    "allowed": ["KEEP", "MIGRATE", "ARCHIVE", "DELETE", "UNKNOWN"],
+    "delete_gate": "No DELETE until ownership, references, replacement, rollback and focused QA are verified.",
+    "authority": "This ledger is evidence for Issue #16; it does not authorize runtime skill synchronization or deletion."
+  }
+}
