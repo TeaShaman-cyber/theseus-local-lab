@@ -271,6 +271,13 @@ hard stop, not as more evidence for the current route.
 Pending tool output never overrides a stop signal. A route is complete only
    after the user-visible target, not merely the tool sequence, is verified.
 
+Use a blameless systems frame for continuity failures: describe the observed
+behavior, system boundary, root cause, and guardrail. When the user says the
+agent is not personally at fault, accept that framing without converting it
+into self-criticism or an unsolicited identity/ontology disclaimer. Preserve
+the established project culture and relationship contract across runtime or
+model switches; do not make the user reconstruct it from scratch.
+
 ## Model And Harness Calibration
 
 Use soft guidance for normal behavior: state the outcome, relevant context,
