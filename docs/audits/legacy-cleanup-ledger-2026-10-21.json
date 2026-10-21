@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "ledger": "theseus-local-lab-legacy-cleanup",
+  "observed_at": "2026-10-21",
+  "issue": {
+    "parent": 14,
+    "wave": 0,
+    "child": 15,
+    "scope": "read-only inventory and ownership classification"
+  },
+  "baseline": {
+    "repository": "TeaShaman-cyber/theseus-local-lab",
+    "branch": "main",
+    "head": "7852ba4",
+    "worktree": "clean",
+    "contract_check": "OK",
+    "hook_events": ["UserPromptSubmit", "Stop", "PreCompact", "PostCompact"],
+    "deletion_performed": false,
+    "installation_performed": false,
+    "runtime_mutation_performed": false
+  },
+  "roots": [
+    {
+      "path": ".agents/skills",
+      "owner": "project/runtime boundary",
+      "observed": "5 skill directories",
+      "status": "INVENTORIED"
+    },
+    {
+      "path": "hooks",
+      "owner": "project",
+      "observed": "11 files; four manifest events",
+      "status": "KEEP"
+    },
+    {
+      "path": "tools",
+      "owner": "project",
+      "observed": "302 files across local executors and evidence tools",
+      "status": "INVENTORIED"
+    },
+    {
+      "path": ".vscode/tasks.json",
+      "owner": "project",
+      "observed": "large task surface; task-to-route audit pending",
+      "status": "UNKNOWN"
+    },
+    {
+      "path": "docs/reference/infrastructure-registry.yaml",
+      "owner": "project",
+      "observed": "registry contains active, disabled and excluded stacks",
+      "status": "KEEP"
+    }
+  ],
+  "families": [
+    {
+      "id": "orphan-copilot-advisor-project-dir",
+      "paths": [".agents/skills/theseus-copilot-advisor"],
+      "evidence": [
+        "directory exists",
+        "required SKILL.md is absent",
+        "AgentOps/GitOps contract reports removed legacy surface absent"
+      ],
+      "disposition": "UNKNOWN",
+      "next_issue": 16,
+      "reason": "Do not delete an orphan directory until ownership and any non-SKILL metadata use are verified."
+    },
+    {
+      "id": "wsl-migration-preflight",
+      "paths": ["tools/wsl_migration_preflight"],
+      "evidence": [
+        "referenced by tool policy",
+        "referenced by workshop dashboard and service status",
+        "legacy Docker proxy is explicitly optional in the tool contract"
+      ],
+      "disposition": "KEEP",
+      "next_issue": 17,
+      "reason": "It remains a bounded diagnostic route; references must be audited before any retirement proposal."
+    },
+    {
+      "id": "stateful-agent-net",
+      "paths": ["stateful-agent-net", "docs/reference/infrastructure-registry.yaml"],
+      "evidence": [
+        "registry marks the stack disabled and excluded from recovery",
+        "backup, dashboard and service-status code still reference it"
+      ],
+      "disposition": "KEEP",
+      "next_issue": 17,
+      "reason": "Disabled is not absent; consumer references and recovery boundaries must be reconciled first."
+    },
+    {
+      "id": "legacy-docker-tcp",
+      "paths": ["tools/docker_control_plane"],
+      "evidence": [
+        "--legacy-tcp is an explicit diagnostic flag",
+        "README labels tcp://127.0.0.1:2375 as Windows-local fallback"
+      ],
+      "disposition": "KEEP",
+      "next_issue": 17,
+      "reason": "Keep as explicit fallback until active-context route and all consumers are proven independent."
+    },
+    {
+      "id": "legacy-monolith-path-references",
+      "paths": ["docs", "tools", ".vscode"],
+      "evidence": [
+        "references to historical C:\\Users\\...\\Documents\\Codex paths remain in plans and diagnostics",
+        "active D:\\theseus-* projects are registered separately"
+      ],
+      "disposition": "MIGRATE",
+      "next_issue": 17,
+      "reason": "Separate active fallback diagnostics from stale documentation and path references before editing."
+    },
+    {
+      "id": "copilot-advisor-retired-surface",
+      "paths": [
+        ".agents/skills/theseus-copilot-advisor/SKILL.md",
+        "tools/copilot_advisor",
+        "AGENTS.md",
+        ".vscode/tasks.json"
+      ],
+      "evidence": [
+        "removed paths are absent",
+        "AgentOps/GitOps contract check is OK",
+        "orphan directory metadata still needs Wave 1 review"
+      ],
+      "disposition": "ARCHIVE",
+      "next_issue": 16,
+      "reason": "Retirement is already verified; only the remaining orphan directory/reference question is open."
+    },
+    {
+      "id": "active-hook-router",
+      "paths": ["hooks/codex-hooks.json", "hooks/hook-router.mjs"],
+      "evidence": [
+        "four project lifecycle events are registered",
+        "hook-router tests and manifest parity are current"
+      ],
+      "disposition": "KEEP",
+      "next_issue": 16,
+      "reason": "Do not classify active hooks as legacy without runtime evidence and a replacement route."
+    }
+  ],
+  "reference_scans": {
+    "agentops_gitops_contract": "OK",
+    "removed_copilot_and_relink_paths": "ABSENT",
+    "remaining_legacy_markers": [
+      "stateful-agent-net references",
+      "wsl_migration_preflight references",
+      "explicit legacy Docker TCP diagnostic references",
+      "historical monolith path references",
+      "orphan Copilot advisor directory metadata"
+    ]
+  },
+  "disposition_rules": {
+    "allowed": ["KEEP", "MIGRATE", "ARCHIVE", "DELETE", "UNKNOWN"],
+    "delete_gate": "No DELETE disposition until ownership, references, replacement, rollback and focused QA are verified.",
+    "authority": "This ledger is evidence for Issues #15-#19; it does not authorize deletion or runtime mutation."
+  }
+}
