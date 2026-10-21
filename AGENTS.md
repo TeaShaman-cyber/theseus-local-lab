@@ -178,6 +178,15 @@ Rules:
   obvious next action. An Issue is a coordination/evidence container, not
   authority for unrelated repositories, releases, publication, or protected
   boundary changes.
+- Routine project-owned promotion is covered only when the scope is unchanged,
+  the selected base/currentness and exact head are verified, required QA/CI and
+  review gates pass, no P0/P1/blocker remains, and the promotion crosses no
+  permission, authority, canonical-source, publication, release, or other
+  protected boundary.
+- No new Issue is needed for wording/format-only fixes, mechanical maintenance
+  with no behavioral or authority effect, or work already covered by an
+  appropriate open Issue. Issue-first is traceability, not mandatory model
+  review for every small edit.
 - Record motivation, intended invariant, exact files/scope, QA commands and
   results, currentness/read-back evidence, rollback path, and final disposition
   in the Issue/PR/checkpoint. Use risk-proportional review; issue-first does not
