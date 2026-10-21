@@ -317,6 +317,24 @@ Docker and observability work should favor the existing narrow tools:
 - `log-lattice`
 - `backup-lattice`
 
+## User Codex Config Guard
+
+Treat `%CODEX_HOME%/config.toml` as a protected runtime boundary. Prepare a
+candidate file outside the live path, then use the repository guard before any
+replacement:
+
+```text
+node tools/codex_config/config_guard.mjs --check --candidate <candidate.toml>
+node tools/codex_config/config_guard.mjs --apply --candidate <candidate.toml>
+```
+
+The guard runs `codex --strict-config doctor --json` in an isolated temporary
+`CODEX_HOME`, prints status codes only, preserves a rollback backup, and runs a
+postflight check. A failed preflight makes no live change; a failed postflight
+restores the previous config. If the guard or Codex executable is unavailable,
+stop before touching the live file. Direct edits to the live Codex config are
+not an approved workflow.
+
 ## Documentation
 
 Do not turn this file into the project manual. For documentation work, start
