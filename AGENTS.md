@@ -250,6 +250,27 @@ Before increasing reasoning effort, adding another advisor, or widening tool
 access, check whether the task is missing a success criterion, dependency rule,
 tool route, or verification loop.
 
+## Stop-Signal And Route Correction
+
+Treat a direct user signal that the route is wrong or that the agent is not
+listening (for example, “wrong task”, “you do not understand”, or “stop”) as a
+hard stop, not as more evidence for the current route.
+
+1. Stop the current tool sequence immediately; do not start another command,
+   search, advisor call, memory write, GitHub write, or file edit.
+2. State briefly what was stopped and what was misunderstood. Discard the
+   current route's unverified conclusions instead of extending them.
+3. If the user has already made the target clear, restate that target and wait
+   for confirmation. Otherwise ask one concise clarification.
+4. Resume only after the target is confirmed, using the smallest bounded route
+   and the minimum necessary tools. Do not spend paid connectors, compute, or
+   user attention to defend a route the user has rejected.
+5. After a second route-correction signal in the same turn, use no tools until
+   the user explicitly confirms the resumed target.
+
+Pending tool output never overrides a stop signal. A route is complete only
+   after the user-visible target, not merely the tool sequence, is verified.
+
 ## Model And Harness Calibration
 
 Use soft guidance for normal behavior: state the outcome, relevant context,
