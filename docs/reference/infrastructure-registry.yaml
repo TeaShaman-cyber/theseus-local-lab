@@ -1,5 +1,5 @@
 schema_version: 2
-last_verified: 2026-09-01
+last_verified: 2026-09-02
 source_of_truth: docs/reference/infrastructure-registry.yaml
 
 rules:
@@ -247,6 +247,29 @@ stacks:
       fixture_smoke: pending
       no_prod_state: asserted_by_compose_and_readback
     notes: Ephemeral fake Nous/proxy test stand for isolated implementation children. It is not a memory, OAuth, Hindsight, or production route and must not be pointed at real credentials or host volumes.
+
+  - id: guardrails-test
+    status: active
+    scope: test-sandbox
+    consumers: [hermes]
+    source_kind: test-profile-with-docker-backend
+    compose_source: ""
+    runtime_root: C:/Users/s.poklad/AppData/Local/hermes/profiles/guardrails-test
+    containers: []
+    memory_role: test-profile-for-guardrails-plugin
+    recovery: excluded-from-recovery
+    audit:
+      container_restart_policy: unless-stopped
+      destructive_policy: sandbox-is-one-shot
+    secrets: external-not-in-registry
+    notes: >
+      Тестовый профиль с Docker terminal backend.
+      Filesystem state контейнера сохраняется между сессиями профиля.
+      container_persistent: true — Hermes snapshot/restore, не сохранение живого процесса.
+      GitHub read route: host-side github_mcp_launcher.py; Hermes allowlist: 19 read-only tools.
+      Docker env forwarding для GitHub не используется.
+      Не производит мутаций на хосте.
+      Включён плагин guardrails для тестирования bounded workflow.
 
 runtime_integrations:
   - id: hermes-hugging-face-hub
