@@ -21,22 +21,18 @@ services:
       - ${HINDSIGHT_RUNTIME_ENV_FILE:-D:/hindsight/.env}
       - D:/hindsight/langfuse-otel.env
     environment:
-      # Weighted production route selected from the disposable Hindsight
-      # benchmark: BotHub Mistral primary, OpenRouter gpt-oss fallback, and
-      # Nous Solar Mini through the authenticated hermes-proxy as last member.
+      # Two-member production route selected from the disposable Hindsight
+      # benchmark: BotHub Mistral primary and Nous Solar Mini through the
+      # authenticated hermes-proxy as the last/fallback member.
       HINDSIGHT_API_LLM_PROVIDER: openai
       HINDSIGHT_API_LLM_BASE_URL: https://openai.bothub.chat/v1
       HINDSIGHT_API_LLM_API_KEY: ${HINDSIGHT_BOTHUB_KEY}
       HINDSIGHT_API_LLM_MODEL: mistral-medium-3-5
       HINDSIGHT_API_LLM_1_PROVIDER: openai
-      HINDSIGHT_API_LLM_1_BASE_URL: https://openrouter.ai/api/v1
-      HINDSIGHT_API_LLM_1_API_KEY: ${HINDSIGHT_OPENROUTER_KEY}
-      HINDSIGHT_API_LLM_1_MODEL: openai/gpt-oss-120b
-      HINDSIGHT_API_LLM_2_PROVIDER: openai
-      HINDSIGHT_API_LLM_2_BASE_URL: http://hermes-proxy:8645/v1
-      HINDSIGHT_API_LLM_2_API_KEY: hermes-proxy-local
-      HINDSIGHT_API_LLM_2_MODEL: upstage/solar-mini4:free
-      HINDSIGHT_API_LLM_STRATEGY: '{"mode":"round-robin","weights":[3,1,1]}'
+      HINDSIGHT_API_LLM_1_BASE_URL: http://hermes-proxy:8645/v1
+      HINDSIGHT_API_LLM_1_API_KEY: hermes-proxy-local
+      HINDSIGHT_API_LLM_1_MODEL: upstage/solar-mini4:free
+      HINDSIGHT_API_LLM_STRATEGY: '{"mode":"round-robin","weights":[3,1]}'
       # Embedded pg0 DB: set the magic value explicitly (newer images no
       # longer default to embedded when the var is absent -> "Database URL
       # is required for migrations").
