@@ -1,0 +1,23 @@
+name: Canonical QA
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - "tools/**"
+      - "docs/**"
+      - ".github/workflows/qa.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: canonical-qa-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  qa:
+    uses: TeaShaman-cyber/marcopolo-cookbook/.github/workflows/reusable-canonical-qa.yml@4d9ea5bfcf15345c0c29f77fd9846e7c48f898cd
+    with:
+      python_version: "3.11"
+      qa_endpoint: tools/dev/check
