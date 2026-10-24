@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { buildSteps, buildTestArgs, collectTestFiles, formatVerdict } from "./check_lib.mjs";
+import { buildSteps, buildTestArgs, collectTestFiles, formatVerdict, nodeRuntimeMatches } from "./check_lib.mjs";
 import { resolvePullRequestBaseSha } from "./redaction_check_lib.mjs";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
@@ -75,6 +75,15 @@ function main(args) {
     console.log("Usage: bash tools/dev/check [--base <pull-request-base-sha>]");
     return 0;
   }
+
+  const expectedNodeVersion = readFileSync(path.join(repoRoot, ".nvmrc"), "utf8").trim();
+  if (!nodeRuntimeMatches(expectedNodeVersion, process.versions.node)) {
+    console.error(
+      `DEV_CHECK_FAIL step=runtime expected=v${expectedNodeVersion} actual=${process.version}`,
+    );
+    return 2;
+  }
+  console.log(`QA_RUNTIME node=${process.version}`);
 
   const baseSha = parsed.baseSha ?? eventBaseSha();
   if (

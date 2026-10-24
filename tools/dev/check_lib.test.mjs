@@ -4,7 +4,7 @@ import { mkdtempSync, mkdirSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 
-import { buildSteps, buildTestArgs, collectTestFiles, formatVerdict } from "./check_lib.mjs";
+import { buildSteps, buildTestArgs, collectTestFiles, formatVerdict, nodeRuntimeMatches } from "./check_lib.mjs";
 
 test("collects node test files recursively, sorts them, and ignores node_modules", () => {
   const root = mkdtempSync(path.join(tmpdir(), "devcheck-"));
@@ -28,6 +28,12 @@ test("uses serial Node test concurrency to avoid timer races between suites", ()
     "tools/a.test.mjs",
     "tools/b.test.mjs",
   ]);
+});
+
+test("requires an exact match with the repository's pinned Node runtime", () => {
+  assert.equal(nodeRuntimeMatches("24.18.0", "24.18.0"), true);
+  assert.equal(nodeRuntimeMatches("24.18.0", "24.18.1"), false);
+  assert.equal(nodeRuntimeMatches("24", "24"), false);
 });
 
 test("fails closed when the repository has no tools directory", () => {

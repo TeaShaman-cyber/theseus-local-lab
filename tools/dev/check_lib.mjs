@@ -3,6 +3,16 @@ import path from "node:path";
 
 const TEST_SUFFIX = ".test.mjs";
 const SKIP_DIRS = new Set(["node_modules", ".git"]);
+const EXACT_NODE_VERSION = /^\d+\.\d+\.\d+$/;
+
+/** Return true only when the runtime exactly matches a pinned semver version. */
+export function nodeRuntimeMatches(expectedVersion, actualVersion) {
+  return (
+    typeof expectedVersion === "string" &&
+    EXACT_NODE_VERSION.test(expectedVersion) &&
+    actualVersion === expectedVersion
+  );
+}
 
 /** Build stable Node test-runner arguments; serial execution avoids timer races. */
 export function buildTestArgs(testFiles) {

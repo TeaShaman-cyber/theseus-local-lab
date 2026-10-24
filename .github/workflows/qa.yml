@@ -1,23 +1,61 @@
-name: Canonical QA
+name: Theseus Local Lab QA
 
 on:
   pull_request:
     types: [opened, synchronize, reopened]
-    paths:
-      - "tools/**"
-      - "docs/**"
-      - ".github/workflows/qa.yml"
 
 permissions:
   contents: read
 
 concurrency:
-  group: canonical-qa-${{ github.event.pull_request.number }}
+  group: theseus-local-lab-qa-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
 jobs:
   qa:
-    uses: TeaShaman-cyber/marcopolo-cookbook/.github/workflows/reusable-canonical-qa.yml@4d9ea5bfcf15345c0c29f77fd9846e7c48f898cd
-    with:
-      python_version: "3.11"
-      qa_endpoint: tools/dev/check
+    name: Repository-owned QA gate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Check out the pull-request head
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Verify checked-out source identity
+        env:
+          EXPECTED_SHA: ${{ github.event.pull_request.head.sha }}
+          SOURCE_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
+          EVENT_SHA: ${{ github.sha }}
+          WORKFLOW_REF: ${{ github.workflow_ref }}
+          WORKFLOW_SHA: ${{ github.workflow_sha }}
+          RUN_ID: ${{ github.run_id }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          set -euo pipefail
+          actual_sha="$(git rev-parse HEAD)"
+          if [[ "$actual_sha" != "$EXPECTED_SHA" ]]; then
+            printf 'QA_SOURCE_MISMATCH expected=%s actual=%s\n' "$EXPECTED_SHA" "$actual_sha" >&2
+            exit 2
+          fi
+          printf 'QA_SOURCE_OK repository=%s event_sha=%s source_sha=%s workflow_ref=%s workflow_sha=%s run_id=%s run_attempt=%s\n' \
+            "$SOURCE_REPOSITORY" "$EVENT_SHA" "$EXPECTED_SHA" "$WORKFLOW_REF" "$WORKFLOW_SHA" "$RUN_ID" "$RUN_ATTEMPT"
+
+      - name: Set up pinned Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version-file: .nvmrc
+
+      - name: Verify pinned Node.js runtime
+        run: |
+          set -euo pipefail
+          actual_node="$(node -p 'process.versions.node')"
+          expected_node="$(tr -d '\r\n' < .nvmrc)"
+          printf 'QA_RUNTIME node=v%s expected=v%s\n' "$actual_node" "$expected_node"
+          [[ "$actual_node" == "$expected_node" ]]
+
+      - name: Run the repository QA gate
+        run: bash tools/dev/check
