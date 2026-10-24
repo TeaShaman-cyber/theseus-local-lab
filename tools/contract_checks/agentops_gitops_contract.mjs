@@ -34,7 +34,7 @@ const ACTIVE_LEGACY_REFERENCES = [
   { path: ".vscode/tasks.json", needles: ["tools/copilot_advisor", "ask Copilot advisor", "COPILOT_ADVISOR"] },
   { path: "AGENTS.md", needles: ["theseus-copilot-advisor", "tools/copilot_advisor"] },
   { path: "GIT_META_SKILL.md", needles: ["ask Copilot advisor", "Copilot:"] },
-  { path: "skills/theseus-git-hygiene/SKILL.md", needles: ["ask Copilot advisor", "Copilot:"] },
+  { path: "skills-codex/theseus-git-hygiene/SKILL.md", needles: ["ask Copilot advisor", "Copilot:"] },
   { path: "tools/skill_observatory/skill_observatory.mjs", needles: ["theseus-copilot-advisor"] },
   { path: "tools/skill_router/representative_cases_contract.mjs", needles: ["theseus-copilot-advisor"] },
   { path: "tools/plugin_conclave/catalog.json", needles: ["copilot-advisor", "tools/copilot_advisor"] },

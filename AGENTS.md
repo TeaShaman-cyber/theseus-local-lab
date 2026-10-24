@@ -23,7 +23,7 @@ layers separate:
 
 | Layer | Owner | Source of truth |
 |---|---|---|
-| Project skills | Theseus/Codex project | `skills/` or an existing `.agents/skills/` path in this checkout |
+| Codex project skills | Theseus/Codex project | `skills-codex/` or an existing `.agents/skills/` path in this checkout |
 | Codex runtime skills | Codex | `C:/Users/s.poklad/.codex/skills/` |
 | Hermes runtime skills/plugins | Hermes | `%HERMES_HOME%/skills/` and `%HERMES_HOME%/plugins/` |
 | OSINT harness adapters | Theseus OSINT repo | `D:/theseus-osint/harnesses/<harness>/` in this environment |
@@ -218,7 +218,7 @@ Before non-trivial work, use the smallest matching project skill:
   multi-source check.
 - `C:/Users/s.poklad/.codex/skills/local-agent-hygiene/SKILL.md` for local
   infrastructure, VS Code tasks, Docker Desktop, and repeated checks.
-- `skills/theseus-git-hygiene/SKILL.md` is the canonical repo source for Git,
+- `skills-codex/theseus-git-hygiene/SKILL.md` is the canonical repo source for Git,
   GitHub sync, commits, pushes, and secret-sensitive staging; the matching
   `.codex/skills/` copy is runtime state and may require synchronization.
 

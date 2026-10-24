@@ -7,7 +7,7 @@ This file is the repo-level override for ordinary Git publishing in this
 private lab. It does not replace Codex system rules or GitHub plugin skills; it
 routes them.
 
-Codex skill draft/source: `skills/theseus-git-hygiene/SKILL.md`.
+Codex skill draft/source: `skills-codex/theseus-git-hygiene/SKILL.md`.
 
 ## Priority Stack
 
