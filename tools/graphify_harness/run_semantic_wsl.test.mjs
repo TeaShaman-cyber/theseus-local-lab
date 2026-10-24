@@ -19,7 +19,7 @@ test("semantic WSL bridge reports missing provider environment without exposing 
   );
 });
 
-test("semantic WSL bridge accepts an absolute Windows path before spawning", async () => {
+test("semantic WSL bridge startup does not expose provider credentials", { skip: process.platform !== "win32" }, async () => {
   const result = await run(process.execPath, [script, "--check-env"], {
     env: {
       PATH: process.env.PATH,

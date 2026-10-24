@@ -3,6 +3,7 @@ import { execFileSync } from "node:child_process";
 import test from "node:test";
 import { mkdtemp, writeFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
+import path from "node:path";
 
 function gate(payload) {
   return JSON.parse(execFileSync(process.execPath, ["tools/memory_gate/memory_gate.mjs"], { input: JSON.stringify(payload), encoding: "utf8" }));
@@ -37,8 +38,8 @@ test("redacts private values from accepted content", () => {
 });
 
 test("extracts durable text from Codex transcript path", async () => {
-  const dir = await mkdtemp(`${tmpdir()}\\memory-gate-`);
-  const file = `${dir}\\rollout.jsonl`;
+  const dir = await mkdtemp(path.join(tmpdir(), "memory-gate-"));
+  const file = path.join(dir, "rollout.jsonl");
   await writeFile(file, `${JSON.stringify({ payload: { role: "user", content: "Decision: retain only verified fixes in AutoMem." }})}\n`);
   try {
     assert.equal(gate({ session_id: "s2", transcript_path: file }).accept, true);
@@ -48,8 +49,8 @@ test("extracts durable text from Codex transcript path", async () => {
 });
 
 test("redacts private values extracted from a transcript", async () => {
-  const dir = await mkdtemp(`${tmpdir()}\\memory-gate-`);
-  const file = `${dir}\\rollout.jsonl`;
+  const dir = await mkdtemp(path.join(tmpdir(), "memory-gate-"));
+  const file = path.join(dir, "rollout.jsonl");
   await writeFile(file, `${JSON.stringify({ payload: { role: "user", content: "Decision: keep C:\\\\Users\\\\s.poklad\\\\private\\\\notes.txt out of memory." }})}\n`);
   try {
     const result = gate({ session_id: "s3", transcript_path: file });
