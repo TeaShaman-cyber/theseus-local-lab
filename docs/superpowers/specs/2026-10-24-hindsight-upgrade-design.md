@@ -21,6 +21,9 @@ Prepare a reviewed, reversible upgrade path from Hindsight `0.8.6` to a supporte
 - Reflect route remains separate and unchanged unless a later issue explicitly authorizes it.
 - Provider keys, OAuth state, raw memory, and exported production content remain outside Git and outside PRs.
 - No direct SQLite editing or unsupported database transfer is used.
+- Production `hermes` bank reads and recall probes are executed by a Hermes-owned executor or the human operator, who returns sanitized evidence; a Codex worker does not read or query that bank.
+- A consistent pre-upgrade pg0 checkpoint exists and its restore was rehearsed with the pinned `0.8.6` image before any promotion, because reverting the image does not revert the database.
+- The upgrade-window write policy is declared in advance: either the candidate is migrated and verified while retain continues, or retain is stopped for a stated window with the accepted loss boundary recorded.
 - A Docker health result is never accepted as proof of a working Hindsight read or model route.
 - Promotion to the live stack requires successful disposable rehearsal, fresh read-back, Codex review, and Semyon Poklad's explicit approval.
 
@@ -34,16 +37,17 @@ Prepare a reviewed, reversible upgrade path from Hindsight `0.8.6` to a supporte
 
 A candidate must pass all of the following on an isolated runtime and disposable bank:
 
-1. image/version and migration complete without touching production pg0;
+1. candidate starts from a baseline-format `0.8.6` store, and image/version plus the explicit migration complete without touching production pg0;
 2. API health, bank list, stats, and memory list read back;
-3. simple recall with an explicit timestamp returns within the declared bound;
+3. date-free, absolute-date, and relative-date recall cases return within the declared bound with correct temporal constraints;
 4. retain remains successful and consolidation drains to zero pending work;
 5. recall can retrieve the retained fixture and no request hangs in temporal extraction;
 6. current general and reflect route identities are visible in Hindsight request traces;
 7. failed operations, provider errors, and rollback behavior are recorded separately;
-8. disposable data and runtime are removed only after an absence read-back.
+8. disposable data and runtime are removed only after an absence read-back;
+9. the pre-upgrade checkpoint restores under the pinned `0.8.6` image and returns the same bank identities and a sample read.
 
-The live promotion gate repeats the read-path and route checks against production, but does not require production writes beyond the user-approved upgrade operation.
+The live promotion gate repeats the read-path and route checks against production, but does not require production writes beyond the user-approved migration and upgrade operations. The migration runs as its own approved step behind the verified checkpoint, before the candidate API starts, because `HINDSIGHT_API_RUN_MIGRATIONS_ON_STARTUP=false` in `deploy/hindsight/docker-compose.yml`.
 
 ## Non-goals
 

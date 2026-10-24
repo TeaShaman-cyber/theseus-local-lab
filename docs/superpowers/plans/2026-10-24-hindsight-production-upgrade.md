@@ -20,12 +20,16 @@
 - Do not edit SQLite or mutate production operation rows directly.
 - Treat `health=200` as insufficient; require API read, recall, retain, consolidation, and route read-back.
 - Do not run `docker compose down -v`, delete pg0, delete banks, invalidate memories, or re-enable auto-recall.
+- Capture a consistent pre-upgrade copy of `D:/hindsight/pg0` from a stopped runtime (or a verified `pg_dump`) and rehearse the restore with the pinned `0.8.6` image. Restoring only the image/config does not restore the database that image previously used, so an unrestored backup is a blocked promotion gate, not a deferred task.
+- Define the write policy for the upgrade window before promotion: either the candidate is already migrated and verified while retain continues, or retain is stopped for a declared window and the accepted data-loss boundary is recorded explicitly.
+- Production `hermes` bank reads and recall probes are executed by a Hermes-owned executor or the human operator, who returns a sanitized receipt. A Codex worker must not read or query the `hermes` bank and stays inside its provisioned `codex` bank.
 - Use explicit paths and stage only files owned by this plan.
 - Run `node tools/git_safety/scan_staged.mjs` before every commit.
 
 ## Review Focus
 
 - Existing pg0 migration state: startup migration must not crash-loop or silently create an empty store; verify the documented explicit migration path from upstream #2602.
+- Explicit production migration: `deploy/hindsight/docker-compose.yml` keeps `HINDSIGHT_API_RUN_MIGRATIONS_ON_STARTUP=false`, so the promotion sequence must run the rehearsed migration command against production pg0 before the API starts, behind its own backup gate. Applying only the image change would leave the candidate API on the old schema.
 - Recall temporal extraction: a simple query must not hang in `dateparser`/temporal analysis; verify the upstream #3452 prefilter is present in the candidate.
 - Route identity: Solar/Mistral general members and the separate reflect member must remain distinct and exact.
 - Retain/consolidation semantics: retain must remain enabled, completed operations must drain, and a failed provider call must not be mistaken for a successful memory write.
@@ -43,6 +47,7 @@
 **Interfaces:**
 - `probeHindsight({ baseUrl, bankId, timeoutMs, fetchImpl }) -> Promise<Receipt>`: performs only GET requests for health, version, bank list, bank stats, memory list, and operations.
 - `probeRecall({ baseUrl, bankId, query, queryTimestamp, timeoutMs, fetchImpl }) -> Promise<RecallReceipt>`: performs one bounded POST to the read-only recall endpoint and records timeout/error distinctly; it never calls retain, consolidate, retry, delete, or reflect.
+- The recall contract covers three fixed cases: a date-free query, an absolute-date query (for example `what changed on 2026-10-21`), and a relative-date query (for example `what changed last week`) evaluated against an explicit reference timestamp. Each case declares an expected retrieval outcome. A date-free probe alone passes through the prefilter and does not exercise the dateparser path.
 - CLI: `node tools/hindsight_upgrade/verify_hindsight.mjs --base-url http://localhost:8888 --bank-id hermes --mode baseline`.
 - CLI: `node tools/hindsight_upgrade/verify_hindsight.mjs --base-url http://localhost:8888 --bank-id disposable-upgrade --mode recall --query "Hindsight model provider route" --query-timestamp 2026-10-24T10:00:00Z`.
 
@@ -93,9 +98,11 @@ git commit -m "test: add bounded Hindsight upgrade verifier"
 
 Run the baseline mode against `http://localhost:8888`, bank `hermes`, with a bounded timeout. Record only counts, versions, statuses, operation summaries, and route/model identifiers from the existing read-only ledger. Do not include memory text, provider account identifiers, keys, or raw traces.
 
-- [ ] **Step 2: Run one bounded recall probe**
+The `hermes` bank read and recall probe are executed by the Hermes-owned executor or the human operator, who returns the sanitized receipt. A Codex worker does not read or query the `hermes` bank; any Codex-owned probe stays inside its provisioned `codex` bank.
 
-Use an explicit timestamp and a simple observation-only query. Record `PASS` or `RECALL_TIMEOUT` with elapsed time. Do not retry indefinitely and do not call retain.
+- [ ] **Step 2: Run the bounded recall contract**
+
+Use an explicit reference timestamp and three fixed queries: date-free, absolute-date, and relative-date. Record `PASS`, `RECALL_TIMEOUT`, or `WRONG_TEMPORAL_FILTER` per case with elapsed time and the expected retrieval outcome. Do not retry indefinitely and do not call retain.
 
 - [ ] **Step 3: Verify the baseline artifact**
 
@@ -113,7 +120,7 @@ Stage only the audit artifact, run the staged secret scanner, and commit with a 
 
 - [ ] **Step 1: Prepare an isolated data boundary**
 
-Use a unique disposable Compose project and a new pg0 root outside `D:/hindsight/pg0`. Prefer supported Hindsight export/import or a verified stopped-runtime copy; do not copy live pg0 while it is running. If production content must be copied for schema rehearsal, obtain a separate explicit approval and keep the copy local, temporary, and excluded from Git.
+Use a unique disposable Compose project and a new pg0 root outside `D:/hindsight/pg0`. The migration gate must start from an independent baseline-format store populated under `0.8.6` (or an explicitly approved stopped-runtime copy), because an empty root or a logical import can initialize cleanly without ever exercising the existing-store startup failure documented in `deploy/hindsight/docker-compose.yml`. Verify pre-existing bank identities and data after migration. Logical export/import may be tested separately but does not substitute for this gate. Do not copy live pg0 while it is running; if production content is needed for schema rehearsal, obtain a separate explicit approval and keep the copy local, temporary, and excluded from Git.
 
 - [ ] **Step 2: Verify candidate image metadata**
 
@@ -125,7 +132,7 @@ Keep startup migration behavior aligned with the known pg0 workaround from upstr
 
 - [ ] **Step 4: Run candidate API gates**
 
-For each candidate, verify health, version, bank list, stats, memory list, and operations. Then run the bounded recall probe. A timeout or dateparser stack trace blocks the candidate.
+For each candidate, verify health, version, bank list, stats, memory list, and operations. Then run the bounded recall contract: date-free, absolute-date, and relative-date cases against fixed reference timestamps with declared expected outcomes. A timeout, a dateparser stack trace, or an incorrect temporal constraint blocks the candidate.
 
 - [ ] **Step 5: Run a fixed sanitized retain/consolidation/recall fixture**
 
@@ -202,19 +209,30 @@ Fix Critical/Important findings, re-run all relevant verification, and update th
 
 Only after Codex review and fresh verification, ask Semyon Poklad whether to apply the live upgrade. A draft PR review is not approval to mutate production.
 
-- [ ] **Step 5: Promote and verify live state**
+- [ ] **Step 5: Take and verify the pre-upgrade checkpoint**
 
-During the approved window, apply the bounded compose change without deleting volumes. Verify container version, health, bank list, stats, list read, recall, retain/consolidation behavior, route traces, and unchanged proxy/pg0 boundaries. Keep auto-recall disabled.
+Stop the Hindsight runtime, take a consistent local copy of `D:/hindsight/pg0` (or a verified `pg_dump`), and record its exact location, size, and hash outside Git. Restore that copy into a separate scratch root with the pinned `0.8.6` image and confirm the `hermes` bank and a sample read come back. An unrestored checkpoint blocks promotion; reverting only the image/config does not revert the database.
 
-- [ ] **Step 6: Roll back on any failed gate**
+- [ ] **Step 6: Run the explicit production migration behind the backup gate**
 
-Restore the exact `0.8.6` image/config, restart only the Hindsight stack using the documented route, and verify the production bank and read path. Do not erase failed-operation evidence or delete data to make the check green.
+With `HINDSIGHT_API_RUN_MIGRATIONS_ON_STARTUP=false`, run the rehearsed `hindsight-admin` migration command against production pg0 exactly as validated in Task 3, then read back schema readiness before the candidate API starts. This step needs its own explicit approval and must not be folded into the image change.
+
+- [ ] **Step 7: Promote and verify live state**
+
+During the approved window, apply the bounded compose change without deleting volumes. Verify container version, health, bank list, stats, list read, recall (date-free, absolute-date, relative-date), retain/consolidation behavior, route traces, and unchanged proxy/pg0 boundaries. Keep auto-recall disabled.
+
+- [ ] **Step 8: Roll back on any failed gate**
+
+Restore the exact `0.8.6` image/config and the rehearsed checkpoint if the migration or schema is implicated, restart only the Hindsight stack using the documented route, and verify the production bank and read path. Do not erase failed-operation evidence or delete data to make the check green.
 
 ### Final verification checklist
 
 - [ ] Codex review is visible on the draft PR and all Important findings are resolved or explicitly accepted.
 - [ ] Candidate image and digest are recorded.
-- [ ] pg0 migration was rehearsed on a disposable boundary.
+- [ ] pg0 migration was rehearsed on a disposable boundary seeded with a baseline-format `0.8.6` store.
+- [ ] A pre-upgrade pg0 checkpoint exists and its restore was rehearsed with the pinned `0.8.6` image.
+- [ ] Production migration ran behind its own approval and backup gate before the candidate API started.
+- [ ] Rollback result is `VERIFIED`; an untested restore path blocks promotion instead of being recorded as `UNKNOWN`.
 - [ ] Recall no longer hangs on the bounded observation-only probe.
 - [ ] Retain remains enabled and consolidation drains.
 - [ ] Exact general and reflect routes are read back.
