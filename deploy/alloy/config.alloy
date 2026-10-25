@@ -203,3 +203,15 @@ prometheus.remote_write "grafana_cloud" {
     host = "theseus-laptop",
   }
 }
+
+// Hindsight production metrics (laptop). The container publishes /metrics on
+// 8888; recall phase histograms show where recall time actually goes, and
+// hindsight_operation_duration_seconds{operation="recall",source="api"} is the
+// clean recall SLO (the phase histogram also sees consolidation recalls, which
+// skip reranking and skew percentiles).
+prometheus.scrape "hindsight_api" {
+  targets         = [{"__address__" = "127.0.0.1:8888", "job" = "hindsight-api", "instance" = "theseus-laptop"}]
+  metrics_path    = "/metrics"
+  scrape_interval = "30s"
+  forward_to      = [prometheus.remote_write.grafana_cloud.receiver]
+}
