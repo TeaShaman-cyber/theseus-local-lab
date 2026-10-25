@@ -32,17 +32,16 @@ services:
       HINDSIGHT_API_LLM_BASE_URL: http://hermes-proxy:8645/v1
       HINDSIGHT_API_LLM_API_KEY: hermes-proxy-local
       HINDSIGHT_API_LLM_MODEL: upstage/solar-mini4:free
-      HINDSIGHT_API_LLM_1_PROVIDER: openai
-      HINDSIGHT_API_LLM_1_BASE_URL: https://openai.bothub.chat/v1
-      # NOTE: ${HINDSIGHT_BOTHUB_KEY} below is Compose SUBSTITUTION, not a
-      # container env value: env_file feeds the container, not the compose
-      # interpolator. Export it before recreating, otherwise the value is
-      # empty and the container crash-loops with
-      # "HINDSIGHT_API_LLM_1_API_KEY is required for provider 'openai'":
-      #   export HINDSIGHT_BOTHUB_KEY=$(sed -n 's/^HINDSIGHT_BOTHUB_KEY=//p' D:/hindsight/.env)
-      HINDSIGHT_API_LLM_1_API_KEY: ${HINDSIGHT_BOTHUB_KEY}
-      HINDSIGHT_API_LLM_1_MODEL: mistral-medium-3-5
-      HINDSIGHT_API_LLM_STRATEGY: '{"mode":"round-robin","weights":[3,1]}'
+      # 2026-10-25: the BotHub fallback member is DISABLED temporarily.
+      # Measured caps spend on this host: mistral-medium-3-5 = 8,271,739 of
+      # ~8,420,000 total (98.3%), because round-robin sent every 4th call here
+      # while the primary is free. Primary solar-mini4:free stays; re-enable by
+      # restoring the four LLM_1_* lines plus HINDSIGHT_API_LLM_STRATEGY.
+      # HINDSIGHT_API_LLM_1_PROVIDER: openai
+      # HINDSIGHT_API_LLM_1_BASE_URL: https://openai.bothub.chat/v1
+      # HINDSIGHT_API_LLM_1_API_KEY: ${HINDSIGHT_BOTHUB_KEY}
+      # HINDSIGHT_API_LLM_1_MODEL: mistral-medium-3-5
+      # HINDSIGHT_API_LLM_STRATEGY: '{"mode":"round-robin","weights":[3,1]}'
       # Embedded pg0 DB: set the magic value explicitly (newer images no
       # longer default to embedded when the var is absent -> "Database URL
       # is required for migrations").
