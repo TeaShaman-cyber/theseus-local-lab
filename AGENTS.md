@@ -127,21 +127,28 @@ Commit decision gate:
   session boundary, and state why it cannot yet be a normal commit;
 - do not leave unrelated, unexplained, or ownerless dirty paths.
 
-Git integration is governed by downstream effect, not by one blanket rule for
-all Git actions:
+Git integration is governed by repository ownership first, then by downstream
+effect.
 
-- a local commit is a reviewable checkpoint, not publication or deployment; once
-  the scope and checkpoint are explicit, it may be created as part of the
-  approved workflow to prevent uncommitted-change archaeology;
-- a push is a remote write; before pushing, inspect the remote workflows and
-  repository settings enough to determine whether it triggers CI/CD, release,
-  deployment, publication, or other external mutation;
-- a push may be included in an approved backup/sync workflow when its downstream
-  effects are known and bounded; ask before pushing when effects are unknown,
-  high-impact, destructive, or outside that workflow;
-- merge, release, deploy, force-push, and history rewrite always require a
-  separate explicit user decision unless a workflow has explicitly pre-authorized
-  that exact action and its downstream effects.
+**Own repositories** (`TeaShaman-cyber/*`): routine git work is normal task work,
+not a contribution ritual. Commit, push, branch, issue, PR, comment and label are
+done freely inside an approved workflow, without per-action approval. The
+checkpoint gate below still decides *what* is committed; it does not turn each
+push into a separate negotiation.
+
+**Third-party or upstream repositories**: the contribution ritual applies —
+inspect the remote workflows and settings, keep scope inside the agreed
+contribution, and get explicit agreement before any write.
+
+**Any repository**: merge into a shared or protected branch, release, deploy,
+force-push and history rewrite remain separate explicit decisions, because their
+effect is not routine.
+
+- a local commit is a reviewable checkpoint, not publication or deployment;
+- a push in an own repository is routine when it triggers no CI/CD, release,
+  deploy or publication;
+- ask before pushing only when the effect is unknown, high-impact, destructive,
+  or outside the current workflow.
 
 A `wip:` commit must state `Change-Status: wip`, `Task-Ref`, `Next`, and
 `Verification` in its body, plus the provenance trailers above. A task is not
