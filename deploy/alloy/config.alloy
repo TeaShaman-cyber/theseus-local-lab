@@ -18,7 +18,14 @@ prometheus.exporter.windows "host" {
     "system",
     "process",
     "thermalzone",
+    "textfile",
   ]
+
+  // Provider cost/limit metrics written as .prom files by scheduled tasks
+  // (see deploy/cost-metrics). Money figures come from the provider itself.
+  textfile {
+    directories = ["C:/Apps/theseus-metrics"]
+  }
 
   process {
     include = "^(Hermes|python|pythonw|node|Code|chrome|msedge|opera|Docker Desktop|com.docker.backend|com.docker.build|vmmem|vmmemWSL|powershell|pwsh|alloy|svchost)$"
