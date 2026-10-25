@@ -6,9 +6,13 @@ name: hindsight-cloud
 
 services:
   hindsight:
-    # Pin the last stable image before the pg0-embedded >=0.15.0 bump in v0.9.0.
-    # v0.9.1/latest currently crash-loops on the existing pg0 store during boot.
-    image: ghcr.io/vectorize-io/hindsight:0.8.6
+    # Upgrade: 0.8.6 -> v1.1.0 (2026-10-25). Rehearsed and verified on a
+    # disposable copy of the production bank: explicit migration
+    # c4f7a91b2d38 -> c7e2f9a4d1b8, recall/retain/consolidation gates green,
+    # and the production-format restore rehearsed under the pinned 0.8.6
+    # image. Rollback: restore the pg0 cold backup taken before migration
+    # (image revert alone does not revert the database).
+    image: ghcr.io/vectorize-io/hindsight:1.1.0
     container_name: hindsight-api
     restart: unless-stopped
     depends_on:

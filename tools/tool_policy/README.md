@@ -37,8 +37,9 @@ outage by itself.
 
 ## Current Reflexes
 
-- Block raw Docker shell commands; route to Docker MCP, Docker TCP VS Code tasks,
-  or `tools/docker_control_plane`.
+- Warn on raw Docker CLI, but do not blanket-block it. Prefer Docker MCP, Docker
+  TCP VS Code tasks, or `tools/docker_control_plane` when they support the
+  operation; keep CLI use bounded to the explicit task scope.
 - Block raw PowerShell scripts; route to VS Code tasks or Node wrappers.
 - Block broad Git staging such as `git add -A`; require explicit scope review.
 - Allow known Theseus Node wrappers, `hooks/hook-router.mjs`,
