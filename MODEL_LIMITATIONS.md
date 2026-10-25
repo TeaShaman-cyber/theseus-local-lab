@@ -56,6 +56,27 @@ ChatGPT Work, Codex desktop, connectors, scheduled tasks, and memory behavior
 can change quickly. Re-check official docs and real behavior before relying on
 new product claims.
 
+## Model selection rule for service routes
+
+Price is never a selection criterion on its own. A model may join a production
+route (Hindsight LLM pool, reflect route, extraction) only after it passes the
+same contract test the incumbent passed: valid JSON output and the full tool
+contract, on 2/2 independent disposable-station runs, with the production bank
+and configuration untouched.
+
+Order of criteria:
+
+1. contract compliance (JSON, tool calls, refusal modes);
+2. grounded quality on our own corpus;
+3. latency;
+4. price.
+
+A cheaper candidate that has not passed (1) is not a candidate. Swapping a
+verified member for an unverified cheap one converts a known cost into an
+unknown failure mode.
+
+Recorded 2026-10-25 after proposing an unverified model on price alone.
+
 ## Evidence Log
 
 Add entries here when a claim is checked.
