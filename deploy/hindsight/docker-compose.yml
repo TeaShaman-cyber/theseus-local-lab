@@ -65,6 +65,13 @@ services:
       # Real-bank reflect runs took 80–139s; 120s can abort a valid run.
       HINDSIGHT_API_REFLECT_LLM_TIMEOUT: "300"
       HINDSIGHT_API_REFLECT_LLM_MAX_CONCURRENT: "1"
+      # Local CPU cross-encoder reranker tuning (applies to both banks).
+      # Measured 2026-10-25 on this host (i5-8265U, 4C/8T): 300 candidates
+      # ~180s per recall; length-sorted bucket batching is quality-identical
+      # (36-54% speedup); cap 300 -> 80 cuts per-recall rerank wall time.
+      # FlashRank backend was measured slower here and was rejected.
+      HINDSIGHT_API_RERANKER_LOCAL_BUCKET_BATCHING: "true"
+      HINDSIGHT_API_RERANKER_MAX_CANDIDATES: "80"
     volumes:
       # Embedded pg0 is a runtime data root, never a Git source.
       - ${HINDSIGHT_PG0_ROOT:-D:/hindsight/pg0}:/home/hindsight/.pg0
