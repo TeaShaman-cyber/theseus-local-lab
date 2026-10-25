@@ -5,16 +5,28 @@ import assert from "node:assert/strict";
 import { evaluateAction, rankRoutes, applyVerification } from "./tool_policy.mjs";
 import { buildRoutePacket } from "../route_packet/route_packet.mjs";
 
-test("blocks raw Docker shell commands and routes to Docker MCP or VS Code task", () => {
+test("warns on raw Docker shell commands and keeps narrow routes preferred", () => {
   const decision = evaluateAction({
     surface: "shell",
     command: "docker compose -f D:/theseus-backup/backup-lattice/docker-compose.yml logs --tail=40 backup-runner",
   });
 
-  assert.equal(decision.verdict, "block");
+  assert.equal(decision.verdict, "warn");
   assert.equal(decision.reason, "raw-docker-shell");
-  assert.match(decision.message, /Docker MCP/i);
-  assert.ok(decision.routes.some((route) => route.includes("Theseus Docker")));
+  assert.match(decision.message, /prefer MCP/i);
+  assert.ok(decision.routes.some((route) => route.includes("Docker MCP")));
+});
+
+test("route packets keep raw Docker candidates as warnings rather than blockers", () => {
+  const packet = buildRoutePacket({
+    goal: "pull the approved Hindsight candidate image",
+    skill: "docker-management",
+    candidates: [{ id: "candidate-pull", command: "docker pull ghcr.io/vectorize-io/hindsight:1.1.0" }],
+  });
+
+  assert.equal(packet.policy.verdict, "warn");
+  assert.equal(packet.policy.reason, "raw-docker-shell");
+  assert.equal(packet.next_action.id, "candidate-pull");
 });
 
 test("blocks risky PowerShell script execution and suggests a wrapper", () => {
@@ -309,7 +321,7 @@ test("ranks Docker MCP route above raw Docker for container logs", () => {
 
   assert.equal(result.winner.id, "mcp-docker");
   assert.ok(result.ranked[0].total > result.ranked.at(-1).total);
-  assert.equal(result.ranked.find((route) => route.id === "raw-docker").policy.verdict, "block");
+  assert.equal(result.ranked.find((route) => route.id === "raw-docker").policy.verdict, "warn");
 });
 
 test("ranks task-fitting Node wrapper above raw PowerShell", () => {

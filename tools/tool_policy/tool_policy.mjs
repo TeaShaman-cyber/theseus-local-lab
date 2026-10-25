@@ -145,10 +145,10 @@ export function evaluateAction(action = {}) {
   }
 
   if (/^docker(\.exe)?\s/i.test(command) || /\bdocker\s+compose\b/i.test(command)) {
-    return decision("block", "raw-docker-shell", "Raw Docker shell commands are blocked in the agent path; use Docker MCP or a VS Code task.", [
-      "Use Docker MCP tool theseus_docker when available.",
-      "Use VS Code task Theseus Docker TCP: ps for container listing.",
-      "Use VS Code task Theseus AutoMem Graph Viewer: status for graph-viewer checks.",
+    return decision("warn", "raw-docker-shell", "Raw Docker CLI is available with caution; keep it within the explicit task scope and prefer MCP or a VS Code task when it supports the operation.", [
+      "Prefer Docker MCP tool theseus_docker for supported operations.",
+      "Prefer an exact VS Code Docker task when one covers the operation.",
+      "Use raw Docker CLI for bounded operations when the narrower routes lack the needed command.",
       "Use tools/docker_control_plane/direct_bridge.mjs for allowlisted MCP access.",
     ]);
   }

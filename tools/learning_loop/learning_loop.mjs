@@ -118,7 +118,7 @@ function analyzeEvents(events) {
   }
 
   if ((reasons.get("raw-docker-shell") || 0) > 0) {
-    proposals.push("Promote Docker MCP/VS Code task route before any raw Docker shell attempt.");
+    proposals.push("Prefer Docker MCP/VS Code tasks when they cover the operation; keep raw Docker CLI available for bounded tasks they cannot express.");
   }
   if ((reasons.get("raw-powershell-script") || 0) > 0) {
     proposals.push("Convert repeated PowerShell script routes into Node wrappers or VS Code tasks.");

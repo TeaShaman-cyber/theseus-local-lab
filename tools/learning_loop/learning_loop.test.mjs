@@ -27,7 +27,7 @@ test("turns blocked tool-policy events into concrete proposals", () => {
   assert.equal(summary.event_count, 2);
   assert.equal(summary.verdicts.block, 2);
   assert.equal(summary.reasons["raw-docker-shell"], 1);
-  assert.ok(summary.proposals.some((proposal) => proposal.includes("Docker MCP")));
+  assert.ok(summary.proposals.some((proposal) => proposal.includes("raw Docker CLI available")));
   assert.ok(summary.proposals.some((proposal) => proposal.includes("PowerShell")));
 });
 
