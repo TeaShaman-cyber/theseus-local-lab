@@ -67,6 +67,16 @@ prometheus.scrape "probes" {
   scrape_interval = "30s"
 }
 
+// Hardware sensors from OhmGraphite + LibreHardwareMonitor, which reads MSR
+// through the PawnIO driver. This is the only source of REAL core clock and
+// per-core temperature — windows_exporter reports a static nominal frequency.
+prometheus.scrape "ohmgraphite" {
+  targets         = [{ __address__ = "127.0.0.1:4445", job = "ohmgraphite" }]
+  metrics_path    = "/metrics/"
+  forward_to      = [prometheus.remote_write.grafana_cloud.receiver]
+  scrape_interval = "30s"
+}
+
 prometheus.remote_write "grafana_cloud" {
   endpoint {
     url = "https://<PROMETHEUS_HOST>/api/prom/push"

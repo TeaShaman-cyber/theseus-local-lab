@@ -198,6 +198,23 @@ stacks:
     secrets: external-not-in-registry
     notes: "cAdvisor was evaluated first and rejected, because under Docker Desktop it discovers containers but cannot resolve their filesystem layers and emits no per-container metrics. Verified working with 9 containers exposing container_cpu_utilization_ratio and container_memory_usage_total_bytes with container_name labels."
 
+  - id: ohmgraphite
+    status: active
+    scope: local-lab
+    consumers: [hermes, codex]
+    source_kind: host-windows-service
+    install_path: C:/Apps/OhmGraphite
+    runtime_config: C:/Apps/OhmGraphite/OhmGraphite.exe.config
+    service: OhmGraphite
+    containers: []
+    role: "hardware-sensors: real CPU core clock, per-core temperature, package power"
+    collector: "OhmGraphite 0.38.0 (LibreHardwareMonitor) with PawnIO 2.1.0.0 for MSR access"
+    exporter_target: "scraped by Grafana Alloy on 127.0.0.1:4445/metrics/, then remote_write to Grafana Cloud"
+    security: "PawnIO is an open-source kernel driver, signed by the author certificate (GLOBALTRUST CA), the maintained replacement for WinRing0 which Defender flagged. Installer from github.com/namazso/PawnIO.Setup"
+    recovery: not-in-workshop-recovery
+    secrets: none
+    notes: "required because windows_exporter reports a static nominal CPU frequency (1801 MHz, max-min over 30m = 0), so throttling could not be derived from it. With this service, real clocks (2200-2600 MHz observed against a 1800 base and 3900 turbo) and per-core temperatures become available."
+
   - id: graph-viewer
     status: active
     scope: local-lab
