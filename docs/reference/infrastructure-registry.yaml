@@ -181,6 +181,23 @@ stacks:
     recovery: needs-registry-verification
     secrets: external-not-in-registry
 
+  - id: docker-exporter
+    status: active
+    scope: local-lab
+    consumers: [hermes, codex]
+    source_kind: main-repository-subproject
+    compose_source: C:/Users/s.poklad/Documents/Codex/2026-07-08/life-science-research-plugin-life-science-4/deploy/docker-exporter/docker-compose.yml
+    runtime_env_file: D:/theseus-monitoring/docker-exporter.env
+    containers: [theseus-otel-docker]
+    role: container-metrics-export-to-grafana-cloud
+    collector: "otel/opentelemetry-collector-contrib 0.163.2 with the docker_stats receiver"
+    exporter_target: "Grafana Cloud Prometheus remote_write (uid grafanacloud-prom)"
+    network_dependency: "docker-proxy-lattice_default (external, owned by docker-read-proxy)"
+    security: "no raw docker.sock mount and no privileged mode; read-only socket proxy only"
+    recovery: not-in-workshop-recovery
+    secrets: external-not-in-registry
+    notes: "cAdvisor was evaluated first and rejected, because under Docker Desktop it discovers containers but cannot resolve their filesystem layers and emits no per-container metrics. Verified working with 9 containers exposing container_cpu_utilization_ratio and container_memory_usage_total_bytes with container_name labels."
+
   - id: graph-viewer
     status: active
     scope: local-lab
