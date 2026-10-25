@@ -1,0 +1,67 @@
+// Theseus host monitoring — Grafana Alloy config.
+// Canonical source: deploy/alloy/config.alloy (repo). No secrets in Git:
+// the three __PLACEHOLDER__ values are filled on the host only.
+//
+// Purpose: time-series of this laptop (CPU per process, memory, disk, network)
+// so "why was it heavy at 16:12" is answerable after the fact.
+// Free tier: 10k active series, 14 days retention.
+
+logging {
+  level = "info"
+}
+
+// windows_exporter is embedded in Alloy — no second service needed.
+prometheus.exporter.windows "host" {
+  enabled_collectors = [
+    "cpu",          // per-core CPU time
+    "cs",           // computer system (hostname, uptime)
+    "logical_disk", // per-volume free/used
+    "memory",       // RAM / pagefile
+    "net",          // per-interface throughput
+    "os",           // OS info
+    "system",       // context switches, processor queue
+    "process",      // per-process CPU / memory / handles
+  ]
+
+  // Only processes that can actually explain "why was it slow".
+  // Everything else is dropped to stay far inside the 10k series limit.
+  process {
+    include = "^(Hermes|python|pythonw|node|Code|chrome|msedge|opera|Docker Desktop|com.docker.backend|com.docker.build|vmmem|vmmemWSL|powershell|pwsh|alloy|svchost)$"
+    exclude = "^$"
+  }
+}
+
+// Aggregate per process NAME, not per PID, so series count stays flat
+// instead of growing with every short-lived process.
+discovery.relabel "host" {
+  targets = prometheus.exporter.windows.host.targets
+
+  rule {
+    action = "labeldrop"
+    regex  = "process_id"
+  }
+}
+
+prometheus.scrape "host" {
+  targets         = discovery.relabel.host.output
+  forward_to      = [prometheus.remote_write.grafana_cloud.receiver]
+  scrape_interval = "30s"
+}
+
+prometheus.remote_write "grafana_cloud" {
+  endpoint {
+    // e.g. https://prometheus-prod-XX-<region>.grafana.net/api/prom/push
+    url = "https://<PROMETHEUS_HOST>/api/prom/push"
+
+    basic_auth {
+      // Grafana Cloud metrics instance ID (number, not a secret)
+      username = "<GRAFANA_INSTANCE_ID>"
+      // Access policy token with metrics:write — secret, host only
+      password = "<GRAFANA_API_TOKEN>"
+    }
+  }
+
+  external_labels = {
+    host = "theseus-laptop",
+  }
+}
