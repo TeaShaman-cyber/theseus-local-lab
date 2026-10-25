@@ -86,12 +86,69 @@ local.file_match "hermes_logs" {
     { __path__ = "C:/Users/s.poklad/AppData/Local/hermes/logs/errors.log",  job = "hermes", log_type = "errors" },
     { __path__ = "C:/Users/s.poklad/AppData/Local/hermes/logs/gateway.log", job = "hermes", log_type = "gateway" },
     { __path__ = "C:/Users/s.poklad/AppData/Local/hermes/logs/agent.log",   job = "hermes", log_type = "agent" },
+    // Canary stream: a synthetic file used to prove that secret redaction works.
+    // Feed it a fake key and confirm [REDACTED] appears in Loki while the value
+    // never does.
+    { __path__ = "C:/Users/s.poklad/AppData/Local/hermes/logs/secret-canary.log", job = "hermes", log_type = "canary" },
   ]
 }
 
 loki.source.file "hermes_logs" {
   targets    = local.file_match.hermes_logs.targets
+  forward_to = [loki.process.hermes_logs.receiver]
+}
+
+// Two jobs in one pipeline:
+//  1. REDACT secret-shaped strings before they leave the host. Persisted cloud
+//     logs are exactly the artefact an attacker buys and greps later, so the
+//     value must never be stored — alerting on it afterwards would be too late.
+//  2. Turn LLM call lines from agent.log into real Prometheus metrics, so model
+//     latency/tokens can be charted against CPU, clock and temperature.
+loki.process "hermes_logs" {
   forward_to = [loki.write.grafana_cloud.receiver]
+
+  // 1) Redaction. Covers GitHub, Grafana Cloud, OpenAI-style and AWS key shapes
+  // plus JWT-like tokens. The marker [REDACTED] is what the alert watches for.
+  stage.replace {
+    expression = "(ghp_[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{20,}|glsa_[A-Za-z0-9]{30,}|glc_[A-Za-z0-9+/=]{30,}|sk-[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16}|eyJ[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{10,})"
+    replace    = "[REDACTED]"
+  }
+
+  // 2) LLM call lines look like:
+  //    API call #187: model=x provider=custom in=497632 out=473 ... latency=11.1s
+  stage.regex {
+    expression = "API call #(?P<apicall>\\d+): model=(?P<llm_model>\\S+).*?in=(?P<tok_in>\\d+) out=(?P<tok_out>\\d+).*?latency=(?P<llm_latency>[0-9.]+(?:ms|s))"
+  }
+
+  stage.metrics {
+    metric.counter {
+      name        = "hermes_llm_calls_total"
+      description = "Hermes LLM API calls observed in agent.log"
+      source      = "apicall"
+      action      = "inc"
+    }
+
+    metric.gauge {
+      name        = "hermes_llm_latency_seconds"
+      description = "Latency of the last Hermes LLM API call"
+      source      = "llm_latency"
+      action      = "set"
+    }
+
+    metric.counter {
+      name        = "hermes_llm_input_tokens_total"
+      description = "Input tokens reported by Hermes LLM API calls"
+      source      = "tok_in"
+      action      = "add"
+    }
+
+    metric.counter {
+      name        = "hermes_llm_output_tokens_total"
+      description = "Output tokens reported by Hermes LLM API calls"
+      source      = "tok_out"
+      action      = "add"
+    }
+  }
 }
 
 loki.write "grafana_cloud" {
@@ -107,6 +164,14 @@ loki.write "grafana_cloud" {
   external_labels = {
     host = "theseus-laptop",
   }
+}
+
+// Alloy's own /metrics endpoint carries the metrics generated from log lines
+// (hermes_llm_*). Scrape it so they reach the same Prometheus as host metrics.
+prometheus.scrape "alloy_self" {
+  targets         = [{ __address__ = "127.0.0.1:12345", job = "alloy-self" }]
+  forward_to      = [prometheus.remote_write.grafana_cloud.receiver]
+  scrape_interval = "30s"
 }
 
 prometheus.remote_write "grafana_cloud" {
