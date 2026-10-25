@@ -1,38 +1,31 @@
-// Theseus host monitoring — Grafana Alloy config.
-// Canonical source: deploy/alloy/config.alloy (repo). No secrets in Git:
-// the three __PLACEHOLDER__ values are filled on the host only.
-//
-// Purpose: time-series of this laptop (CPU per process, memory, disk, network)
-// so "why was it heavy at 16:12" is answerable after the fact.
-// Free tier: 10k active series, 14 days retention.
+// Theseus host monitoring — Grafana Alloy config (READY TO DEPLOY).
+// Endpoint and instance ID are already filled. Only the token is missing:
+// replace <PASTE_TOKEN_HERE> with the access-policy token from policy
+// "stack-1891821-alloy" (scope set:alloy-data-write), then copy this file to
+// C:\Program Files\GrafanaLabs\Alloy\config.alloy and restart the Alloy service.
 
 logging {
   level = "info"
 }
 
-// windows_exporter is embedded in Alloy — no second service needed.
 prometheus.exporter.windows "host" {
   enabled_collectors = [
-    "cpu",          // per-core CPU time
-    "cs",           // computer system (hostname, uptime)
-    "logical_disk", // per-volume free/used
-    "memory",       // RAM / pagefile
-    "net",          // per-interface throughput
-    "os",           // OS info
-    "system",       // context switches, processor queue
-    "process",      // per-process CPU / memory / handles
+    "cpu",
+    "logical_disk",
+    "memory",
+    "net",
+    "os",
+    "system",
+    "process",
+    "thermalzone",
   ]
 
-  // Only processes that can actually explain "why was it slow".
-  // Everything else is dropped to stay far inside the 10k series limit.
   process {
     include = "^(Hermes|python|pythonw|node|Code|chrome|msedge|opera|Docker Desktop|com.docker.backend|com.docker.build|vmmem|vmmemWSL|powershell|pwsh|alloy|svchost)$"
     exclude = "^$"
   }
 }
 
-// Aggregate per process NAME, not per PID, so series count stays flat
-// instead of growing with every short-lived process.
 discovery.relabel "host" {
   targets = prometheus.exporter.windows.host.targets
 
@@ -48,16 +41,47 @@ prometheus.scrape "host" {
   scrape_interval = "30s"
 }
 
+// Latency probes. Both paths go through the active VPN, so the measured
+// round-trip is the real user-visible path, not a clean-link baseline.
+prometheus.exporter.blackbox "probes" {
+  config_file = "C:/Program Files/GrafanaLabs/Alloy/blackbox.yml"
+
+  target {
+    name    = "internet_icmp"
+    address = "1.1.1.1"
+    module  = "icmp"
+    labels  = { target_name = "1.1.1.1" }
+  }
+
+  target {
+    name    = "grafana_https"
+    address = "https://grafana.com"
+    module  = "https"
+    labels  = { target_name = "grafana.com" }
+  }
+}
+
+prometheus.scrape "probes" {
+  targets         = prometheus.exporter.blackbox.probes.targets
+  forward_to      = [prometheus.remote_write.grafana_cloud.receiver]
+  scrape_interval = "30s"
+}
+
 prometheus.remote_write "grafana_cloud" {
   endpoint {
-    // e.g. https://prometheus-prod-XX-<region>.grafana.net/api/prom/push
     url = "https://<PROMETHEUS_HOST>/api/prom/push"
 
     basic_auth {
-      // Grafana Cloud metrics instance ID (number, not a secret)
       username = "<GRAFANA_INSTANCE_ID>"
-      // Access policy token with metrics:write — secret, host only
-      password = "<GRAFANA_API_TOKEN>"
+      password = "<PASTE_TOKEN_HERE>"
+    }
+
+    // Drop the per-instance PID label before the series leave the host.
+    // Without this, every process restart mints a new series and the free
+    // tier's 10k active-series budget drains over the 14-day window.
+    write_relabel_config {
+      action = "labeldrop"
+      regex  = "process_id"
     }
   }
 
