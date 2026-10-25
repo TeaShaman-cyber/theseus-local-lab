@@ -77,6 +77,38 @@ prometheus.scrape "ohmgraphite" {
   scrape_interval = "30s"
 }
 
+// Hermes technical logs plus agent.log. Operator decision 2026-10-25: the
+// destination is the operator's own private Grafana Cloud stack, so agent.log is
+// included. Known residual risk: stray secrets inside log lines would travel
+// with them — acceptable to the owner, recorded here on purpose.
+local.file_match "hermes_logs" {
+  path_targets = [
+    { __path__ = "C:/Users/s.poklad/AppData/Local/hermes/logs/errors.log",  job = "hermes", log_type = "errors" },
+    { __path__ = "C:/Users/s.poklad/AppData/Local/hermes/logs/gateway.log", job = "hermes", log_type = "gateway" },
+    { __path__ = "C:/Users/s.poklad/AppData/Local/hermes/logs/agent.log",   job = "hermes", log_type = "agent" },
+  ]
+}
+
+loki.source.file "hermes_logs" {
+  targets    = local.file_match.hermes_logs.targets
+  forward_to = [loki.write.grafana_cloud.receiver]
+}
+
+loki.write "grafana_cloud" {
+  endpoint {
+    url = "https://<LOKI_HOST>/loki/api/v1/push"
+
+    basic_auth {
+      username = "<LOKI_USER_ID>"
+      password = "<PASTE_TOKEN_HERE>"
+    }
+  }
+
+  external_labels = {
+    host = "theseus-laptop",
+  }
+}
+
 prometheus.remote_write "grafana_cloud" {
   endpoint {
     url = "https://<PROMETHEUS_HOST>/api/prom/push"
