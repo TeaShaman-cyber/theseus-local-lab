@@ -100,7 +100,7 @@ services:
       HINDSIGHT_API_MODEL_INIT_TIMEOUT: "1800"
       # llm_output_language only reaches reflect, not fact extraction, so the
       # retain mission is the lever for the language facts are stored in.
-      HINDSIGHT_API_RETAIN_MISSION: "Пиши все извлекаемые факты, наблюдения и связи по-русски, даже если исходный текст на другом языке."
+      HINDSIGHT_API_RETAIN_MISSION: "Пиши все извлекаемые факты, наблюдения и связи по-русски, даже если исходный текст на другом языке. Формулируй каждый факт как законченное утверждение: кто или что, действие, объект. Не дублируй слова и не начинай факт с отглагольного существительного. Имена, пути, идентификаторы и числа оставляй без изменений."
     volumes:
       # Embedded pg0 in a Docker-managed volume, NOT a Windows bind mount.
       # A fresh pg0 on a bind mount fails initdb with
