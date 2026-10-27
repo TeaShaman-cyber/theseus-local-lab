@@ -60,6 +60,41 @@ Queries live in the dashboard JSON in Grafana. Keep in mind:
 - Provider aggregates use `sum by (provider)`; a per-model view is a deliberate
   next step, not a missing default.
 
+## Per-session attribution
+
+A provider total hides the thing that actually drains a quota: one chat carrying a
+huge context. The agent log line starts with the session id, so the same `API call #`
+rows can be grouped by it:
+
+```logql
+sum by (session) (sum_over_time({service_name="hermes", log_type="agent"} |= "API call #"
+  | regexp "\\[(?P<session>local-[0-9a-f]+)\\].*provider=(?P<provider>[a-z0-9_-]+) in=(?P<input>[0-9]+)"
+  | unwrap input [$__range]))
+```
+
+Read it together with output: input is mostly cache (cheap but still consumes
+quota and time), output is what gets billed at full price. A session with 250M
+input and almost no output is a chat re-reading its own history, not a chat that
+produced a lot of work.
+
+## LogQL trap: valid regex that never matches
+
+In this stack two regex shapes parse fine and then return **zero rows** where
+literal filters return plenty:
+
+| shape | result |
+|---|---|
+| `\|= "provider=deepinfra" \|= "positive balance"` | 8 |
+| `\|~ "402.*positive"` | 32 |
+| `\|~ "(?i)402.*(positive balance\|insufficient balance)"` | 0 |
+| `\| regexp "\\[(?P<s>local-[0-9a-f]{8})\\]"` | 0 |
+| `\| regexp "\\[(?P<s>local-[0-9a-f]+)\\]"` | matches |
+
+Rule: when a deployment-critical query returns no data, test it against a time
+range where the event is known to exist, and fall back to literal `|=` filters or
+`+` quantifiers. An alert built on a never-matching query looks healthy —
+`NoData` with `no_data_state=OK` — and protects nothing.
+
 ## Access note
 
 `GRAFANA_API_TOKEN` in this workspace is a `glc_` access-policy token: it writes
