@@ -1,5 +1,5 @@
 schema_version: 2
-last_verified: 2026-09-02
+last_verified: 2026-10-27
 source_of_truth: docs/reference/infrastructure-registry.yaml
 
 rules:
@@ -75,7 +75,7 @@ stacks:
     hook_settings_verified: silent_save=true, desktop_toast=false
 
   - id: hindsight
-    status: active-native-multi-llm-round-robin
+    status: active-single-free-llm-multilingual
     scope: shared-memory-service-with-isolated-banks
     consumers: [hermes, codex]
     consumers_excluded: []
@@ -83,10 +83,20 @@ stacks:
     compose_source: C:/Users/s.poklad/Documents/Codex/2026-07-08/life-science-research-plugin-life-science-4/deploy/hindsight/docker-compose.yml
     runtime_root: D:/hindsight
     runtime_env_file: D:/hindsight/.env
-    data_root: D:/hindsight/pg0
+    data_root: docker-named-volumes
+    data_volumes: [theseus-hindsight-pg0-v2, theseus-hindsight-hf-cache]
+    data_root_note: pg0 lives in a named volume, never a Windows bind mount - the bind-mount variant produced a root-owned data dir that postgres refused to initialise
+    published_ports: [8888, 9999]
+    host_prerequisites:
+      - id: winnat-dynamic-port-range
+        fact: Windows WinNAT and Hyper-V reserve shifting TCP ranges at boot; on 2026-10-27 the reserved range 8868-8967 swallowed 8888 and Docker could not publish the API port
+        symptom: container runs with ExposedPorts but empty host bindings, health dead, compose up fails with a bind error about a socket access permission
+        remediation: net stop winnat, then netsh int ipv4 set dynamicport tcp start=49152 num=16384, then net start winnat
+        verified: 2026-10-27 excluded ranges rebuilt, 8888 free, ports published, health 200
     containers: [hindsight-api]
     memory_role: private-hermes-provider-plus-isolated-codex-operational-bank
-    recovery: excluded-from-workshop-recovery-until-verified
+    recovery: covered-by-restic-three-repositories
+    recovery_ref: https://github.com/TeaShaman-cyber/theseus-local-lab/issues/66
     audit:
       compose_labels_and_mount: verified
       compose_source_ownership: verified_git_owned_after_force_recreate
@@ -94,32 +104,31 @@ stacks:
       direct_recall: verified_direct_nous_65s_historical
       hermes_memory_status: provider_available
       failed_operations: 0
-      failed_consolidation: 29
-      failed_consolidation_note: historical_counter_after_terminal_operation_cleanup
-      sampled_failure: historical_APIConnectionError_during_proxy_route
-      operation_cleanup: 150_terminal_failed_records_deleted
-      operation_cleanup_manifest: D:/theseus-archive/hindsight/operation-cleanup-20260818.json
-      memories_documents_deleted: false
-      llm_route: native_hindsight_multi_llm_round_robin
-      llm_primary: bothub_nemotron_super_free
-      llm_member_1: openrouter_nemotron_super_free
-      llm_member_2: nous_solar_pro4_via_hermes_subscription_proxy
-      llm_weights: [3, 1, 1]
-      native_failover_preflight: verified
-      native_round_robin_preflight: verified
-      production_all_members_connection_verified: historical_true
-      current_solar_data_plane: blocked_cloudflare_1010_20260901
+      failed_consolidation: 0
+      last_verified_20261027: health_200_2081_nodes_0_pending_0_failed
+      llm_route: native_single_free_model
+      llm_primary: upstage_solar_mini4_free
+      llm_paid_member: disabled_20261027_bothub_caps_exhausted_at_98_percent
+      llm_paid_member_tradeoff: no_fallback_when_the_free_model_is_rate_limited
+      embeddings_model: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+      reranker_model: cross-encoder/mmarco-mMiniLMv2-L12-H384-v1
+      reranker_max_candidates: 80
+      reranker_provider: local
+      multilingual_switch_issue: https://github.com/TeaShaman-cyber/theseus-local-lab/issues/56
+      recall_p95_seconds_observed: 24.5
+      recall_p95_caveat: measured with the L12 multilingual stack on a throttled laptop; the 6.2 s baseline was a different stack on a now-deleted VPS and is not comparable
+      llm_provider_stability: intermittent 502 and DNS failures from the free model absorbed by retries
+      recall_scope: observation by default, world and experience enabled 2026-10-27
       router_trace_monitor: /v1/default/banks/hermes/llm-requests
       router_stats_monitor: /v1/default/banks/hermes/llm-requests/stats
       proxy_bypass: false
       pending_proxy_migration: none
-      pending_after_switch: existing_worker_backlog_observed_and_preserved
     codex_bank: codex
     codex_integration: project-hook-router-with-fail-soft-retain-and-recall
     codex_isolation: bank-level-isolated-from-hermes
     secrets: external-not-in-registry
     tracking_issue: https://github.com/TeaShaman-cyber/theseus-local-lab/issues/3
-    notes: Hindsight Compose source is now owned by this repository; runtime env, pg0 data, generated artifacts, and Docker named volumes remain external. Historical weighted round-robin [3,1,1] verification is preserved, while the current Solar probe is blocked by Cloudflare error 1010 at inference-api.nousresearch.com. Existing pending retain work was preserved.
+    notes: Hindsight Compose source is owned by this repository; runtime env and Docker named volumes remain external. The weighted round-robin of 2026-09 is retired - the paid BotHub member was disabled on 2026-10-27 at 98 percent of its caps, leaving one free model, so a rate limit now has no fallback. The stack is multilingual since 2026-10-26 (L12 embeddings and L12 reranker), which is the current source of recall latency; the older 6.2 s figure came from a different stack on a VPS that no longer exists. Recovery is no longer excluded, because the bank is covered by the restic scheme in issue 66.
 
   - id: hermes-subscription-proxy
     status: active-runtime-source-verified-solar-route-blocked
