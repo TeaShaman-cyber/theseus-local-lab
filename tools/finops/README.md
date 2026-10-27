@@ -84,6 +84,31 @@ Queries live in the dashboard JSON in Grafana. Keep in mind:
 - Provider aggregates use `sum by (provider)`; a per-model view is a deliberate
   next step, not a missing default.
 
+## Alert policy: never alert on silence
+
+This lab runs on a laptop that is switched off at night, at weekends, and
+whenever the owner is at work. An alert on missing telemetry therefore measures
+the owner's schedule, not the health of anything.
+
+Rules:
+
+- **Silence is not a failure.** No "pusher has been quiet for an hour" alerts.
+  Staleness is shown on the dashboard as `read_ok` and `last_success_timestamp_seconds`
+  and is read when someone sits down.
+- **Alert only on events that cannot happen while the machine sleeps.** A request
+  that went out and was refused (`402`, insufficient balance), a backup that ran
+  and failed, a restore that failed, a secret that reached the log. Each of these
+  requires the host to have been awake and working.
+- **Persistent known states are dashboard material, not email.** A suspended
+  account with no top-up will re-notify every repeat interval about a condition
+  already known. Pause it and put the state on the panel.
+- **Long-absence guards get a weekend-sized window.** "No successful backup in
+  26h" fires every Sunday; 72h tolerates a weekend and still catches a genuinely
+  broken schedule.
+- **A renamed metric breaks its alert silently.** Changing `balance_usd` to
+  `stripe_balance_usd` turned the pusher-silence query into a permanent
+  no-match. Grep alert queries for every metric name you rename.
+
 ## Per-session attribution
 
 A provider total hides the thing that actually drains a quota: one chat carrying a
