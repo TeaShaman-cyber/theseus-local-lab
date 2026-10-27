@@ -228,6 +228,13 @@ Rules:
   results, currentness/read-back evidence, rollback path, and final disposition
   in the Issue/PR/checkpoint. Use risk-proportional review; issue-first does not
   require a model review for every wording-only or mechanical edit.
+- A change that implements a **guarantee** — isolation, locking, ordering,
+  idempotency, recovery — is not exempt from external review however carefully
+  its author tested it. The author verifies the cases they imagined; a reviewer
+  finds the ones they assumed. On 2026-10-27 a worktree-isolation tool passed its
+  author's own checks (artefact reproducibility, negative tests, live
+  classification) and still carried a registry read-modify-write race in exactly
+  the concurrency the tool existed to handle. The reviewer found it in minutes.
 - Treat `CONFIGURED`, `EXPOSED`, `AVAILABLE`, `INVOKED`, `COMPLETED`, and
   `VERIFIED` as different capability states. Documentation, cached state,
   visibility, authentication, or executor self-report does not prove live
