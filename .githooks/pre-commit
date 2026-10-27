@@ -1,3 +1,12 @@
 #!/bin/sh
+# Branch guard first: committing from the wrong branch is the failure that is
+# hardest to notice and easiest to prevent. Only enforced inside a claimed
+# worktree, so the main tree and unclaimed trees behave as before.
+if [ -f .worktree-claim.json ]; then
+    python tools/worktree_lifecycle/wt.py guard || exit 1
+fi
+
+# Staged-text normalisation, then the secret scan. The normaliser rewrites files
+# in the worktree, so anything edited by hand must be re-checked after this hook.
 node tools/git_safety/normalize_staged_text.mjs
 node tools/git_safety/scan_staged.mjs

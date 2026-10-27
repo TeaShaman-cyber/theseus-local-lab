@@ -159,6 +159,36 @@ Before a checkpoint, inspect `git status -sb`, `git diff --stat`, and
 `git diff --name-only`. Stage explicit paths only. Never use a blanket cleanup
 command to resolve ambiguity.
 
+## Concurrent Session Isolation
+
+Two agent sessions must never share one working tree. A `checkout` in one session
+changes `HEAD` for the other, so edits appear to revert, commits land on the wrong
+branch, and artefacts reach a commit in their previous version. This is not
+hypothetical: it happened on 2026-10-27 and sent debugging after the wrong cause
+for several rounds.
+
+Rules:
+
+- A session that writes to git claims its own worktree before starting:
+  `python tools/worktree_lifecycle/wt.py claim <id> --purpose "<why>"`.
+- `main` changes only by merge, never by a commit made from a session working on
+  another branch.
+- A claim is closed when the work lands: `wt.py release <id> --remove`.
+- `wt.py list` shows each tree with branch, commits ahead, dirtiness, unpushed
+  commits and age. A tree with no registry entry is a finding to classify, not
+  something to delete on sight.
+- `wt.py reap` removes a tree only when it is merged or empty, clean, and older
+  than the TTL. Dirty trees, trees with unpushed commits and active claims are
+  reported and left alone.
+- The `pre-commit` hook refuses a commit when the current branch differs from the
+  one this worktree claimed.
+
+Claims are local operational state in `<git-common-dir>/theseus-worktrees.json`,
+shared by every worktree and never committed: a committed copy inside a worktree
+would diverge per branch and fight on every merge. Existence is always read from
+`git worktree list`, never from the claims file - a record trusted over reality
+will eventually describe trees that no longer exist.
+
 ## Project Change Control (MarcoPolo project-settings v9)
 
 The project contract revision is `2026-10-skill-router-v9`; its canonical

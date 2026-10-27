@@ -109,3 +109,6 @@ outputs/gramps_mcp_crud_direct/*
 *.pem
 *.pfx
 outputs/memory_outbox/
+
+# Per-worktree claim marker, written by tools/worktree_lifecycle
+.worktree-claim.json
