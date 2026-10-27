@@ -7,7 +7,7 @@ running Alloy config (single source of truth) and never printed.
 
 Metrics emitted as logfmt lines so LogQL can `| logfmt | unwrap value`:
 
-    metric=balance_usd value=4.92
+    metric=stripe_balance_usd value=-5.0
     metric=spend_month_usd value=0.08
     metric=spend_recent_usd value=0.08
     metric=suspended value=0
@@ -71,10 +71,14 @@ def build_lines(checklist: dict, usage: dict) -> list[str]:
 
     raw_balance = checklist.get("stripe_balance")
     if isinstance(raw_balance, (int, float)):
-        available = -raw_balance if raw_balance < 0 else 0.0
-        owed = raw_balance if raw_balance > 0 else 0.0
-        lines.append(f"metric=balance_usd value={available:.4f}")
-        lines.append(f"metric=owed_usd value={owed:.4f}")
+        # The raw value only. Do NOT derive an "available balance": the sign
+        # convention did not hold in production - stripe_balance was -5.0 while
+        # the account was suspended and every request returned HTTP 402, so the
+        # derived 5.0 read as money that was not there. A number that survives
+        # only in the happy path is not a measurement.
+        lines.append(f"metric=stripe_balance_usd value={float(raw_balance):.4f}")
+        if raw_balance > 0:
+            lines.append(f"metric=owed_usd value={float(raw_balance):.4f}")
     if isinstance(checklist.get("recent"), (int, float)):
         lines.append(f"metric=spend_recent_usd value={float(checklist['recent']):.4f}")
     if isinstance(checklist.get("limit"), (int, float)):
@@ -157,7 +161,7 @@ def main() -> int:
         print(f"Loki push failed: {type(exc).__name__}: {exc}", file=sys.stderr)
         return 4
 
-    balance = next((ln.split("=")[-1] for ln in lines if ln.startswith("metric=balance_usd")), "?")
+    balance = next((ln.split("=")[-1] for ln in lines if ln.startswith("metric=stripe_balance_usd")), "?")
     month = next((ln.split("=")[-1] for ln in lines if ln.startswith("metric=spend_month_usd")), "?")
     print(f"loki={status} lines={len(lines)} balance_usd={balance} spend_month_usd={month}")
     return 0
