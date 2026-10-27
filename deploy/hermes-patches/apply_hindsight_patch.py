@@ -31,19 +31,38 @@ DEFAULT_PLUGIN_DIR = pathlib.Path.home() / "AppData/Local/hermes/plugins/hindsig
 MARKER = "def _fmt_recall_line("
 
 HELPER = '''    def _fmt_recall_line(self, r, prefix: str = "- ") -> str:
-        """Render one recalled memory with its date, so the reader can tell how old a fact is.
+        """Render one recalled memory with its date and, when known, its source session.
 
         Hindsight returns occurred_start / occurred_end / mentioned_at, but the block used to
         render only ``r.text`` - a fact from yesterday looked identical to one from three weeks
-        ago. Dates are metadata, so this is deterministic: no model call, no server change.
+        ago, and there was no way back to the conversation it came from.
+
+        Raw ``experience`` facts carry provenance (metadata.session_id, or a ``session:`` tag);
+        consolidated ``world`` / ``observation`` facts currently lose it, so the session marker
+        is simply omitted for those. Dates and provenance are metadata: no model call involved.
         """
         when = (
             getattr(r, "occurred_start", None)
             or getattr(r, "occurred_end", None)
             or getattr(r, "mentioned_at", None)
         )
-        if when:
-            return f"{prefix}[{str(when)[:10]}] {r.text}"
+        stamp = str(when)[:10] if when else ""
+
+        sid = None
+        meta = getattr(r, "metadata", None) or {}
+        if isinstance(meta, dict):
+            sid = meta.get("session_id")
+        if not sid:
+            for tag in getattr(r, "tags", None) or []:
+                if isinstance(tag, str) and tag.startswith("session:"):
+                    sid = tag.split(":", 1)[1]
+                    break
+
+        if sid:
+            marker = f"{stamp} \\u00b7 {str(sid)[:8]}" if stamp else str(sid)[:8]
+            return f"{prefix}[{marker}] {r.text}"
+        if stamp:
+            return f"{prefix}[{stamp}] {r.text}"
         return f"{prefix}{r.text}"
 
 '''
