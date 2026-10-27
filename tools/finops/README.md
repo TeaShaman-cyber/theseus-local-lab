@@ -126,6 +126,31 @@ quota and time), output is what gets billed at full price. A session with 250M
 input and almost no output is a chat re-reading its own history, not a chat that
 produced a lot of work.
 
+## Chat names instead of hashes
+
+The agent log identifies a session as `local-<sha256>`, which is useless when
+deciding where the money went. `state.db` has the title, so
+`push_session_usage.py` reads it (read-only, WAL-safe) and publishes cumulative
+per-session counters with the title attached:
+
+| metric | meaning |
+|---|---|
+| `session_input_tokens` | prompt tokens for the life of the session |
+| `session_output_tokens` | generated tokens |
+| `session_cache_read_tokens` | cache reads |
+| `session_api_calls` | API calls |
+
+Stream `{service_name="finops", log_type="session_usage", job="hermes-sessions"}`,
+windows limited to sessions active in the last 30 days, untitled sessions skipped.
+
+**Titles are not unique.** `sum by (title)` merges separate chats that share a
+name - one title covered 157M input across several sessions. Always group by
+`(title, session)` so distinct chats stay distinct.
+
+Cumulative counters, not windowed ones: the panel answers "which chat has cost
+the most overall", while the Loki-derived per-session panel answers "which chat
+is burning right now".
+
 ## LogQL trap: valid regex that never matches
 
 In this stack two regex shapes parse fine and then return **zero rows** where
