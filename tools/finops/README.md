@@ -33,22 +33,46 @@ USD per 1M tokens, verified 2026-10-27 against the provider catalogues:
 Prices change. Re-verify before trusting a bound; a stale price silently turns a
 bound into a lie.
 
-## Why the estimate is a range
+## Exact cost, not a range
 
-The agent log line records only the total input and how much of it hit the cache:
+The agent log line carries both the total input and how much of it the provider
+served from cache:
 
 ```
-API call #1: model=X provider=Y in=112425 out=205 total=112630 latency=5.1s cache=...
+API call #1: model=X provider=Y in=112425 out=205 total=112630 latency=5.1s cache=112004/112488 (100%)
 ```
 
-`in` includes cached tokens, so the true cost sits between two limits:
+So the cost is determined, not bounded:
 
-- **lower** — every input token billed at the cache-read price;
-- **upper** — every input token billed at the full input price.
+```
+cost = (in - cached) * price_in + cached * price_cache + out * price_out
+```
 
-The real bill is inside that interval. Output is priced exactly, so it is added
-to both ends. When a per-call cache split is available, the range can collapse
-into one number — that is the follow-up work in #70.
+The dashboard computes it with a server-side math expression over three LogQL
+queries (input, cached, output). The three token queries are `hide: true` so the
+stat shows one dollar figure instead of four series.
+
+Worked example, 7 days of RunInfra: 665.29M input, 653.49M cached, 1.16M output.
+
+```
+(665.29 - 653.49) * 0.15 + 653.49 * 0.01 + 1.16 * 0.60 = 9.00
+```
+
+Verified against the rendered panel (`$9.00`), and Nous with the same shape:
+204.82M / 200.54M / 0.34M → `$2.99`.
+
+### Where the formula degrades
+
+- **Mixed models behind one provider.** A provider is not a price. If two models
+  with different rates share the `provider=` value, the sum is an average with no
+  error bar. Group by `model` when in doubt.
+- **Stale prices.** The numbers are constants in the dashboard. A price change
+  makes the panel quietly wrong, so the token queries stay one click away.
+- **Missing `cache=` field.** Lines without it are treated as fully uncached by
+  the subtraction, which is the safe direction — it overestimates.
+- **Non-token billing** (per-request fees, minimums, subscriptions) is invisible
+  here. DeepInfra is excluded from this panel entirely because it has a real
+  billing API, and fact beats formula.
 
 ## Recreating or changing the dashboard
 
