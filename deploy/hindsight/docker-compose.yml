@@ -64,7 +64,12 @@ services:
       # Hindsight tool contract in 2/2 independent disposable-station runs.
       HINDSIGHT_API_REFLECT_LLM_PROVIDER: openai
       HINDSIGHT_API_REFLECT_LLM_BASE_URL: https://openai.bothub.chat/v1
-      HINDSIGHT_API_REFLECT_LLM_API_KEY: ${HINDSIGHT_BOTHUB_KEY}
+      # Do NOT set the reflect key here. Compose interpolates ${VAR} only from
+      # the shell or the compose-directory .env, never from `env_file`, so this
+      # line silently resolved to an empty string and every reflect call failed
+      # with 401 UNAUTHORIZED. The key comes from the runtime env file instead
+      # (HINDSIGHT_API_REFLECT_LLM_API_KEY in ${HINDSIGHT_RUNTIME_ENV_FILE}),
+      # and `environment` would override that file if repeated here.
       HINDSIGHT_API_REFLECT_LLM_MODEL: mistral-small-3.2-24b-instruct
       HINDSIGHT_API_REFLECT_LLM_REASONING_EFFORT: "none"
       # Real-bank reflect runs took 80–139s; 120s can abort a valid run.

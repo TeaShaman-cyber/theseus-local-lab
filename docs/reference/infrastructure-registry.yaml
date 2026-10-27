@@ -110,6 +110,12 @@ stacks:
       llm_primary: upstage_solar_mini4_free
       llm_paid_member: disabled_20261027_bothub_caps_exhausted_at_98_percent
       llm_paid_member_tradeoff: no_fallback_when_the_free_model_is_rate_limited
+      reflect_route_owner: bothub_paid_rubles_mistral_small_3_2_24b
+      reflect_auth_status: verified_20261027_after_env_file_fix
+      reflect_auth_defect: compose interpolated reflect key from the shell, not from env_file, so the container carried an empty key and every reflect call returned 401
+      reflect_key_source: runtime_env_file_only
+      reflect_issue: https://github.com/TeaShaman-cyber/theseus-local-lab/issues/72
+      reflect_timeout_status: open_504_at_300s_after_auth_fix
       embeddings_model: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
       reranker_model: cross-encoder/mmarco-mMiniLMv2-L12-H384-v1
       reranker_max_candidates: 80
@@ -128,7 +134,7 @@ stacks:
     codex_isolation: bank-level-isolated-from-hermes
     secrets: external-not-in-registry
     tracking_issue: https://github.com/TeaShaman-cyber/theseus-local-lab/issues/3
-    notes: Hindsight Compose source is owned by this repository; runtime env and Docker named volumes remain external. The weighted round-robin of 2026-09 is retired - the paid BotHub member was disabled on 2026-10-27 at 98 percent of its caps, leaving one free model, so a rate limit now has no fallback. The stack is multilingual since 2026-10-26 (L12 embeddings and L12 reranker), which is the current source of recall latency; the older 6.2 s figure came from a different stack on a VPS that no longer exists. Recovery is no longer excluded, because the bank is covered by the restic scheme in issue 66.
+    notes: Hindsight Compose source is owned by this repository; runtime env and Docker named volumes remain external. The weighted round-robin of 2026-09 is retired - the paid BotHub member was disabled on 2026-10-27 at 98 percent of its caps, leaving one free model, so a rate limit now has no fallback. The stack is multilingual since 2026-10-26 (L12 embeddings and L12 reranker), which is the current source of recall latency; the older 6.2 s figure came from a different stack on a VPS that no longer exists. Recovery is no longer excluded, because the bank is covered by the restic scheme in issue 66. The reflect route is a second, separate LLM dependency - BotHub in rubles running mistral-small-3.2-24b-instruct over openai.bothub.chat. Its API key must live in the runtime env file only, because Compose interpolates ${VAR} from the shell or the compose-directory .env and never from env_file, while an environment entry silently overrides env_file; setting it in compose produced an empty key and 401 on every reflect call (issue 72). BotHub exposes no balance or usage endpoint, so its spend is not directly observable - only our own call volume and auth errors are, which is why the finops dashboard shows BotHub as counters rather than rubles.
 
   - id: hermes-subscription-proxy
     status: active-runtime-source-verified-solar-route-blocked
