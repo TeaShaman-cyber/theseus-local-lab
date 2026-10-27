@@ -117,7 +117,7 @@ loki.process "hermes_logs" {
   // 1) Redaction. Covers GitHub, Grafana Cloud, OpenAI-style and AWS key shapes
   // plus JWT-like tokens. The marker [REDACTED] is what the alert watches for.
   stage.replace {
-    expression = "(ghp_[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{20,}|glsa_[A-Za-z0-9]{30,}|glc_[A-Za-z0-9+/=]{30,}|sk-[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16}|eyJ[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{10,})"
+    expression = "(ghp_[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{20,}|glsa_[A-Za-z0-9]{30,}|glc_[A-Za-z0-9+/=]{30,}|sk-[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16}|eyJ[A-Za-z0-9_-]{10,}[.][A-Za-z0-9_-]{10,}[.][A-Za-z0-9_-]{10,}|ya29[.][A-Za-z0-9_-]{20,}|1//[A-Za-z0-9_-]{20,})"
     replace    = "[REDACTED]"
   }
 
@@ -262,7 +262,7 @@ loki.process "container_logs" {
 
   // Same secret shapes as the Hermes log pipeline.
   stage.replace {
-    expression = "(ghp_[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{20,}|glsa_[A-Za-z0-9]{30,}|glc_[A-Za-z0-9+/=]{30,}|sk-[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16}|eyJ[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{10,})"
+    expression = "(ghp_[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{20,}|glsa_[A-Za-z0-9]{30,}|glc_[A-Za-z0-9+/=]{30,}|sk-[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16}|eyJ[A-Za-z0-9_-]{10,}[.][A-Za-z0-9_-]{10,}[.][A-Za-z0-9_-]{10,}|ya29[.][A-Za-z0-9_-]{20,}|1//[A-Za-z0-9_-]{20,})"
     replace    = "[REDACTED]"
   }
 
