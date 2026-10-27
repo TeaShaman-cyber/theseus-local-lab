@@ -215,3 +215,65 @@ prometheus.scrape "hindsight_api" {
   scrape_interval = "30s"
   forward_to      = [prometheus.remote_write.grafana_cloud.receiver]
 }
+
+// ---------------------------------------------------------------------------
+// Container logs (issue #51 follow-up)
+//
+// Docker Desktop keeps container output inside its own VM, so `docker logs`
+// only works interactively and leaves nothing to search afterwards. Read the
+// same stream through the existing read-only socket proxy — no raw
+// docker.sock mount, no privileged log-driver plugin — and push it to the same
+// Loki as the Hermes logs.
+//
+// Redaction runs here too: a container is exactly where a token ends up in a
+// log line by accident. The expression must stay in sync with the one in
+// loki.process "hermes_logs".
+// ---------------------------------------------------------------------------
+discovery.docker "containers" {
+  host = "http://127.0.0.1:23960"
+}
+
+discovery.relabel "containers" {
+  targets = []
+
+  rule {
+    source_labels = ["__meta_docker_container_name"]
+    regex         = "/(.*)"
+    target_label  = "container"
+  }
+
+  rule {
+    source_labels = ["__meta_docker_container_label_com_docker_compose_service"]
+    target_label  = "service"
+  }
+}
+
+loki.source.docker "containers" {
+  host          = "http://127.0.0.1:23960"
+  targets       = discovery.docker.containers.targets
+  labels        = { job = "docker" }
+  relabel_rules = discovery.relabel.containers.rules
+  forward_to    = [loki.process.container_logs.receiver]
+  refresh_interval = "30s"
+}
+
+loki.process "container_logs" {
+  forward_to = [loki.write.grafana_cloud.receiver]
+
+  // Same secret shapes as the Hermes log pipeline.
+  stage.replace {
+    expression = "(ghp_[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{20,}|glsa_[A-Za-z0-9]{30,}|glc_[A-Za-z0-9+/=]{30,}|sk-[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16}|eyJ[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{10,})"
+    replace    = "[REDACTED]"
+  }
+
+  // Health-check chatter is the bulk of container output and says nothing.
+  stage.drop {
+    expression = "GET /health HTTP/1\\.1\" 200"
+    drop_counter_reason = "health_check"
+  }
+
+  stage.drop {
+    expression = "^\\s*$"
+    drop_counter_reason = "blank_line"
+  }
+}
