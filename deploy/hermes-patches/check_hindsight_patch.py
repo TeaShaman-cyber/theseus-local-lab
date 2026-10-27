@@ -20,10 +20,14 @@ import sys
 
 DEFAULT_PLUGIN_DIR = pathlib.Path.home() / "AppData/Local/hermes/plugins/hindsight"
 
-# The patch is "present" when all three markers exist: the helper and both call sites.
+# "Present" means both behaviours are wired in: the renderer that adds date and
+# session, the dedupe helper, and at least one call site using it. Matching an
+# exact call-site line went stale the moment the call sites changed, which turned
+# this check into a false alarm - markers must describe behaviour, not a shape.
 MARKERS = (
     "def _fmt_recall_line(",
-    "self._fmt_recall_line(r) for r in results if r.text",
+    "def _dedupe_recall(",
+    "self._dedupe_recall(",
     'self._fmt_recall_line(r, f"{i}. ")',
 )
 

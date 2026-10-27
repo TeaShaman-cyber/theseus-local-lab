@@ -1,17 +1,20 @@
 #!/usr/bin/env python3
-"""Apply the Hindsight recall-date patch to the installed plugin, idempotently.
+"""Apply the Hindsight recall patch to the installed plugin, idempotently.
 
-The plugin lives outside this repository (in the Hermes install), so a repo-only
-patch file is not enough: after any plugin or Hermes update the change is gone
-and nobody notices, because the memory block simply stops showing dates.
+The plugin lives outside this repository, so a patch file alone is not enough:
+after any plugin or Hermes update the change is gone and nobody notices, because
+the memory block silently stops showing dates and starts repeating facts.
 
-This script closes that gap:
-  - if the patch is already present, it does nothing (exit 0);
-  - otherwise it inserts the helper and rewrites the two render sites;
-  - it always writes a timestamped backup next to the file.
+What the patch does:
+  1. renders each recalled memory with its date and source session;
+  2. collapses repeated text, keeping the copy that carries provenance.
 
-Exit codes: 0 = applied or already present, 1 = target text not found (upstream
-changed), 2 = plugin file missing.
+This script refuses to guess: it stops when the upstream text it expects is not
+there, writes a timestamped backup first, re-reads the result and verifies both
+behaviours before reporting success. A failed verification restores the backup.
+
+Exit codes: 0 = applied or already present, 1 = upstream changed shape or
+verification failed, 2 = plugin file missing.
 
 Usage:
     python deploy/hermes-patches/apply_hindsight_patch.py
@@ -29,32 +32,102 @@ import sys
 DEFAULT_PLUGIN_DIR = pathlib.Path.home() / "AppData/Local/hermes/plugins/hindsight"
 
 MARKER = "def _fmt_recall_line("
+DEDUPE_MARKER = "def _dedupe_recall("
 
-HELPER = '''    def _fmt_recall_line(self, r, prefix: str = "- ") -> str:
-        """Render one recalled memory with its date, so the reader can tell how old a fact is.
+NL = chr(10)
+BS = chr(92)
+
+HELPER = r'''    def _fmt_recall_line(self, r, prefix: str = "- ") -> str:
+        """Render one recalled memory with its date and, when known, its source session.
 
         Hindsight returns occurred_start / occurred_end / mentioned_at, but the block used to
         render only ``r.text`` - a fact from yesterday looked identical to one from three weeks
-        ago. Dates are metadata, so this is deterministic: no model call, no server change.
+        ago, and there was no way back to the conversation it came from.
+
+        Raw ``experience`` facts carry provenance (metadata.session_id, or a ``session:`` tag);
+        consolidated ``world`` / ``observation`` facts currently lose it, so the session marker
+        is simply omitted for those. Dates and provenance are metadata: no model call involved.
         """
         when = (
             getattr(r, "occurred_start", None)
             or getattr(r, "occurred_end", None)
             or getattr(r, "mentioned_at", None)
         )
-        if when:
-            return f"{prefix}[{str(when)[:10]}] {r.text}"
+        stamp = str(when)[:10] if when else ""
+
+        sid = None
+        meta = getattr(r, "metadata", None) or {}
+        if isinstance(meta, dict):
+            sid = meta.get("session_id")
+        if not sid:
+            for tag in getattr(r, "tags", None) or []:
+                if isinstance(tag, str) and tag.startswith("session:"):
+                    sid = tag.split(":", 1)[1]
+                    break
+
+        if sid:
+            marker = f"{stamp} · {str(sid)[:8]}" if stamp else str(sid)[:8]
+            return f"{prefix}[{marker}] {r.text}"
+        if stamp:
+            return f"{prefix}[{stamp}] {r.text}"
         return f"{prefix}{r.text}"
 
+    @staticmethod
+    def _recall_key(text) -> str:
+        """Normalised text used to spot the same fact stored more than once."""
+        cleaned = str(text or "").split("| When:")[0].lower()
+        cleaned = "".join(ch if (ch.isalnum() or ch == " ") else " " for ch in cleaned)
+        return " ".join(cleaned.split())[:160]
+
+    @staticmethod
+    def _has_provenance(r) -> bool:
+        """True when the record can still be traced back to the session it came from."""
+        meta = getattr(r, "metadata", None) or {}
+        if isinstance(meta, dict) and meta.get("session_id"):
+            return True
+        for tag in getattr(r, "tags", None) or []:
+            if isinstance(tag, str) and tag.startswith("session:"):
+                return True
+        return str(getattr(r, "type", "")) == "experience"
+
+    def _dedupe_recall(self, results):
+        """Collapse repeated facts, keeping the record that carries provenance.
+
+        Consolidation writes an observation whose text matches the experience it came
+        from, so recall regularly returns one sentence twice - measured at 17 percent
+        of all returned lines across twenty queries. That is context budget spent on
+        nothing, and it makes a single fact look like two. Matching is on normalised
+        text, so it is deterministic and costs no model call; when both copies are
+        present the one with a session reference wins even if it ranked lower.
+        """
+        kept = {}
+        order = []
+        for r in results:
+            key = self._recall_key(getattr(r, "text", ""))
+            if not key:
+                continue
+            prev = kept.get(key)
+            if prev is None:
+                kept[key] = r
+                order.append(key)
+            elif self._has_provenance(r) and not self._has_provenance(prev):
+                kept[key] = r
+        return [kept[k] for k in order]
 '''
 
 ANCHOR = "    def _do_recall(self, query: str) -> tuple[str, int]:"
 
-OLD_PREFETCH = '            return "\\n".join(f"- {r.text}" for r in results if r.text), len(results)'
-NEW_PREFETCH = '            return "\\n".join(self._fmt_recall_line(r) for r in results if r.text), len(results)'
+_OLD_PREFIX = '            return "'
+_OLD_TOOL_PREFIX = '        return "'
+_JOIN = '"' + BS + 'n".join('
 
-OLD_TOOL = '        return "\\n".join(f"{i}. {r.text}" for i, r in enumerate(results, 1)) or "No relevant memories found."'
-NEW_TOOL = '        return "\\n".join(self._fmt_recall_line(r, f"{i}. ") for i, r in enumerate(results, 1)) or "No relevant memories found."'
+OLD_PREFETCH = _OLD_PREFIX + '\n".join(f"- {r.text}" for r in results if r.text), len(results)'
+NEW_PREFETCH = ('            deduped = self._dedupe_recall([r for r in results if r.text])' + NL +
+                '            return ' + _JOIN + 'self._fmt_recall_line(r) for r in deduped), len(deduped)')
+
+OLD_TOOL = _OLD_TOOL_PREFIX + '\n".join(f"{i}. {r.text}" for i, r in enumerate(results, 1)) or "No relevant memories found."'
+NEW_TOOL = ('        deduped = self._dedupe_recall(results)' + NL +
+            '        return ' + _JOIN + 'self._fmt_recall_line(r, f"{i}. ") for i, r in enumerate(deduped, 1)) or "No relevant memories found."')
 
 
 def main() -> int:
@@ -69,13 +142,20 @@ def main() -> int:
         return 2
 
     text = target.read_text(encoding="utf-8")
+    has_dates = MARKER in text
+    has_dedupe = DEDUPE_MARKER in text and "self._dedupe_recall(" in text
 
-    if MARKER in text:
+    if has_dates and has_dedupe:
         print(f"OK: patch already present in {target}")
         return 0
 
     if args.check:
-        print(f"PENDING: patch not applied in {target}")
+        print(f"PENDING: dates={has_dates} dedupe={has_dedupe} in {target}")
+        return 1
+
+    if has_dates and not has_dedupe:
+        print("PARTIAL: the date patch is present but dedupe is missing.")
+        print("This script applies both at once; restore the upstream file first.")
         return 1
 
     if ANCHOR not in text:
@@ -89,12 +169,21 @@ def main() -> int:
     backup = target.with_suffix(f".py.bak-{stamp}")
     shutil.copy2(target, backup)
 
-    patched = text.replace(ANCHOR, HELPER + ANCHOR, 1)
+    patched = text.replace(ANCHOR, HELPER + NL + ANCHOR, 1)
     patched = patched.replace(OLD_PREFETCH, NEW_PREFETCH, 1)
     patched = patched.replace(OLD_TOOL, NEW_TOOL, 1)
-
     target.write_text(patched, encoding="utf-8")
-    print(f"APPLIED: {target} (backup: {backup.name})")
+
+    check = target.read_text(encoding="utf-8")
+    ok = (MARKER in check and DEDUPE_MARKER in check
+          and "self._dedupe_recall(" in check
+          and OLD_PREFETCH not in check and OLD_TOOL not in check)
+    if not ok:
+        shutil.copy2(backup, target)
+        print(f"FAIL: verification failed, restored from {backup.name}")
+        return 1
+
+    print(f"APPLIED and verified: {target} (backup: {backup.name})")
     print("Restart Hermes for the plugin to reload.")
     return 0
 
