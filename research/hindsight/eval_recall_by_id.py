@@ -76,7 +76,7 @@ def build_gold(index: dict[str, dict]) -> list[dict]:
         })
     if missing:
         print(f"WARN: факты не найдены в банке: {missing}", file=sys.stderr)
-    GOLD_OUT.write_text(json.dumps(gold, ensure_ascii=False, indent=1), encoding="utf-8")
+    GOLD_OUT.write_text(json.dumps(gold, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     return gold
 
 
