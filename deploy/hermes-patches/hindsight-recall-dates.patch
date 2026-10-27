@@ -84,23 +84,21 @@
      def _do_recall(self, query: str) -> tuple[str, int]:
          """One recall/reflect for *query* (background prefetch and ``recall_sync`` paths)
          -> (text, memory count); the count is 0 for reflect (synthesis) and on error."""
-@@ -1759,8 +1836,8 @@
+@@ -1759,7 +1836,8 @@
              )
              results = self._recall(query)
              logger.debug("Recall: returned %d results", len(results))
--            return "
--".join(f"- {r.text}" for r in results if r.text), len(results)
+-            return "\n".join(f"- {r.text}" for r in results if r.text), len(results)
 +            deduped = self._dedupe_recall([r for r in results if r.text])
 +            return "\n".join(self._fmt_recall_line(r) for r in deduped), len(deduped)
          except Exception as e:
              logger.warning("Hindsight recall failed: %s", e, exc_info=True)
              return "", 0
-@@ -2113,8 +2190,8 @@
+@@ -2112,7 +2190,8 @@
          logger.debug("Tool hindsight_recall: bank=%s, query_len=%d, budget=%s", self._bank_id, len(query), self._budget)
          results = self._recall(query)
          logger.debug("Tool hindsight_recall: %d results", len(results))
--        return "
--".join(f"{i}. {r.text}" for i, r in enumerate(results, 1)) or "No relevant memories found."
+-        return "\n".join(f"{i}. {r.text}" for i, r in enumerate(results, 1)) or "No relevant memories found."
 +        deduped = self._dedupe_recall(results)
 +        return "\n".join(self._fmt_recall_line(r, f"{i}. ") for i, r in enumerate(deduped, 1)) or "No relevant memories found."
  

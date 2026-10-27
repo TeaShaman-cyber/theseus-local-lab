@@ -23,7 +23,8 @@ DEFAULT_PLUGIN_DIR = pathlib.Path.home() / "AppData/Local/hermes/plugins/hindsig
 # The patch is "present" when all three markers exist: the helper and both call sites.
 MARKERS = (
     "def _fmt_recall_line(",
-    "self._fmt_recall_line(r) for r in results if r.text",
+    "def _dedupe_recall(",
+    "self._dedupe_recall(",
     'self._fmt_recall_line(r, f"{i}. ")',
 )
 
