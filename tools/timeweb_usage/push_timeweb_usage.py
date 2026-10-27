@@ -17,6 +17,7 @@ sys.path.insert(0, str(ROOT / 'tools' / 'deepinfra_usage'))
 from push_deepinfra_usage import loki_credentials  # noqa: E402
 
 API = 'https://api.timeweb.cloud/api/v1/account/finances'
+COST_API = 'https://api.timeweb.cloud/api/v1/account/services/cost'
 TIMEOUT = 30
 
 # field in the API response -> metric suffix
@@ -69,8 +70,60 @@ def build_lines(payload, now):
     return lines
 
 
-def fetch(token: str) -> dict:
-    request = urllib.request.Request(API, headers={'Authorization': f'Bearer {token}'})
+def quote(text: str) -> str:
+    return '"' + str(text).replace('\\', '/').replace('"', "'") + '"'
+
+
+def build_cost_lines(payload, now):
+    """Per-service cost: this is where AI and infrastructure finally separate."""
+    lines = [f'metric=cost_sample_timestamp_seconds value={now}']
+    items = None
+    if isinstance(payload, dict):
+        items = payload.get('services_costs')
+    ok = isinstance(items, list)
+    lines.append(f'metric=cost_read_ok value={int(ok)}')
+    if not ok:
+        return lines
+    ai_total = 0.0
+    infra_total = 0.0
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+        service_type = str(item.get('type') or 'unknown')
+        name = (item.get('info') or {}).get('name') or service_type
+        total = item.get('total_cost')
+        if type(total) not in (int, float) or not math.isfinite(total):
+            total = 0.0
+        if service_type == 'ai_proxy_key':
+            ai_total += total
+            lines.append(f'metric=ai_cost_rub value={total:.6f} key={quote(name)}')
+            for part in item.get('services') or []:
+                if not isinstance(part, dict):
+                    continue
+                kind = str(part.get('type') or 'unknown')
+                amount = part.get('amount')
+                cost = part.get('cost')
+                if type(amount) in (int, float):
+                    lines.append(
+                        f'metric=ai_tokens value={amount:.0f} key={quote(name)} '
+                        f'kind={kind} model_id={part.get("model_id", "")}'
+                    )
+                if type(cost) in (int, float):
+                    lines.append(
+                        f'metric=ai_token_cost_rub value={cost:.6f} key={quote(name)} '
+                        f'kind={kind} model_id={part.get("model_id", "")}'
+                    )
+        else:
+            infra_total += total
+            lines.append(f'metric=service_cost_rub value={total:.6f} type={service_type} name={quote(name)}')
+    lines.append(f'metric=finops_ai_cost_rub value={ai_total:.6f}')
+    lines.append(f'metric=finops_infra_cost_rub value={infra_total:.6f}')
+    lines.append(f'metric=finops_service_count value={len(items)}')
+    return lines
+
+
+def fetch(url: str, creds: str) -> dict:
+    request = urllib.request.Request(url, headers={'Authorization': f'Bearer {creds}'})
     with urllib.request.urlopen(request, timeout=TIMEOUT) as response:
         return json.load(response)
 
@@ -97,21 +150,30 @@ def main() -> int:
 
     creds = env_value('TW_API_KEY')
     payload, error = None, ''
+    costs, cost_error = None, ''
     if not creds:
         error = 'missing TW_API_KEY'
     else:
         try:
-            payload = fetch(creds)
+            payload = fetch(API, creds)
         except urllib.error.HTTPError as exc:
             error = f'http_{exc.code}'
         except Exception as exc:  # noqa: BLE001 - any transport failure is "no reading"
             error = type(exc).__name__
+        try:
+            costs = fetch(COST_API, creds)
+        except urllib.error.HTTPError as exc:
+            cost_error = f'http_{exc.code}'
+        except Exception as exc:  # noqa: BLE001
+            cost_error = type(exc).__name__
 
-    lines = build_lines(payload, int(time.time()))
+    now = int(time.time())
+    lines = build_lines(payload, now) + build_cost_lines(costs, now)
     log_path = hermes_home() / 'cache' / 'timeweb_usage.log'
     log_path.parent.mkdir(parents=True, exist_ok=True)
     with log_path.open('a', encoding='utf-8') as log:
         log.write(('account_read_error=%s\n' % error) if error else 'account_read_ok\n')
+        log.write(('cost_read_error=%s\n' % cost_error) if cost_error else 'cost_read_ok\n')
 
     if args.dry_run:
         print('\n'.join(lines))
