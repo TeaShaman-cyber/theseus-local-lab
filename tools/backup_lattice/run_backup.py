@@ -16,9 +16,13 @@ from __future__ import annotations
 import hashlib
 import os
 import pathlib
+import shutil
 import subprocess
 import sys
 import time
+
+# A scheduled task has no console; without this every child process would flash one.
+_NO_WINDOW = subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0
 
 STAGING = pathlib.Path(r"D:/theseus-backups/staging")
 SURVIVAL = pathlib.Path(r"D:/theseus-backups/survival")
@@ -36,6 +40,12 @@ SMALL_REPOS = {
 
 KEEP = ["--keep-daily", "14", "--keep-weekly", "8", "--keep-monthly", "6"]
 
+# The uplink is the bottleneck (~270 KiB/s measured). Without a cap the backup
+# takes the whole channel for the duration and everything else on the machine —
+# probes, model calls, interactive work — degrades. 2 MiB/s leaves headroom and
+# costs nothing at night.
+UPLOAD_LIMIT = ["--limit-upload", "2048"]
+
 
 def log(msg: str) -> None:
     print(f"[{time.strftime('%H:%M:%S')}] {msg}", flush=True)
@@ -52,12 +62,31 @@ def env_with_s3() -> dict:
 
 
 def run(cmd: list[str], env: dict, timeout: int = 7200) -> tuple[int, str]:
-    r = subprocess.run(cmd, capture_output=True, text=True, env=env, timeout=timeout)
+    r = subprocess.run(cmd, capture_output=True, text=True, env=env, timeout=timeout,
+                       creationflags=_NO_WINDOW)
     return r.returncode, (r.stdout + r.stderr).strip()
 
 
+def bin_path(name: str) -> str:
+    """Resolve a binary even when the scheduler starts us with a minimal PATH."""
+    found = shutil.which(name)
+    if found:
+        return found
+    candidates = {
+        "restic": [
+            pathlib.Path(os.environ.get("LOCALAPPDATA", "")) / "Microsoft/WinGet/Links/restic.exe",
+            pathlib.Path(r"C:/ProgramData/chocolatey/bin/restic.exe"),
+        ],
+        "docker": [pathlib.Path(r"C:/Program Files/Docker/Docker/resources/bin/docker.exe")],
+    }.get(name, [])
+    for c in candidates:
+        if c and c.exists():
+            return str(c)
+    return name
+
+
 def restic(repo: str, args: list[str], env: dict, timeout: int = 7200) -> tuple[int, str]:
-    return run(["restic", "-r", repo] + args, env, timeout)
+    return run([bin_path("restic"), "-r", repo] + args, env, timeout)
 
 
 def sha256(path: pathlib.Path) -> str:
@@ -70,7 +99,10 @@ def sha256(path: pathlib.Path) -> str:
 
 def backup_repo(name: str, repo: str, source: pathlib.Path, env: dict) -> dict:
     started = time.time()
-    code, out = restic(repo, ["backup", str(source), "--tag", "lab", "--host", "theseus-laptop"], env)
+    cmd = ["backup", str(source), "--tag", "lab", "--host", "theseus-laptop"]
+    if not repo[:2].upper() in ("C:", "D:"):   # network repositories only
+        cmd += UPLOAD_LIMIT
+    code, out = restic(repo, cmd, env)
     if code != 0:
         return {"repo": name, "ok": False, "stage": "backup", "detail": out[-300:]}
 
@@ -97,7 +129,7 @@ def verify(env: dict) -> dict:
         return {"ok": False, "detail": "no dump to verify"}
 
     if RESTORE_CHECK.exists():
-        subprocess.run(["rm", "-rf", str(RESTORE_CHECK)], timeout=300)
+        subprocess.run(["rm", "-rf", str(RESTORE_CHECK)], timeout=300, creationflags=_NO_WINDOW)
 
     code, out = restic(
         FULL_REPOS["local"],
@@ -127,6 +159,10 @@ def main() -> int:
     started = time.time()
     env = env_with_s3()
     env.setdefault("RESTIC_PASSWORD_FILE", r"D:/theseus-backups/.restic-password")
+
+    # Emitted before any work: without it a run that hangs shows nothing at all,
+    # because every other line is written only after its step completes.
+    heartbeat({"event": "BACKUP_START", "pid": os.getpid()})
 
     log("preparing snapshot")
     code, out = run([sys.executable, str(pathlib.Path(__file__).with_name("prepare_snapshot.py"))], env, 3600)

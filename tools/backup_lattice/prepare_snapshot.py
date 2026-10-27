@@ -16,6 +16,9 @@ import subprocess
 import sys
 import time
 
+# A scheduled task has no console; without this every child process would flash one.
+_NO_WINDOW = subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0
+
 STAGING = pathlib.Path(r"D:/theseus-backups/staging")
 HERMES = pathlib.Path.home() / "AppData/Local/hermes"
 CODEX = pathlib.Path.home() / ".codex"
@@ -50,6 +53,15 @@ def sqlite_snapshot(src: pathlib.Path, dst: pathlib.Path) -> str:
     return f"ok {dst.name}: integrity={ok} tables={rows} size={dst.stat().st_size}"
 
 
+def docker_bin() -> str:
+    """Resolve docker even when the scheduler starts us with a minimal PATH."""
+    found = shutil.which("docker")
+    if found:
+        return found
+    fallback = pathlib.Path(r"C:/Program Files/Docker/Docker/resources/bin/docker.exe")
+    return str(fallback) if fallback.exists() else "docker"
+
+
 def hindsight_dump(dst: pathlib.Path) -> str:
     """pg_dump of the Hindsight bank, executed inside its container."""
     container = "hindsight-api"
@@ -62,19 +74,19 @@ def hindsight_dump(dst: pathlib.Path) -> str:
         f'-Fc --compress=6 -f {inner}'
     )
     r = subprocess.run(
-        ["docker", "exec", container, "sh", "-lc", script],
-        capture_output=True, text=True, timeout=600,
+        [docker_bin(), "exec", container, "sh", "-lc", script],
+        capture_output=True, text=True, timeout=600, creationflags=_NO_WINDOW,
     )
     if r.returncode != 0:
         return f"FAIL pg_dump: {(r.stderr or r.stdout).strip()[:200]}"
 
     dst.parent.mkdir(parents=True, exist_ok=True)
     cp = subprocess.run(
-        ["docker", "cp", f"{container}:{inner}", str(dst)],
-        capture_output=True, text=True, timeout=600,
+        [docker_bin(), "cp", f"{container}:{inner}", str(dst)],
+        capture_output=True, text=True, timeout=600, creationflags=_NO_WINDOW,
     )
-    subprocess.run(["docker", "exec", container, "rm", "-f", inner],
-                   capture_output=True, timeout=60)
+    subprocess.run([docker_bin(), "exec", container, "rm", "-f", inner],
+                   capture_output=True, timeout=60, creationflags=_NO_WINDOW)
     if cp.returncode != 0:
         return f"FAIL docker cp: {cp.stderr.strip()[:200]}"
     return f"ok hindsight.dump: size={dst.stat().st_size}"
