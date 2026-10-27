@@ -10,8 +10,17 @@ evidence, memory, or verification.
 
 This is an **oracle route**, not a model council. A second oracle or a request
 for a second opinion does not authorize `delegate_task`, mask fan-out, or a
-multi-model vote. A model council requires explicit user opt-in and the separate
-`subagent-orchestration` contract with a hard advisory runtime boundary.
+multi-model vote. A model council requires explicit user opt-in and a hard
+advisory runtime boundary.
+
+Such a boundary exists now and should be the only sanctioned council runtime:
+several text-only advisors answering in parallel, with no tool access, joined by
+one aggregator. Subagents are **not** that boundary. A subagent inherits the
+parent's full toolset, so a "council" built on `delegate_task` edits the real
+workspace while advising - that is exactly what happened in August, when the
+advisory roles wrote files into the repository. When a council is genuinely
+wanted, use the agent's own text-only council route and keep the acting model as
+the aggregator.
 
 ## Before Calling An Oracle
 
