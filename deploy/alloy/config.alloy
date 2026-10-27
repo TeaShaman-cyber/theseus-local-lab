@@ -97,6 +97,9 @@ local.file_match "hermes_logs" {
     // Feed it a fake key and confirm [REDACTED] appears in Loki while the value
     // never does.
     { __path__ = "C:/Users/s.poklad/AppData/Local/hermes/logs/secret-canary.log", job = "hermes", log_type = "canary" },
+    // Backup heartbeat: one line per run. Alerting keys off the ABSENCE of a
+    // success line, because a scheduler that stops firing raises no error.
+    { __path__ = "C:/Users/s.poklad/AppData/Local/hermes/logs/backup-lattice.log", job = "backup", log_type = "heartbeat" },
   ]
 }
 
