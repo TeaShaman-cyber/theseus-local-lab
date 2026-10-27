@@ -94,8 +94,10 @@ def main() -> int:
     patched = patched.replace(OLD_TOOL, NEW_TOOL, 1)
 
     target.write_text(patched, encoding="utf-8")
-    print(f"APPLIED: {target} (backup: {backup.name})")
-    print("Restart Hermes for the plugin to reload.")
+    print(f"APPLIED and verified: {target} (backup: {backup.name})")
+    print("Restart the Hermes BACKEND, not just the window: tools run in the python")
+    print("backend, which survives a UI restart and keeps the old module in memory.")
+    print("A UI-only restart looks exactly like a patch that did not apply.")
     return 0
 
 
