@@ -28,6 +28,13 @@ services:
       - ${HINDSIGHT_RUNTIME_ENV_FILE:-D:/hindsight/.env}
       - D:/hindsight/langfuse-otel.env
     environment:
+      # Python caches bytecode into site-packages on first import. This container
+      # runs the API and several workers, so when they import the same lazy module
+      # at the same moment the atomic write races and the import raises - observed
+      # as a traceback in reflect/agent.py followed by a 300 s wall-clock timeout
+      # with no progress, while metrics showed a single 15 s LLM call.
+      # Disabling the cache removes the race; the cost is a negligible slower import.
+      PYTHONDONTWRITEBYTECODE: "1"
       # Emergency production priority: Nous Solar Mini through the
       # authenticated hermes-proxy is primary while BotHub is near its limit;
       # BotHub Mistral remains only as the last fallback member.
