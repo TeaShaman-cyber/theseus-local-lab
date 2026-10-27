@@ -25,8 +25,10 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import contextlib
 import datetime as dt
 import json
+import os
 import pathlib
 import subprocess
 import sys
@@ -56,7 +58,44 @@ GIT_DIR = pathlib.Path(
                    capture_output=True, text=True, check=True).stdout.strip()
 )
 REGISTRY = GIT_DIR / "theseus-worktrees.json"
+LOCK = GIT_DIR / "theseus-worktrees.lock"
 WORKTREES_DIR = ROOT / ".worktrees"
+
+STALE_LOCK_SECONDS = 30
+
+
+@contextlib.contextmanager
+def registry_lock(timeout: float = 15.0):
+    """Serialise read-modify-write of the claims file.
+
+    Two sessions claiming at the same moment both read the file, both write it,
+    and the later write erases the earlier claim - the tool's own race. Atomic
+    create with O_EXCL is the whole mechanism; no dependency needed.
+    """
+    started = time.time()
+    while True:
+        try:
+            fd = os.open(LOCK, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+            os.write(fd, f"{os.getpid()} {dt.datetime.now().isoformat()}".encode())
+            os.close(fd)
+            break
+        except FileExistsError:
+            try:
+                age = time.time() - LOCK.stat().st_mtime
+            except FileNotFoundError:
+                continue
+            if age > STALE_LOCK_SECONDS:
+                with contextlib.suppress(FileNotFoundError):
+                    LOCK.unlink()
+                continue
+            if time.time() - started > timeout:
+                raise RuntimeError(f"registry lock is held (age {age:.0f}s): {LOCK}")
+            time.sleep(0.05)
+    try:
+        yield
+    finally:
+        with contextlib.suppress(FileNotFoundError):
+            LOCK.unlink()
 
 
 def git(*args: str, cwd: pathlib.Path | None = None) -> str:
@@ -133,34 +172,39 @@ def claim_of(data: dict, wid: str) -> dict | None:
 
 
 def cmd_claim(args) -> int:
-    data = load_registry()
-    if claim_of(data, args.id):
-        print(f"REFUSED: '{args.id}' is already claimed and active")
-        return 1
-
     path = WORKTREES_DIR / args.id
     branch = args.branch or f"feat/{args.id}"
-    if path.exists():
-        print(f"REFUSED: {path} already exists on disk")
-        return 1
-    if git_ok("rev-parse", "--verify", branch):
-        print(f"REFUSED: branch {branch} already exists")
-        return 1
 
-    path.parent.mkdir(parents=True, exist_ok=True)
-    git("worktree", "add", str(path), "-b", branch)
-    marker = {
-        "id": args.id,
-        "branch": branch,
-        "session": args.session or "",
-        "owner": args.owner or "",
-        "purpose": args.purpose,
-        "created": dt.datetime.now().isoformat(timespec="seconds"),
-    }
-    (path / MARKER_NAME).write_text(json.dumps(marker, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    # The whole check-then-create-then-record sequence is one critical section:
+    # two sessions that both pass the duplicate check would otherwise create two
+    # trees and keep only the last claim.
+    with registry_lock():
+        data = load_registry()
+        if claim_of(data, args.id):
+            print(f"REFUSED: '{args.id}' is already claimed and active")
+            return 1
+        if path.exists():
+            print(f"REFUSED: {path} already exists on disk")
+            return 1
+        if git_ok("rev-parse", "--verify", branch):
+            print(f"REFUSED: branch {branch} already exists")
+            return 1
 
-    data["claims"].append({**marker, "path": str(path), "status": "active"})
-    save_registry(data)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        git("worktree", "add", str(path), "-b", branch)
+        marker = {
+            "id": args.id,
+            "branch": branch,
+            "session": args.session or "",
+            "owner": args.owner or "",
+            "purpose": args.purpose,
+            "created": dt.datetime.now().isoformat(timespec="seconds"),
+        }
+        (path / MARKER_NAME).write_text(json.dumps(marker, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+
+        data["claims"].append({**marker, "path": str(path), "status": "active"})
+        save_registry(data)
+
     print(f"CLAIMED {args.id}: {path} on {branch}")
     return 0
 
@@ -201,21 +245,22 @@ def cmd_list(args) -> int:
 
 
 def cmd_release(args) -> int:
-    data = load_registry()
-    c = claim_of(data, args.id)
-    if not c:
-        print(f"REFUSED: no active claim '{args.id}'")
-        return 1
-    path = pathlib.Path(c["path"])
-    if args.remove:
-        if is_dirty(path):
-            print(f"REFUSED: {path} has uncommitted changes")
+    with registry_lock():
+        data = load_registry()
+        c = claim_of(data, args.id)
+        if not c:
+            print(f"REFUSED: no active claim '{args.id}'")
             return 1
-        git("worktree", "remove", str(path))
-        print(f"removed worktree {path}")
-    c["status"] = "closed"
-    c["closed"] = dt.datetime.now().isoformat(timespec="seconds")
-    save_registry(data)
+        path = pathlib.Path(c["path"])
+        if args.remove:
+            if is_dirty(path):
+                print(f"REFUSED: {path} has uncommitted changes")
+                return 1
+            git("worktree", "remove", str(path))
+            print(f"removed worktree {path}")
+        c["status"] = "closed"
+        c["closed"] = dt.datetime.now().isoformat(timespec="seconds")
+        save_registry(data)
     print(f"released {args.id}")
     return 0
 
@@ -260,19 +305,22 @@ def reap_candidates(data: dict) -> tuple[list[dict], list[dict]]:
 
 
 def cmd_reap(args) -> int:
-    data = load_registry()
-    removable, kept = reap_candidates(data)
-    for e in removable:
-        print(f"REAP {e['path']}  branch={e['branch']}  ahead={e['ahead']}  age={e['age_days']}d")
+    with registry_lock():
+        data = load_registry()
+        removable, kept = reap_candidates(data)
         if args.apply:
-            git("worktree", "remove", e["path"])
-            for c in data["claims"]:
-                if c.get("path") and pathlib.Path(c["path"]).resolve() == pathlib.Path(e["path"]).resolve():
-                    c["status"] = "closed"
-            print(f"  removed")
+            for e in removable:
+                git("worktree", "remove", e["path"])
+                for c in data["claims"]:
+                    if c.get("path") and pathlib.Path(c["path"]).resolve() == pathlib.Path(e["path"]).resolve():
+                        c["status"] = "closed"
+            save_registry(data)
+
+    for e in removable:
+        print(f"REAP {e['path']}  branch={e['branch']}  ahead={e['ahead']}  age={e['age_days']}d"
+              + ("  [removed]" if args.apply else ""))
     for e in kept:
         print(f"KEEP {e['path']}  branch={e['branch']}  reason={e['reason']}")
-    save_registry(data) if args.apply else None
     print(f"\nremovable={len(removable)} kept={len(kept)} threshold={ALERT_THRESHOLD}")
     if len(removable) >= ALERT_THRESHOLD:
         print(f"ALERT: {len(removable)} stale worktrees is at or above the threshold")
