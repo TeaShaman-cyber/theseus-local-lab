@@ -16,6 +16,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import subprocess
 import sys
 import time
@@ -36,18 +37,34 @@ def _run(cmd: list[str], **kw) -> subprocess.CompletedProcess:
     return subprocess.run(cmd, capture_output=True, text=True, **kw)
 
 
+def _db_password() -> str:
+    """Пароль берём из instance.json внутри контейнера, в коде его нет."""
+    res = _run(["docker", "exec", CONTAINER, "cat", "/home/hindsight/.pg0/instances/hindsight/instance.json"])
+    if res.returncode != 0:
+        raise SystemExit(f"не прочитал instance.json: {res.stderr[:200]}")
+    return json.loads(res.stdout)["password"]
+
+
 def dump_corpus(sql_path: Path) -> str:
     """Выгружает корпус через psql внутри контейнера."""
     copy = _run(["docker", "cp", str(sql_path), f"{CONTAINER}:/tmp/freeze.sql"])
     if copy.returncode != 0:
         raise SystemExit(f"не удалось положить SQL в контейнер: {copy.stderr[:200]}")
-    inner = (
-        "export LD_LIBRARY_PATH=/home/hindsight/.pg0/installation/18.1.0/lib:$LD_LIBRARY_PATH; "
-        'export PGPASSWORD=$(python -c "import json;print(json.load(open(\'/home/hindsight/.pg0/instances/hindsight/instance.json\'))[\'password\'])") ; '
-        "/home/hindsight/.pg0/installation/18.1.0/bin/psql -h 127.0.0.1 -p 5432 -U hindsight "
-        "-d hindsight -f /tmp/freeze.sql"
+    cmd = (
+        "/home/hindsight/.pg0/installation/18.1.0/bin/psql -h 127.0.0.1 -p 5432 "
+        "-U hindsight -d hindsight -f /tmp/freeze.sql"
     )
-    res = _run(["docker", "exec", CONTAINER, "sh", "-c", inner])
+    # Пароль передаётся как имя переменной окружения, значение — через env процесса:
+    # в исходнике нет присвоения, и сканер секретов не срабатывает ложно.
+    env = {
+        **os.environ,
+        "PGPASSWORD": _db_password(),
+        "LD_LIBRARY_PATH": "/home/hindsight/.pg0/installation/18.1.0/lib",
+    }
+    res = _run(
+        ["docker", "exec", "-e", "PGPASSWORD", CONTAINER, "sh", "-c", cmd],
+        env=env,
+    )
     if res.returncode != 0:
         raise SystemExit(f"psql упал: {res.stderr[:300]}")
     lines = [l for l in res.stdout.splitlines() if l.strip() and not l.startswith(("Output format", "Field separator"))]
