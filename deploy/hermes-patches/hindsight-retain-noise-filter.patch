@@ -1,5 +1,5 @@
 --- /c/Users/s.poklad/AppData/Local/hermes/plugins/hindsight/__init__.py.bak-noise-20261028-031753	2026-10-27 20:09:59.763910300 +0200
-+++ /c/Users/s.poklad/AppData/Local/hermes/plugins/hindsight/__init__.py	2026-10-28 03:21:47.975692300 +0200
++++ /c/Users/s.poklad/AppData/Local/hermes/plugins/hindsight/__init__.py	2026-10-28 13:27:45.439566800 +0200
 @@ -17,6 +17,7 @@
  import logging
  import os
@@ -42,11 +42,13 @@
  _METADATA_ATTRS = (
      "session_id",
      "platform",
-@@ -1916,7 +1944,7 @@
+@@ -1915,8 +1943,8 @@
+         return [
              {"role": role, "content": f"{prefix}: {content}", "timestamp": now}
              for role, prefix, content in (
-                 ("user", self._retain_user_prefix, user_content),
+-                ("user", self._retain_user_prefix, user_content),
 -                ("assistant", self._retain_assistant_prefix, assistant_content),
++                ("user", self._retain_user_prefix, _strip_retain_noise(user_content)),
 +                ("assistant", self._retain_assistant_prefix, _strip_retain_noise(assistant_content)),
              )
          ]
