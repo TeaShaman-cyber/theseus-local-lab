@@ -149,25 +149,50 @@ def self_test() -> int:
     return 0 if ok else 1
 
 
+def discover() -> list[tuple[Path, Path]]:
+    """Все пары «набор правил — документ» в docs/reference."""
+    pairs = []
+    for rules_path in sorted((ROOT / "docs/reference").glob("*.rules.yaml")):
+        doc_path = rules_path.with_name(rules_path.name.replace(".rules.yaml", ".md"))
+        pairs.append((rules_path, doc_path))
+    return pairs
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--rules", type=Path, default=DEFAULT_RULES)
-    ap.add_argument("--doc", type=Path, default=DEFAULT_DOC)
+    ap.add_argument("--rules", type=Path, default=None)
+    ap.add_argument("--doc", type=Path, default=None)
     ap.add_argument("--self-test", action="store_true")
     args = ap.parse_args()
 
     if args.self_test:
         return self_test()
 
-    status, problems, passed = check(args.rules, args.doc)
-    print(f"правила: {args.rules}")
-    print(f"документ: {args.doc}")
-    for p in passed:
-        print(f"  ok   {p}")
-    for p in problems:
-        print(f"  --   {p}")
-    print(f"\nрезультат: {status}")
-    return 0 if status == "PASS" else 1
+    if args.rules and args.doc:
+        pairs = [(args.rules, args.doc)]
+    elif args.rules or args.doc:
+        print("FAIL: --rules и --doc задаются только вместе")
+        return 1
+    else:
+        pairs = discover()
+
+    if not pairs:
+        print("REVIEW: не найдено ни одного набора правил в docs/reference")
+        return 2
+
+    worst = 0
+    for rules_path, doc_path in pairs:
+        status, problems, passed = check(rules_path, doc_path)
+        print(f"\n=== {rules_path.name}")
+        for p in passed:
+            print(f"  ok   {p}")
+        for p in problems:
+            print(f"  --   {p}")
+        print(f"  результат: {status}")
+        worst = max(worst, {"PASS": 0, "REVIEW": 2, "FAIL": 1}[status])
+
+    print(f"\nвсего наборов: {len(pairs)}; итог: {'PASS' if worst == 0 else 'FAIL/REVIEW'}")
+    return 0 if worst == 0 else 1
 
 
 if __name__ == "__main__":
