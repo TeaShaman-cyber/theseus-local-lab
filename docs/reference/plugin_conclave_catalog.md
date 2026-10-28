@@ -27,8 +27,9 @@ multi-model council requires explicit user opt-in and the separate
 
 ## Roles
 
-- **Memory primary:** AutoMem decisions and MemPalace episodes. No external
-  memory plugin is in the automatic write path.
+- **Memory primary:** Hindsight — локальный инстанс, банк `hermes`. Он и есть
+  автоматический путь записи: плагин отправляет ходы в retain. AutoMem и
+  MemPalace не подняты, Basic Memory — только чтение свидетельств.
 - **Oracle:** produces a bounded external view. Its output must retain source
   and uncertainty labels.
 - **Source:** provides user-owned or external material but has no automatic

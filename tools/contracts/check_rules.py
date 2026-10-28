@@ -30,6 +30,44 @@ ID_RE = re.compile(r"^[A-Z]+-\d{3}$")
 REF_RE = re.compile(r"\b([A-Z]+-\d{3})\b")
 REQUIRED_FIELDS = ("id", "obligation", "statement", "verification")
 
+STOP = set("""и в во не что он на я с со как а то все она так его но да ты к у же вы за бы по
+только для мы тебя их чем была сам чтоб без будто чего раз тоже себе под будет ж тогда кто
+этот того этого какой совсем ним здесь этом один почти мой тем чтобы нее сейчас были куда
+зачем всех никогда можно при наконец два об другой хоть после над больше тот через эти нас
+про всего них какая много разве три эту моя впрочем хорошо свою этой перед иногда лучше чуть
+том нельзя такой им более всегда конечно всю между the and for not with that this from are
+was you all any can has have but its our their they will would must should may only when
+then than into out""".split())
+
+# Порог смыслового пересечения: ниже него формулировка правила и абзац документа
+# говорят о разном. Замерено на действующих наборах: медиана 0.24, минимум 0.077.
+SEMANTIC_FLOOR = 0.06
+SEMANTIC_WINDOW = 320
+
+
+def _stems(text: str) -> set[str]:
+    """Основы слов: русская морфология иначе разводит «посторонние» и «посторонних»."""
+    raw = re.findall(r"[a-zA-Zа-яА-ЯёЁ0-9_]{4,}", text.lower())
+    return {w[:5] for w in raw if w not in STOP}
+
+
+def semantic_scores(rules: list[dict], doc: str) -> list[tuple[str, float]]:
+    """Насколько текст правила пересекается с окном вокруг его упоминания в документе."""
+    out = []
+    for rule in rules:
+        rid = rule.get("id")
+        statement = _stems(str(rule.get("statement", "")))
+        if not isinstance(rid, str) or not statement:
+            continue
+        best = 0.0
+        for m in re.finditer(re.escape(rid), doc):
+            window = doc[max(0, m.start() - SEMANTIC_WINDOW):m.end() + SEMANTIC_WINDOW]
+            found = _stems(window)
+            if found:
+                best = max(best, len(statement & found) / len(statement | found))
+        out.append((rid, round(best, 3)))
+    return out
+
 
 def load_rules(path: Path) -> dict:
     return yaml.safe_load(path.read_text(encoding="utf-8"))
@@ -90,7 +128,7 @@ def check(rules_path: Path, doc_path: Path) -> tuple[str, list[str], list[str]]:
     try:
         doc = doc_path.read_text(encoding="utf-8")
     except OSError as exc:
-        return "REVIEW", problems + [f"не удалось прочитать {doc_path}: {exc}"], passed
+        return "REVIEW", problems + [f"не удалось прочитать {doc_path}: {exc}"], passed, []
 
     referenced = set(REF_RE.findall(doc))
     missing_in_doc = sorted(set(ids) - referenced)
@@ -102,8 +140,19 @@ def check(rules_path: Path, doc_path: Path) -> tuple[str, list[str], list[str]]:
     if not missing_in_doc and not unknown_in_doc:
         passed.append(f"документ и набор правил ссылаются друг на друга полностью ({len(ids)}/{len(ids)})")
 
+    warnings = [
+        f"{rid}: формулировка в yaml почти не пересекается с текстом документа (пересечение {score})"
+        for rid, score in semantic_scores(rules, doc)
+        if score < SEMANTIC_FLOOR
+    ]
+    total_scored = len(semantic_scores(rules, doc))
+    if total_scored:
+        passed.append(
+            f"смысловая сверка: {total_scored - len(warnings)}/{total_scored} правил совпадают с документом"
+        )
+
     status = "FAIL" if problems else "PASS"
-    return status, problems, passed
+    return status, problems, passed, warnings
 
 
 def self_test() -> int:
@@ -137,8 +186,8 @@ def self_test() -> int:
         gp.write_text(yaml.safe_dump(good, allow_unicode=True), encoding="utf-8")
         bp.write_text(yaml.safe_dump(broken, allow_unicode=True), encoding="utf-8")
 
-        s_good, p_good, _ = check(gp, doc)
-        s_bad, p_bad, _ = check(bp, doc)
+        s_good, p_good, _, _ = check(gp, doc)
+        s_bad, p_bad, _, _ = check(bp, doc)
 
     ok = s_good == "PASS" and s_bad == "FAIL" and len(p_bad) >= 3
     print(f"self-test: полный набор -> {s_good} (ожидали PASS)")
@@ -182,13 +231,16 @@ def main() -> int:
 
     worst = 0
     for rules_path, doc_path in pairs:
-        status, problems, passed = check(rules_path, doc_path)
+        status, problems, passed, warnings = check(rules_path, doc_path)
         print(f"\n=== {rules_path.name}")
         for p in passed:
             print(f"  ok   {p}")
         for p in problems:
             print(f"  --   {p}")
+        for w in warnings:
+            print(f"  !!   {w}")
         print(f"  результат: {status}")
+
         worst = max(worst, {"PASS": 0, "REVIEW": 2, "FAIL": 1}[status])
 
     print(f"\nвсего наборов: {len(pairs)}; итог: {'PASS' if worst == 0 else 'FAIL/REVIEW'}")

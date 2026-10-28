@@ -19,9 +19,9 @@ for user approval of write-capable actions.
 | Docker, Codex, AutoMem, MemPalace, providers | Live runtime | Operational state only |
 | `docs/reference/infrastructure-registry.yaml` | Git + reviewed registry update | Recovery scope and ownership |
 | `tools/workshop_recovery/recovery_contract.json` | Git + registry-aligned test | Persistent stack contract |
-| AutoMem | AutoMem service | Durable semantic decisions and patterns |
-| MemPalace | MemPalace service | Episodic/verbatim evidence |
-| Basic Memory | Basic Memory service | Contracts, task pointers, and provenance |
+| Hindsight | Hindsight service (local) | Живая память: факты, наблюдения, эпизоды |
+| AutoMem, MemPalace | не подняты | Зарезервированные слои, не в рабочем пути |
+| Basic Memory | Basic Memory service | Контракты и провенанс, только чтение |
 | Session timeline, logs, health reports | Observable runtime artifacts | Evidence of what happened |
 | `.env`, keys, OAuth state, private transcripts | Owned secret/runtime stores | Never Git authority |
 
@@ -49,9 +49,10 @@ MCP tools execute it; the result must expose an observable postcondition.
 **C5 — Read-only precedes write.** Discovery, health, parity, and dry-run checks
 precede any action that changes runtime, state, or external systems.
 
-**C6 — Memory has typed roles.** AutoMem stores durable semantic decisions;
-MemPalace stores episodic evidence; Basic Memory stores contracts and
-provenance. No memory layer is treated as live execution approval.
+**C6 — Memory has typed roles.** Hindsight — живая долговременная память и
+автоматический путь записи; Basic Memory держит контракты и провенанс в режиме
+чтения; AutoMem и MemPalace не подняты. Ни один слой памяти не считается
+разрешением на исполнение.
 
 **C7 — Generated state has an owner.** Runtime copies and generated outputs are
 either parity-checked against a tracked source or explicitly classified as
