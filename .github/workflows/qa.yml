@@ -43,16 +43,22 @@ jobs:
             printf 'QA_SOURCE_MISMATCH expected=%s observed=%s\n' "$EXPECTED_SHA" "$checkout_sha" >&2
             exit 2
           fi
-          printf 'verification_profile=%s\n' "$VERIFICATION_PROFILE"
-          printf 'verification_event_repository=%s\n' "$EVENT_REPOSITORY"
-          printf 'verification_event_sha=%s\n' "$EVENT_SHA"
-          printf 'verification_source_repository=%s\n' "$SOURCE_REPOSITORY"
-          printf 'verification_source_sha=%s\n' "$EXPECTED_SHA"
-          printf 'verification_checkout_sha=%s\n' "$checkout_sha"
-          printf 'verification_run_id=%s\n' "$RUN_ID"
-          printf 'verification_run_attempt=%s\n' "$RUN_ATTEMPT"
-          printf 'verification_caller_workflow_ref=%s\n' "$WORKFLOW_REF"
-          printf 'verification_caller_workflow_sha=%s\n' "$WORKFLOW_SHA"
+          {
+            echo '## Verification identity'
+            echo
+            echo '```'
+            printf 'verification_profile=%s\n' "$VERIFICATION_PROFILE"
+            printf 'verification_event_repository=%s\n' "$EVENT_REPOSITORY"
+            printf 'verification_event_sha=%s\n' "$EVENT_SHA"
+            printf 'verification_source_repository=%s\n' "$SOURCE_REPOSITORY"
+            printf 'verification_source_sha=%s\n' "$EXPECTED_SHA"
+            printf 'verification_checkout_sha=%s\n' "$checkout_sha"
+            printf 'verification_run_id=%s\n' "$RUN_ID"
+            printf 'verification_run_attempt=%s\n' "$RUN_ATTEMPT"
+            printf 'verification_caller_workflow_ref=%s\n' "$WORKFLOW_REF"
+            printf 'verification_caller_workflow_sha=%s\n' "$WORKFLOW_SHA"
+            echo '```'
+          } | tee -a "${GITHUB_STEP_SUMMARY:-/dev/null}"
 
       - name: Set up pinned Node.js
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
@@ -84,3 +90,25 @@ jobs:
 
       - name: Run the repository QA gate
         run: bash tools/dev/check
+
+      - name: Publish QA receipt
+        if: always()
+        env:
+          JOB_RESULT: ${{ job.status }}
+          SOURCE_SHA: ${{ github.event.pull_request.head.sha }}
+          RUN_ID: ${{ github.run_id }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          # Deliberately no `set -e`/`pipefail`: writing the receipt must never
+          # be able to fail an otherwise-green gate. This mirrors the canonical
+          # currentness-witness pattern (check under `set +e`, write, then exit rc).
+          set -u
+          {
+            echo '## QA receipt'
+            echo
+            echo '```'
+            printf 'result=%s\n' "$JOB_RESULT"
+            printf 'source_sha=%s\n' "$SOURCE_SHA"
+            printf 'run_id=%s attempt=%s\n' "$RUN_ID" "$RUN_ATTEMPT"
+            echo '```'
+          } | tee -a "${GITHUB_STEP_SUMMARY:-/dev/null}"
