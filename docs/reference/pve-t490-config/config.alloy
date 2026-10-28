@@ -7,9 +7,23 @@ prometheus.exporter.unix "host" {
   enable_collectors = ["cpu", "meminfo", "loadavg", "filesystem", "diskstats", "netdev", "uname", "time", "os"]
 }
 
+// Drop series that carry no signal on this host. ZFS is not used here (no
+// pools, no datasets) but the module is loaded, so the exporter still emits
+// ~294 ARC metrics; the rest are exporter self-metrics and kernel counters
+// nobody charts.
+prometheus.relabel "drop_low_value" {
+  forward_to = [prometheus.remote_write.grafana.receiver]
+
+  rule {
+    source_labels = ["__name__"]
+    regex         = "node_zfs_.*|node_scrape_collector_.*|node_cooling_device_.*|node_schedstat_.*|node_cpu_scaling_.*|node_cpu_frequency_.*|node_softnet_.*|node_power_.*|node_timex_.*|node_netstat_.*|node_sockstat_.*"
+    action        = "drop"
+  }
+}
+
 prometheus.scrape "host" {
   targets         = prometheus.exporter.unix.host.targets
-  forward_to      = [prometheus.remote_write.grafana.receiver]
+  forward_to      = [prometheus.relabel.drop_low_value.receiver]
   scrape_interval = "30s"
 }
 
