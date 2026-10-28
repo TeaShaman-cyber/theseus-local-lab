@@ -45,6 +45,7 @@ Pick the smallest set of skills and tools that covers the current request:
 | PowerShell, WSL, Bash, Node one-liners, quoting, pipes, JSON/text shell work | `theseus-shell-routing` | WSL/Node/script route, then `local-agent-hygiene` |
 | Windows, Docker, VS Code, local services, repeated commands | `local-agent-hygiene` | `tools/tool_policy` or VS Code tasks |
 | Git status, commit, push, GitHub sync | `theseus-git-hygiene` | Git safety wrapper or VS Code task |
+| Delivering a change: issue, PR, CI gate, review, merge | `theseus-pr-gate-cycle` | Own worktree, `tools/dev/check`, `gh pr checks`, subagent review |
 | Creating or changing skills | `skill-creator` | Validate skill shape before adding content |
 | Broad research or search pipelines | research queue/hook docs | Store distilled findings, not raw dumps |
 | Fresh facts, scientific evidence, external technical oracle, plugin choice | `theseus-plugin-conclave` | Choose one primary oracle and a bounded corroborator; this is not a model council |
