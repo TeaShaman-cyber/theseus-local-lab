@@ -1,0 +1,4 @@
+name: issue-guard
+version: 0.1.0
+description: "Не даёт уйти от исследования, пока наблюдение и вывод не записаны в задачу."
+author: "Semyon Poklad + Svarog"
