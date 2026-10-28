@@ -1,0 +1,28 @@
+logging {
+  level  = "warn"
+  format = "logfmt"
+}
+
+prometheus.exporter.unix "host" {
+  enable_collectors = ["cpu", "meminfo", "loadavg", "filesystem", "diskstats", "netdev", "uname", "time", "os"]
+}
+
+prometheus.scrape "host" {
+  targets         = prometheus.exporter.unix.host.targets
+  forward_to      = [prometheus.remote_write.grafana.receiver]
+  scrape_interval = "30s"
+}
+
+prometheus.remote_write "grafana" {
+  endpoint {
+    url = "https://prometheus-prod-65-prod-eu-west-2.grafana.net/api/prom/push"
+    basic_auth {
+      username = "3707865"
+      password = "<GRAFANA_TOKEN>"
+    }
+  }
+  external_labels = {
+    host = "pve-t490",
+    env  = "lab",
+  }
+}
