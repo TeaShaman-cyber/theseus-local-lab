@@ -46,6 +46,25 @@
 - Не копировать между харнессами `config.yaml`, `.env`, состояние OAuth,
   API-ключи, приватные транскрипты, сырую память и материалы авторизации MCP.
 
+## Precedence And Probe
+
+Старшинство при конфликте: этот файл задаёт **куда идти**; тематический документ
+в `docs/reference/` решает вопрос **внутри темы**; скилл описывает процедуру;
+память и исторические свидетельства дают контекст, но не полномочия. Если
+тематический документ расходится с маршрутизатором — прав маршрутизатор, пока
+расхождение не исправлено.
+
+Актуальность проверяется пробой, а не доверием:
+
+```text
+python tools/contracts/check_rules.py     # PASS на всех наборах правил
+git log -1 --format=%h -- AGENTS.md docs/reference   # какая ревизия перед тобой
+```
+
+Если проба не проходит — сначала починить правила, потом работать по ним.
+Работать по документу, который не проходит собственную проверку, значит
+действовать по устаревшей или противоречивой инструкции и не знать об этом.
+
 ## Canonical Workspace And Infrastructure Registries
 
 Before opening, creating, moving, or mutating a project or Docker stack, read:
@@ -119,6 +138,11 @@ Before non-trivial work, use the smallest matching project skill:
 
 If two routes are plausible, prefer the one with lower user friction, stronger
 verification, and less context load.
+
+Выбирай **самый тонкий маршрут, сохраняющий полномочия**: не тяни три документа,
+когда хватает одного указателя, и не поднимай тяжёлый инструмент там, где
+достаточно прочитать файл. Тонкий маршрут — не тот, что короче по шагам, а тот,
+что требует меньше контекста при той же проверяемости.
 
 Think of project skills and task runners as two halves of one harness:
 
