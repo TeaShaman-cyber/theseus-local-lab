@@ -1,3 +1,8 @@
 #!/bin/sh
 node tools/git_safety/normalize_staged_text.mjs
 node tools/git_safety/scan_staged.mjs
+# Race gate: refuses to commit from the shared checkout, where two chats can
+# switch branches under each other. Session identity comes from
+# HERMES_SESSION_ID; without it the script exits 2 on purpose, because a shared
+# fallback would let two sessions claim the same worktree.
+python tools/git_safety/check_race.py
