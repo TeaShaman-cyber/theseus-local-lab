@@ -32,6 +32,10 @@ services:
       HINDSIGHT_API_LLM_BASE_URL: http://hermes-proxy:8645/v1
       HINDSIGHT_API_LLM_API_KEY: hermes-proxy-local
       HINDSIGHT_API_LLM_MODEL: upstage/solar-mini4:free
+      # Консолидация решает, сливать ли два факта в один. solar-mini4 сливала
+      # факты с разными числами и с противоположным смыслом (0/3 на обеих
+      # ловушках, три прогона), reflection/beam — 9/9 при ~2 с. См. #81.
+      HINDSIGHT_API_CONSOLIDATION_LLM_MODEL: reflection/beam-1.0-501b-a23b:free
       # 2026-10-25: the BotHub fallback member is DISABLED temporarily.
       # Measured caps spend on this host: mistral-medium-3-5 = 8,271,739 of
       # ~8,420,000 total (98.3%), because round-robin sent every 4th call here
