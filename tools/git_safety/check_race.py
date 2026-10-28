@@ -28,8 +28,17 @@ import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-CLAIMS = ROOT / ".git" / "hermes-claims"
 TTL_SECONDS = 45 * 60  # заявка без heartbeat дольше этого считается брошенной
+
+
+def claims_dir() -> Path:
+    """Каталог заявок внутри настоящего git-каталога.
+
+    В worktree `.git` — это файл-указатель, поэтому путь нельзя собирать как
+    ROOT/".git"/...: там каталога нет, и заявки молча не создавались бы.
+    """
+    git_dir = git("rev-parse", "--absolute-git-dir") or str(ROOT / ".git")
+    return Path(git_dir) / "hermes-claims"
 
 
 def git(*args: str) -> str:
@@ -38,8 +47,24 @@ def git(*args: str) -> str:
     ).stdout.strip()
 
 
-def session_id() -> str:
-    return os.environ.get("HERMES_SESSION_ID") or "default/local-a347ac1f"
+def session_id(explicit: str | None) -> str:
+    """Идентичность сессии обязательна.
+
+    Общий fallback здесь опаснее отсутствия проверки: два чата получают одну
+    заявку, и проверка считает её своей. Поэтому без явного идентификатора
+    скрипт отказывается работать, а не подставляет значение по умолчанию.
+    """
+    value = explicit or os.environ.get("HERMES_SESSION_ID")
+    if not value:
+        print(
+            "СТОП: не задан идентификатор сессии.\n"
+            "Передайте --session <id> или выставьте HERMES_SESSION_ID.\n"
+            "Общий fallback запрещён: две сессии получили бы одну заявку "
+            "и гейт пропустил бы гонку.",
+            file=sys.stderr,
+        )
+        raise SystemExit(2)
+    return value
 
 
 def current_branch() -> str:
@@ -52,10 +77,11 @@ def dirty_files() -> list[str]:
 
 
 def load_claims() -> dict[str, dict]:
-    if not CLAIMS.is_dir():
+    directory = claims_dir()
+    if not directory.is_dir():
         return {}
     claims = {}
-    for path in CLAIMS.glob("*.json"):
+    for path in directory.glob("*.json"):
         try:
             claims[path.stem] = json.loads(path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError):
@@ -64,7 +90,8 @@ def load_claims() -> dict[str, dict]:
 
 
 def write_claim(session: str, branch: str, files: list[str]) -> None:
-    CLAIMS.mkdir(parents=True, exist_ok=True)
+    directory = claims_dir()
+    directory.mkdir(parents=True, exist_ok=True)
     payload = {
         "session": session,
         "branch": branch,
@@ -72,7 +99,7 @@ def write_claim(session: str, branch: str, files: list[str]) -> None:
         "heartbeat": time.time(),
         "dirty": files,
     }
-    (CLAIMS / f"{session.replace('/', '_')}.json").write_text(
+    (directory / f"{session.replace('/', '_')}.json").write_text(
         json.dumps(payload, ensure_ascii=False, indent=1), encoding="utf-8"
     )
 
@@ -84,12 +111,12 @@ def main() -> int:
     ap.add_argument("--session", default=None)
     args = ap.parse_args()
 
-    session = args.session or session_id()
+    session = session_id(args.session)
     branch = current_branch()
     key = session.replace("/", "_")
 
     if args.release:
-        target = CLAIMS / f"{key}.json"
+        target = claims_dir() / f"{key}.json"
         if target.exists():
             target.unlink()
             print(f"заявка снята: {session}")
@@ -157,6 +184,13 @@ def main() -> int:
         return 1
 
     print("гонки не видно: ветка своя, живых чужих заявок нет, от origin не отстаём")
+    # Продление заявки: успешная проверка значит, что владелец ещё работает.
+    # Обновляется только heartbeat — ветка и базовый список файлов не сбрасываются.
+    if mine:
+        mine["heartbeat"] = time.time()
+        (claims_dir() / f"{key}.json").write_text(
+            json.dumps(mine, ensure_ascii=False, indent=1), encoding="utf-8"
+        )
     return 0
 
 

@@ -259,9 +259,12 @@ prometheus.relabel "hindsight_api_trim" {
   forward_to = [prometheus.remote_write.grafana_cloud.receiver]
 
   // Внутренние (diagnostic=true) фазы не используются ни в одной панели.
+  // Внутренние фазы: детализацию распределения режем, но частоту и сумму
+  // оставляем — иначе после инцидента нечем сравнить, сколько было вызовов и
+  // какова средняя длительность. +Inf сохраняет и общее число наблюдений.
   rule {
-    source_labels = ["__name__", "diagnostic"]
-    regex         = "hindsight_recall_phase_duration_seconds_(bucket|count|sum);true"
+    source_labels = ["__name__", "diagnostic", "le"]
+    regex         = "hindsight_recall_phase_duration_seconds_bucket;true;(0.001|0.0025|0.005|0.01|0.025|0.05|0.075|0.1|0.25|0.5|0.75|1.0|2.5|5.0|10.0)"
     action        = "drop"
   }
 
