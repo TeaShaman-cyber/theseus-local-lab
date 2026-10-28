@@ -66,21 +66,41 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--budget", default="low")
     ap.add_argument("--max-tokens", type=int, default=768)
+    ap.add_argument("--corpus", default=None,
+                    help="каталог или файл замороженного корпуса; без него тексты читаются из живой базы")
     args = ap.parse_args()
+
+    corpus_text: dict[str, str] = {}
+    corpus_note = "живая база"
+    if args.corpus:
+        path = Path(args.corpus)
+        tsv = path / "corpus.tsv" if path.is_dir() else path
+        for line in tsv.read_text(encoding="utf-8").splitlines():
+            parts = line.split("\t")
+            if len(parts) >= 6:
+                corpus_text[parts[0]] = parts[5]
+        manifest = tsv.parent / "manifest.json"
+        if manifest.exists():
+            meta = json.loads(manifest.read_text(encoding="utf-8"))
+            corpus_note = f"{tsv.parent.name}, sha256 {meta.get('sha256', '?')[:16]}…, строк {meta.get('rows')}"
+        else:
+            corpus_note = f"{tsv} (без манифеста)"
 
     rows = [json.loads(l) for l in GOLDEN.read_text(encoding="utf-8").splitlines() if l.strip()]
 
     expected_text: dict[str, str] = {}
     for row in rows:
         for mid in row.get("expected_ids") or []:
-            if mid not in expected_text:
-                expected_text[mid] = fetch_text(mid)
+            if mid in expected_text:
+                continue
+            expected_text[mid] = corpus_text.get(mid) or fetch_text(mid)
     expected_stems = {k: stems(v) for k, v in expected_text.items() if v}
 
     hits, soft_hits, rr = 0, 0, []
     contradictions = 0
     answerable = 0
     print(f"{'id':5} {'категория':16} {'выдача':>7}  результат")
+    print(f"корпус: {corpus_note}\n")
     for row in rows:
         try:
             data = _post(RECALL, {
