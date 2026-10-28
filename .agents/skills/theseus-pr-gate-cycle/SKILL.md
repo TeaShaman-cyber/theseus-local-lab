@@ -50,6 +50,10 @@ Each line is a real defect found by one of the layers, not a hypothetical.
   looks like and also what a dead exporter looks like.
 - **Verifying by the tool's own return.** A successful call is not a
   postcondition; read the target back (`gh api`, `gh run view --log`, `git log`).
+- **Judging a task's state from its title.** Read the issue's own comment
+  history and the artifacts on disk before calling work pending or blocked —
+  the work is often already done and recorded there. A title states the
+  question; only the history states the answer.
 - **Asking per step.** Routine git work in own repos needs no approval. Ask only
   on scope expansion: protected-branch merge, release, deploy, force-push,
   third-party writes.
