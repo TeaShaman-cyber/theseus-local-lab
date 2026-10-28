@@ -1,9 +1,18 @@
 import { spawnSync } from "node:child_process";
-import { readFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { buildSteps, buildTestArgs, collectTestFiles, formatVerdict, nodeRuntimeMatches } from "./check_lib.mjs";
+import {
+  buildPopulation,
+  buildSteps,
+  buildTestArgs,
+  collectTestFiles,
+  formatPopulationReceipt,
+  formatVerdict,
+  nodeRuntimeMatches,
+  parseTestCounts,
+} from "./check_lib.mjs";
 import { resolvePullRequestBaseSha } from "./redaction_check_lib.mjs";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
@@ -47,26 +56,53 @@ function hasStagedFiles() {
   return result.status === 1;
 }
 
-function runStep(id, command, args) {
+function runStep(id, command, args, { capture = false } = {}) {
   console.log(`STEP_START id=${id}`);
   const result = spawnSync(command, args, {
     cwd: repoRoot,
-    stdio: "inherit",
+    stdio: capture ? ["ignore", "pipe", "pipe"] : "inherit",
+    encoding: capture ? "utf8" : undefined,
     windowsHide: true,
   });
 
+  let output = "";
+  if (capture) {
+    // Echo the captured streams so the human-facing log stays identical to the
+    // inherited case; only the bookkeeping differs.
+    if (result.stdout) process.stdout.write(result.stdout);
+    if (result.stderr) process.stderr.write(result.stderr);
+    output = `${result.stdout ?? ""}${result.stderr ?? ""}`;
+  }
+
   if (result.error) {
     console.error(`STEP_FAIL id=${id} reason=command-unavailable`);
-    return { id, status: "fail", exitCode: 127 };
+    return { id, status: "fail", exitCode: 127, output };
   }
   if (result.status === 0) {
     console.log(`STEP_OK id=${id}`);
-    return { id, status: "ok" };
+    return { id, status: "ok", output };
   }
 
   const exitCode = Number.isInteger(result.status) ? result.status : 1;
   console.error(`STEP_FAIL id=${id} exit=${exitCode}`);
-  return { id, status: "fail", exitCode };
+  return { id, status: "fail", exitCode, output };
+}
+
+/**
+ * Persist the population record and its receipt projection.
+ *
+ * Both paths are overridable so tests can write into a temporary directory. Any
+ * failure is reported and swallowed: the witness must not be able to fail the gate.
+ */
+function publishPopulation(population) {
+  const resultPath = process.env.DEV_CHECK_RESULT || path.join(repoRoot, "dev-check-result.json");
+  const receiptPath = process.env.DEV_CHECK_RECEIPT || path.join(repoRoot, "dev-check-receipt.txt");
+  try {
+    writeFileSync(resultPath, `${JSON.stringify(population, null, 2)}\n`, "utf8");
+    writeFileSync(receiptPath, `${formatPopulationReceipt(population)}\n`, "utf8");
+  } catch (error) {
+    console.error(`STEP_WARN id=population reason=write-failed detail=${error?.code ?? "unknown"}`);
+  }
 }
 
 function main(args) {
@@ -98,6 +134,7 @@ function main(args) {
   const steps = buildSteps({ hasStagedFiles: staged });
   const results = [];
   let testFiles = null;
+  let testCounts = null;
 
   try {
     testFiles = collectTestFiles(repoRoot);
@@ -114,7 +151,9 @@ function main(args) {
   for (const step of steps) {
     if (step.id === "unit") {
       if (testFiles?.length) {
-        results.push(runStep(step.id, process.execPath, buildTestArgs(testFiles)));
+        const unit = runStep(step.id, process.execPath, buildTestArgs(testFiles), { capture: true });
+        testCounts = parseTestCounts(unit.output);
+        results.push(unit);
       }
       continue;
     }
@@ -144,6 +183,21 @@ function main(args) {
   }
 
   const verdict = formatVerdict(results);
+  const population = buildPopulation(results, {
+    tests: testCounts,
+    liveness: {
+      node: process.version,
+      platform: process.platform,
+      pid: process.pid,
+    },
+  });
+
+  // The receipt is a projection of this record, so the record has to survive the
+  // run. Writing it must never be able to fail an otherwise-green gate: a witness
+  // that can redden the thing it witnesses is not a witness.
+  publishPopulation(population);
+
+  console.log(`DEV_CHECK_POPULATION ${JSON.stringify(population)}`);
   console.log(verdict);
   return verdict === "DEV_CHECK_PASS" ? 0 : 1;
 }

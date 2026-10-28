@@ -103,11 +103,21 @@ jobs:
           # be able to fail an otherwise-green gate. This mirrors the canonical
           # currentness-witness pattern (check under `set +e`, write, then exit rc).
           set -u
+          population_file="dev-check-receipt.txt"
           {
             echo '## QA receipt'
             echo
             echo '```'
             printf 'result=%s\n' "$JOB_RESULT"
+            # Population: what was examined, what was excluded and why, and whether
+            # the gate itself was alive. A verdict without it claims more than the
+            # run can support - `success` once covered 225 of 227 tests plus a scan
+            # that never ran.
+            if [[ -s "$population_file" ]]; then
+              cat "$population_file"
+            else
+              printf 'population=unavailable reason=gate-wrote-no-population\n'
+            fi
             printf 'source_sha=%s\n' "$SOURCE_SHA"
             printf 'run_id=%s attempt=%s\n' "$RUN_ID" "$RUN_ATTEMPT"
             echo '```'
