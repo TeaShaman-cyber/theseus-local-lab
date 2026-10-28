@@ -110,9 +110,20 @@ stacks:
     runtime_root: D:/hindsight
     runtime_env_file: D:/hindsight/.env
     data_root: docker-named-volumes
-    data_volumes: [theseus-hindsight-pg0-v2, theseus-hindsight-hf-cache]
+    data_volumes: [theseus-hindsight-pg0-v2, theseus-hindsight-hf-cache, theseus-hindsight-chatgpt-auth]
     data_root_note: pg0 lives in a named volume, never a Windows bind mount - the bind-mount variant produced a root-owned data dir that postgres refused to initialise
-    published_ports: [8888, 9999]
+    published_ports: [8888, 9999, 1455]
+    chatgpt_auth:
+      home: /home/hindsight/.hindsight/chatgpt
+      volume: theseus-hindsight-chatgpt-auth
+      owner_note: свежий том создаётся под root, вход падает на PermissionError; каталог надо отдать uid 1000
+      login_command: hindsight-admin chatgpt login --no-browser --enable-plan-usage
+      callback_note: сервер слушает петлю внутри контейнера, браузер с хоста до него не доходит; URL с кодом передаётся внутрь контейнера
+      plan_usage_enabled: true
+    llm_routes:
+      consolidation_primary: openai/reflection/beam-1.0-501b-a23b:free via hermes-proxy
+      consolidation_fallback: chatgpt/gpt-6-luna via subscription OAuth, strategy failover
+      fallback_note: failover, не round-robin — резерв срабатывает только на отказе основного, в норме расход подписки нулевой
     host_prerequisites:
       - id: winnat-dynamic-port-range
         fact: Windows WinNAT and Hyper-V reserve shifting TCP ranges at boot; on 2026-10-27 the reserved range 8868-8967 swallowed 8888 and Docker could not publish the API port
