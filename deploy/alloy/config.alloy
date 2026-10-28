@@ -271,7 +271,28 @@ prometheus.relabel "hindsight_api_trim" {
     regex         = "hindsight_recall_phase_duration_seconds_bucket;(0.001|0.0025|0.005|0.01|0.025|0.075|0.1|0.5|0.75|2.5|10.0)"
     action        = "drop"
   }
+  // HTTP: интересует диапазон от десятых секунды до десятков.
+  rule {
+    source_labels = ["__name__", "le"]
+    regex         = "hindsight_http_duration_seconds_bucket;(0.005|0.01|0.025|0.05|0.25|0.5|2.5|10.0)"
+    action        = "drop"
+  }
+
+  // Операции: от секунды до минуты.
+  rule {
+    source_labels = ["__name__", "le"]
+    regex         = "hindsight_operation_duration_seconds_bucket;(0.1|0.25|0.5|0.75|2.0|3.0|7.5|20.0|120.0)"
+    action        = "drop"
+  }
+
+  // LLM: вызовы идут секундами, reflect — сотнями секунд; мелкие бакеты не нужны.
+  rule {
+    source_labels = ["__name__", "le"]
+    regex         = "hindsight_llm_duration_seconds_bucket;(0.1|0.25|0.5|1.0|3.0|15.0|60.0)"
+    action        = "drop"
+  }
 }
+
 
 prometheus.scrape "hindsight_api" {
   targets         = [{"__address__" = "127.0.0.1:8888", "job" = "hindsight-api", "instance" = "theseus-laptop"}]
