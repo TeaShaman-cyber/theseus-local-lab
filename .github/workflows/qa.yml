@@ -67,5 +67,20 @@ jobs:
           printf 'QA_RUNTIME node=v%s expected=v%s\n' "$actual_node" "$expected_node"
           [[ "$actual_node" == "$expected_node" ]]
 
+      - name: Validate the repository QA endpoint
+        env:
+          QA_ENDPOINT: tools/dev/check
+        run: |
+          set -euo pipefail
+          if [[ ! -f "$QA_ENDPOINT" ]]; then
+            printf 'QA_ENDPOINT_MISSING path=%s\n' "$QA_ENDPOINT" >&2
+            exit 2
+          fi
+          if [[ ! -s "$QA_ENDPOINT" ]]; then
+            printf 'QA_ENDPOINT_EMPTY path=%s\n' "$QA_ENDPOINT" >&2
+            exit 2
+          fi
+          printf 'QA_ENDPOINT_OK path=%s bytes=%s\n' "$QA_ENDPOINT" "$(wc -c <"$QA_ENDPOINT")"
+
       - name: Run the repository QA gate
         run: bash tools/dev/check
