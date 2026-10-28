@@ -42,9 +42,51 @@ discovery.relabel "host" {
   }
 }
 
+// Low-value series do not reach Grafana Cloud. Free tier caps active series at
+// 10k; measured 2026-10-28 at 3,766 (peak 6,785). Keep only the CPU-time series
+// the host dashboard charts; drop the rest of per-process metrics and exporter
+// self-metrics.
+prometheus.relabel "process_keep" {
+  forward_to = [prometheus.remote_write.grafana_cloud.receiver]
+
+  rule {
+    source_labels = ["__name__", "process"]
+    regex         = "windows_process_cpu_time_total;(Hermes|python|pythonw|node|Code|chrome|msedge|opera|Docker Desktop|com\\.docker\\.backend|com\\.docker\\.build|vmmem|vmmemWSL|powershell|pwsh|alloy|svchost)"
+    action        = "keep"
+  }
+}
+
+prometheus.relabel "drop_low_value" {
+  forward_to = [prometheus.remote_write.grafana_cloud.receiver]
+
+  rule {
+    source_labels = ["__name__"]
+    regex         = "windows_process_.*|windows_net_nic_operation_status"
+    action        = "drop"
+  }
+
+  rule {
+    source_labels = ["__name__"]
+    regex         = "node_scrape_collector_.*|node_cpu_scaling_governor"
+    action        = "drop"
+  }
+
+  rule {
+    source_labels = ["__name__"]
+    regex         = "alloy_component_graph_connection|prometheus_remote_storage_.*"
+    action        = "drop"
+  }
+
+  rule {
+    source_labels = ["__name__"]
+    regex         = "ohm_nic_.*"
+    action        = "drop"
+  }
+}
+
 prometheus.scrape "host" {
   targets         = discovery.relabel.host.output
-  forward_to      = [prometheus.remote_write.grafana_cloud.receiver]
+  forward_to      = [prometheus.relabel.process_keep.receiver, prometheus.relabel.drop_low_value.receiver]
   scrape_interval = "30s"
 }
 
@@ -80,7 +122,7 @@ prometheus.scrape "probes" {
 prometheus.scrape "ohmgraphite" {
   targets         = [{ __address__ = "127.0.0.1:4445", job = "ohmgraphite" }]
   metrics_path    = "/metrics/"
-  forward_to      = [prometheus.remote_write.grafana_cloud.receiver]
+  forward_to      = [prometheus.relabel.drop_low_value.receiver]
   scrape_interval = "30s"
 }
 
@@ -166,7 +208,7 @@ loki.write "grafana_cloud" {
     url = "https://<LOKI_HOST>/loki/api/v1/push"
 
     basic_auth {
-      username = "<LOKI_USER_ID>"
+      username = "<GRAFANA_INSTANCE_ID>"
       password = "<PASTE_TOKEN_HERE>"
     }
   }
@@ -180,7 +222,7 @@ loki.write "grafana_cloud" {
 // (hermes_llm_*). Scrape it so they reach the same Prometheus as host metrics.
 prometheus.scrape "alloy_self" {
   targets         = [{ __address__ = "127.0.0.1:12345", job = "alloy-self" }]
-  forward_to      = [prometheus.remote_write.grafana_cloud.receiver]
+  forward_to      = [prometheus.relabel.drop_low_value.receiver]
   scrape_interval = "30s"
 }
 
@@ -207,16 +249,35 @@ prometheus.remote_write "grafana_cloud" {
   }
 }
 
-// Hindsight production metrics (laptop). The container publishes /metrics on
-// 8888; recall phase histograms show where recall time actually goes, and
-// hindsight_operation_duration_seconds{operation="recall",source="api"} is the
-// clean recall SLO (the phase histogram also sees consolidation recalls, which
-// skip reranking and skew percentiles).
+// Hindsight production metrics (laptop). Scrapes the container's /metrics:
+// recall phase histograms expose where recall time actually goes.
+// Hindsight отдаёт 869 серий, из них 432 — один гистограмм фаз recall:
+// 16 бакетов на 27 комбинаций, где метка diagnostic отделяет внутренние фазы.
+// Дашбордам и алертам нужны пять бакетов и пользовательские фазы; остальное
+// выкидываем на скрейпе, чтобы не платить за кардинальность в free tier.
+prometheus.relabel "hindsight_api_trim" {
+  forward_to = [prometheus.remote_write.grafana_cloud.receiver]
+
+  // Внутренние (diagnostic=true) фазы не используются ни в одной панели.
+  rule {
+    source_labels = ["__name__", "diagnostic"]
+    regex         = "hindsight_recall_phase_duration_seconds_(bucket|count|sum);true"
+    action        = "drop"
+  }
+
+  // Оставляем 0.05, 0.25, 1.0, 5.0 и +Inf; остальные одиннадцать бакетов режем.
+  rule {
+    source_labels = ["__name__", "le"]
+    regex         = "hindsight_recall_phase_duration_seconds_bucket;(0.001|0.0025|0.005|0.01|0.025|0.075|0.1|0.5|0.75|2.5|10.0)"
+    action        = "drop"
+  }
+}
+
 prometheus.scrape "hindsight_api" {
   targets         = [{"__address__" = "127.0.0.1:8888", "job" = "hindsight-api", "instance" = "theseus-laptop"}]
   metrics_path    = "/metrics"
   scrape_interval = "30s"
-  forward_to      = [prometheus.remote_write.grafana_cloud.receiver]
+  forward_to      = [prometheus.relabel.hindsight_api_trim.receiver]
 }
 
 // ---------------------------------------------------------------------------
