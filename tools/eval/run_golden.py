@@ -77,7 +77,7 @@ def main() -> int:
                 expected_text[mid] = fetch_text(mid)
     expected_stems = {k: stems(v) for k, v in expected_text.items() if v}
 
-    hits, rr = 0, []
+    hits, soft_hits, rr = 0, 0, []
     answerable = 0
     print(f"{'id':5} {'категория':16} {'выдача':>7}  результат")
     for row in rows:
@@ -95,6 +95,7 @@ def main() -> int:
 
         rank = None
         reason = ""
+        soft_rank = None
         for pos, item in enumerate(results, start=1):
             rid = str(item.get("id") or "")
             if rid in expected:
@@ -105,10 +106,13 @@ def main() -> int:
             if src_ids & expected:
                 rank, reason = pos, "производная запись"
                 break
-            st = stems(item.get("text") or "")
-            if any(overlap(st, exp) >= 0.5 for exp in expected_stems.values()):
-                rank, reason = pos, "совпадение текста"
-                break
+            if soft_rank is None:
+                st = stems(item.get("text") or "")
+                if any(overlap(st, exp) >= 0.5 for exp in expected_stems.values()):
+                    soft_rank = pos
+        # Мягкий зачёт не подменяет строгий: он показывается отдельной цифрой,
+        # потому что на русском совпадение основ слов даёт ложные попадания.
+        soft_only = rank is None and soft_rank is not None
 
         if not expected:
             print(f"{row['id']:5} {row['category']:16} {len(results):>7}  "
@@ -120,14 +124,20 @@ def main() -> int:
             hits += 1
             rr.append(1.0 / rank)
             print(f"{row['id']:5} {row['category']:16} {len(results):>7}  ok, ранг {rank} ({reason})")
+        elif soft_only:
+            soft_hits += 1
+            rr.append(0.0)
+            print(f"{row['id']:5} {row['category']:16} {len(results):>7}  только мягкий зачёт, ранг {soft_rank}")
         else:
             rr.append(0.0)
             print(f"{row['id']:5} {row['category']:16} {len(results):>7}  ПРОМАХ")
 
     print()
     if answerable:
-        print(f"hit rate: {hits}/{answerable} = {hits / answerable:.3f}")
-        print(f"MRR: {statistics.mean(rr):.3f}")
+        print(f"строгий hit rate: {hits}/{answerable} = {hits / answerable:.3f}")
+        print(f"с мягким зачётом: {(hits + soft_hits)}/{answerable} = {(hits + soft_hits) / answerable:.3f}"
+              f"  (мягких {soft_hits})")
+        print(f"MRR (строгий): {statistics.mean(rr):.3f}")
     return 0
 
 
