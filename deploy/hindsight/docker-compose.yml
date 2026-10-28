@@ -62,10 +62,10 @@ services:
       # longer default to embedded when the var is absent -> "Database URL
       # is required for migrations").
       HINDSIGHT_API_DATABASE_URL: pg0
-      # Upstream pg0 startup-migration regression (vectorize-io/hindsight#2602):
-      # the embedded URL is resolved after the migration guard runs. Keep
-      # startup available and run migrations explicitly when the image/schema
-      # actually changes.
+      # pg0 startup-migration regression, vectorize-io/hindsight#2602 — на
+      # 2026-10-28 задача ЗАКРЫТА в апстриме. Настройка оставлена как явная:
+      # миграции при смене образа или схемы всё равно надо прогонять осознанно,
+      # а не полагаться на то, что флаг по умолчанию теперь другой.
       HINDSIGHT_API_RUN_MIGRATIONS_ON_STARTUP: "true"
       HINDSIGHT_API_PORT: "8888"
       # Stable worker identity prevents processing rows from being orphaned
@@ -103,8 +103,10 @@ services:
       # bge-small-en, reranker ms-marco-MiniLM, PostgreSQL BM25 dictionary
       # 'english'. Measured on the eval station against a 14-fact gold set
       # (Russian questions): default stack recall@1 = 0.214, full
-      # multilingual stack = 0.643 at 1.23 s/query. Upstream confirms the
-      # class: vectorize-io/hindsight#5519, #1569.
+      # multilingual stack = 0.643 at 1.23 s/query. Класс проблемы подтверждён
+      # апстримом (vectorize-io/hindsight#5519, #1569) — обе задачи ЗАКРЫТЫ на
+      # 2026-10-28, то есть дефолты могли измениться. Мультиязычный стек
+      # оставлен явно: он измерен на нашем gold-сете, а не взят по умолчанию.
       # dimension stays 384, so the schema is unchanged.
       HINDSIGHT_API_EMBEDDINGS_PROVIDER: local
       HINDSIGHT_API_EMBEDDINGS_LOCAL_MODEL: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
