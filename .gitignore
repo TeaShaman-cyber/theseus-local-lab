@@ -109,3 +109,6 @@ outputs/gramps_mcp_crud_direct/*
 *.pem
 *.pfx
 outputs/memory_outbox/
+# QA gate population record and its receipt projection (written per run, never committed)
+dev-check-result.json
+dev-check-receipt.txt
