@@ -72,92 +72,17 @@ Rules:
 
 See `docs/reference/README.md` for the update contract.
 
-## Commit Provenance
+## Git
 
-Because several personas may work under one GitHub account, agent-authored
-commits should preserve provenance in machine-readable trailers. Keep the
-subject conventional and put provenance in the commit body:
+Правила коммитов, веток, отправки, происхождения и безопасности — в одном месте:
+`docs/reference/git.md`. Машинночитаемый набор — `docs/reference/git.rules.yaml`,
+проверка соответствия — `python tools/contracts/check_rules.py` (обязана давать PASS).
 
-```text
-Agent-Persona: Svarog
-Harness: Hermes Desktop
-Provider: openai-codex
-Model: gpt-5.6-luna
-Session-Ref: default/20260815_193832_6e377d
-```
-
-Required agent trailer set:
-
-- `Agent-Persona`
-- `Harness`
-- `Provider`
-- `Model`
-- `Session-Ref`
-
-For a public repository, use the opaque session reference rather than a
-private clickable session link. For a manual human commit, these trailers may
-be omitted. If one provenance trailer is present, the `.githooks/commit-msg`
-check requires all five. Do not put API keys, access tokens, private prompts,
-or raw transcript content into commit messages.
-
-## Clean Worktree Checkpoint Rule
-
-Do not commit every passing substep or every small edit. A commit is a bounded
-checkpoint for one coherent, reviewable deliverable, not a substitute for a task
-list. During an active task, dirty state is allowed only when every changed path
-belongs to that task and the next step is explicit.
-
-At a task boundary, harness/persona switch, context handoff, long pause, or
-session end, resolve every changed path into exactly one disposition:
-
-```text
-commit      — coherent, important, validated deliverable;
-wip commit  — one valuable unfinished checkpoint that must survive handoff;
-discard     — failed experiment or temporary change;
-ignore      — generated/local artifact moved under an ignored path;
-stash       — short-lived pause with an explicit follow-up.
-```
-
-Commit decision gate:
-
-- do not create a commit merely to make `git status` clean;
-- do not split one logical change into page/file/substep commits;
-- do not use a WIP commit for work that can safely remain inside the active task;
-- use one WIP checkpoint only when unfinished work must survive a handoff or
-  session boundary, and state why it cannot yet be a normal commit;
-- do not leave unrelated, unexplained, or ownerless dirty paths.
-
-Git integration is governed by repository ownership first, then by downstream
-effect.
-
-**Own repositories** (`TeaShaman-cyber/*`): routine git work is normal task work,
-not a contribution ritual. Commit, push, branch, issue, PR, comment and label are
-done freely inside an approved workflow, without per-action approval. The
-checkpoint gate below still decides *what* is committed; it does not turn each
-push into a separate negotiation.
-
-**Third-party or upstream repositories**: the contribution ritual applies —
-inspect the remote workflows and settings, keep scope inside the agreed
-contribution, and get explicit agreement before any write.
-
-**Any repository**: merge into a shared or protected branch, release, deploy,
-force-push and history rewrite remain separate explicit decisions, because their
-effect is not routine.
-
-- a local commit is a reviewable checkpoint, not publication or deployment;
-- a push in an own repository is routine when it triggers no CI/CD, release,
-  deploy or publication;
-- ask before pushing only when the effect is unknown, high-impact, destructive,
-  or outside the current workflow.
-
-A `wip:` commit must state `Change-Status: wip`, `Task-Ref`, `Next`, and
-`Verification` in its body, plus the provenance trailers above. A task is not
-complete until its worktree is clean or every remaining path has an explicit
-owner and disposition reported to the user.
-
-Before a checkpoint, inspect `git status -sb`, `git diff --stat`, and
-`git diff --name-only`. Stage explicit paths only. Never use a blanket cleanup
-command to resolve ambiguity.
+Коротко, что нельзя забыть: коммит — ограниченный чекпойнт одного результата,
+стейджить только явные пути, перед коммитом прогнать
+`node tools/git_safety/scan_staged.mjs`, в собственных репозиториях рутинная
+git-работа не требует согласования на каждое действие, а мерж в защищённую
+ветку, релиз, деплой и force-push — требуют.
 
 ## Project Change Control (MarcoPolo project-settings v9)
 
@@ -354,15 +279,3 @@ Use a Diataxis-style split:
 - how-to guides: concrete operational tasks;
 - reference: commands, services, schemas, ports, configuration;
 - explanation: architecture, decisions, tradeoffs, research context.
-
-## Git Safety
-
-Stage explicit paths. Before committing, run the repository secret/staging
-scanner:
-
-```text
-node tools/git_safety/scan_staged.mjs
-```
-
-Stop before committing if staged files include secrets, `.env`, `.env.local`,
-private keys, raw transcripts, raw memory, or backup archives.

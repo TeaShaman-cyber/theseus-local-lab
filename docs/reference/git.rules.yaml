@@ -1,0 +1,107 @@
+# Правила git: машинночитаемый набор.
+# Источник: AGENTS.md (секции Commit Provenance, Clean Worktree Checkpoint Rule,
+# Git Safety) до их выноса в docs/reference/git.md.
+# Проверяется через tools/contracts/check_rules.py; каждая строка здесь должна
+# иметь пару в git.md по идентификатору.
+revision: 2026-10-28-git-v1
+source: docs/reference/git.md
+rules:
+  - id: GIT-001
+    obligation: MUST
+    statement: Коммит — ограниченный чекпойнт одного цельного, обозримого результата, а не замена списку задач.
+    verification: Сравнить объём staged-изменений с одной задачей; посторонние пути отложить.
+
+  - id: GIT-002
+    obligation: MUST_NOT
+    statement: Коммитить только ради того, чтобы git status стал чистым.
+    verification: Если коммит создаётся без завершённого результата — отказ.
+
+  - id: GIT-003
+    obligation: MUST_NOT
+    statement: Дробить одно логическое изменение на коммиты по файлам или подшагам.
+    verification: Проверить, что все части одного изменения попали в один коммит.
+
+  - id: GIT-004
+    obligation: MUST
+    statement: На границе задачи, смене харнесса, передаче контекста и в конце сессии каждый изменённый путь получает ровно одно решение — commit, wip commit, discard, ignore или stash.
+    verification: git status -sb не содержит путей без решения.
+
+  - id: GIT-005
+    obligation: MUST_NOT
+    statement: Оставлять посторонние, необъяснённые или бесхозные грязные пути.
+    verification: Каждый путь в git status объяснён в отчёте пользователю.
+
+  - id: GIT-006
+    obligation: MUST
+    statement: В собственных репозиториях (TeaShaman-cyber/*) обычная git-работа выполняется свободно, без согласования на каждое действие.
+    verification: Проверить владельца репозитория перед выбором режима.
+
+  - id: GIT-007
+    obligation: MUST
+    statement: Для сторонних и upstream-репозиториев — изучить remote workflows и настройки, держать объём в согласованных рамках, получить явное согласие до любой записи.
+    verification: Согласие зафиксировано в переписке до первого write.
+
+  - id: GIT-008
+    obligation: MUST
+    statement: Мерж в общую или защищённую ветку, релиз, деплой, force-push и перезапись истории — отдельное явное решение.
+    verification: Наличие явного согласия пользователя до действия.
+
+  - id: GIT-009
+    obligation: MAY
+    statement: Push в собственный репозиторий рутинен, если не запускает CI/CD, релиз, деплой или публикацию.
+    verification: Проверить наличие workflow на push перед отправкой.
+
+  - id: GIT-010
+    obligation: MUST
+    statement: WIP-коммит содержит Change-Status wip, Task-Ref, Next, Verification и полный набор трейлеров происхождения.
+    verification: Прочитать тело коммита; все четыре поля и пять трейлеров присутствуют.
+
+  - id: GIT-011
+    obligation: MUST
+    statement: Перед чекпойнтом просмотреть git status -sb, git diff --stat и git diff --name-only; стейджить только явные пути.
+    verification: Команды выполнены, список путей перечислен вручную.
+
+  - id: GIT-012
+    obligation: MUST_NOT
+    statement: Разрешать неоднозначность грязного дерева командой сплошной очистки.
+    verification: В истории команд отсутствует git add -A, git checkout . и подобное без явного перечня.
+
+  - id: GIT-013
+    obligation: MUST
+    statement: Коммиты агента несут пять трейлеров — Agent-Persona, Harness, Provider, Model, Session-Ref.
+    verification: .githooks/commit-msg пропускает коммит; тело содержит все пять.
+
+  - id: GIT-014
+    obligation: MUST
+    statement: Если присутствует хотя бы один трейлер происхождения, обязательны все пять.
+    verification: Тот же хук; частичный набор отвергается.
+
+  - id: GIT-015
+    obligation: MUST_NOT
+    statement: Помещать в сообщение коммита API-ключи, токены, приватные промпты и сырые транскрипты.
+    verification: Скан staged-файлов и чтение тела коммита перед отправкой.
+
+  - id: GIT-016
+    obligation: MUST
+    statement: В публичном репозитории использовать непрозрачную ссылку на сессию, а не приватную кликабельную.
+    verification: Поле Session-Ref не содержит URL приватного чата.
+
+  - id: GIT-017
+    obligation: MAY
+    statement: Ручной человеческий коммит может обходиться без трейлеров.
+    verification: Автор коммита — человек, а не агент.
+
+  - id: GIT-018
+    obligation: MUST
+    statement: Перед коммитом запускать сканер секретов и стейджинга node tools/git_safety/scan_staged.mjs.
+    verification: Вывод сканера — staged secret scan ok.
+
+  - id: GIT-019
+    obligation: MUST
+    statement: Остановиться до коммита, если в staged попали секреты, .env, .env.local, приватные ключи, сырые транскрипты, сырая память или архивы бэкапов.
+    verification: Проверить список staged против перечня запрещённых типов.
+
+  - id: GIT-020
+    obligation: MUST
+    statement: Задача не считается завершённой, пока дерево не чисто или каждый оставшийся путь не имеет явного владельца и решения, о котором сообщено пользователю.
+    verification: Итоговый git status и отчёт о каждом оставшемся пути.
