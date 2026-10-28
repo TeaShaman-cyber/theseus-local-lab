@@ -27,8 +27,10 @@ jobs:
 
       - name: Verify checked-out source identity
         env:
+          VERIFICATION_PROFILE: local-lab-qa
           EXPECTED_SHA: ${{ github.event.pull_request.head.sha }}
           SOURCE_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
+          EVENT_REPOSITORY: ${{ github.repository }}
           EVENT_SHA: ${{ github.sha }}
           WORKFLOW_REF: ${{ github.workflow_ref }}
           WORKFLOW_SHA: ${{ github.workflow_sha }}
@@ -36,13 +38,21 @@ jobs:
           RUN_ATTEMPT: ${{ github.run_attempt }}
         run: |
           set -euo pipefail
-          actual_sha="$(git rev-parse HEAD)"
-          if [[ "$actual_sha" != "$EXPECTED_SHA" ]]; then
-            printf 'QA_SOURCE_MISMATCH expected=%s actual=%s\n' "$EXPECTED_SHA" "$actual_sha" >&2
+          checkout_sha="$(git rev-parse HEAD)"
+          if [[ "$checkout_sha" != "$EXPECTED_SHA" ]]; then
+            printf 'QA_SOURCE_MISMATCH expected=%s observed=%s\n' "$EXPECTED_SHA" "$checkout_sha" >&2
             exit 2
           fi
-          printf 'QA_SOURCE_OK repository=%s event_sha=%s source_sha=%s workflow_ref=%s workflow_sha=%s run_id=%s run_attempt=%s\n' \
-            "$SOURCE_REPOSITORY" "$EVENT_SHA" "$EXPECTED_SHA" "$WORKFLOW_REF" "$WORKFLOW_SHA" "$RUN_ID" "$RUN_ATTEMPT"
+          printf 'verification_profile=%s\n' "$VERIFICATION_PROFILE"
+          printf 'verification_event_repository=%s\n' "$EVENT_REPOSITORY"
+          printf 'verification_event_sha=%s\n' "$EVENT_SHA"
+          printf 'verification_source_repository=%s\n' "$SOURCE_REPOSITORY"
+          printf 'verification_source_sha=%s\n' "$EXPECTED_SHA"
+          printf 'verification_checkout_sha=%s\n' "$checkout_sha"
+          printf 'verification_run_id=%s\n' "$RUN_ID"
+          printf 'verification_run_attempt=%s\n' "$RUN_ATTEMPT"
+          printf 'verification_caller_workflow_ref=%s\n' "$WORKFLOW_REF"
+          printf 'verification_caller_workflow_sha=%s\n' "$WORKFLOW_SHA"
 
       - name: Set up pinned Node.js
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
