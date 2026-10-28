@@ -1,3 +1,16 @@
 #!/bin/sh
+# Race gate first: it has no side effects, while normalize_staged_text rewrites
+# files and re-stages them. A blocked commit must not leave mutated staging.
+#
+# The gate refuses to commit from the shared checkout, where two chats can
+# switch branches under each other. In a private worktree it derives session
+# identity from the git dir path (worktree:<name>), so no environment variable
+# is needed — and a human committing from an IDE is not blocked.
+PY=$(command -v python3 || command -v python) || {
+  echo "pre-commit: python3 not found, cannot run the race gate" >&2
+  exit 1
+}
+"$PY" tools/git_safety/check_race.py
+
 node tools/git_safety/normalize_staged_text.mjs
 node tools/git_safety/scan_staged.mjs
