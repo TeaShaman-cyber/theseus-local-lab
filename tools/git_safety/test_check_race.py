@@ -27,6 +27,36 @@ import sys
 import tempfile
 
 CHECK = pathlib.Path(__file__).with_name("check_race.py")
+REPO = CHECK.parents[2]
+
+
+def hook_contract() -> list[str]:
+    """Хук обязан пробросить отказ гейта, а не проглотить его.
+
+    Наблюдалось обратное: вызов без `|| exit 1` печатал СТОП, а коммит проходил —
+    следующие node-шаги завершались успешно и возвращали ноль. Гейт с красивым
+    выводом и нулевым кодом возврата — это не гейт.
+    """
+    problems: list[str] = []
+    tmp = pathlib.Path(tempfile.mkdtemp(prefix="hook-test-"))
+    try:
+        tools = tmp / "tools" / "git_safety"
+        tools.mkdir(parents=True)
+        (tools / "check_race.py").write_text(
+            "import sys\nprint('СТОП: тестовый отказ')\nsys.exit(1)\n", encoding="utf-8"
+        )
+        for name in ("normalize_staged_text.mjs", "scan_staged.mjs"):
+            (tools / name).write_text("", encoding="utf-8")
+
+        proc = subprocess.run(
+            ["sh", str(REPO / ".githooks" / "pre-commit")],
+            cwd=str(tmp), capture_output=True, text=True,
+        )
+        if proc.returncode == 0:
+            problems.append("хук проглотил отказ гейта: коммит прошёл бы при СТОП")
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+    return problems
 
 
 def git(cwd: pathlib.Path, *args: str) -> None:
@@ -78,12 +108,17 @@ def main() -> int:
         elif "ses-alpha" not in out:
             failures.append(f"отказ есть, но чужая сессия не названа: {out.strip()[:120]}")
 
+        failures.extend(hook_contract())
+
         if failures:
             for item in failures:
                 print(f"FAIL: {item}")
             return 1
 
-        print("RACE_GATE_OK: общий checkout блокируется, своя заявка проходит, чужая называется")
+        print(
+            "RACE_GATE_OK: общий checkout блокируется, своя заявка проходит, "
+            "чужая называется, хук пробрасывает отказ"
+        )
         return 0
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
