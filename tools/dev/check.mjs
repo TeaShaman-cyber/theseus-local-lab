@@ -149,6 +149,12 @@ function main(args) {
   }
 
   for (const step of steps) {
+    if (step.id === "race-test") {
+      // `python` alone is 127 on Linux images that only ship `python3`.
+      const python = process.platform === "win32" ? "python" : "python3";
+      results.push(runStep(step.id, python, ["tools/git_safety/test_check_race.py"]));
+      continue;
+    }
     if (step.id === "unit") {
       if (testFiles?.length) {
         const unit = runStep(step.id, process.execPath, buildTestArgs(testFiles), { capture: true });

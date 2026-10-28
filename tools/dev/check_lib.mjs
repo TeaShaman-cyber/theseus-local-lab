@@ -54,6 +54,7 @@ export function buildSteps({ hasStagedFiles } = {}) {
   const steps = [
     { id: "unit", label: "node --test --test-concurrency=1 tools/**/*.test.mjs" },
     { id: "contract", label: "tools/contract_checks/agentops_gitops_contract.mjs" },
+    { id: "race-test", label: "tools/git_safety/test_check_race.py" },
     { id: "redaction", label: "tools/dev/redaction_check.mjs" },
     { id: "diff-check", label: "git diff --check" },
   ];

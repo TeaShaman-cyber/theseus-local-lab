@@ -30,6 +30,28 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 TTL_SECONDS = 45 * 60  # заявка без heartbeat дольше этого считается брошенной
 
+_ROOT_CACHE: Path | None = None
+
+
+def repo_root() -> Path:
+    """Репозиторий, в котором работает гейт, — по каталогу вызова.
+
+    Раньше все git-команды шли с cwd=ROOT, то есть всегда смотрели на дерево, где
+    лежит сам скрипт. Из-за этого запуск из другого репозитория молча проверял
+    чужое дерево, а заявки писались в чужой .git — и гейт нельзя было проверить
+    тестом, потому что любой тест смотрел бы на прод.
+    """
+    global _ROOT_CACHE
+    if _ROOT_CACHE is not None:
+        return _ROOT_CACHE
+    out = subprocess.run(
+        ["git", "rev-parse", "--show-toplevel"],
+        cwd=Path.cwd(), capture_output=True, text=True, check=False,
+    )
+    top = out.stdout.strip()
+    _ROOT_CACHE = Path(top) if out.returncode == 0 and top else Path.cwd()
+    return _ROOT_CACHE
+
 
 def claims_dir() -> Path:
     """Каталог заявок внутри настоящего git-каталога.
@@ -37,13 +59,13 @@ def claims_dir() -> Path:
     В worktree `.git` — это файл-указатель, поэтому путь нельзя собирать как
     ROOT/".git"/...: там каталога нет, и заявки молча не создавались бы.
     """
-    git_dir = git("rev-parse", "--absolute-git-dir") or str(ROOT / ".git")
+    git_dir = git("rev-parse", "--absolute-git-dir") or str(repo_root() / ".git")
     return Path(git_dir) / "hermes-claims"
 
 
 def git(*args: str) -> str:
     return subprocess.run(
-        ["git", *args], cwd=ROOT, capture_output=True, text=True, check=False
+        ["git", *args], cwd=repo_root(), capture_output=True, text=True, check=False
     ).stdout.strip()
 
 
@@ -84,7 +106,7 @@ def is_shared_checkout() -> bool:
     checkout делят между собой несколько чатов, поэтому работа в нём и создаёт
     гонку.
     """
-    return (ROOT / ".git").is_dir()
+    return (repo_root() / ".git").is_dir()
 
 
 def index_lock_present() -> bool:
