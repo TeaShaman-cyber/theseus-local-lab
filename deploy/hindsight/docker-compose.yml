@@ -35,6 +35,11 @@ services:
       # with no progress, while metrics showed a single 15 s LLM call.
       # Disabling the cache removes the race; the cost is a negligible slower import.
       PYTHONDONTWRITEBYTECODE: "1"
+      # Автоконсолидация выключена 2026-10-28 по замеру: без производных
+      # наблюдений recall находит не хуже (строгий 7/15 против 6/15) и ранжирует
+      # лучше (MRR 0.355 против 0.256), а фоновая работа забирала ядра у recall.
+      # Ручной запуск остаётся: POST /v1/default/banks/{bank_id}/consolidate.
+      HINDSIGHT_API_ENABLE_AUTO_CONSOLIDATION: "false"
       # Emergency production priority: Nous Solar Mini through the
       # authenticated hermes-proxy is primary while BotHub is near its limit;
       # BotHub Mistral remains only as the last fallback member.
