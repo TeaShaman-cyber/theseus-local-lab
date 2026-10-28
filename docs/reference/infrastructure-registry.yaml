@@ -36,14 +36,19 @@ providers:
 
 stacks:
   - id: automem
-    status: active
+    status: retired-stopped
+    retired_at: 2026-10-28
+    retired_reason: живая память переведена на Hindsight; контейнеры приостановлены с 26 октября, MCP-мост отключён, вызовов не было
     scope: shared-service
-    consumers: [codex, hermes-optional]
+    consumers: [none]
+    container_state: stopped, restart=no, volumes preserved
+    mcp_bridge_enabled: false
+    memory_role: superseded-by-hindsight
     source_kind: upstream-working-clone
     compose_source: C:/Users/s.poklad/Documents/Codex/2026-07-08/life-science-research-plugin-life-science-4/work/automem
     runtime_working_dir: C:/Users/s.poklad/Documents/Codex/2026-07-08/life-science-research-plugin-life-science-4/work/automem
     containers: [automem-flask-api-1, automem-falkordb-1, automem-qdrant-1]
-    memory_role: codex-primary-candidate
+    memory_role_previous: codex-primary-candidate
     availability_check: live-recall-per-harness
     mcp_bridge_runtime: C:/Users/s.poklad/AppData/Local/hermes/mcp/automem-bridge
     mcp_bridge_package: '@verygoodplugins/mcp-automem@0.15.0'
@@ -58,7 +63,9 @@ stacks:
     notes: Active containers currently use this nested working clone; do not move it without a runtime migration plan.
 
   - id: mempalace
-    status: active
+    status: retired-stopped
+    retired_at: 2026-10-28
+    retired_reason: живая память в Hindsight; контейнер приостановлен, MCP отключён, вызовов в логе нет
     scope: shared-optional-service
     consumers: [codex, hermes-optional]
     source_kind: active-runtime-tree
@@ -174,7 +181,9 @@ stacks:
     notes: Compose source and container provenance are now repository-owned; OAuth remains in the dedicated named volume and runtime env remains at D:/hindsight/.env. Current Nous Solar data-plane probing is blocked by Cloudflare error 1010; this is separate from source ownership and must not be reported as a healthy completion route. Cold-boot verification remains pending.
 
   - id: backup
-    status: active-needs-review
+    status: superseded-by-scheduled-task
+    retired_at: 2026-10-28
+    retired_reason: контейнер theseus-backup-runner удалён (не было скрипта внутри, бесконечный restart); работу выполняет задача Theseus Backup
     scope: shared-infrastructure
     consumers: [codex, hermes-optional]
     source_kind: standalone-project
@@ -231,7 +240,9 @@ stacks:
     notes: "required because windows_exporter reports a static nominal CPU frequency (1801 MHz, max-min over 30m = 0), so throttling could not be derived from it. With this service, real clocks (2200-2600 MHz observed against a 1800 base and 3900 turbo) and per-core temperatures become available."
 
   - id: graph-viewer
-    status: active
+    status: retired-stopped
+    retired_at: 2026-10-28
+    retired_reason: часть стека AutoMem, контейнер приостановлен
     scope: local-lab
     consumers: [codex]
     source_kind: main-repository-subproject
@@ -242,7 +253,9 @@ stacks:
     secrets: external-not-in-registry
 
   - id: log-lattice
-    status: active
+    status: retired-stopped
+    retired_at: 2026-10-28
+    retired_reason: за сутки три строки лога, все свои же listening; Alloy шлёт напрямую в Loki, потребителей нет
     scope: local-lab
     consumers: [codex]
     source_kind: main-repository-subproject
@@ -253,7 +266,9 @@ stacks:
     secrets: external-not-in-registry
 
   - id: dashboard
-    status: active
+    status: retired-stopped
+    retired_at: 2026-10-28
+    retired_reason: контейнер приостановлен, дашборды живут в Grafana
     scope: local-lab
     consumers: [codex]
     source_kind: main-repository-subproject
