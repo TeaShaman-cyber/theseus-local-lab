@@ -23,6 +23,7 @@ GOLDEN = ROOT / "docs/eval/golden-v1.jsonl"
 BASE = "http://127.0.0.1:8888/v1/default/banks/hermes"
 RECALL = f"{BASE}/memories/recall"
 TYPES = ["observation", "world", "experience"]
+DEFAULT_TYPES = ",".join(TYPES)
 STOP = set("""и в во не что он на я с со как а то все она так его но да ты к у же вы за бы по только
 для мы тебя их чем была сам чтоб без будто чего раз тоже себе под будет ж тогда кто этот того
 этого какой совсем ним здесь этом один почти мой тем чтобы нее сейчас были куда зачем всех
@@ -66,6 +67,9 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--budget", default="low")
     ap.add_argument("--max-tokens", type=int, default=768)
+    ap.add_argument("--types", default=DEFAULT_TYPES,
+                    help="через запятую; например world,experience — чтобы проверить, "
+                         "что дают производные наблюдения")
     ap.add_argument("--corpus", default=None,
                     help="каталог или файл замороженного корпуса; без него тексты читаются из живой базы")
     args = ap.parse_args()
@@ -105,7 +109,8 @@ def main() -> int:
         try:
             data = _post(RECALL, {
                 "query": row["query"], "budget": args.budget,
-                "max_tokens": args.max_tokens, "types": TYPES,
+                "max_tokens": args.max_tokens,
+                "types": [t.strip() for t in args.types.split(",") if t.strip()],
             })
         except Exception as exc:  # noqa: BLE001
             print(f"{row['id']:5} {row['category']:16} {'—':>7}  ОШИБКА: {exc}")
