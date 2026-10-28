@@ -58,7 +58,7 @@ services:
       HINDSIGHT_CP_PORT: "9999"
       # Cloud LLM is fast; keep modest timeouts, allow a little concurrency.
       HINDSIGHT_API_LLM_TIMEOUT: "120"
-      HINDSIGHT_API_LLM_MAX_CONCURRENT: "2"
+      HINDSIGHT_API_LLM_MAX_CONCURRENT: "4"
       HINDSIGHT_API_LLM_REASONING_EFFORT: "none"
       # Reflect-only route: paid BotHub Mistral passed JSON and the full
       # Hindsight tool contract in 2/2 independent disposable-station runs.

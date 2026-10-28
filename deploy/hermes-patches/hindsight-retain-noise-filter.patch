@@ -1,0 +1,52 @@
+--- /c/Users/s.poklad/AppData/Local/hermes/plugins/hindsight/__init__.py.bak-noise-20261028-031753	2026-10-27 20:09:59.763910300 +0200
++++ /c/Users/s.poklad/AppData/Local/hermes/plugins/hindsight/__init__.py	2026-10-28 03:21:47.975692300 +0200
+@@ -17,6 +17,7 @@
+ import logging
+ import os
+ import queue
++import re
+ import sys
+ import threading
+ import time
+@@ -474,6 +475,33 @@
+     "cwd",
+ )
+ # Retain metadata keys, each stamped from the attribute of the same name when set.
++# Операционный шум: чистые уведомления о завершении фоновых процессов попадали
++# в память как факты. Строку с ошибкой не трогаем — там есть сигнал.
++_RETAIN_NOISE_RE = re.compile(
++    r"^\s*(?:[-*•]\s*)?(?:фоновый\s+процесс|background\s+process)\s+proc_[0-9a-z]+"
++    r".*\b(?:завершился\s+нормально|завершился\s+успешно|completed\s+normally|exit\s+code\s+0|exit\s+0)\b",
++    re.IGNORECASE,
++)
++_RETAIN_ERROR_RE = re.compile(
++    r"ошибк|сломал|упал|error|fail|исключен|traceback",
++    re.IGNORECASE,
++)
++
++
++def _strip_retain_noise(text: str) -> str:
++    """Убирает из текста перед retain строки, которые являются только уведомлением
++    о завершении фонового процесса. Возвращает исходный текст, если нечего резать."""
++    if not text:
++        return text
++    lines = text.splitlines()
++    kept = [ln for ln in lines if not (_RETAIN_NOISE_RE.search(ln) and not _RETAIN_ERROR_RE.search(ln))]
++    if len(kept) == len(lines):
++        return text
++    dropped = len(lines) - len(kept)
++    logger.debug("Hindsight retain: dropped %d noise line(s) before retain", dropped)
++    return "\n".join(kept).strip()
++
++
+ _METADATA_ATTRS = (
+     "session_id",
+     "platform",
+@@ -1916,7 +1944,7 @@
+             {"role": role, "content": f"{prefix}: {content}", "timestamp": now}
+             for role, prefix, content in (
+                 ("user", self._retain_user_prefix, user_content),
+-                ("assistant", self._retain_assistant_prefix, assistant_content),
++                ("assistant", self._retain_assistant_prefix, _strip_retain_noise(assistant_content)),
+             )
+         ]
