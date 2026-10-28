@@ -45,6 +45,27 @@ def test_record_command_parses_task() -> None:
     assert record_command_task("gh issue create --title t") is None
 
 
+def test_record_command_is_not_blocked() -> None:
+    """Дверь наружу открыта: сама команда записи проходит."""
+    state = observe(GuardState(False, False, "115"), "web_search", {}, True)
+    assert verdict(state, "terminal", {"command": "gh issue comment 115 --body x"}) is None
+
+
+def test_escape_hatch_matches_the_message() -> None:
+    """Команда из сообщения обязана проходить ту же проверку, что и блокирует.
+
+    Этот тест появился после живого прогона: механизм заблокировал собственный
+    выход, потому что команда записи тоже считалась «другой работой».
+    """
+    state = observe(GuardState(False, False, "115"), "web_search", {}, True)
+    message = verdict(state, "write_file", {})
+    assert message is not None
+    command = message.split("`")[1]
+    assert verdict(state, "terminal", {"command": command}) is None, (
+        f"механизм блокирует собственный выход: {command}"
+    )
+
+
 def main() -> int:
     tests = [value for name, value in sorted(globals().items()) if name.startswith("test_")]
     failed = 0
