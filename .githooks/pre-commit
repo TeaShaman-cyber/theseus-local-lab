@@ -10,7 +10,7 @@ PY=$(command -v python3 || command -v python) || {
   echo "pre-commit: python3 not found, cannot run the race gate" >&2
   exit 1
 }
-"$PY" tools/git_safety/check_race.py
+"$PY" tools/git_safety/check_race.py || exit 1
 
-node tools/git_safety/normalize_staged_text.mjs
-node tools/git_safety/scan_staged.mjs
+node tools/git_safety/normalize_staged_text.mjs || exit 1
+node tools/git_safety/scan_staged.mjs || exit 1
