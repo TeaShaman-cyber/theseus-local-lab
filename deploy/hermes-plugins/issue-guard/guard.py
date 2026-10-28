@@ -51,13 +51,23 @@ def observe(state: GuardState, tool_name: str, args: dict, ok: bool) -> GuardSta
 
 
 def verdict(state: GuardState, tool_name: str, args: dict) -> str | None:
-    """Текст блокировки, если уходить от исследования пока нельзя."""
+    """Текст блокировки, если уходить от исследования пока нельзя.
+
+    Дверь наружу обязана быть открытой: команда записи, которую предлагает само
+    сообщение, должна проходить через эту же проверку. Иначе механизм блокирует
+    собственный выход — так и случилось на первом живом прогоне.
+    """
     if not state.research_seen or state.record_seen:
         return None
     if tool_name in RESEARCH_TOOLS:
         return None
+    if tool_name == "terminal" and record_command_task((args or {}).get("command", "")):
+        return None
     target = f"#{state.task}" if state.task else "задачу"
-    command = f"gh issue comment {state.task}" if state.task else "gh issue comment <N>"
+    if state.task:
+        command = f'gh issue comment {state.task} --body "наблюдение: ... вывод: ..."'
+    else:
+        command = 'gh issue comment <N> --body "наблюдение: ... вывод: ..."'
     return (
         f"Исследование было, а записи в {target} нет. "
         f"Запиши наблюдение и вывод командой `{command}` — и только потом продолжай."
