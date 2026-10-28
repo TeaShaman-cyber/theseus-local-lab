@@ -288,10 +288,12 @@ prometheus.relabel "hindsight_api_trim" {
     action        = "drop"
   }
 
-  // LLM: вызовы идут секундами, reflect — сотнями секунд; мелкие бакеты не нужны.
+  // LLM: 76% вызовов длится дольше 10 с, быстрее 2 с — меньше процента. Поэтому
+  // держим разрешение в рабочем диапазоне (10/15/30/60), а пустые мелкие бакеты
+  // 2 и 5 убираем: на них нет массы, и они только занимают серии.
   rule {
     source_labels = ["__name__", "le"]
-    regex         = "hindsight_llm_duration_seconds_bucket;(0.1|0.25|0.5|1.0|3.0|15.0|60.0)"
+    regex         = "hindsight_llm_duration_seconds_bucket;(0.1|0.25|0.5|1.0|2.0|3.0|5.0|120.0)"
     action        = "drop"
   }
 }
