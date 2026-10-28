@@ -47,24 +47,30 @@ def git(*args: str) -> str:
     ).stdout.strip()
 
 
-def session_id(explicit: str | None) -> str:
-    """Идентичность сессии обязательна.
+def resolve_session(explicit: str | None, shared: bool) -> str:
+    """Идентичность нужна только там, где возможна гонка.
 
-    Общий fallback здесь опаснее отсутствия проверки: два чата получают одну
-    заявку, и проверка считает её своей. Поэтому без явного идентификатора
-    скрипт отказывается работать, а не подставляет значение по умолчанию.
+    В общем checkout несколько чатов делят одно дерево, и без явной идентичности
+    заявки сливаются — там отказ обязателен. В отдельном worktree дерево
+    принадлежит одной ветке, гонки быть не может, и требовать переменную
+    окружения от человека, коммитящего из VS Code или Git GUI, нельзя: он
+    получает СТОП и не знает выхода. Это же обещает `.githooks/README.md`.
     """
     value = explicit or os.environ.get("HERMES_SESSION_ID")
-    if not value:
+    if value:
+        return value
+    if shared:
         print(
             "СТОП: не задан идентификатор сессии.\n"
             "Передайте --session <id> или выставьте HERMES_SESSION_ID.\n"
-            "Общий fallback запрещён: две сессии получили бы одну заявку "
-            "и гейт пропустил бы гонку.",
+            "В общем checkout общий fallback запрещён: две сессии получили бы "
+            "одну заявку и гейт пропустил бы гонку.",
             file=sys.stderr,
         )
         raise SystemExit(2)
-    return value
+    # Локальная идентичность по пути worktree: уникальна, ни с кем не делится.
+    git_dir = git("rev-parse", "--absolute-git-dir")
+    return f"worktree:{Path(git_dir).name}" if git_dir else "worktree:unknown"
 
 
 def current_branch() -> str:
@@ -138,7 +144,8 @@ def main() -> int:
                     help="разрешить работу в общем checkout (по умолчанию гейт против)")
     args = ap.parse_args()
 
-    session = session_id(args.session)
+    shared = is_shared_checkout()
+    session = resolve_session(args.session, shared)
     branch = current_branch()
     key = session.replace("/", "_")
 
@@ -181,7 +188,7 @@ def main() -> int:
             notes.append(f"брошенная заявка: {claim.get('session')} (возраст {int(age)} с)")
 
     # 3. Некооперативные сигналы: не требуют, чтобы другие чаты что-то писали.
-    if is_shared_checkout() and not args.allow_shared:
+    if shared and not args.allow_shared:
         problems.append(
             "это общий checkout, его делят несколько чатов. Работайте в своём "
             "worktree (git worktree add <путь> <ветка>) или повторите с --allow-shared"
