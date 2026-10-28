@@ -50,6 +50,11 @@ Each line is a real defect found by one of the layers, not a hypothetical.
   looks like and also what a dead exporter looks like.
 - **Verifying by the tool's own return.** A successful call is not a
   postcondition; read the target back (`gh api`, `gh run view --log`, `git log`).
+- **A gate whose exit code the caller ignores.** The pre-commit hook called the
+  race gate without `|| exit 1` and without `set -e`, so the gate printed СТОП and
+  the commit went through — enforcement was never tested, only the message was.
+  Verify enforcement by the caller's exit code, not by the gate's output or its
+  own return value.
 - **Judging a task's state from its title.** Read the issue's own comment
   history and the artifacts on disk before calling work pending or blocked —
   the work is often already done and recorded there. A title states the
