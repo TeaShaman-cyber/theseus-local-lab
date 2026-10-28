@@ -17,11 +17,13 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 import urllib.error
 import urllib.request
+from datetime import datetime, timezone
 
-BASE = "http://127.0.0.1:8888/v1/default/banks/hermes"
+BASE = (os.environ.get("HINDSIGHT_API_URL") or "http://127.0.0.1:8888").rstrip("/") + "/v1/default/banks/hermes"
 
 
 def _request(method: str, url: str, payload: dict) -> dict:
@@ -54,17 +56,34 @@ def find_by_text(text: str) -> str | None:
     url = f"{BASE}/memories/list?limit=30"
     with urllib.request.urlopen(url, timeout=60) as resp:
         data = json.loads(resp.read())
-    needle = text.strip()[:50].lower()
-    for item in data.get("items") or []:
+    needle = text.strip()[:80].lower()
+    if not needle:
+        return None
+    items = data.get("items") or []
+    # Список идёт от новых к старым: сначала ищем точное начало текста, чтобы не
+    # привязать к аудитовой причине чужой id из-за совпадения префикса.
+    for item in items:
         body = (item.get("text") or "").lower()
-        if needle and needle in body:
+        if body.startswith(needle):
+            return str(item.get("id"))
+    for item in items:
+        body = (item.get("text") or "").lower()
+        if needle in body:
             return str(item.get("id"))
     return None
 
 
-def invalidate(memory_id: str, reason: str) -> dict:
-    return _request("PATCH", f"{BASE}/memories/{memory_id}",
+def invalidate(memory_id: str, reason: str) -> bool:
+    """Отзывает факт и возвращает подтверждённый результат.
+
+    Проверяем тело ответа, а не только код: PATCH может вернуть 200 с
+    {"success": false}, и тогда «отозван» было бы ложью. Ровно тот инвариант,
+    который проект требует соблюдать — успех только после наблюдаемого
+    пост-условия.
+    """
+    data = _request("PATCH", f"{BASE}/memories/{memory_id}",
                     {"state": "invalidated", "reason": reason})
+    return bool(data.get("success")) or data.get("state") == "invalidated"
 
 
 def main() -> int:
@@ -77,14 +96,35 @@ def main() -> int:
 
     new_id = None
     if args.new_text:
-        new_id = write_fact(args.new_text, args.tag or ["habit:process"])
+        new_id = write_fact(args.new_text, args.tag)
         print(f"новый факт: {new_id}")
 
-    reason = args.reason if not new_id else f"{args.reason} (заменён на {new_id})"
+    stamp = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    reason = f"{args.reason} [{stamp}]"
+    if new_id:
+        reason += f" (заменён на {new_id})"
+
+    def _orphan_warning() -> None:
+        if new_id:
+            print(f"ВНИМАНИЕ: новый факт {new_id} уже записан, но старый НЕ отозван — "
+                  "пара разорвана, разберите вручную")
+
     try:
-        invalidate(args.old, reason)
+        ok = invalidate(args.old, reason)
     except urllib.error.HTTPError as exc:
-        print("PATCH не удался:", exc.code, exc.read()[:200].decode("utf-8", "ignore"))
+        body = exc.read()[:200].decode("utf-8", "ignore")
+        print(f"PATCH отклонён: HTTP {exc.code} {body}")
+        _orphan_warning()
+        return 1
+    except urllib.error.URLError as exc:
+        # Сеть, а не HTTP-ответ: сервер недоступен, это отдельный случай.
+        print(f"сервер памяти недоступен: {exc.reason}")
+        _orphan_warning()
+        return 1
+
+    if not ok:
+        print("PATCH ответил без подтверждения отзыва — считаем неудачей, а не успехом")
+        _orphan_warning()
         return 1
 
     print(f"старый факт отозван: {args.old}")
