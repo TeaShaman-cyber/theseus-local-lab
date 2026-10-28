@@ -1,6 +1,25 @@
 schema_version: 2
-last_verified: 2026-10-27
+last_verified: 2026-10-28
 source_of_truth: docs/reference/infrastructure-registry.yaml
+
+placement_policy:
+  decided_at: 2026-10-28
+  summary: >-
+    Сервис живёт там, где ему нужно быть рядом с данными, а не там, где дешевле.
+  pve_t490:
+    host_limits: 8 GiB RAM (расширяемо позже), Wi-Fi через NAT, один SATA SSD
+    storage_expansion: свободный слот NVMe — под архив, приёмник бэкапов и старые банки
+    os_note: чистый Debian/Proxmox, без Docker-in-WSL; класс отказов «Windows-слой» (ACL, reserved ports, vmmem, Defender на образах) здесь отсутствует
+    gets: [архив данных, приёмник бэкапов, одноразовые стенды и тестовые VM, разовые эксперименты]
+    why: не требует отклика на каждый ход и не читает локальный Docker
+  laptop:
+    gets: [hindsight, hermes-proxy, docker-socket-proxy, otel-docker-exporter, alloy]
+    why: >-
+      Hindsight вызывается каждый ход — сетевой хоп стал бы задержкой ответа, и
+      8 GiB на PVE не хватит под модели с Postgres. Датчики (прокси, экспортёр,
+      Alloy) читают локальный Docker и локальные логи: на PVE они ослепнут.
+  move_hindsight_only_with_agent: true
+  never_over_wifi_nat: [сервисы на пути каждого хода]
 
 rules:
   compose_source_is_iac: true
