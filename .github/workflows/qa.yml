@@ -99,7 +99,10 @@ jobs:
           RUN_ID: ${{ github.run_id }}
           RUN_ATTEMPT: ${{ github.run_attempt }}
         run: |
-          set -euo pipefail
+          # Deliberately no `set -e`/`pipefail`: writing the receipt must never
+          # be able to fail an otherwise-green gate. This mirrors the canonical
+          # currentness-witness pattern (check under `set +e`, write, then exit rc).
+          set -u
           {
             echo '## QA receipt'
             echo
@@ -108,4 +111,4 @@ jobs:
             printf 'source_sha=%s\n' "$SOURCE_SHA"
             printf 'run_id=%s attempt=%s\n' "$RUN_ID" "$RUN_ATTEMPT"
             echo '```'
-          } >> "${GITHUB_STEP_SUMMARY:-/dev/null}"
+          } | tee -a "${GITHUB_STEP_SUMMARY:-/dev/null}"
