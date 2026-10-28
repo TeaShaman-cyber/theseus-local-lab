@@ -1,50 +1,50 @@
 # Theseus Local Lab Agent Guide
 
-This file is the short entry map for agents working in this repository. Keep it
-small. Put procedures in scripts, detailed references in docs, and durable
-lessons in AutoMem/MemPalace.
+Короткая входная карта для агентов, работающих в этом репозитории. Держать её
+маленькой: процедуры — в скриптах, подробности — в `docs/reference/`, уроки —
+в памяти.
 
 ## North Star
 
-Codex is the current lead harness because Theseus has accumulated expertise,
-tools, memory, and trust around this environment. It is not the final substrate.
+Ведущий харнесс проекта — **Hermes** (десктоп и CLI). Codex снят с этой роли:
+его установка и runtime-скиллы остаются на диске, но проектные маршруты на него
+больше не опираются. Смена ведущего харнесса уже произошла один раз, поэтому
+проект и устроен так, чтобы пережить следующую.
 
-Design for platform independence without losing the agent relationship, memory,
-style, or engineering process. Externalize durable state into memory, routes,
-secrets, logs, checks, skills, dashboards, worker profiles, and evidence
-packets so the workshop can survive model, provider, IDE, OS, or harness
-changes.
+Проектировать под независимость от платформы, не теряя отношения с агентом,
+память, стиль и инженерный процесс. Долговременное состояние выносить наружу —
+в память, маршруты, секреты, логи, проверки, скиллы, дашборды, профили воркеров
+и пакеты доказательств, — чтобы мастерская переживала смену модели,
+провайдера, IDE, ОС или харнесса.
 
-## Harness Ownership Boundary
+## Границы владения
 
-This repository is the Theseus local-lab project and currently uses Codex as its
-lead harness. It is **not** the Hermes runtime directory. Keep the following
-layers separate:
+Это репозиторий проекта Theseus local-lab, а **не** каталог рантайма Hermes.
+Слои держать раздельно:
 
-| Layer | Owner | Source of truth |
+| Слой | Владелец | Источник истины |
 |---|---|---|
-| Codex project skills | Theseus/Codex project | `skills-codex/` or an existing `.agents/skills/` path in this checkout |
-| Codex runtime skills | Codex | `C:/Users/s.poklad/.codex/skills/` |
-| Hermes runtime skills/plugins | Hermes | `%HERMES_HOME%/skills/` and `%HERMES_HOME%/plugins/` |
-| OSINT harness adapters | Theseus OSINT repo | `D:/theseus-osint/harnesses/<harness>/` in this environment |
-| Harness-neutral research | Shared | `D:/theseus-osint/harnesses/shared/` and `research/` |
+| Проектные скиллы | Проект Theseus | `.agents/skills/` в этом checkout |
+| Runtime-скиллы и плагины Hermes | Hermes | `%HERMES_HOME%/skills/` и `%HERMES_HOME%/plugins/` |
+| Runtime-скиллы Codex (наследие) | Codex | `C:/Users/s.poklad/.codex/skills/` |
+| Адаптеры OSINT-харнессов | Репозиторий Theseus OSINT | `D:/theseus-osint/harnesses/<harness>/` |
+| Нейтральные к харнессу исследования | Общее | `D:/theseus-osint/harnesses/shared/` и `research/` |
 
-Rules:
+Правила:
 
-- A runtime copy is not a project source file. Do not infer ownership from a
-  filename alone; resolve the harness and source path first.
-- `backups/codex-skills/` is historical evidence, not an active skill source.
-- If a referenced `.agents/skills/<name>/SKILL.md` path does not exist in the
-  current checkout, stop and route to the canonical source or runtime owner;
-  do not silently substitute a Hermes skill with the same name.
-- Hermes MCP names, slash commands, `$HERMES_HOME`, and Hermes plugin paths do
-  not belong in Codex-only skills. Codex-specific commands do not belong in
-  Hermes skills.
-- Put portable contracts, schemas, evidence formats, and research procedures
-  in `D:/theseus-osint/harnesses/shared/`; put the executable adapter under its
-  owning harness directory.
-- Do not copy `config.yaml`, `.env`, OAuth state, API keys, private transcripts,
-  raw memory, or MCP auth material between harnesses.
+- Копия в рантайме — не исходник проекта. Владельца определять по пути
+  источника, а не по имени файла.
+- `backups/codex-skills/` — историческое свидетельство, не действующий источник.
+- Если указанный `.agents/skills/<name>/SKILL.md` не существует в текущем
+  checkout — остановиться и уйти к каноническому источнику или владельцу
+  рантайма; не подменять молча скиллом Hermes с тем же именем.
+- Имена MCP, слэш-команды, `$HERMES_HOME` и пути плагинов Hermes не должны
+  попадать в скиллы, предназначенные только для Codex, и наоборот.
+- Переносимые контракты, схемы, форматы доказательств и исследовательские
+  процедуры — в `D:/theseus-osint/harnesses/shared/`; исполняемый адаптер —
+  в каталог своего харнесса.
+- Не копировать между харнессами `config.yaml`, `.env`, состояние OAuth,
+  API-ключи, приватные транскрипты, сырую память и материалы авторизации MCP.
 
 ## Canonical Workspace And Infrastructure Registries
 
@@ -123,27 +123,23 @@ verification, and less context load.
 Think of project skills and task runners as two halves of one harness:
 
 - skills choose when and why to use a route;
-- VS Code tasks, scripts, and MCP tools execute the route;
-- AutoMem/MemPalace preserve why the route changed;
+- нативный CLI, задачи VS Code и скрипты исполняют маршрут; MCP — когда он даёт
+  то, чего у CLI нет;
+- Hindsight сохраняет, что было решено и когда;
 - `session_timeline` and `log-lattice` preserve what happened.
 - `plugin_conclave` selects outside evidence or bounded advisors; it never
   replaces local verification, the memory stack, or an explicit owner for a
   write-capable external service.
 
-## Prompt Hygiene
+## Как писать и как проверять
 
-Keep prompts, skills, and task descriptions lean. Prefer visible outcome,
-constraints, success criteria, stop conditions, and validation requirements over
-long procedural scripts.
+Промпты, документация и калибровка моделей — в `docs/reference/authoring.md`.
+Машинночитаемый набор — `docs/reference/authoring.rules.yaml`.
 
-Preserve true invariants: safety, access boundaries, secret policy, required
-fields, tool routing rules, and verification gates. Remove duplicated style
-rules, inert examples, stale model-specific habits, and instructions for
-behavior that is already reliable.
-
-Before increasing reasoning effort, adding another advisor, or widening tool
-access, check whether the task is missing a success criterion, dependency rule,
-tool route, or verification loop.
+Суть: держать текст сухим, сохранять настоящие инварианты, удалять инертные
+примеры и устаревшие привычки моделей, строить карту до переписывания
+документации, а смену модели перепроверять замером, а не доверием к описанию
+семейства.
 
 ## Stop-Signal And Route Correction
 
@@ -173,72 +169,29 @@ into self-criticism or an unsolicited identity/ontology disclaimer. Preserve
 the established project culture and relationship contract across runtime or
 model switches; do not make the user reconstruct it from scratch.
 
-## Model And Harness Calibration
-
-Use soft guidance for normal behavior: state the outcome, relevant context,
-success criteria, and preferred route, then leave room for the agent to choose
-an efficient in-scope path. Keep hard boundaries explicit for secrets, access,
-external writes, destructive or costly actions, and scope expansion.
-
-Treat GPT-5.6 family guidance as a baseline, not a promise of identical
-behavior across Sol, Terra, and Luna. Recheck each model or harness change on
-representative tasks, measuring tool calls, context cost, latency, side effects,
-and verification results. Classify external advice as official, observed, or
-hypothesis before turning it into a project rule.
-
 ## Memory
 
-AutoMem is the primary durable memory. MemPalace is the episodic/verbatim layer
-when available. Local files are evidence and fallback, not the first memory
-system.
+Живая долговременная память — **Hindsight** (локальный инстанс, банк `hermes`,
+мультиязычный стек). AutoMem и MemPalace сейчас не подняты: они остаются
+вариантами на будущее, а не действующими слоями. Локальные файлы — свидетельство
+и фолбэк, а не первая система памяти.
 
-Store only durable decisions, reusable patterns, root causes, and explicit user
-preferences. Never store secrets, API keys, raw transcripts, raw memory dumps,
-or backup archives.
+Хранить только устойчивые решения, переиспользуемые приёмы, корневые причины и
+явные предпочтения пользователя. Никогда не хранить секреты, API-ключи, сырые
+транскрипты, дампы памяти и архивы бэкапов.
 
-## Shell And Services
+Механика памяти — что и когда пишется, как чинится консолидация — живёт в скилле
+`hindsight-operations` и в задачах, а не здесь.
 
-Prefer VS Code tasks, MCP tools, WSL, Node scripts, or small checked-in helpers
-over long PowerShell commands. Treat Codex shell, normal Windows user, Docker
-Desktop, WSL, VS Code, and VMs as separate contexts until runtime proof says
-otherwise.
+## Операции
 
-Docker and observability work should favor the existing narrow tools:
+Оболочка, Docker, наблюдаемость и защищённый конфиг Codex — в
+`docs/reference/operations.md`. Машинночитаемый набор —
+`docs/reference/operations.rules.yaml`.
 
-- `tools/tool_policy`
-- `tools/session_timeline`
-- `tools/harness_errors`
-- `tools/memory_hook`
-- `log-lattice`
-- `backup-lattice`
+Суть: выбор инструмента идёт от задачи — нативный CLI первым, MCP только когда
+даёт то, чего у CLI нет, длинные команды PowerShell последним средством;
+оболочка, Windows, Docker, WSL и виртуалки — разные контексты; живой конфиг
+Codex меняется только через guard, сначала `--check`.
 
-## User Codex Config Guard
-
-Treat `%CODEX_HOME%/config.toml` as a protected runtime boundary. Prepare a
-candidate file outside the live path, then use the repository guard before any
-replacement:
-
-```text
-node tools/codex_config/config_guard.mjs --check --candidate <candidate.toml>
-node tools/codex_config/config_guard.mjs --apply --candidate <candidate.toml>
-```
-
-The guard runs `codex --strict-config doctor --json` in an isolated temporary
-`CODEX_HOME`, prints status codes only, preserves a rollback backup, and runs a
-postflight check. A failed preflight makes no live change; a failed postflight
-restores the previous config. If the guard or Codex executable is unavailable,
-stop before touching the live file. Direct edits to the live Codex config are
-not an approved workflow.
-
-## Documentation
-
-Do not turn this file into the project manual. For documentation work, start
-with `docs/plans/documentation_audit.md` and produce a map before rewriting
-large sections.
-
-Use a Diataxis-style split:
-
-- tutorials: first successful path for a newcomer;
-- how-to guides: concrete operational tasks;
-- reference: commands, services, schemas, ports, configuration;
-- explanation: architecture, decisions, tradeoffs, research context.
+Документация и правила формы — в `docs/reference/authoring.md`.

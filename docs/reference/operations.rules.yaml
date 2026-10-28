@@ -1,0 +1,49 @@
+# Операции: машинночитаемый набор.
+# Источник: AGENTS.md, секции Shell And Services и User Codex Config Guard.
+revision: 2026-10-28-operations-v1
+source: docs/reference/operations.md
+rules:
+  - id: OPS-001
+    obligation: MUST
+    statement: Выбор инструмента идёт от задачи — сначала нативный CLI, если он есть; MCP только когда даёт то, чего у CLI нет, и без постоянного экспонирования шумных серверов (обёртка через mcporter); VS Code tasks, WSL и небольшие проверенные хелперы равноправны; длинные команды PowerShell — последнее средство.
+    verification: Для выбранного пути названо, почему не подошёл более простой; в истории нет длинных PowerShell-однострочников без причины.
+
+  - id: OPS-002
+    obligation: MUST
+    statement: Считать оболочку Codex, обычного пользователя Windows, Docker Desktop, WSL, VS Code и виртуальные машины разными контекстами, пока исполнение не доказало обратное.
+    verification: Перед действием назван контекст, в котором оно выполняется.
+
+  - id: OPS-003
+    obligation: MUST
+    statement: Для Docker и наблюдаемости использовать существующие узкие инструменты — tools/tool_policy, tools/session_timeline, tools/harness_errors, tools/memory_hook, log-lattice, backup-lattice.
+    verification: Назван конкретный инструмент вместо самодельной команды.
+
+  - id: OPS-004
+    obligation: MUST
+    statement: Файл %CODEX_HOME%/config.toml считать защищённой границей рантайма и готовить кандидата вне живого пути.
+    verification: Кандидат лежит отдельно от config.toml.
+
+  - id: OPS-005
+    obligation: MUST
+    statement: Замену живого конфига Codex выполнять только через tools/codex_config/config_guard.mjs, сначала --check, затем --apply.
+    verification: В логе есть вывод обеих команд guard.
+
+  - id: OPS-006
+    obligation: MUST
+    statement: Guard запускает codex --strict-config doctor --json в изолированном временном CODEX_HOME, печатает только коды статуса, сохраняет резервную копию для отката и выполняет постпроверку.
+    verification: Присутствуют бэкап и постпроверка в выводе.
+
+  - id: OPS-007
+    obligation: MUST
+    statement: Провал предпроверки не меняет живой файл; провал постпроверки восстанавливает предыдущий конфиг.
+    verification: После провала живой файл совпадает с предыдущим по хешу.
+
+  - id: OPS-008
+    obligation: MUST
+    statement: Если guard или исполняемый файл Codex недоступны — остановиться до касания живого файла.
+    verification: Проверено наличие guard и codex до правки.
+
+  - id: OPS-009
+    obligation: MUST_NOT
+    statement: Править живой конфиг Codex напрямую.
+    verification: Изменения проходят только через guard.
