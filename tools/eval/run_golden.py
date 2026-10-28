@@ -78,6 +78,7 @@ def main() -> int:
     expected_stems = {k: stems(v) for k, v in expected_text.items() if v}
 
     hits, soft_hits, rr = 0, 0, []
+    contradictions = 0
     answerable = 0
     print(f"{'id':5} {'категория':16} {'выдача':>7}  результат")
     for row in rows:
@@ -92,12 +93,18 @@ def main() -> int:
 
         results = data.get("results") or []
         expected = set(row.get("expected_ids") or [])
+        hard_neg = set(row.get("hard_negative_ids") or [])
 
         rank = None
         reason = ""
         soft_rank = None
+        contradiction_hits = 0
         for pos, item in enumerate(results, start=1):
             rid = str(item.get("id") or "")
+            if rid in hard_neg:
+                # Явно неверная запись в выдаче — это не попадание, а противоречие.
+                contradiction_hits += 1
+                continue
             if rid in expected:
                 rank, reason = pos, "точный id"
                 break
@@ -120,17 +127,19 @@ def main() -> int:
             continue
 
         answerable += 1
+        contradictions += contradiction_hits
+        tail = f" | противоречий: {contradiction_hits}" if contradiction_hits else ""
         if rank:
             hits += 1
             rr.append(1.0 / rank)
-            print(f"{row['id']:5} {row['category']:16} {len(results):>7}  ok, ранг {rank} ({reason})")
+            print(f"{row['id']:5} {row['category']:16} {len(results):>7}  ok, ранг {rank} ({reason}){tail}")
         elif soft_only:
             soft_hits += 1
             rr.append(0.0)
-            print(f"{row['id']:5} {row['category']:16} {len(results):>7}  только мягкий зачёт, ранг {soft_rank}")
+            print(f"{row['id']:5} {row['category']:16} {len(results):>7}  только мягкий зачёт, ранг {soft_rank}{tail}")
         else:
             rr.append(0.0)
-            print(f"{row['id']:5} {row['category']:16} {len(results):>7}  ПРОМАХ")
+            print(f"{row['id']:5} {row['category']:16} {len(results):>7}  ПРОМАХ{tail}")
 
     print()
     if answerable:
@@ -138,6 +147,9 @@ def main() -> int:
         print(f"с мягким зачётом: {(hits + soft_hits)}/{answerable} = {(hits + soft_hits) / answerable:.3f}"
               f"  (мягких {soft_hits})")
         print(f"MRR (строгий): {statistics.mean(rr):.3f}")
+        if contradictions:
+            print(f"противоречий в выдаче всего: {contradictions} (hard negatives, "
+                  f"зачёт по ним запрещён)")
     return 0
 
 
