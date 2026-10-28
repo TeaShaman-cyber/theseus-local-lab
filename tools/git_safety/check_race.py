@@ -71,6 +71,31 @@ def current_branch() -> str:
     return git("rev-parse", "--abbrev-ref", "HEAD") or "(detached)"
 
 
+def is_shared_checkout() -> bool:
+    """Главный checkout против отдельного worktree.
+
+    В главном `.git` — каталог; в worktree — файл-указатель. Именно главный
+    checkout делят между собой несколько чатов, поэтому работа в нём и создаёт
+    гонку.
+    """
+    return (ROOT / ".git").is_dir()
+
+
+def index_lock_present() -> bool:
+    """Чужая git-операция прямо сейчас: lock держится во время записи индекса."""
+    git_dir = git("rev-parse", "--absolute-git-dir")
+    return bool(git_dir) and (Path(git_dir) / "index.lock").exists()
+
+
+def head_moved_seconds_ago() -> float | None:
+    """Сколько секунд назад двигался HEAD. Свежее движение без заявки — чужое."""
+    stamp = git("reflog", "-1", "--date=unix", "--format=%cd", "HEAD")
+    try:
+        return max(0.0, time.time() - float(stamp))
+    except (TypeError, ValueError):
+        return None
+
+
 def dirty_files() -> list[str]:
     out = git("status", "--porcelain")
     return sorted(line[3:] for line in out.splitlines() if line.strip())
@@ -109,6 +134,8 @@ def main() -> int:
     ap.add_argument("--claim", action="store_true")
     ap.add_argument("--release", action="store_true")
     ap.add_argument("--session", default=None)
+    ap.add_argument("--allow-shared", action="store_true",
+                    help="разрешить работу в общем checkout (по умолчанию гейт против)")
     args = ap.parse_args()
 
     session = session_id(args.session)
@@ -153,7 +180,22 @@ def main() -> int:
         else:
             notes.append(f"брошенная заявка: {claim.get('session')} (возраст {int(age)} с)")
 
-    # 3. Отставание от origin.
+    # 3. Некооперативные сигналы: не требуют, чтобы другие чаты что-то писали.
+    if is_shared_checkout() and not args.allow_shared:
+        problems.append(
+            "это общий checkout, его делят несколько чатов. Работайте в своём "
+            "worktree (git worktree add <путь> <ветка>) или повторите с --allow-shared"
+        )
+    if index_lock_present():
+        problems.append("держится index.lock: прямо сейчас идёт чужая git-операция")
+    moved = head_moved_seconds_ago()
+    if mine is None and moved is not None and moved < 300:
+        notes.append(
+            f"HEAD двигался {int(moved)} с назад, а заявки у сессии нет — "
+            "возможно, в дереве работает кто-то ещё"
+        )
+
+    # 4. Отставание от origin.
     git("fetch", "-q", "origin")
     behind = git("log", "--oneline", f"HEAD..origin/{branch}")
     if behind:
