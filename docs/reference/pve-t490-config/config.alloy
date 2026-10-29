@@ -40,3 +40,52 @@ prometheus.remote_write "grafana" {
     env  = "lab",
   }
 }
+
+// Hindsight canary stand in LXC 103. Keep its metrics separate from the
+// laptop production scrape so Grafana queries cannot silently mix the routes.
+prometheus.scrape "hindsight_stand" {
+  targets         = [{ __address__ = "10.10.10.13:8888", job = "hindsight-stand" }]
+  forward_to      = [prometheus.remote_write.grafana.receiver]
+  scrape_interval = "30s"
+}
+
+// LXC 103 runtime logs. The token is supplied by /etc/default/alloy through
+// the systemd service environment; it is never stored in this file.
+local.file_match "hindsight_stand_logs" {
+  path_targets = [{
+    __path__    = "/var/log/lxc-103.log",
+    job         = "pve",
+    service     = "hindsight-stand",
+    container   = "lxc-103",
+    log_type    = "lxc",
+  }]
+}
+
+loki.source.file "hindsight_stand_logs" {
+  targets    = local.file_match.hindsight_stand_logs.targets
+  forward_to = [loki.process.hindsight_stand_logs.receiver]
+}
+
+loki.process "hindsight_stand_logs" {
+  forward_to = [loki.write.grafana.receiver]
+
+  // Redact common credential-shaped values before they leave PVE.
+  stage.replace {
+    expression = "(ghp_[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{20,}|glsa_[A-Za-z0-9]{30,}|glc_[A-Za-z0-9+/=]{30,}|sk-[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16}|eyJ[A-Za-z0-9_-]{10,}[.][A-Za-z0-9_-]{10,}[.][A-Za-z0-9_-]{10,}|ya29[.][A-Za-z0-9_-]{20,}|1//[A-Za-z0-9_-]{20,})"
+    replace    = "[REDACTED]"
+  }
+}
+
+loki.write "grafana" {
+  endpoint {
+    url = "https://logs-prod-012.grafana.net/loki/api/v1/push"
+    basic_auth {
+      username = "1849597"
+      password = "<GRAFANA_TOKEN>"
+    }
+  }
+  external_labels = {
+    host = "pve-t490",
+    env  = "lab",
+  }
+}

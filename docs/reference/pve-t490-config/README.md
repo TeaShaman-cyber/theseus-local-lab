@@ -13,7 +13,7 @@
 | `fstab`, `sysctl.d/` | монтирование и форвардинг |
 | `systemd/` | наши юниты: `alloy`, `awg-quick@`, `pve-cpufreq`, `pve-wifi`, `pve-diag` |
 | `pve-wifi-up`, `pve-diag` | скрипты Wi-Fi и диагностики загрузки |
-| `config.alloy` | конфиг коллектора метрик |
+| `config.alloy` | конфиг коллектора метрик PVE и логов LXC Hindsight |
 | `amneziawg/awg0.conf` | туннель хоста, ключи вырезаны |
 | `pve/lxc/*.conf` | конфигурация контейнеров |
 | `vpn-gw/` | шлюз: `dnsmasq` и его туннель, ключи вырезаны |
@@ -76,6 +76,18 @@ tar -xzf /tmp/pve-snapshot.tar -C docs/reference
 2. Скопировать `interfaces`, `hosts`, `fstab`, `sysctl.d/` на место.
 3. Вернуть юниты из `systemd/` и скрипты из корня снимка в `/usr/local/sbin/`.
 4. Восстановить `config.alloy`, подставить токен Grafana в `/etc/default/alloy`.
+
+Важно: snapshot намеренно содержит `<GRAFANA_TOKEN>` вместо секрета. Не копировать
+этот файл в live буквально: в рабочем `/etc/alloy/config.alloy` обе `password`
+строки должны быть `sys.env("GRAFANA_TOKEN")`, а `/etc/default/alloy` должен
+содержать `GRAFANA_TOKEN` из root-only secret file. Значение не печатать и не
+класть в Git или issue.
+
+`config.alloy` отправляет `/var/log/lxc-103.log` в Grafana Cloud Loki с labels
+`host=pve-t490`, `service=hindsight-stand`, `container=lxc-103`, `log_type=lxc`.
+Для Loki endpoint нужен внешний host `logs-prod-012.grafana.net`; внутренний
+`*-local-nlb.internal.grafana.net` с PVE не используется. Маршрут этого IP
+должен присутствовать в узком `AllowedIPs` AmneziaWG route.
 5. Положить `amneziawg/awg0.conf` и подставить реальный `PrivateKey`.
 6. Пересоздать контейнеры по `pve/lxc/*.conf`, внутри шлюза — `vpn-gw/`.
 

@@ -1,5 +1,5 @@
 [Unit]
-Description=Grafana Alloy (host metrics)
+Description=Grafana Alloy (host metrics and LXC Hindsight logs)
 After=network-online.target awg-quick@awg0.service
 Wants=network-online.target awg-quick@awg0.service
 
