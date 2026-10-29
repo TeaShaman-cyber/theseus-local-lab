@@ -21,6 +21,9 @@ GET https://api.deepinfra.com/payment/usage?from=current
 Семантика единиц: `cost` — **в центах**, `rate` — центы за токен.
 `pricing_type` бывает `input_tokens`, `cached_tokens`, `output_tokens`;
 кэш-чтение у DeepInfra в 33 раза дешевле входа, поэтому его нельзя игнорировать.
+`payment/usage?from=current` возвращает накопительный billing-интервал месяца
+(`months[].interval.fr/to`, Unix milliseconds), а не суточную дельту. Сравнивать
+его с Loki можно только после проверки полного покрытия этого интервала логами.
 
 ## Как запускается
 

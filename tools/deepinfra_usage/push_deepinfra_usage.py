@@ -13,6 +13,8 @@ Metrics emitted as logfmt lines so LogQL can `| logfmt | unwrap value`:
     metric=suspended value=0
     metric=cost_cents value=5 pricing_type=input_tokens model=...
     metric=units value=489318 pricing_type=input_tokens model=...
+    metric=usage_period_start_unix value=... period=2026.10
+    metric=usage_period_end_unix value=... period=2026.10
 
 DeepInfra semantics: `stripe_balance` is negative for prepaid funds; a positive
 value means money owed. `cost` fields are in cents, `rate` is cents per token.
@@ -89,6 +91,18 @@ def build_lines(checklist: dict, usage: dict) -> list[str]:
 
     total_cents = 0.0
     for month in usage.get("months") or []:
+        period = str(month.get("period") or "unknown")
+        interval = month.get("interval") or {}
+        interval_from = interval.get("fr")
+        interval_to = interval.get("to")
+        if isinstance(interval_from, (int, float)):
+            lines.append(
+                f"metric=usage_period_start_unix value={interval_from / 1000:.3f} period={period}"
+            )
+        if isinstance(interval_to, (int, float)):
+            lines.append(
+                f"metric=usage_period_end_unix value={interval_to / 1000:.3f} period={period}"
+            )
         for item in month.get("items") or []:
             model = ((item.get("model") or {}).get("model_name") or "unknown").replace(" ", "_")
             kind = item.get("pricing_type") or "unknown"

@@ -39,3 +39,18 @@ def test_usage_costs_are_published_per_pricing_type():
     lines = module.build_lines({}, usage)
     assert any('metric=cost_cents value=12.5000' in line and 'model=DeepSeek_V4.1' in line
                for line in lines)
+
+
+def test_usage_period_interval_is_published_for_window_reconciliation():
+    usage = {
+        'months': [{'period': '2026.10', 'interval': {'fr': 1790838000000, 'to': 1793516399999},
+                    'items': []}]
+    }
+    lines = module.build_lines({}, usage)
+    assert 'metric=usage_period_start_unix value=1790838000.000 period=2026.10' in lines
+    assert 'metric=usage_period_end_unix value=1793516399.999 period=2026.10' in lines
+
+
+def test_missing_usage_interval_emits_no_period_metrics():
+    lines = module.build_lines({}, {'months': [{'period': '2026.10', 'items': []}]})
+    assert not any('usage_period_' in line for line in lines)
