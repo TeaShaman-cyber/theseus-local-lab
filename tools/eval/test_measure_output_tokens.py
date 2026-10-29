@@ -29,6 +29,12 @@ def test_percentile_nearest_rank() -> None:
     assert percentile([7], 0.9) == 7
 
 
+def test_percentile_ceil_convention_even_length() -> None:
+    # nearest-rank with ceil: p50 of four values is the 2nd value, not the 3rd
+    assert percentile([1, 2, 3, 4], 0.50) == 2
+    assert percentile([1, 2, 3, 4], 0.90) == 4
+
+
 def test_detail_pattern_matches_explicit_requests() -> None:
     for text in ("разверни", "Объясни по Фейнману", "дай подробнее", "по шагам"):
         assert DETAIL_PATTERN.search(text), text
@@ -61,6 +67,14 @@ def test_classify_when_no_turn_precedes() -> None:
     generations = [_gen(-50)]
     classify(generations, [_turn(0, "разверни")], window=300.0)
     assert generations[0].label == "default"
+
+
+def test_classify_accepts_unsorted_input() -> None:
+    turns = [_turn(100, "мерж"), _turn(0, "разверни")]
+    generations = [_gen(400), _gen(10)]
+    classify(generations, turns, window=300.0)
+    labels = {round((g.start - BASE).total_seconds()): g.label for g in generations}
+    assert labels == {10: "expanded", 400: "default"}
 
 
 if __name__ == "__main__":
