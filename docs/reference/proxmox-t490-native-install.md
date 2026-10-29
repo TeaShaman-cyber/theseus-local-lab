@@ -25,6 +25,42 @@
 Пароль root не хранится в этом документе. Он лежит в переменной окружения
 Hermes `PVE_ROOT_PASS`.
 
+## Запуск Docker-образов: нативный OCI-путь
+
+С версии **9.1** Proxmox умеет запускать OCI-образ (то есть любой Docker-образ)
+как LXC-контейнер — **без Docker-демона** и без вложенности. Проверено на нашем
+хосте: `pve-container 6.1.15`, `skopeo` в `/usr/bin/skopeo`, в коде есть
+`archive_is_oci_format` и `restore_oci_archive` (`/usr/share/perl5/PVE/LXC/Create.pm`).
+
+Отдельной команды `pct oci` нет: путь идёт через `pct restore`, который сам
+распознаёт OCI-архив по `oci-layout`, `index.json` и `blobs`.
+
+```bash
+# 1. Образ из реестра в OCI-архив (skopeo уже стоит на хосте)
+skopeo copy docker://ghcr.io/vectorize-io/hindsight:1.1.0 oci-archive:/tmp/hindsight-oci.tar
+
+# 2. Развернуть как контейнер; entrypoint и ENV переносятся из образа
+pct restore 103 /tmp/hindsight-oci.tar \
+  --rootfs local:12 --memory 3072 --cores 4 \
+  --net0 name=eth0,bridge=vmbr0,ip=10.10.10.13/24,gw=10.10.10.2
+
+# 3. Данные и модели — примонтировать с хоста
+pct set 103 -mp0 /srv/hindsight-pg0,mp=/home/hindsight/.pg0
+pct set 103 -mp1 /srv/models/l6,mp=/models/l6,ro=1
+```
+
+Почему этот путь предпочтительнее Docker внутри LXC:
+
+- нет Docker-демона и вложенных уровней (`nesting`, `keyctl`) — меньше точек отказа;
+- тестируется **тот же образ**, что в продакшене, а не пересборка;
+- хост PVE остаётся чистым: ни Docker, ни compose на гипервизоре.
+
+Ограничение: проверено наличие механизма и его код, но **не проверен** сквозной
+прогон конкретного образа Hindsight — при первом использовании смотреть `pct
+start 103` и журнал контейнера. Если образ не поднимется как LXC, остаётся
+проверенный запасной путь: Docker внутри отдельного LXC (`--features
+nesting=1,keyctl=1`).
+
 ## Почему не ISO и не VHD
 
 - **PVE ISO с внутреннего раздела** — штатный initrd не умеет читать ISO как
