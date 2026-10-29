@@ -20,7 +20,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 GOLDEN = ROOT / "docs/eval/golden-v1.jsonl"
-BASE = "http://127.0.0.1:8888/v1/default/banks/hermes"
+DEFAULT_BASE = "http://127.0.0.1:8888"
+BASE = f"{DEFAULT_BASE}/v1/default/banks/hermes"
 RECALL = f"{BASE}/memories/recall"
 TYPES = ["observation", "world", "experience"]
 DEFAULT_TYPES = ",".join(TYPES)
@@ -67,12 +68,19 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--budget", default="low")
     ap.add_argument("--max-tokens", type=int, default=768)
+    ap.add_argument("--base", default=DEFAULT_BASE,
+                    help="адрес Hindsight, например http://10.10.10.13:8888 — чтобы мерить "
+                         "тестовый стенд, не трогая боевой")
     ap.add_argument("--types", default=DEFAULT_TYPES,
                     help="через запятую; например world,experience — чтобы проверить, "
                          "что дают производные наблюдения")
     ap.add_argument("--corpus", default=None,
                     help="каталог или файл замороженного корпуса; без него тексты читаются из живой базы")
     args = ap.parse_args()
+
+    global BASE, RECALL
+    BASE = f"{args.base.rstrip('/')}/v1/default/banks/hermes"
+    RECALL = f"{BASE}/memories/recall"
 
     corpus_text: dict[str, str] = {}
     corpus_note = "живая база"
