@@ -104,12 +104,12 @@ services:
       HINDSIGHT_API_REFLECT_LLM_TIMEOUT: "300"
       HINDSIGHT_API_REFLECT_LLM_MAX_CONCURRENT: "1"
       # Local CPU cross-encoder reranker tuning (applies to both banks).
-      # Measured 2026-10-25 on this host (i5-8265U, 4C/8T): 300 candidates
-      # ~180s per recall; length-sorted bucket batching is quality-identical
-      # (36-54% speedup); cap 300 -> 80 cuts per-recall rerank wall time.
+      # The upstream default is 300 candidates. Length-sorted bucket batching
+      # is quality-identical and measured 36-54% faster on this host.
+      # The temporary 80-candidate cap was for a bounded latency probe; restore
+      # the upstream candidate pool for normal recall quality.
       # FlashRank backend was measured slower here and was rejected.
       HINDSIGHT_API_RERANKER_LOCAL_BUCKET_BATCHING: "true"
-      HINDSIGHT_API_RERANKER_MAX_CANDIDATES: "80"
       # --- Multilingual stack (2026-10-26) -------------------------------
       # Every language layer defaults to English: embeddings
       # bge-small-en, reranker ms-marco-MiniLM, PostgreSQL BM25 dictionary
