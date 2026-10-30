@@ -130,7 +130,7 @@ function analyzeEvents(events) {
     proposals.push("Review repeated unclassified shell commands and promote stable ones into wrappers/tasks.");
   }
   if ((reasons.get("bad-fit:all-skills") || 0) > 0 || (reasons.get("bad-fit:route-1") || 0) > 0) {
-    proposals.push("Keep skill-router as the canonical path; do not load all project skills by default.");
+    proposals.push("Load only the directly relevant skill; do not load all project skills by default.");
   }
   if (proposals.length === 0) {
     proposals.push("No policy change proposed yet; collect more verified events before changing behavior.");

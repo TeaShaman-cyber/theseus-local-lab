@@ -11,6 +11,10 @@ const required = [
   "docs/reference/git.rules.yaml",
   "docs/reference/operations.md",
   "docs/reference/operations.rules.yaml",
+  "tools/tool_policy/tool_policy.mjs",
+  "tools/tool_policy/tool_policy.test.mjs",
+  "tools/learning_loop/learning_loop.mjs",
+  "tools/learning_loop/learning_loop.test.mjs",
 ];
 const retiredTokens = [
   ["co", "dex"].join(""),
@@ -19,6 +23,8 @@ const retiredTokens = [
   "theseus-memory-stack",
   "theseus-git-hygiene",
   "local-agent-hygiene",
+  "theseus-skill-router",
+  "theseus-shell-routing",
   ["co", "pilot"].join(""),
 ];
 

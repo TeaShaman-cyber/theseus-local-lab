@@ -135,13 +135,9 @@ git-работа не требует согласования на каждое 
 
 Before non-trivial work, use the smallest matching project skill:
 
-- `.agents/skills/theseus-skill-router/SKILL.md` for route choice and skill
-  priority conflicts.
 - `.agents/skills/theseus-hindsight-manual/SKILL.md` for deliberate Hindsight
   reads or writes when the provider integration is disabled; use native
   `session_search` first for conversation history and continuity.
-- `.agents/skills/theseus-shell-routing/SKILL.md` before shell, Docker, WSL,
-  JSON/text processing, or quoting-sensitive work.
 - `.agents/skills/theseus-plugin-conclave/SKILL.md` for fresh research,
   external technical second opinions, plugin selection, or a bounded
   multi-source check.
