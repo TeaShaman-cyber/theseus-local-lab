@@ -6,10 +6,11 @@
 
 ## North Star
 
-Ведущий харнесс проекта — **Hermes** (десктоп и CLI). Codex снят с этой роли:
-его установка и runtime-скиллы остаются на диске, но проектные маршруты на него
-больше не опираются. Смена ведущего харнесса уже произошла один раз, поэтому
-проект и устроен так, чтобы пережить следующую.
+Ведущий харнесс проекта — **Hermes** (десктоп и CLI). Проектные маршруты
+опираются только на действующий Hermes-контур и нейтральные к харнессу
+контракты. Установки снятых с роли харнессов остаются вне активного пути.
+Смена ведущего харнесса уже произошла один раз, поэтому проект и устроен так,
+чтобы пережить следующую.
 
 Проектировать под независимость от платформы, не теряя отношения с агентом,
 память, стиль и инженерный процесс. Долговременное состояние выносить наружу —
@@ -26,7 +27,6 @@
 |---|---|---|
 | Проектные скиллы | Проект Theseus | `.agents/skills/` в этом checkout |
 | Runtime-скиллы и плагины Hermes | Hermes | `%HERMES_HOME%/skills/` и `%HERMES_HOME%/plugins/` |
-| Runtime-скиллы Codex (наследие) | Codex | `C:/Users/s.poklad/.codex/skills/` |
 | Адаптеры OSINT-харнессов | Репозиторий Theseus OSINT | `D:/theseus-osint/harnesses/<harness>/` |
 | Нейтральные к харнессу исследования | Общее | `D:/theseus-osint/harnesses/shared/` и `research/` |
 
@@ -34,12 +34,11 @@
 
 - Копия в рантайме — не исходник проекта. Владельца определять по пути
   источника, а не по имени файла.
-- `backups/codex-skills/` — историческое свидетельство, не действующий источник.
 - Если указанный `.agents/skills/<name>/SKILL.md` не существует в текущем
   checkout — остановиться и уйти к каноническому источнику или владельцу
   рантайма; не подменять молча скиллом Hermes с тем же именем.
-- Имена MCP, слэш-команды, `$HERMES_HOME` и пути плагинов Hermes не должны
-  попадать в скиллы, предназначенные только для Codex, и наоборот.
+- Имена MCP, слэш-команды, пути плагинов и другие harness-specific детали не
+  переносить между скиллами разных харнессов.
 - Переносимые контракты, схемы, форматы доказательств и исследовательские
   процедуры — в `D:/theseus-osint/harnesses/shared/`; исполняемый адаптер —
   в каталог своего харнесса.
@@ -82,10 +81,9 @@ Rules:
   default source roots.
 - A Docker health result does not prove that a memory provider or API read path
   works; perform the relevant live read/recall check.
-- Hindsight remains a Hermes-owned provider/runtime, but Codex has an explicitly
-  provisioned isolated `codex` bank through the project hook route. Codex must
-  not access the Hermes `hermes` bank or treat Hindsight as an unbounded
-  cross-harness dependency.
+- Hindsight is the Hermes-owned live memory provider/runtime. Other banks or
+  harness integrations are outside the active project route unless separately
+  classified and verified.
 - Do not add a stack to recovery or create a new compose source without an
   infrastructure-registry entry and a verified owner/runtime boundary.
 
@@ -139,8 +137,9 @@ Before non-trivial work, use the smallest matching project skill:
 
 - `.agents/skills/theseus-skill-router/SKILL.md` for route choice and skill
   priority conflicts.
-- `.agents/skills/theseus-memory-stack/SKILL.md` for prior context, handoff,
-  memory, decisions, or continuity.
+- `.agents/skills/theseus-hindsight-manual/SKILL.md` for deliberate Hindsight
+  reads or writes when the provider integration is disabled; use native
+  `session_search` first for conversation history and continuity.
 - `.agents/skills/theseus-shell-routing/SKILL.md` before shell, Docker, WSL,
   JSON/text processing, or quoting-sensitive work.
 - `.agents/skills/theseus-plugin-conclave/SKILL.md` for fresh research,
@@ -244,9 +243,8 @@ model switches; do not make the user reconstruct it from scratch.
 ## Memory
 
 Живая долговременная память — **Hindsight** (локальный инстанс, банк `hermes`,
-мультиязычный стек). AutoMem и MemPalace сейчас не подняты: они остаются
-вариантами на будущее, а не действующими слоями. Локальные файлы — свидетельство
-и фолбэк, а не первая система памяти.
+мультиязычный стек). Нативная история сессий сохраняет точные эпизоды. Локальные
+файлы — свидетельство и фолбэк, а не первая система памяти.
 
 Хранить только устойчивые решения, переиспользуемые приёмы, корневые причины и
 явные предпочтения пользователя. Никогда не хранить секреты, API-ключи, сырые
@@ -257,13 +255,13 @@ model switches; do not make the user reconstruct it from scratch.
 
 ## Операции
 
-Оболочка, Docker, наблюдаемость и защищённый конфиг Codex — в
+Оболочка, Docker, наблюдаемость и защищённый конфиг Hermes — в
 `docs/reference/operations.md`. Машинночитаемый набор —
 `docs/reference/operations.rules.yaml`.
 
 Суть: выбор инструмента идёт от задачи — нативный CLI первым, MCP только когда
 даёт то, чего у CLI нет, длинные команды PowerShell последним средством;
-оболочка, Windows, Docker, WSL и виртуалки — разные контексты; живой конфиг
-Codex меняется только через guard, сначала `--check`.
+Hermes terminal, Windows, Docker, WSL и виртуалки — разные контексты; живой
+конфиг Hermes меняется только через штатный CLI с чтением результата обратно.
 
 Документация и правила формы — в `docs/reference/authoring.md`.

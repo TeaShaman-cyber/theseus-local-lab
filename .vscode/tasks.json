@@ -121,11 +121,8 @@
         "tools/tool_policy/tool_policy.test.mjs",
         "tools/skill_router/representative_cases_contract.test.mjs",
         "tools/skill_router/route_receipt.test.mjs",
-        "tools/skill_router/memory_route_receipt.test.mjs",
         "tools/execution_guard/loop_guard.test.mjs",
-        "tools/skill_router/resume_guard.test.mjs",
-        "tools/skill_router/memory_result_check.test.mjs",
-        "tools/skill_router/mempalace_result_check.test.mjs"
+        "tools/skill_router/resume_guard.test.mjs"
       ],
       "problemMatcher": []
     },
@@ -146,20 +143,6 @@
       "args": [
         "tools/workshop_recovery/recovery_contract.mjs",
         "--recover"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "Theseus Memory: MemPalace health",
-      "type": "process",
-      "command": "node",
-      "args": [
-        "tools/service_status/service_status.mjs",
-        "port",
-        "--host",
-        "127.0.0.1",
-        "--port",
-        "18765"
       ],
       "problemMatcher": []
     },
@@ -623,31 +606,6 @@
       "problemMatcher": []
     },
     {
-      "label": "Theseus AutoMem Graph Viewer: start",
-      "type": "process",
-      "command": "docker",
-      "args": [
-        "compose",
-        "-f",
-        "automem-graph-viewer/docker-compose.yml",
-        "up",
-        "-d"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "Theseus AutoMem Graph Viewer: status",
-      "type": "process",
-      "command": "docker",
-      "args": [
-        "compose",
-        "-f",
-        "automem-graph-viewer/docker-compose.yml",
-        "ps"
-      ],
-      "problemMatcher": []
-    },
-    {
       "label": "Theseus Timeline: list recent events",
       "type": "process",
       "command": "node",
@@ -725,16 +683,6 @@
       "problemMatcher": []
     },
     {
-      "label": "Theseus: refresh OpenAI Codex issue field report",
-      "type": "process",
-      "command": "node",
-      "args": [
-        "tools/github_issue_watch/github_issue_watch.mjs",
-        "--write"
-      ],
-      "problemMatcher": []
-    },
-    {
       "label": "Theseus Issues: prepare card",
       "type": "process",
       "command": "node",
@@ -793,43 +741,11 @@
       "problemMatcher": []
     },
     {
-      "label": "Theseus: refresh Codex local system watch",
-      "type": "process",
-      "command": "node",
-      "args": [
-        "tools/codex_system_watch/codex_system_watch.mjs",
-        "--write"
-      ],
-      "problemMatcher": []
-    },
-    {
       "label": "Theseus: refresh Sysinternals scout",
       "type": "process",
       "command": "node",
       "args": [
         "tools/sysinternals_scout/sysinternals_scout.mjs",
-        "--write"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "Theseus: Codex Windows map snapshot",
-      "type": "process",
-      "command": "node",
-      "args": [
-        "tools/codex_windows_map/codex_windows_map.mjs",
-        "snapshot",
-        "--write"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "Theseus: Codex Windows map compare",
-      "type": "process",
-      "command": "node",
-      "args": [
-        "tools/codex_windows_map/codex_windows_map.mjs",
-        "compare",
         "--write"
       ],
       "problemMatcher": []
@@ -864,25 +780,6 @@
       "problemMatcher": []
     },
     {
-      "label": "Theseus: AutoMem status",
-      "type": "process",
-      "command": "node",
-      "args": [
-        "tools/service_status/service_status.mjs",
-        "automem"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "Theseus Memory: apply Codex MCP config",
-      "type": "process",
-      "command": "node",
-      "args": [
-        "tools/memory_stack/apply_codex_config.mjs"
-      ],
-      "problemMatcher": []
-    },
-    {
       "label": "Theseus: Observatory status",
       "type": "process",
       "command": "node",
@@ -912,26 +809,6 @@
       "command": "node",
       "args": [
         "tools/workshop_dashboard/dashboard.mjs"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "Theseus: Codex runtime audit",
-      "type": "process",
-      "command": "node",
-      "args": [
-        "tools/codex_runtime_audit/codex_runtime_audit.mjs",
-        "--write",
-        "--deep"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "Theseus: Apply portable Codex hooks",
-      "type": "process",
-      "command": "node",
-      "args": [
-        "tools/hook_config/apply_hooks.mjs"
       ],
       "problemMatcher": []
     },
@@ -1039,17 +916,6 @@
       "problemMatcher": []
     },
     {
-      "label": "Theseus Docker Context: AutoMem logs",
-      "type": "process",
-      "command": "docker",
-      "args": [
-        "logs",
-        "--tail=80",
-        "automem-flask-api-1"
-      ],
-      "problemMatcher": []
-    },
-    {
       "label": "Theseus Docker Control: start fallback daemon",
       "type": "process",
       "command": "node",
@@ -1134,15 +1000,6 @@
         "XAI_API_KEY",
         "XAI_BASE_URL",
         "XAI_MODEL"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "Theseus Secrets: sync AutoMem to keychain",
-      "type": "process",
-      "command": "node",
-      "args": [
-        "tools/secrets_lab/sync_automem_to_infisical.mjs"
       ],
       "problemMatcher": []
     },
@@ -1264,85 +1121,6 @@
       "problemMatcher": []
     },
     {
-      "label": "MemPalace Pilot: build image",
-      "type": "process",
-      "command": "docker",
-      "args": [
-        "compose",
-        "-f",
-        "work/mempalace-pilot/docker-compose.yml",
-        "build"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "MemPalace Pilot: ingest seed corpus",
-      "type": "process",
-      "command": "docker",
-      "args": [
-        "compose",
-        "-f",
-        "work/mempalace-pilot/docker-compose.yml",
-        "run",
-        "--rm",
-        "mempalace",
-        "mine",
-        "/corpus",
-        "--wing",
-        "theseus-local-lab"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "MemPalace Pilot: ingest Strazh outputs",
-      "type": "process",
-      "command": "docker",
-      "args": [
-        "compose",
-        "-f",
-        "work/mempalace-pilot/docker-compose.yml",
-        "run",
-        "--rm",
-        "mempalace",
-        "mine",
-        "/outputs",
-        "--wing",
-        "strazh-index"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "MemPalace Pilot: status",
-      "type": "process",
-      "command": "docker",
-      "args": [
-        "compose",
-        "-f",
-        "work/mempalace-pilot/docker-compose.yml",
-        "run",
-        "--rm",
-        "mempalace",
-        "status"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "MemPalace Pilot: search",
-      "type": "process",
-      "command": "docker",
-      "args": [
-        "compose",
-        "-f",
-        "work/mempalace-pilot/docker-compose.yml",
-        "run",
-        "--rm",
-        "mempalace",
-        "search",
-        "${input:mempalaceSearchQuery}"
-      ],
-      "problemMatcher": []
-    },
-    {
       "label": "Theseus Image Transfer: export image archive",
       "type": "process",
       "command": "node",
@@ -1380,140 +1158,6 @@
       "problemMatcher": []
     },
     {
-      "label": "Theseus Sonar: bootstrap WSL",
-      "type": "process",
-      "command": "node",
-      "args": [
-        "tools/sonar_local/run_wsl.mjs",
-        "bootstrap"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "Theseus Sonar: refresh AutoMem",
-      "type": "process",
-      "command": "node",
-      "args": [
-        "tools/sonar_local/run_wsl.mjs",
-        "refresh"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "Theseus Sonar: preflight",
-      "type": "process",
-      "command": "node",
-      "args": [
-        "tools/sonar_local/run_wsl.mjs",
-        "preflight",
-        "--query",
-        "${input:sonarQuery}"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "Theseus Sonar: status",
-      "type": "process",
-      "command": "node",
-      "args": [
-        "tools/sonar_local/run_wsl.mjs",
-        "status"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "Theseus Sonar: MCP smoke",
-      "type": "process",
-      "command": "node",
-      "args": [
-        "tools/sonar_local/run_wsl.mjs",
-        "mcp-smoke",
-        "--windows-launcher"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "Theseus Sonar: Docker build",
-      "type": "process",
-      "command": "node",
-      "args": [
-        "tools/sonar_local/sonar_docker.mjs",
-        "build"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "Theseus Sonar: Docker status",
-      "type": "process",
-      "command": "node",
-      "args": [
-        "tools/sonar_local/sonar_docker.mjs",
-        "status"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "Theseus Sonar: Docker refresh",
-      "type": "process",
-      "command": "node",
-      "args": [
-        "tools/sonar_local/sonar_docker.mjs",
-        "refresh"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "Theseus Sonar: Docker preflight",
-      "type": "process",
-      "command": "node",
-      "args": [
-        "tools/sonar_local/sonar_docker.mjs",
-        "preflight",
-        "--query",
-        "${input:sonarQuery}"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "Theseus Sonar: Docker MCP smoke",
-      "type": "process",
-      "command": "node",
-      "args": [
-        "tools/sonar_local/sonar_docker.mjs",
-        "mcp-smoke"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "Theseus Sonar: Docker HTTP start",
-      "type": "process",
-      "command": "node",
-      "args": [
-        "tools/sonar_local/sonar_docker.mjs",
-        "http"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "Theseus Sonar: Docker HTTP smoke",
-      "type": "process",
-      "command": "docker",
-      "args": [
-        "compose",
-        "-f",
-        "tools/sonar_local/compose.yml",
-        "run",
-        "--rm",
-        "-T",
-        "sonar",
-        "python",
-        "mcp_http_smoke.py",
-        "--url",
-        "http://host.docker.internal:8791/mcp"
-      ],
-      "problemMatcher": []
-    },
-    {
       "label": "Theseus Unix Runtime: probe backend",
       "type": "process",
       "command": "node",
@@ -1522,22 +1166,6 @@
         "probe",
         "--backend",
         "${input:unixRuntimeBackend}"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "Family Research: codex-do read-only probe",
-      "type": "process",
-      "command": "node",
-      "args": [
-        "tools/unix_runtime/unix_runtime.mjs",
-        "probe",
-        "--backend",
-        "codex-do",
-        "--host",
-        "${input:codexDoHost}",
-        "--user",
-        "${input:codexDoUser}"
       ],
       "problemMatcher": []
     },
@@ -1567,8 +1195,8 @@
       "command": "node",
       "args": [
         "tools/unix_runtime/remote_containers.mjs",
-        "${input:codexDoHost}",
-        "${input:codexDoUser}"
+        "${input:familyResearchHost}",
+        "${input:familyResearchUser}"
       ],
       "problemMatcher": []
     },
@@ -1578,8 +1206,8 @@
       "command": "node",
       "args": [
         "tools/unix_runtime/caddy_status.mjs",
-        "${input:codexDoHost}",
-        "${input:codexDoUser}"
+        "${input:familyResearchHost}",
+        "${input:familyResearchUser}"
       ],
       "problemMatcher": []
     },
@@ -1600,8 +1228,8 @@
       "command": "node",
       "args": [
         "tools/unix_runtime/gramps_mcp_http_apply.mjs",
-        "${input:codexDoHost}",
-        "${input:codexDoUser}",
+        "${input:familyResearchHost}",
+        "${input:familyResearchUser}",
         "--apply"
       ],
       "problemMatcher": []
@@ -1646,15 +1274,15 @@
       "default": "wsl"
     },
     {
-      "id": "codexDoHost",
+      "id": "familyResearchHost",
       "type": "promptString",
-      "description": "Family Research codex-do SSH host",
+      "description": "Family Research remote host",
       "default": "138.68.66.30"
     },
     {
-      "id": "codexDoUser",
+      "id": "familyResearchUser",
       "type": "promptString",
-      "description": "Family Research codex-do SSH user",
+      "description": "Family Research remote user",
       "default": "root"
     },
     {
@@ -1689,17 +1317,15 @@
       "id": "toolPolicyGoal",
       "type": "promptString",
       "description": "Goal for route ranking",
-      "default": "read recent AutoMem container logs"
+      "default": "read current container status"
     },
     {
       "id": "routePacketSkill",
       "type": "pickString",
       "description": "Selected Theseus skill to bind to the tool route",
       "options": [
-        "theseus-memory-stack",
         "theseus-shell-routing",
-        "theseus-plugin-conclave",
-        "theseus-git-hygiene"
+        "theseus-plugin-conclave"
       ],
       "default": "theseus-shell-routing"
     },
@@ -1707,19 +1333,19 @@
       "id": "toolPolicyCandidateA",
       "type": "promptString",
       "description": "Candidate shell command",
-      "default": "docker logs --tail=80 automem-flask-api-1"
+      "default": "docker ps"
     },
     {
       "id": "toolPolicyCandidateB",
       "type": "promptString",
       "description": "Candidate MCP route",
-      "default": "theseus_docker docker_logs automem-flask-api-1"
+      "default": "docker ps --format json"
     },
     {
       "id": "toolPolicyCandidateC",
       "type": "promptString",
       "description": "Candidate VS Code task",
-      "default": "Theseus Docker Context: AutoMem logs"
+      "default": "Theseus: Docker status"
     },
     {
       "id": "timelineEventName",
@@ -1754,19 +1380,19 @@
       "id": "sourceLensInput",
       "type": "promptString",
       "description": "JSON, JSONL, Markdown, or text source stream for the source lens",
-      "default": "outputs\\github_issue_watch\\openai-codex.json"
+      "default": "docs\\reference\\README.md"
     },
     {
       "id": "sourceLensQuery",
       "type": "promptString",
       "description": "Question or goal used to rank the source lens reading route",
-      "default": "codex windows provider failure usage limits"
+      "default": "current repository rules and ownership"
     },
     {
       "id": "lensUsageTrialId",
       "type": "promptString",
       "description": "Stable id for a lens usage A/B trial",
-      "default": "codex-issues-lens-001"
+      "default": "reference-rules-lens-001"
     },
     {
       "id": "lensUsageTrialRoute",
@@ -1782,7 +1408,7 @@
       "id": "lensUsageTrialGoal",
       "type": "promptString",
       "description": "Short goal for the usage trial",
-      "default": "Analyze OpenAI Codex issue watch with Source Lens first"
+      "default": "Analyze current repository rules with Source Lens first"
     },
     {
       "id": "lensUsageLensPath",
@@ -1850,7 +1476,6 @@
       "type": "pickString",
       "description": "Where this inventory is being run",
       "options": [
-        "codex",
         "powershell",
         "vscode",
         "wsl",
@@ -1877,16 +1502,10 @@
       "default": ""
     },
     {
-      "id": "mempalaceSearchQuery",
-      "type": "promptString",
-      "description": "MemPalace pilot search query",
-      "default": "DeepSeek KV cache MLA"
-    },
-    {
       "id": "imageTransferName",
       "type": "promptString",
       "description": "Docker image name to export into work/image-transfer",
-      "default": "theseus-mempalace:pilot"
+      "default": "theseus-image:transfer"
     },
     {
       "id": "theseusVmSshAlias",
@@ -1898,13 +1517,13 @@
       "id": "imageTransferArchive",
       "type": "promptString",
       "description": "Image tar filename already copied to ~/theseus-local-lab/incoming",
-      "default": "theseus-mempalace-pilot.tar"
+      "default": "theseus-image-transfer.tar"
     },
     {
       "id": "imageTransferManifest",
       "type": "promptString",
       "description": "Image manifest filename already copied to ~/theseus-local-lab/incoming",
-      "default": "theseus-mempalace-pilot.manifest.json"
+      "default": "theseus-image-transfer.manifest.json"
     },
     {
       "id": "graphifyProfile",
@@ -1940,12 +1559,6 @@
       "type": "promptString",
       "description": "Graphify path target node",
       "default": "scan_staged.mjs"
-    },
-    {
-      "id": "sonarQuery",
-      "type": "promptString",
-      "description": "Question for the local AutoMem federation preflight",
-      "default": "which memory, route, and runtime evidence should constrain this task"
     }
   ]
 }

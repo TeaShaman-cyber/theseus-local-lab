@@ -19,10 +19,10 @@ Use this as a pre-command reflex. Keep it small and operational.
 
 - Never print secrets, raw `.env` values, private transcripts, or backup contents.
 - For secret diagnostics, print only booleans, lengths, or short hash prefixes.
-- Treat Codex shell, normal Windows user, Docker Desktop, VS Code, WSL, and VMs as separate contexts until runtime proof says otherwise.
+- Treat the Hermes terminal tool, normal Windows user, Docker Desktop, VS Code, WSL, and VMs as separate contexts until runtime proof says otherwise.
 
 ## Pairing
 
 - For Git operations, read `docs/reference/git.md` and use native `git`/`gh`.
-- For memory, prior decisions, or continuity, also use `theseus-memory-stack`.
+- For memory, prior decisions, or continuity, use native `session_search` first; use `theseus-hindsight-manual` only for deliberate bank access.
 - For broader local infrastructure, read `docs/reference/operations.md`.

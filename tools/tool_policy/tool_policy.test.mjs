@@ -32,7 +32,7 @@ test("route packets keep raw Docker candidates as warnings rather than blockers"
 test("blocks risky PowerShell script execution and suggests a wrapper", () => {
   const decision = evaluateAction({
     surface: "shell",
-    command: "powershell -ExecutionPolicy Bypass -File .\\scripts\\automem-status.ps1",
+    command: "powershell -ExecutionPolicy Bypass -File .\\scripts\\unsafe-status.ps1",
   });
 
   assert.equal(decision.verdict, "block");
@@ -73,7 +73,7 @@ test("blocks Unix heredoc pasted into PowerShell Node route", () => {
 test("blocks nested WSL jq parsing from the Windows shell route", () => {
   const decision = evaluateAction({
     surface: "shell",
-    command: "wsl.exe bash -lc 'jq -c . ~/.codex/sessions/latest.jsonl'",
+    command: "wsl.exe bash -lc 'jq -c . ~/.agent/sessions/latest.jsonl'",
   });
 
   assert.equal(decision.verdict, "block");
@@ -144,7 +144,7 @@ test("allows OCR lens as a known safe wrapper", () => {
 test("allows source lens as a known safe wrapper", () => {
   const decision = evaluateAction({
     surface: "shell",
-    command: "node tools/source_lens/source_lens.mjs outputs/github_issue_watch/openai-codex.json --write --memory-draft",
+    command: "node tools/source_lens/source_lens.mjs docs/reference/README.md --write --memory-draft",
   });
 
   assert.equal(decision.verdict, "allow");
@@ -154,7 +154,7 @@ test("allows source lens as a known safe wrapper", () => {
 test("allows lens usage trial recorder as a known safe wrapper", () => {
   const decision = evaluateAction({
     surface: "shell",
-    command: "node tools/lens_usage_trial/lens_usage_trial.mjs start --trial codex-issues-lens-001",
+    command: "node tools/lens_usage_trial/lens_usage_trial.mjs start --trial reference-rules-lens-001",
   });
 
   assert.equal(decision.verdict, "allow");
@@ -191,16 +191,6 @@ test("allows GitHub issue watch as a known safe wrapper", () => {
   assert.equal(decision.reason, "known-safe-wrapper");
 });
 
-test("allows Codex system watch as a known safe wrapper", () => {
-  const decision = evaluateAction({
-    surface: "shell",
-    command: "node tools/codex_system_watch/codex_system_watch.mjs --write",
-  });
-
-  assert.equal(decision.verdict, "allow");
-  assert.equal(decision.reason, "known-safe-wrapper");
-});
-
 test("allows Sysinternals scout as a known safe wrapper", () => {
   const decision = evaluateAction({
     surface: "shell",
@@ -225,16 +215,6 @@ test("allows progress audit as a known safe wrapper", () => {
   const decision = evaluateAction({
     surface: "shell",
     command: "node tools/progress/progress_audit.mjs --write",
-  });
-
-  assert.equal(decision.verdict, "allow");
-  assert.equal(decision.reason, "known-safe-wrapper");
-});
-
-test("allows Codex Windows map as a known safe wrapper", () => {
-  const decision = evaluateAction({
-    surface: "shell",
-    command: "node tools/codex_windows_map/codex_windows_map.mjs snapshot --write",
   });
 
   assert.equal(decision.verdict, "allow");
@@ -288,7 +268,7 @@ test("allows read-only workshop dashboard wrappers", () => {
   });
   const serviceStatus = evaluateAction({
     surface: "shell",
-    command: "node tools/service_status/service_status.mjs automem",
+    command: "node tools/service_status/service_status.mjs hindsight",
   });
 
   assert.equal(dashboard.verdict, "allow");
@@ -309,13 +289,13 @@ test("rewards known safe wrapper routes", () => {
   assert.match(decision.reinforcement.message, /wrapper/i);
 });
 
-test("ranks Docker MCP route above raw Docker for container logs", () => {
+test("ranks Docker MCP route above raw Docker for container status", () => {
   const result = rankRoutes({
-    goal: "read recent AutoMem container logs",
+    goal: "read current container status",
     candidates: [
-      { id: "raw-docker", command: "docker logs --tail=80 automem-flask-api-1" },
-      { id: "mcp-docker", surface: "mcp", command: "theseus_docker docker_logs automem-flask-api-1" },
-      { id: "vscode-task", surface: "vscode-task", command: "Theseus Docker TCP: AutoMem logs" },
+      { id: "raw-docker", command: "docker ps" },
+      { id: "mcp-docker", surface: "mcp", command: "theseus_docker docker_ps" },
+      { id: "vscode-task", surface: "vscode-task", command: "Theseus: Docker status" },
     ],
   });
 

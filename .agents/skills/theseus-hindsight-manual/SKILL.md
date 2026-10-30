@@ -41,7 +41,7 @@ Exit codes: `0` ok, `2` bad arguments, `3` server error or unreachable.
 
 ## Rules
 
-- **Bank names are separate.** `hermes` is ours; `codex` belongs to Codex. Never read or write the other bank by habit.
+- **Use the `hermes` bank only.** Other banks are outside this skill's authority unless the user explicitly names one.
 - **`retain` is a mutation.** Dry-run first; write one fact, not a batch, unless the batch is the point.
 - **The noise filter is plugin-only.** With the provider off, nothing strips "фоновый процесс proc_… завершился нормально" style lines — do not retain them manually either.
 - **Production is `127.0.0.1:8888`.** Experiments (model, provider, corpus) belong on the isolated stand, PVE CT103 `10.10.10.13`, usually through tunnel `127.0.0.1:8890`.

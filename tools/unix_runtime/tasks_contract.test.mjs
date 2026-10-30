@@ -33,20 +33,6 @@ test("defines the backend input as a closed set", () => {
   });
 });
 
-test("defines a separate Family Research codex-do task", () => {
-  const config = JSON.parse(readFileSync(tasksPath, "utf8"));
-  const task = config.tasks.find((item) => item.label === "Family Research: codex-do read-only probe");
-
-  assert.ok(task, "Family Research codex-do task is missing");
-  assert.equal(task.type, "process");
-  assert.equal(task.command, "node");
-  assert.ok(task.args.includes("--backend"));
-  assert.ok(task.args.includes("codex-do"));
-  assert.ok(task.args.includes("${input:codexDoHost}"));
-  assert.ok(task.args.includes("${input:codexDoUser}"));
-  assert.equal(task.runOptions?.runOn, undefined);
-});
-
 test("defines separate Family Research HTTPS, container, and Caddy tasks", () => {
   const config = JSON.parse(readFileSync(tasksPath, "utf8"));
   for (const label of [

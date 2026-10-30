@@ -40,8 +40,8 @@ Pick the smallest set of skills and tools that covers the current request:
 
 | Request shape | Load first | Then route through |
 |---|---|---|
-| Prior context, durable decisions, handoff, recall | `theseus-memory-stack` | AutoMem, then MemPalace |
-| Cross-layer authority, compact/model switch, repeated failure, conflicting memory | `theseus-memory-stack` | Selective Local Sonar preflight, then live verification |
+| Prior context, durable decisions, handoff, recall | native `session_search` | Read the source episode, then verify against the current canonical source |
+| Cross-layer authority, compact/model switch, repeated failure, conflicting memory | `theseus-hindsight-manual` when a deliberate bank read is needed | Manual recall, then live verification |
 | PowerShell, WSL, Bash, Node one-liners, quoting, pipes, JSON/text shell work | `theseus-shell-routing` | Native shell/tool route from the skill |
 | Windows, Docker, VS Code, local services, repeated commands | `docs/reference/operations.md` | Native CLI, project task, or verified MCP route |
 | Git status, commit, push, GitHub sync | `docs/reference/git.md` | Native `git`/`gh` plus the repository safety scanner |
@@ -56,19 +56,16 @@ Pick the smallest set of skills and tools that covers the current request:
 If two routes are plausible, prefer the one with lower user friction, stronger
 verification, and less context load.
 
-## Selective Sonar Gate
+## History Gate
 
-Call `sonar_preflight` only when at least one condition holds:
+For prior work, use native `session_search`: exact anchor, then action
+description, then decision relationship. Read the source episode rather than a
+search snippet. Stop when evidence is sufficient and verify any recovered
+decision against the current canonical source.
 
-- work resumes after compact or a model/harness switch;
-- the task crosses projects or has unclear authority boundaries;
-- a local infrastructure mutation needs memory plus runtime constraints;
-- a failure or route anti-pattern has repeated;
-- recalled decisions conflict, supersede one another, or show temporal drift.
-
-Skip Sonar for trivial prompts and when one clear memory plus fresh runtime
-evidence already constrains the route. Sonar is a read-only preflight, never a
-permission source or substitute for operational verification.
+Use `theseus-hindsight-manual` only for a deliberate bank read or write when
+session history is insufficient. Memory is evidence, never permission or a
+substitute for live verification.
 
 ## Pre-Action Gate
 
@@ -76,7 +73,7 @@ Skills and tools are one execution cycle, not two independent checklists:
 
 ```text
 goal -> smallest matching skill -> route packet -> tool-policy verdict
-     -> execute selected route -> verify -> timeline/memory
+     -> execute selected route -> verify -> timeline/evidence
 ```
 
 Before local actions, create a route packet when the action touches shell,
@@ -86,10 +83,9 @@ The packet makes the selected skill explicit input to the tool-policy decision.
 ```text
 node tools/route_packet/route_packet.mjs \
   --skill "theseus-shell-routing" \
-  --goal "read recent AutoMem container logs" \
-  --candidate "docker logs --tail=80 automem-flask-api-1" \
-  --mcp "theseus_docker docker_logs automem-flask-api-1" \
-  --vscode-task "Theseus Docker TCP: AutoMem logs"
+  --goal "read current container status" \
+  --candidate "docker ps" \
+  --vscode-task "Theseus: Docker status"
 ```
 
 The chosen route is provisional until verification. Do not treat the score as
@@ -109,12 +105,13 @@ Keep project skills short:
 
 - Put stable procedures in small scripts or VS Code tasks.
 - Put detailed references in separate files only when they are needed.
-- Put durable lessons in AutoMem.
-- Put exact episodic recall in MemPalace.
+- Put durable procedures in the matching project skill or canonical reference.
+- Use native session history for exact episodic recall.
 - Do not copy plugin skill bodies into this router.
 
 ## Completion Reflex
 
-When a task changes future agent behavior, store a concise AutoMem decision and
-verify recall with a distinctive phrase. Link it to older memories when it
-evolves an existing pattern.
+When a task changes future agent behavior, update the canonical project source
+and verify it directly. Store a memory only when the fact is durable beyond the
+project file and the live provider is intentionally in use; read it back after
+a write.

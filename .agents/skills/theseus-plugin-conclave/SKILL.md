@@ -45,9 +45,9 @@ the aggregator.
 3. A targeted oracle plus an independent corroborator when needed.
 4. Community reports, reviews, and model suggestions.
 
-`AutoMem` remains durable decision memory. `MemPalace` holds episodic or
-verbatim evidence. Neither is displaced by ButlerBrain, Drive, Engram, or an
-oracle result.
+When durable memory is intentionally in use, Hindsight is the project memory
+authority. Native session history holds exact conversation episodes. Neither
+is displaced by an oracle result.
 
 ## Routes
 
@@ -60,7 +60,7 @@ oracle result.
 | Code/runtime debugging | local logs and tests | Replay.io or Copilot advisor |
 | AI models, datasets, evaluations | Hugging Face | AMD/local-model route |
 | Formal model or computation | Wolfram | local test or explicit calculation |
-| Knowledge graph view | Graphify/AutoMem/MemPalace | Ace Knowledge Graph |
+| Knowledge graph view | Graphify or Hindsight evidence | Ace Knowledge Graph |
 | API/schema readiness | local validation | payload/date/API cleaners |
 
 For the full current audit, roles, and exclusions, see
