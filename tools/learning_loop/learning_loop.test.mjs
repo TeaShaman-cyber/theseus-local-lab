@@ -31,22 +31,22 @@ test("turns blocked tool-policy events into concrete proposals", () => {
   assert.ok(summary.proposals.some((proposal) => proposal.includes("PowerShell")));
 });
 
-test("detects bad-fit all-skills route and recommends skill-router", () => {
+test("detects bad-fit all-skills route and recommends a directly relevant skill", () => {
   const summary = analyzeEvents([
     {
       ranking: {
-        winner: { id: "router", command: "use theseus-skill-router then load one matching skill" },
+        winner: { id: "direct", command: "load the directly relevant skill" },
         ranked: [
-          { id: "router", scores: { task_fit: 3 } },
+          { id: "direct", scores: { task_fit: 3 } },
           { id: "all-skills", scores: { task_fit: -3 } },
         ],
       },
     },
   ]);
 
-  assert.equal(summary.winners["use theseus-skill-router then load one matching skill"], 1);
+  assert.equal(summary.winners["load the directly relevant skill"], 1);
   assert.equal(summary.reasons["bad-fit:all-skills"], 1);
-  assert.ok(summary.proposals.some((proposal) => proposal.includes("skill-router")));
+  assert.ok(summary.proposals.some((proposal) => proposal.includes("directly relevant skill")));
 });
 
 test("renders a compact markdown report", () => {

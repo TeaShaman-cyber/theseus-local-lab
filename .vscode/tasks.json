@@ -113,20 +113,6 @@
       "problemMatcher": []
     },
     {
-      "label": "Theseus: skill-router contract tests",
-      "type": "process",
-      "command": "node",
-      "args": [
-        "--test",
-        "tools/tool_policy/tool_policy.test.mjs",
-        "tools/skill_router/representative_cases_contract.test.mjs",
-        "tools/skill_router/route_receipt.test.mjs",
-        "tools/execution_guard/loop_guard.test.mjs",
-        "tools/skill_router/resume_guard.test.mjs"
-      ],
-      "problemMatcher": []
-    },
-    {
       "label": "Theseus: workshop recovery audit",
       "type": "process",
       "command": "node",
@@ -309,25 +295,6 @@
       "problemMatcher": []
     },
     {
-      "label": "Theseus: route skill to tool",
-      "type": "process",
-      "command": "node",
-      "args": [
-        "tools/route_packet/route_packet.mjs",
-        "--skill",
-        "${input:routePacketSkill}",
-        "--goal",
-        "${input:toolPolicyGoal}",
-        "--candidate",
-        "${input:toolPolicyCandidateA}",
-        "--mcp",
-        "${input:toolPolicyCandidateB}",
-        "--vscode-task",
-        "${input:toolPolicyCandidateC}"
-      ],
-      "problemMatcher": []
-    },
-    {
       "label": "Theseus Learning Loop: daily proposal",
       "type": "process",
       "command": "node",
@@ -335,17 +302,6 @@
         "tools/learning_loop/learning_loop.mjs",
         "--days",
         "7"
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "Theseus: audit skill/tool observatory",
-      "type": "process",
-      "command": "node",
-      "args": [
-        "tools/skill_observatory/skill_observatory.mjs",
-        "audit",
-        "--write"
       ],
       "problemMatcher": []
     },
@@ -869,16 +825,6 @@
       "problemMatcher": []
     },
     {
-      "label": "Theseus: Model runtime sync from usage scout",
-      "type": "process",
-      "command": "node",
-      "args": [
-        "tools/model_switch_guard/model_switch_guard.mjs",
-        "--sync-from-usage-scout"
-      ],
-      "problemMatcher": []
-    },
-    {
       "label": "Theseus: Workshop dashboard web start",
       "type": "process",
       "command": "docker",
@@ -1318,16 +1264,6 @@
       "type": "promptString",
       "description": "Goal for route ranking",
       "default": "read current container status"
-    },
-    {
-      "id": "routePacketSkill",
-      "type": "pickString",
-      "description": "Selected Theseus skill to bind to the tool route",
-      "options": [
-        "theseus-shell-routing",
-        "theseus-plugin-conclave"
-      ],
-      "default": "theseus-shell-routing"
     },
     {
       "id": "toolPolicyCandidateA",

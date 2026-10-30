@@ -3,7 +3,6 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import { evaluateAction, rankRoutes, applyVerification } from "./tool_policy.mjs";
-import { buildRoutePacket } from "../route_packet/route_packet.mjs";
 
 test("warns on raw Docker shell commands and keeps narrow routes preferred", () => {
   const decision = evaluateAction({
@@ -15,18 +14,6 @@ test("warns on raw Docker shell commands and keeps narrow routes preferred", () 
   assert.equal(decision.reason, "raw-docker-shell");
   assert.match(decision.message, /prefer MCP/i);
   assert.ok(decision.routes.some((route) => route.includes("Docker MCP")));
-});
-
-test("route packets keep raw Docker candidates as warnings rather than blockers", () => {
-  const packet = buildRoutePacket({
-    goal: "pull the approved Hindsight candidate image",
-    skill: "docker-management",
-    candidates: [{ id: "candidate-pull", command: "docker pull ghcr.io/vectorize-io/hindsight:1.1.0" }],
-  });
-
-  assert.equal(packet.policy.verdict, "warn");
-  assert.equal(packet.policy.reason, "raw-docker-shell");
-  assert.equal(packet.next_action.id, "candidate-pull");
 });
 
 test("blocks risky PowerShell script execution and suggests a wrapper", () => {
@@ -81,16 +68,6 @@ test("blocks nested WSL jq parsing from the Windows shell route", () => {
   assert.ok(decision.routes.some((route) => route.includes("Node wrapper")));
 });
 
-test("allows the model-switch guard as a known safe wrapper", () => {
-  const decision = evaluateAction({
-    surface: "shell",
-    command: "node tools/model_switch_guard/model_switch_guard.mjs",
-  });
-
-  assert.equal(decision.verdict, "allow");
-  assert.equal(decision.reason, "known-safe-wrapper");
-});
-
 test("allows usage scout as a known safe wrapper", () => {
   const decision = evaluateAction({
     surface: "shell",
@@ -105,16 +82,6 @@ test("allows context pressure watch as a known safe wrapper", () => {
   const decision = evaluateAction({
     surface: "shell",
     command: "node tools/context_pressure_watch/context_pressure_watch.mjs --checkpoint",
-  });
-
-  assert.equal(decision.verdict, "allow");
-  assert.equal(decision.reason, "known-safe-wrapper");
-});
-
-test("allows skill observatory as a known safe wrapper", () => {
-  const decision = evaluateAction({
-    surface: "shell",
-    command: "node tools/skill_observatory/skill_observatory.mjs audit --write --quiet",
   });
 
   assert.equal(decision.verdict, "allow");
@@ -351,34 +318,4 @@ test("delays final reward until verification succeeds", () => {
   assert.ok(verified.final_reward.score > pending.final_reward.score);
   assert.equal(failed.final_reward.status, "failed");
   assert.ok(failed.final_reward.score < 0);
-});
-
-test("ranks minimal skill router above loading all project skills", () => {
-  const result = rankRoutes({
-    goal: "choose minimal Theseus skill route",
-    candidates: [
-      { id: "all-skills", command: "load all project skills" },
-      { id: "router", command: "use theseus-skill-router then load one matching skill" },
-    ],
-  });
-
-  assert.equal(result.winner.id, "router");
-  assert.ok(result.ranked.find((route) => route.id === "all-skills").scores.task_fit < 0);
-  assert.ok(result.ranked.find((route) => route.id === "all-skills").scores.context_cost < 0);
-});
-
-test("binds a selected skill to a policy-checked tool route", () => {
-  const packet = buildRoutePacket({
-    goal: "inspect Docker containers",
-    skill: "theseus-shell-routing",
-    candidates: [
-      { command: "docker ps" },
-      { surface: "mcp", command: "theseus_docker docker_ps" },
-    ],
-  });
-
-  assert.equal(packet.selected_skill, "theseus-shell-routing");
-  assert.equal(packet.next_action.surface, "mcp");
-  assert.equal(packet.policy.verdict, "allow");
-  assert.equal(packet.verification.status, "pending");
 });
