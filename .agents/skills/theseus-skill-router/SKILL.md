@@ -42,9 +42,9 @@ Pick the smallest set of skills and tools that covers the current request:
 |---|---|---|
 | Prior context, durable decisions, handoff, recall | `theseus-memory-stack` | AutoMem, then MemPalace |
 | Cross-layer authority, compact/model switch, repeated failure, conflicting memory | `theseus-memory-stack` | Selective Local Sonar preflight, then live verification |
-| PowerShell, WSL, Bash, Node one-liners, quoting, pipes, JSON/text shell work | `theseus-shell-routing` | WSL/Node/script route, then `local-agent-hygiene` |
-| Windows, Docker, VS Code, local services, repeated commands | `local-agent-hygiene` | `tools/tool_policy` or VS Code tasks |
-| Git status, commit, push, GitHub sync | `theseus-git-hygiene` | Git safety wrapper or VS Code task |
+| PowerShell, WSL, Bash, Node one-liners, quoting, pipes, JSON/text shell work | `theseus-shell-routing` | Native shell/tool route from the skill |
+| Windows, Docker, VS Code, local services, repeated commands | `docs/reference/operations.md` | Native CLI, project task, or verified MCP route |
+| Git status, commit, push, GitHub sync | `docs/reference/git.md` | Native `git`/`gh` plus the repository safety scanner |
 | Delivering a change: issue, PR, CI gate, review, merge | `theseus-pr-gate-cycle` | Own worktree, `tools/dev/check`, `gh pr checks`, subagent review |
 | Creating or changing skills | `skill-creator` | Validate skill shape before adding content |
 | Broad research or search pipelines | research queue/hook docs | Store distilled findings, not raw dumps |
