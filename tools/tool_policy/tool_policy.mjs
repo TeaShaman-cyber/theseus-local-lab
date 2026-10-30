@@ -14,12 +14,10 @@ const safeWrappers = [
   /^node\s+tools[\\/]research_queue[\\/]enqueue\.mjs\b/i,
   /^node\s+tools[\\/]research_queue[\\/]list\.mjs\b/i,
   /^node\s+tools[\\/]harness_errors[\\/]harness_errors\.mjs\b/i,
-  /^node\s+tools[\\/]codex_system_watch[\\/]codex_system_watch\.mjs\b/i,
   /^node\s+tools[\\/]github_issue_watch[\\/]github_issue_watch\.mjs\b/i,
   /^node\s+tools[\\/]progress[\\/]progress_audit\.mjs\b/i,
   /^node\s+tools[\\/]sysinternals_scout[\\/]install_sysinternals\.mjs\b/i,
   /^node\s+tools[\\/]sysinternals_scout[\\/]sysinternals_scout\.mjs\b/i,
-  /^node\s+tools[\\/]codex_windows_map[\\/]codex_windows_map\.mjs\b/i,
   /^node\s+tools[\\/]wsl_migration_preflight[\\/]wsl_migration_preflight\.mjs\b/i,
   /^node\s+tools[\\/]wsl_ssh_agent_bootstrap[\\/]wsl_ssh_agent_bootstrap\.mjs\b/i,
   /^node\s+D:[\\/]theseus-observatory[\\/]tools[\\/]docker_proxy_probe[\\/]docker_proxy_probe\.mjs\b/i,
@@ -184,9 +182,9 @@ function scoreTaskFit(goal, route, policy) {
   const text = `${goal} ${route.command || ""} ${route.surface || ""}`;
   const command = normalize(route.command);
 
-  if (includesAny(goal, ["docker", "container", "containers", "compose", "logs", "automem logs"])) {
+  if (includesAny(goal, ["docker", "container", "containers", "compose", "logs"])) {
     if (String(route.surface || "").toLowerCase() === "mcp" && includesAny(command, ["docker", "theseus_docker"])) return 3;
-    if (String(route.surface || "").toLowerCase() === "vscode-task" && includesAny(command, ["docker", "automem logs"])) return 2;
+    if (String(route.surface || "").toLowerCase() === "vscode-task" && includesAny(command, ["docker", "container", "status"])) return 2;
     if (policy.reason === "known-safe-wrapper" && !includesAny(command, ["docker_control_plane"])) return -2;
     if (policy.reason === "raw-docker-shell") return 1;
   }

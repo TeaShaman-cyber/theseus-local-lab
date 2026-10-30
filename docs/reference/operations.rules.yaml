@@ -1,16 +1,16 @@
 # Операции: машинночитаемый набор.
-# Источник: AGENTS.md, секции Shell And Services и User Codex Config Guard.
-revision: 2026-10-28-operations-v1
+# Источник: docs/reference/operations.md и раздел «Операции» в AGENTS.md.
+revision: 2026-10-30-operations-v2
 source: docs/reference/operations.md
 rules:
   - id: OPS-001
     obligation: MUST
-    statement: Выбор инструмента идёт от задачи — сначала нативный CLI, если он есть; MCP только когда даёт то, чего у CLI нет, и без постоянного экспонирования шумных серверов (обёртка через mcporter); VS Code tasks, WSL и небольшие проверенные хелперы равноправны; длинные команды PowerShell — последнее средство.
+    statement: Выбор инструмента идёт от задачи — сначала нативный CLI, если он есть; MCP только когда даёт то, чего у CLI нет, и без постоянного экспонирования шумных серверов; VS Code tasks, WSL и небольшие проверенные хелперы равноправны; длинные команды PowerShell — последнее средство.
     verification: Для выбранного пути названо, почему не подошёл более простой; в истории нет длинных PowerShell-однострочников без причины.
 
   - id: OPS-002
     obligation: MUST
-    statement: Считать оболочку Codex, обычного пользователя Windows, Docker Desktop, WSL, VS Code и виртуальные машины разными контекстами, пока исполнение не доказало обратное.
+    statement: Считать Hermes terminal, обычного пользователя Windows, Docker Desktop, WSL, VS Code и виртуальные машины разными контекстами, пока исполнение не доказало обратное.
     verification: Перед действием назван контекст, в котором оно выполняется.
 
   - id: OPS-003
@@ -20,30 +20,30 @@ rules:
 
   - id: OPS-004
     obligation: MUST
-    statement: Файл %CODEX_HOME%/config.toml считать защищённой границей рантайма и готовить кандидата вне живого пути.
-    verification: Кандидат лежит отдельно от config.toml.
+    statement: Считать %HERMES_HOME%/config.yaml, plugin selection и skill selection защищёнными границами активного профиля; менять их только штатным Hermes CLI.
+    verification: Изменение выполнено командой Hermes, а не прямой правкой файла или registry.
 
   - id: OPS-005
     obligation: MUST
-    statement: Замену живого конфига Codex выполнять только через tools/codex_config/config_guard.mjs, сначала --check, затем --apply.
-    verification: В логе есть вывод обеих команд guard.
+    statement: Для плагинов сначала использовать hermes plugins; для настроек hermes config set; для скиллов hermes skills config или проверенный config fallback, если интерактивный маршрут недоступен.
+    verification: В логе есть штатная команда или явно объяснённый fallback.
 
   - id: OPS-006
     obligation: MUST
-    statement: Guard запускает codex --strict-config doctor --json в изолированном временном CODEX_HOME, печатает только коды статуса, сохраняет резервную копию для отката и выполняет постпроверку.
-    verification: Присутствуют бэкап и постпроверка в выводе.
+    statement: После изменения читать обратно точную цель через hermes config get, hermes plugins list или hermes skills list; успешный exit code без read-back не доказывает результат.
+    verification: В логе есть вывод соответствующей команды чтения.
 
   - id: OPS-007
     obligation: MUST
-    statement: Провал предпроверки не меняет живой файл; провал постпроверки восстанавливает предыдущий конфиг.
-    verification: После провала живой файл совпадает с предыдущим по хешу.
+    statement: Провал предпроверки не меняет активный профиль; после частичного изменения восстанавливается предыдущее явно прочитанное значение и выполняется повторный read-back.
+    verification: После сбоя показано восстановленное значение.
 
   - id: OPS-008
     obligation: MUST
-    statement: Если guard или исполняемый файл Codex недоступны — остановиться до касания живого файла.
-    verification: Проверено наличие guard и codex до правки.
+    statement: Если штатный менеджер заблокирован, назвать причину и использовать только узкий проверяемый fallback, сохраняющий тот же профиль и семантику; fallback не становится маршрутом по умолчанию.
+    verification: Причина и границы fallback зафиксированы рядом с результатом.
 
   - id: OPS-009
     obligation: MUST_NOT
-    statement: Править живой конфиг Codex напрямую.
-    verification: Изменения проходят только через guard.
+    statement: Редактировать config.yaml, plugin registry или skill registry вручную.
+    verification: Изменения проходят только через Hermes CLI.
