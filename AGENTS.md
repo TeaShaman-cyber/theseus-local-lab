@@ -146,11 +146,10 @@ Before non-trivial work, use the smallest matching project skill:
 - `.agents/skills/theseus-plugin-conclave/SKILL.md` for fresh research,
   external technical second opinions, plugin selection, or a bounded
   multi-source check.
-- `C:/Users/s.poklad/.codex/skills/local-agent-hygiene/SKILL.md` for local
-  infrastructure, VS Code tasks, Docker Desktop, and repeated checks.
-- `skills-codex/theseus-git-hygiene/SKILL.md` is the canonical repo source for Git,
-  GitHub sync, commits, pushes, and secret-sensitive staging; the matching
-  `.codex/skills/` copy is runtime state and may require synchronization.
+- `docs/reference/operations.md` for local infrastructure, VS Code tasks,
+  Docker Desktop, and repeated checks.
+- `docs/reference/git.md` for Git, GitHub sync, commits, pushes, and
+  secret-sensitive staging; use native `git` and `gh` for execution.
 
 If two routes are plausible, prefer the one with lower user friction, stronger
 verification, and less context load.

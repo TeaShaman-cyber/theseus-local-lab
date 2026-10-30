@@ -23,6 +23,6 @@ Use this as a pre-command reflex. Keep it small and operational.
 
 ## Pairing
 
-- For Git operations, also use `theseus-git-hygiene`.
+- For Git operations, read `docs/reference/git.md` and use native `git`/`gh`.
 - For memory, prior decisions, or continuity, also use `theseus-memory-stack`.
-- For broader local infrastructure, also use `local-agent-hygiene`.
+- For broader local infrastructure, read `docs/reference/operations.md`.
