@@ -57,7 +57,7 @@ is displaced by an oracle result.
 | Site map, crawl, or extraction | Tavily | Exa fetch |
 | Deep cited investigation | Liner | Agora claim/evidence map |
 | Peer-reviewed research | Consensus | Scholar Gateway or SciSpace |
-| Code/runtime debugging | local logs and tests | Replay.io or Copilot advisor |
+| Code/runtime debugging | local logs and tests | Replay.io or a bounded independent advisor |
 | AI models, datasets, evaluations | Hugging Face | AMD/local-model route |
 | Formal model or computation | Wolfram | local test or explicit calculation |
 | Knowledge graph view | Graphify or Hindsight evidence | Ace Knowledge Graph |

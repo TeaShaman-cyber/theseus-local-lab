@@ -6,7 +6,6 @@ import { fileURLToPath } from "node:url";
 const required = [
   "AGENTS.md",
   "GIT_META_SKILL.md",
-  ".github/copilot-instructions.md",
   ".vscode/tasks.json",
   "docs/reference/git.md",
   "docs/reference/git.rules.yaml",
@@ -20,6 +19,7 @@ const retiredTokens = [
   "theseus-memory-stack",
   "theseus-git-hygiene",
   "local-agent-hygiene",
+  ["co", "pilot"].join(""),
 ];
 
 function activeFiles(repoRoot) {
